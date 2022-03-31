@@ -9,12 +9,10 @@ import { useAppContext } from '../../context/state';
 import LineIcon from '../util/LineIcon';
 import TagBasic from '../ui/tag/TagBasic';
 
-const ClientsTable = (data) => {
+const ClientsTable = () => {
     const router = useRouter()
     const { type } = useTheme();
     const [search, setSearch] = useState('')
-    const [rows, setRows] = useState(data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40)}}))
-    const [tableData, setTableData] = useState(data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40)}}))
     const {state, setState} = useAppContext();
     const [showFilter, setShowFilter] = useState(true)
     const [minPrem, setMinPrem] = useState(null)
@@ -26,35 +24,20 @@ const ClientsTable = (data) => {
     const [visibleTags, setVisibleTags] = useState(null)
     const [lineList, setLineList] = useState(['Commercial Lines','Personal Lines','Benefits'])
 
-
-    useEffect(() => {
-        const dat = data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40)}})
-        setRows(dat)
-        setTableData(dat)
-        // setMinPolicies(state.reports.filters.clients.minPolicies)   
-        // setMaxPolicies(state.reports.filters.clients.maxPolicies)
-        // setMinPrem(state.reports.filters.clients.minPrem)
-        // setMaxPrem(state.reports.filters.clients.maxPrem)
-        // setLineList(state.reports.filters.clients.lineList)
-    }, [data])
+    const rows = state.reports.data.clients.raw
+    const tableData = state.reports.data.clients.filtered
 
     useEffect(() => {
         if (search.length > 1){
             const filtered = getSearch(rows,search)
-            setTableData(filtered)
+            setState({...state,reports:{...state.reports,data:{...state.reports.data,clients:{...state.reports.data.clients,filtered:filtered}}}})
         }else {
-            setTableData(rows)
+            const filtered = state.reports.data.clients.raw
+            setState({...state,reports:{...state.reports,data:{...state.reports.data,clients:{...state.reports.data.clients,filtered:filtered}}}})
         }
     }, [search,rows])
 
     useEffect(() => {
-        // setState({...state,reports:{...state.reports,filters:{...state.reports.filters,clients:{
-        //     minPrem:minPrem,
-        //     maxPrem:maxPrem,
-        //     minPolicies:minPolicies,
-        //     maxPolicies:maxPolicies,
-        //     lineList:lineList
-        // }}}})
         const mnPrem = minPrem && minPrem != 0?  Number(minPrem) : 0
         const mxPrem = maxPrem && maxPrem != 0? Number(maxPrem) : 9999999
         const mnPol = minPolicies && minPolicies != 0?  Number(minPolicies) : 0
@@ -75,7 +58,7 @@ const ClientsTable = (data) => {
             && lineCheck(entry.line)
             // && this.usersCheck(entry.users)
         ) 
-        setTableData(filtered)  
+        setState({...state,reports:{...state.reports,data:{...state.reports.data,clients:{...state.reports.data.clients,filtered:filtered}}}}) 
 
     },[minPrem,maxPrem,minPolicies, maxPolicies,rows,lineList])
 
@@ -206,7 +189,6 @@ const ClientsTable = (data) => {
             }
             return cmp;
         })
-        setTableRows(data)
     }
 
     function selectItems(items) { 
@@ -359,7 +341,8 @@ const ClientsTable = (data) => {
                     {tableData.length > 8 ? 
                         <Table.Pagination
                             shadow
-                            align="center"
+                            align="end"
+                            noMargin
                             rowsPerPage={8}
                         />: null
                     }

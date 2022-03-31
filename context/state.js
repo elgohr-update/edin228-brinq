@@ -12,6 +12,14 @@ export function AppWrapper({ children }) {
           clients:{
             raw: [],
             filtered: []
+          },
+          policies:{
+            raw: [],
+            filtered: []
+          },
+          carriers:{
+            raw: [],
+            filtered: []
           }
         },
         filters:{

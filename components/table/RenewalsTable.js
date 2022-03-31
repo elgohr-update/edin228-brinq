@@ -243,15 +243,14 @@ const RenewalsTable = (data) => {
                         </Table.Row>
                     )}
                 </Table.Body>
-                {/* {tableData.length > 14 ? 
+                {tableData.length > 7 ? 
                     <Table.Pagination
                         shadow
                         noMargin
                         align="end"
-                        rowsPerPage={14}
-                        onPageChange={(page) => console.log({ page })}
+                        rowsPerPage={7}
                     />: null
-                } */}
+                }
             </Table>
              
         </div>

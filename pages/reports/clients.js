@@ -23,12 +23,15 @@ export default function ReportsClient({data}) {
     const date = new Date(year, month-1, 1);
     const monthName = date.toLocaleString('default', {month:'long'})
     const { isDark, type } = useTheme();
-    const [tableData, setTableData] = useState(data)
+    // const [tableData, setTableData] = useState(data)
     const {state, setState} = useAppContext();
 
     useEffect(() => {
-      setTableData(data)
+        setState({...state,reports:{...state.reports,data:{...state.reports.data,clients:{raw:data,filtered:data}}}})
+        // setTableData(data)
     }, [data])
+
+    const tableData = state.reports.data.clients.filtered
 
     const isActive = (currentPage) => {
         if (router.pathname.includes(currentPage)){
@@ -111,7 +114,7 @@ export default function ReportsClient({data}) {
               <SummaryCard val={polSum()} color="fuchsia" gradientColor="orange-to-red-2"  panel shadow title="Policies" icon={<BsBox />}  />
             </div>
             <div className={`w-full h-full  rounded-lg ${type}-shadow panel-theme-${type} overflow-auto max-h-[75vh]`}>
-              {data ? <ClientsTable data={tableData} /> : null}
+              {data ? <ClientsTable /> : null}
             </div>
           </div>
         </main>
