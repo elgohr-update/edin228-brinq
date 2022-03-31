@@ -115,7 +115,7 @@ const ClientDrawer = () => {
                                     <div className="flex items-center w-full">
                                         <div className={`flex flex-1 flex-wrap w-full space-x-2`}>
                                             {
-                                                client.tags.map( x => {
+                                                client?.tags?.map( x => {
                                                     return <TagBasic key={x.id} text={x.name} color={x.color} />
                                                 })
                                             }
