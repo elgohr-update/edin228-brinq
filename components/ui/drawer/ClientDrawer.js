@@ -17,8 +17,10 @@ import { BsBox,BsChevronDown,BsChevronUp } from 'react-icons/bs';
 import { FaReceipt } from 'react-icons/fa';
 import PolicyCard from '../../policy/PolicyCard';
 import ActivityCard from '../../activity/ActivityCard';
-import { reverseList } from '../../../utils/utils';
+import { reverseList, sumFromArrayOfObjects } from '../../../utils/utils';
 import TagBasic from '../tag/TagBasic';
+import SummaryCard from '../card/SummaryCard';
+import { AiFillDollarCircle,AiOutlineClose } from 'react-icons/ai';
 
 
 const ClientDrawer = () => {
@@ -73,7 +75,11 @@ const ClientDrawer = () => {
     //         setShowMore1(true)
     //     }
     // },[activity])
-
+    
+    const premSum = () => {
+        return sumFromArrayOfObjects(policies,'premium')
+    }
+    
     const triggerTab = (t) => {
         setTab(t)
     }
@@ -99,28 +105,39 @@ const ClientDrawer = () => {
 
     return (        
         <div className={`flex w-full h-full fixed top-0 left-0 z-[999999]`}>
-            <div className={`flex fixed right-0 h-full flex-col w-[700px] ${type}-shadow panel-theme-${type}`}>
+            <div className={`flex fixed right-0 h-full flex-col w-full md:w-[800px] ${type}-shadow panel-theme-${type}`}>
                 {!client ? 
                     <div className="flex h-full w-full flex-1 justify-center items-center">
                         <Loading type="points" size="xl" color="secondary" textColor="primary"/>
                     </div> :
                     <div className="flex h-full flex-1 py-4">
                         <div className={`flex flex-col w-full`}>
-                            <div className={`flex relative w-full pb-4 px-2 mb-2`}>
-                                <div className={`flex items-center text-5xl mr-4 px-2 rounded text-white`}>
-                                    <LineIcon iconSize={30} size="lg" line={client?.line} />
-                                </div>
-                                <div className="flex flex-col pt-2 w-full">
-                                    <h3>{client?.client_name}</h3>
-                                    <div className="flex items-center w-full">
-                                        <div className={`flex flex-1 flex-wrap w-full space-x-2`}>
-                                            {
-                                                client?.tags?.map( x => {
-                                                    return <TagBasic key={x.id} text={x.name} color={x.color} />
-                                                })
-                                            }
+                            <div className={`flex relative w-full px-2 mb-2`}>
+                                <div className="flex flex-col md:flex-row md:pt-2 w-full relative">
+                                    <div className="flex items-center w-full pb-4">
+                                        <div className={`flex items-center text-5xl mr-4 px-2 rounded text-white`}>
+                                            <LineIcon iconSize={30} size="lg" line={client?.line} />
                                         </div>
-                                    </div>                                    
+                                        <div className="flex flex-col w-full">
+                                            <h3>{client?.client_name}</h3>
+                                            <div className="flex items-center w-full">
+                                                <div className={`flex flex-1 flex-wrap w-full space-x-2`}>
+                                                    {
+                                                        client?.tags?.map( x => {
+                                                            return <TagBasic key={x.id} text={x.name} color={x.color} />
+                                                        })
+                                                    }
+                                                </div>
+                                            </div>  
+                                        </div>    
+                                    </div>
+                                    <div className="flex items-center justify-center md:justify-end w-full pl-4 pr-8">
+                                        <SummaryCard isIcon={false} autoWidth val={premSum()} color="teal" gradientColor="green-to-blue-2" icon={<AiFillDollarCircle />} title="Premium" money   />
+                                        <SummaryCard isIcon={false} autoWidth val={policies.length} color="fuchsia" gradientColor="orange-to-red-2" title="Policies" icon={<BsBox />}  />
+                                    </div>
+                                    <div className="absolute top-0 right-0" onClick={() => closeDrawer()}>
+                                        <AiOutlineClose />
+                                    </div>
                                 </div>
                                 <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
                             </div>

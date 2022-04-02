@@ -3,7 +3,7 @@ import { useTheme } from '@nextui-org/react';
 import { abbreviateMoney } from '../../../utils/utils';
 import { AiFillCaretLeft } from 'react-icons/ai';
 
-const SummaryCard = ({icon=<AiFillCaretLeft/>,val=0,title='',border=false,percent=false,money=false,vertical=false,color='sky',gradientColor="orange",panel=false,shadow=false}) => {
+const SummaryCard = ({icon=<AiFillCaretLeft/>, autoWidth=false,isIcon=true,val=0,title='',border=false,percent=false,money=false,vertical=false,color='sky',gradientColor="orange",panel=false,shadow=false}) => {
     const { isDark, type } = useTheme();
     
     const textValue = () =>{
@@ -103,20 +103,24 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>,val=0,title='',border=false,percen
                 return 'purple-to-blue-gradient-2'
         }
     }
-    const baseClass = `relative flex flex-1 p-4 min-w-[240px] rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+    const baseClass = `relative flex p-4 ${autoWidth? `w-auto` : `flex-1  min-w-[240px]`} rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
-            {/* <div className={`left-0 backdrop-blur-md rounded absolute w-full ${isDark ? `opacity-20 invert`: `opacity-50`} h-full z-10 texture-bg`}></div> */}
             <div className={`relative flex flex-col z-20 ${vertical ? '': `w-full`}`}>
                 <h5 className={`${vertical ? 'flex ': `flex `} font-semibold`}>{title}</h5>
                 <div className={`top-border-flair ${returnGradient()}`} />
                 <div className={`${vertical ? 'flex ': `flex `} flex font-bold text-3xl mb-2`}>{textValue()}</div>
             </div>
-            <div className={`${vertical ? 'flex justify-end': `flex justify-end w-full`} z-20 ml-4`}>
-                <div className={`flex items-center ${type}-shadow justify-center rounded-lg ${isDark?'bg-slate-500/20':'bg-white/40'} p-2 text-2xl w-[50px] h-[50px]`}>
-                    <div className={`text-clip-gradient ${returnGradient()}`}>{icon}</div>
+            { 
+                isIcon ? 
+                <div className={`${vertical ? 'flex justify-end': `flex justify-end w-full`} z-20 ml-4`}>
+                    <div className={`flex items-center ${type}-shadow justify-center rounded-lg ${isDark?'bg-slate-500/20':'bg-white/40'} p-2 text-2xl w-[50px] h-[50px]`}>
+                        <div className={`text-clip-gradient ${returnGradient()}`}>{icon}</div>
+                    </div>
                 </div>
-            </div>
+                :null
+            }
+            
             
         </div>
     )

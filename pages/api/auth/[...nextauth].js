@@ -25,7 +25,16 @@ export default NextAuth({
                         }
                     })
                     const user = await res2.json()
-                    const setUser = {...user,accessToken:token.access_token,picture:user.image_file, image:user.image_file}
+                    const baseUrl3 = `${process.env.FETCHBASE_URL}/agency/me`
+                    const res3 = await fetch(baseUrl3, {
+                        method: 'GET',
+                        headers: { 
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token.access_token}`
+                        }
+                    })
+                    const agency = await res3.json()
+                    const setUser = {...user,agency:agency,accessToken:token.access_token,picture:user.image_file, image:user.image_file}
                 // Any object returned will be saved in `user` property of the JWT
                     return setUser
                 } else {
@@ -50,7 +59,7 @@ export default NextAuth({
         },
         async jwt({ token, user, account }) {
           // Initial sign in
-          if (account) {
+          if (account) {            
             token.accessToken = user.accessToken
             token.user = user
             token.exp = token.exp
@@ -70,6 +79,7 @@ export default NextAuth({
             session.exp = token.exp
             session.accessToken = token.accessToken;
             session.error = token.error;
+            session.agency = token.user.agency
             return session;
         },
     },
