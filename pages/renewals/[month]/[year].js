@@ -71,7 +71,7 @@ export default function Renewals({data}) {
 
     return (
         <main className="flex flex-col w-full md:px-4">      
-          <div className="flex w-full pb-2 items-center">
+          <div className="flex w-full pb-2 items-center text-xs md:text-lg">
             <span className="mr-2 text-color-warning"><BsFillCalendar3WeekFill /></span>
             <h1>
               <span>{monthName}</span>

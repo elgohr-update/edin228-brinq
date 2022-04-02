@@ -7,9 +7,8 @@ import { RiAdminFill } from 'react-icons/ri';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { useTheme as useNextTheme } from 'next-themes'
 import { useRouter } from 'next/router'
-import UserAvatar from '../user/Avatar';
 import { useSession } from 'next-auth/react';
-import { useAppContext } from '../../context/state';
+import { useAppContext } from '../../../context/state';
 
 
 const Sidebar = () => {

@@ -3,10 +3,10 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { useTheme as useNextTheme } from 'next-themes'
 import { useRouter } from 'next/router'
-import NotificationBell from '../notifications/NotificationBell';
-import SearchBar from '../search/SearchBar';
-import NewActionMenu from './menu/NewActionMenu';
-import UserMenu from './menu/UserMenu';
+import SearchBar from './../../search/SearchBar';
+import UserMenu from './../menu/UserMenu';
+import NotificationBell from './../../notifications/NotificationBell';
+import NewActionMenu from './../menu/NewActionMenu';
 
 
 const Header = () => {

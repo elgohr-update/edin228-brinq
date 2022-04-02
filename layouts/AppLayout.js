@@ -1,12 +1,13 @@
 import Head from "next/head";
 import { Container, Row, Col, useTheme } from '@nextui-org/react';
-import Sidebar from "../components/ui/Sidebar";
-import Header from "../components/ui/Header";
+import Sidebar from "../components/ui/Sidebar/Sidebar";
 import { useEffect,useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 import ClientDrawer from "../components/ui/drawer/ClientDrawer";
 import { useAppContext } from "../context/state";
+import { HeaderContainer } from "../components/ui/Header/HeaderContainer";
+import { SidebarContainer } from "../components/ui/Sidebar/SidebarContainer";
 
 export default function AppLayout({ children }) {
     const { type } = useTheme();
@@ -45,14 +46,10 @@ export default function AppLayout({ children }) {
             <div className={`fixed h-screen w-full blur-screen blur-screen-${type} z-2`} />
             {state.drawer.client.isOpen ? <ClientDrawer /> : null}   
             <Row fluid className={`overflow-hidden z-3`}>
-              <div className="lg:hidden sidebar-main">
-                {isAuth ? <Sidebar /> : null}
-              </div>
+              {isAuth ? <SidebarContainer /> : null}
               <Col className="h-screen">
-                <Row fluid className="header-main w-full">
-                  {isAuth ? <Header /> : null}
-                </Row>
-                <Row fluid className={`z-3 w-full content-main overflow-hidden`}>
+                {isAuth ? <HeaderContainer /> : null}
+                <Row fluid className={`z-3 w-full content-main overflow-hidden px-4 md:px-0`}>
                   {isAuth ? children : null}
                 </Row>
               </Col>              
