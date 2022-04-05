@@ -277,7 +277,7 @@ const ClientsTable = () => {
                 </div>    
             :null
             }
-            <div className="flex flex-col h-full w-full px-2">
+            <div className="flex flex-col h-full w-full px-2 pb-2">
                 <div className="w-full items-center flex justify-between h-16 py-4">
                     <div className="flex items-center justify-end">
                         <Button color="warning" auto flat icon={<FaFilter fill="currentColor" />} onClick={() => setShowFilter(!showFilter)}/>

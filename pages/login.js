@@ -24,9 +24,9 @@ export default function Login() {
 
     return (
         <main className="flex h-full w-full justify-center px-4 py-40 md:py-64 overflow-hidden items-center">      
-            <div className={`flex flex-col w-full md:w-3/12 h-full rounded panel-theme-${type} ${type}-shadow`}>
+            <div className={`flex flex-col w-full md:w-3/12 h-full rounded-lg panel-theme-${type} ${type}-shadow`}>
                 <div className="flex flex-col items-center h-full">
-                    <div className={`panel-theme-${type} rounded-t ${type}-shadow w-full px-24 md:px-40 py-4`}>
+                    <div className={`panel-theme-${type} rounded-t w-full px-24 md:px-40 py-4`}>
                         <img  src="/brinq-logo-full-color.png" alt="brinq" />
                     </div>
                     <h2 className="py-6 uppercase font-bold">Login</h2>

@@ -63,7 +63,7 @@ const Sidebar = () => {
         <div className="z-50 flex flex-col w-full h-full relative">
             <div  className={`flex flex-col justify-between absolute h-full w-full panel-theme-${type} ${type}-shadow sidebar-${isExpand()}`} onMouseOver={() => hoverSidebar('in')} onMouseOut={() => hoverSidebar('out')}>
                 <div className="flex flex-col w-full">
-                    <div className={`flex items-center justify-center py-8 h-10 ${type}-shadow panel-theme-${type}`}>
+                    <div className={`flex items-center justify-center py-8 h-10 panel-theme-${type}`}>
                         <div className="flex items-center justify-center w-full relative transition duration-100 ease-out">
                             <div className={`${expand ? 'opacity-1 relative' : 'opacity-0 absolute'} transition flex scale-[0.7]`}>
                                 <Image
@@ -88,30 +88,7 @@ const Sidebar = () => {
                             
                         </div>  
                     </div>
-                    {/* <div className={`flex items-center py-4`}>
-                        <div className="flex rounded items-start cursor-pointer justify-start py-2 flex-col hover:bg-gray-500/20 transition duration-100 ease-out w-full">
-                            <div className="flex pl-3 justify-start items-start">
-                                <UserAvatar tooltip={true} />
-                            </div>
-                            <Link href="/dashboard">
-                                <a className={`flex flex-col py-2 sidebar-text-${isExpand()}`}>
-                                    <div className="flex items-center">
-                                        {session?.user?.name}
-                                    </div>
-                                    <div className="flex opacity-40 w-full">
-                                        {
-                                            session?.user?.owner? `Owner` :
-                                            session?.user?.producer? `Producer` :
-                                            session?.user?.account_manager? `Account Manager` :
-                                            `Support`
-                                        }
-                                    </div>
-                                </a> 
-                            </Link>
-                        </div>
-                    </div> */}
                     <div className={`flex flex-col px-2`}>
-                        <div className={`flex w-full ${isDark? `border-gray-100` :`border-gray-900`}`} />
                         <Link href="/dashboard">
                             <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
                                 <div className={`text-xl p-3 ${isActive('/dashboard')}`}>

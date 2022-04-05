@@ -1,23 +1,16 @@
-import { Avatar, Button, Input, Loading, Switch, User, useTheme } from '@nextui-org/react'
+import { Button, Loading, User, useTheme } from '@nextui-org/react'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
-import { useTheme as useNextTheme } from 'next-themes'
-import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react';
 import HiddenBackdrop from '../../util/HiddenBackdrop';
 import { useAppContext } from '../../../context/state';
-import { RiFolderUserFill } from 'react-icons/ri';
-import { GiHomeGarage } from 'react-icons/gi';
-import { BsBuilding } from 'react-icons/bi';
-import { MdMedicalServices } from 'react-icons/md';
 import LineIcon from '../../util/LineIcon';
-import UserAvatar from '../../user/Avatar';
 import ContactCard from '../../contact/ContactCard';
 import { BsBox,BsChevronDown,BsChevronUp } from 'react-icons/bs';
 import { FaReceipt } from 'react-icons/fa';
 import PolicyCard from '../../policy/PolicyCard';
 import ActivityCard from '../../activity/ActivityCard';
-import { reverseList, sumFromArrayOfObjects } from '../../../utils/utils';
+import { sumFromArrayOfObjects } from '../../../utils/utils';
 import TagBasic from '../tag/TagBasic';
 import SummaryCard from '../card/SummaryCard';
 import { AiFillDollarCircle,AiOutlineClose } from 'react-icons/ai';
@@ -29,8 +22,6 @@ const ClientDrawer = () => {
     const [client, setClient] = useState(null)
     const [activity, setActivity] = useState([])
     const [policies, setPolicies] = useState([])
-    const [loading, setLoading] = useState(null)
-    const { data: session } = useSession();
     const [tab, setTab] = useState(1)
     const [showMore1, setShowMore1] = useState(false)
     
@@ -69,12 +60,6 @@ const ClientDrawer = () => {
             closeDrawer()
         }
     },[])
-
-    // useEffect( () => {
-    //     if (activity.length < 1) {
-    //         setShowMore1(true)
-    //     }
-    // },[activity])
     
     const premSum = () => {
         return sumFromArrayOfObjects(policies,'premium')
@@ -135,13 +120,13 @@ const ClientDrawer = () => {
                                         <SummaryCard isIcon={false} autoWidth val={premSum()} color="teal" gradientColor="green-to-blue-2" icon={<AiFillDollarCircle />} title="Premium" money   />
                                         <SummaryCard isIcon={false} autoWidth val={policies.length} color="fuchsia" gradientColor="orange-to-red-2" title="Policies" icon={<BsBox />}  />
                                     </div>
-                                    <div className="absolute top-0 right-0" onClick={() => closeDrawer()}>
+                                    <div className="flex md:hidden absolute top-0 right-0" onClick={() => closeDrawer()}>
                                         <AiOutlineClose />
                                     </div>
                                 </div>
                                 <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
                             </div>
-                            <div className={`mt-2 flex flex-col w-full overflow-auto h-[82vh]`}>
+                            <div className={`mt-2 flex flex-col w-full overflow-auto h-[78vh]`}>
                                 <div className="flex flex-col w-full px-4">
                                     <h4 className={`mb-2`}>
                                         Reps

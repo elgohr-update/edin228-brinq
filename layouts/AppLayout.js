@@ -49,7 +49,7 @@ export default function AppLayout({ children }) {
               {isAuth ? <SidebarContainer /> : null}
               <Col className="h-screen">
                 {isAuth ? <HeaderContainer /> : null}
-                <Row fluid className={`z-3 w-full content-main overflow-hidden px-4 md:px-0`}>
+                <Row fluid className={`z-3 w-full content-main overflow-hidden`}>
                   {isAuth ? children : null}
                 </Row>
               </Col>              
