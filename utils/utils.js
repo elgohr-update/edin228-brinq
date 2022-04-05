@@ -73,7 +73,7 @@ export const getFormattedDateTime = (date) => {
 }
 
 export const reverseList = (list) => {
-    return typeof list !== Array || list.length < 1 ? [] : list?.map((value, index, arr) => arr[arr.length - index - 1]);
+    return list?.map((value, index, arr) => arr[arr.length - index - 1]);
 }
 
 export const sumFromArrayOfObjects = (data=[],field) => {

@@ -1,92 +1,140 @@
-import { User, useTheme } from '@nextui-org/react'
+import { Button, useTheme } from '@nextui-org/react'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React from 'react'
 import ClientActivity from '../../components/client/ClientActivity'
-import ClientHeader from '../../components/client/ClientHeader'
-import ContactCard from '../../components/contact/ContactCard'
-import Panel from '../../components/ui/panel/Panel'
+import ClientContacts from '../../components/client/ClientContacts'
+import ClientHeader from '../../components/client/ClientTitle'
+import ClientInfo from '../../components/client/ClientInfo'
 import { useAppContext } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
+import { BiPaperPlane, BiLinkExternal, BiRefresh } from 'react-icons/bi'
+import { BsChatLeftQuoteFill } from 'react-icons/bs'
+import { RiPlayListAddFill } from 'react-icons/ri'
+import PolicyCard from '../../components/policy/PolicyCard'
+import { reverseList, sumFromArrayOfObjects } from '../../utils/utils'
+import Panel from '../../components/ui/panel/Panel'
+import SummaryCard from '../../components/ui/card/SummaryCard'
+import { AiFillDollarCircle } from 'react-icons/ai'
+import { BsBox } from 'react-icons/bs'
 
 export default function Client({ client, events, emails, activity }) {
-    const router = useRouter()
-    const { isDark,type } = useTheme()
-    const { state, setState } = useAppContext()
-    return (
-        <div className="flex flex-col relative md:flex-row w-full h-full flex-1 overflow-hidden">
-            <div className="flex flex-col w-full">
-              <div className="flex items-center w-full justify-between">
-                <ClientHeader client={client} />
-                <div className="flex justify-end">
-                  <Panel noBg shadow={false}>
-                    adsad
-                  </Panel>
-                </div>
-              </div>
-              <div className="flex flex-col md:flex-row w-full overflow-hidden">
-                <div className={`relative flex flex-col space-y-2 w-full md:w-[300px] px-4 pb-2 overflow-x-hidden overflow-y-auto`}>
-                    <Panel flat>
-                      <div className="flex flex-col w-full">
-                        <h4>
-                          Contacts
-                        </h4>
-                        <div className={`flex flex-wrap w-full`}>
-                            {client?.contacts.map( c => (
-                                <ContactCard key={c.id} contact={c}  />
-                            ))}
-                        </div>
-                      </div>
-                    </Panel>
-                    <Panel flat>
-                      <div className="flex flex-col w-full">
-                          <h4 className={`mb-2`}>
-                              Reps
-                          </h4>
-                          <div className={`flex flex-wrap w-full space-y-2`}>
-                              {client?.users.map( u => (
-                                  <div className="flex" key={u.id}>
-                                      <User 
-                                          src={u.image_file}
-                                          name={u.name}
-                                      >
-                                          {u.email}
-                                      </User>
-                                  </div>
-                              ))}
-                          </div>
-                      </div>
-                      <div className={`flex flex-col md:flex-row w-full py-2`}>
-                          <div className={`flex flex-col w-full `}>
-                              <h4 className={`mb-2`}>
-                                  Address
-                              </h4>
-                              <div className="flex flex-col px-2">
-                                  <h6>{client?.client_name}</h6>
-                                  <h6>{client?.address}</h6>
-                                  <div className="flex items-center space-x-1">
-                                      <h6>{client?.city}{client?.city ? `,`:null}</h6>
-                                      <h6>{client?.state}</h6>
-                                      <h6>{client?.zipcode}</h6>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                    </Panel>
-                </div>
-                <div className={`flex flex-col h-full flex-1`}>
-                  asdasda
-                </div>  
-              </div>
+  const router = useRouter()
+  const { isDark, type } = useTheme()
+  const { state, setState } = useAppContext()
+
+  const getPolicies = (active = false) => {
+    return active
+      ? reverseList(
+          client.policies.filter(
+            (x) =>
+              !x.renewed &&
+              !x.canceled &&
+              !x.nottaken &&
+              !x.nonrenewed &&
+              !x.ams360quote
+          )
+        )
+      : reverseList(client.policies)
+  }
+
+  const premSum = () => {
+    return sumFromArrayOfObjects(client.policies, 'premium')
+  }
+
+  return (
+    <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
+      <div className="flex w-full flex-col">
+        <div className="flex w-full flex-col items-center justify-between md:flex-row">
+          <ClientHeader client={client} />
+          <div className="flex w-full flex-col items-center md:flex-row md:justify-between">
+            <div className="flex w-full items-center justify-between md:justify-start">
+              <SummaryCard
+                isIcon={false}
+                autoWidth
+                val={premSum()}
+                color="teal"
+                gradientColor="green-to-blue-2"
+                icon={<AiFillDollarCircle />}
+                title="Premium"
+                money
+              />
+              <SummaryCard
+                isIcon={false}
+                autoWidth
+                val={getPolicies(true).length}
+                color="fuchsia"
+                gradientColor="orange-to-red-2"
+                title="Policies"
+                icon={<BsBox />}
+              />
             </div>
-            <div className={`flex w-4/12 pl-4 pb-2 overflow-hidden`}>
-              <Panel flat>
-                <h4>Recent Activity</h4>
-                <ClientActivity activity={activity} />
-              </Panel>
+            <div className="flex items-center space-x-2 py-2 md:justify-end md:py-0">
+              <Button.Group size="xs" flat>
+                <Button>
+                  <BiPaperPlane />
+                </Button>
+                <Button>
+                  <BsChatLeftQuoteFill />
+                </Button>
+                <Button>
+                  <RiPlayListAddFill />
+                </Button>
+                <Button>
+                  <BiLinkExternal />
+                </Button>
+                <Button>
+                  <BiRefresh />
+                </Button>
+              </Button.Group>
             </div>
+          </div>
         </div>
-    )
+        <div className="flex w-full flex-col overflow-hidden md:flex-row">
+          <div
+            className={`relative flex w-full flex-col space-y-2 py-4 px-4 md:w-[300px] md:py-0`}
+          >
+            <ClientInfo
+              flat={true}
+              shadow={true}
+              noBg={false}
+              client={client}
+            />
+            <ClientContacts
+              flat={true}
+              shadow={true}
+              noBg={false}
+              client={client}
+            />
+          </div>
+          <div className="flex h-full w-full flex-col overflow-hidden">
+            <div className="flex items-center justify-center space-x-2 px-4 pb-1 md:justify-start">
+              <div>Policies</div>
+              <div>Deals</div>
+              <div>Quotes</div>
+              <div>Emails</div>
+              <div>Suspenses</div>
+            </div>
+            <div
+              className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[81vh]`}
+            >
+              {getPolicies().map((u) => (
+                <Panel flat key={u.id} overflow={false} px={0} py={0}>
+                  <PolicyCard policy={u} />
+                </Panel>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className={`flex w-full flex-col pb-2 md:w-4/12 md:overflow-y-auto md:px-4`}
+      >
+        <h4 className="flex w-full items-center px-4">Recent Activity</h4>
+        <ClientActivity activity={activity} />
+      </div>
+    </div>
+  )
 }
 
 Client.getLayout = function getLayout(page) {

@@ -118,7 +118,7 @@ const PolicyCard = ({policy,border=false,vertical=false,color='sky',gradientColo
                 return 'purple-to-blue-gradient-2'
         }
     }
-    const baseClass = `relative transition-all duration-200 ease-out ${!showMore?`max-h-60`:`max-h-screen`} flex-col w-full p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+    const baseClass = `relative transition-all ${border?`${isDark?`border-slate-900`:`border-slate-200`} border`:null} ${shadow?`${type}-shadow`:null} duration-200 ease-out ${!showMore?`max-h-60`:`max-h-screen`} flex-col w-full p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
             <div className={`flex flex-col md:flex-row w-full md:items-center`}>
@@ -129,13 +129,13 @@ const PolicyCard = ({policy,border=false,vertical=false,color='sky',gradientColo
                     <div className={`relative flex flex-col space-y-1 items-end mr-4`}>
                         <TagBasic text={policy.policy_type} />
                         {   
-                            policy.nonrenewed ? <TagBasic text={`active`} color="red" /> :
-                            policy.nottaken ? <TagBasic text={`active`} color="red" /> :
-                            policy.rewritten ? <TagBasic text={`active`} color="blue" /> :
-                            policy.canceled ? <TagBasic text={`active`} color="red" /> :
-                            policy.ams360quote ? <TagBasic text={`quote`} color="orange" /> :
-                            policy.renewed ? <TagBasic text={`quote`} color="blue" /> :
-                            <TagBasic text={`active`} color="green" />
+                            policy.nonrenewed ? <TagBasic text={`NNRNWD`} color="red" /> :
+                            policy.nottaken ? <TagBasic text={`NTTKN`} color="red" /> :
+                            policy.rewritten ? <TagBasic text={`RWRTN`} color="purple" /> :
+                            policy.canceled ? <TagBasic text={`CNCLD`} color="red" /> :
+                            policy.ams360quote ? <TagBasic text={`QTE`} color="orange" /> :
+                            policy.renewed ? <TagBasic text={`RNWD`} color="blue" /> :
+                            <TagBasic text={`ACTV`} color="green" />
                         }   
                     </div>
                     <div className={`relative flex flex-col w-full md:w-fit`}>

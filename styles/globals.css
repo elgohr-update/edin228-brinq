@@ -18,20 +18,36 @@
 .nextui-c-ilVpnA{
   font-size:0.8rem;
 }
-/* button {
+button {
   -webkit-appearance: button;
-  background-color: blue;
-  background-image: blue;
-} */
+  background-color: transparent;
+  background-image: none;
+}
+.nextui-c-gnEedP-ikltse-color-default {
+  background: var(--nextui-colors-primary) !important;
+  color: var(--nextui-colors-white) !important;
+}
 .nextui-c-gnEedP-kUMTig-color-gradient {
   background: var(--nextui-colors-gradient);
   color: var(--nextui-colors-white);
 }
-/* .nextui-c-gnEedP-ikltse-color-primary {
-  background: var(--nextui-colors-primary);
-  color: var(--nextui-colors-white);
+.nextui-c-gnEedP-heMdyx-cv {
+  background: var(--nextui-colors-primaryLight) !important;
+  color: var(--nextui-colors-primary) !important;
 }
-.nextui-c-gnEedP-fNPvLg-color-warning {
+.nextui-c-gnEedP-hBfXmr-cv {
+  background: var(--nextui-colors-secondaryLight) !important;
+  color: var(--nextui-colors-secondary) !important;
+}
+.nextui-c-gnEedP-bXueNC-cv {
+  background: var(--nextui-colors-successLight) !important;
+  color: var(--nextui-colors-success) !important;
+}
+.nextui-c-gnEedP-bZaGpN-cv {
+  background: var(--nextui-colors-errorLight) !important;
+  color: var(--nextui-colors-error) !important;
+}
+/* .nextui-c-gnEedP-fNPvLg-color-warning {
   background: var(--nextui-colors-warning);
   color: var(--nextui-colors-white);
 }
@@ -277,7 +293,7 @@ h6 {
 /* Gradients */
 .top-border-flair {
   position:absolute;
-  top:-6px;
+  top:40px;
   width:80px;
   border-radius:6px;
   height:4px;
