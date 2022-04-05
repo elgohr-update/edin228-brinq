@@ -27,7 +27,7 @@ const ContactCard = ({contact,border=false,vertical=false,panel=false,shadow=fal
             </div>
             <div className={`relative flex flex-col z-20 ${vertical ? '': `w-full`}`}>
                 <h6 className={`font-semibold`}>{contact.first_name} {contact.last_name}</h6>
-                <h4 className={``}>{contact.email}</h4>
+                <h4 className={``}><a href={`mailto:${contact.email}`}>{contact.email}</a></h4>
             </div>
         </div>
     )

@@ -70,8 +70,8 @@ export default function Renewals({data}) {
     }
 
     return (
-        <main className="flex flex-col w-full md:px-4">      
-          <div className="flex w-full pb-2 items-center text-xs md:text-lg">
+        <main className="flex flex-col w-full">      
+          <div className="flex w-full px-4 pb-2 items-center text-xs md:text-lg">
             <span className="mr-2 text-color-warning"><BsFillCalendar3WeekFill /></span>
             <h1>
               <span>{monthName}</span>
@@ -85,7 +85,7 @@ export default function Renewals({data}) {
             </Button.Group>
           </div>
           <div className="flex flex-col w-full">
-            <div className="flex md:justify-center items-center h-full pb-4 space-x-4 md:overflow-hidden overflow-x-auto">
+            <div className="flex md:justify-center items-center h-full px-4 mb-2 py-4 space-x-4 md:overflow-hidden overflow-x-auto">
               <SummaryCard val={premSum()} color="teal" gradientColor="green-to-blue-2"  panel shadow icon={<AiFillDollarCircle />} title="Premium" money   />
               <SummaryCard val={tableData?.length} color="fuchsia" gradientColor="pink-to-blue"  panel shadow title="Clients" icon={<RiFolderUserFill />}  />
               <SummaryCard val={renewedPolPercent()} color="purple" gradientColor="purple-to-blue-gradient-2"  panel shadow title="Renewed" icon={<HiOutlineRefresh />} percent  />
@@ -93,8 +93,10 @@ export default function Renewals({data}) {
               <SummaryCard val={polSum()} color="fuchsia" gradientColor="orange-to-red-2"  panel shadow title="Policies" icon={<BsBox />}  />
               <SummaryCard val={completedTasks()} color="sky" gradientColor="green"  panel shadow title="Completed Tasks" icon={<BsListCheck />}  />
             </div>
-            <div className={`w-full h-full pb-4 rounded-lg ${type}-shadow panel-theme-${type} overflow-auto max-h-[75vh]`}>
-              {data ? <RenewalsTable data={tableData} /> : null}
+            <div className="px-4">
+              <div className={`w-full h-full pb-4 rounded-lg ${type}-shadow panel-theme-${type} overflow-auto max-h-[75vh]`}>
+                {data ? <RenewalsTable data={tableData} /> : null}
+              </div>
             </div>
           </div>
         </main>

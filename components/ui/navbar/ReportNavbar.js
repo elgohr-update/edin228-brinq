@@ -22,7 +22,7 @@ const ReportNavbar = () => {
         return ''
     }
     return (
-        <div className="flex justify-center md:justify-start items-center space-x-2 px-2 py-2 md:py-0">
+        <div className="flex justify-center md:justify-end items-center space-x-2 py-2 md:py-0">
             <Link href="/reports/clients">
                 <a>
                     <div className={`flex hover:text-sky-500 transition duration-100 ease-out items-center px-2 ${isActive(`/clients`)}`}>

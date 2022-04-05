@@ -37,7 +37,7 @@ export default function ReportsPolicies({ data }) {
   }
   return (
     <main className="flex w-full flex-col">
-      <div className="flex w-full items-center pb-2 px-4">
+      <div className="flex w-full flex-col py-2 md:flex-row md:items-center md:justify-between px-4">
         <ReportHeader icon={<BsBox />} text="Policies" />
         <ReportNavbar />
       </div>

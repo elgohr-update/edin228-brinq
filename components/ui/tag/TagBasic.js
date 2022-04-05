@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTheme } from '@nextui-org/react';
+import { textAbbrev } from '../../../utils/utils';
 
 const TagBasic = ({text='',color='sky',shadow=true}) => {
     const { isDark, type } = useTheme();
@@ -29,9 +30,10 @@ const TagBasic = ({text='',color='sky',shadow=true}) => {
                 return def;
         }
     }
+
     return (
         <div className={`tag-basic tag-text-shadow ${getColor()} ${isShadow()}`}>
-            { text }
+            { textAbbrev(text) }
         </div>
     )
 }

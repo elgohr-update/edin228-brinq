@@ -14,6 +14,8 @@ import { sumFromArrayOfObjects } from '../../../utils/utils';
 import TagBasic from '../tag/TagBasic';
 import SummaryCard from '../card/SummaryCard';
 import { AiFillDollarCircle,AiOutlineClose } from 'react-icons/ai';
+import ClientHeader from '../../client/ClientHeader';
+import ClientActivity from '../../client/ClientActivity';
 
 
 const ClientDrawer = () => {
@@ -99,23 +101,7 @@ const ClientDrawer = () => {
                         <div className={`flex flex-col w-full`}>
                             <div className={`flex relative w-full px-2 mb-2`}>
                                 <div className="flex flex-col md:flex-row md:pt-2 w-full relative">
-                                    <div className="flex items-center w-full pb-4">
-                                        <div className={`flex items-center text-5xl mr-4 px-2 rounded text-white`}>
-                                            <LineIcon iconSize={30} size="lg" line={client?.line} />
-                                        </div>
-                                        <div className="flex flex-col w-full">
-                                            <h3>{client?.client_name}</h3>
-                                            <div className="flex items-center w-full">
-                                                <div className={`flex flex-1 flex-wrap w-full space-x-2`}>
-                                                    {
-                                                        client?.tags?.map( x => {
-                                                            return <TagBasic key={x.id} text={x.name} color={x.color} />
-                                                        })
-                                                    }
-                                                </div>
-                                            </div>  
-                                        </div>    
-                                    </div>
+                                    <ClientHeader client={client} />
                                     <div className="flex items-center justify-center md:justify-end w-full pl-4 pr-8">
                                         <SummaryCard isIcon={false} autoWidth val={premSum()} color="teal" gradientColor="green-to-blue-2" icon={<AiFillDollarCircle />} title="Premium" money   />
                                         <SummaryCard isIcon={false} autoWidth val={policies.length} color="fuchsia" gradientColor="orange-to-red-2" title="Policies" icon={<BsBox />}  />
@@ -218,14 +204,8 @@ const ClientDrawer = () => {
                                     }
                                 </div>
                                 <div className={`${ activity.length < 1 ? 'hidden' : 'flex' } flex-col w-full mt-4 px-4 h-full`}>
-                                    <h4>
-                                        Recent Activity
-                                    </h4>
-                                    <div className={`rounded flex flex-col w-full h-full`}>
-                                        {activity?.map( u => (
-                                            <ActivityCard key={u.id} activity={u} hideClient />
-                                        ))}
-                                    </div>
+                                    <h4>Recent Activity</h4>
+                                    <ClientActivity activity={activity} />
                                 </div>
                             </div>                    
                         </div>
@@ -236,9 +216,9 @@ const ClientDrawer = () => {
                     <div className="flex justify-end w-full pt-1 pb-4 px-2">
                         <Link href={`/clients/${state.drawer.client.clientId}`}>
                             <a className="w-full">
-                            <Button shadow color="gradient" className="w-full">
-                                View More
-                            </Button>
+                                <Button shadow color="gradient" className="w-full">
+                                    View More
+                                </Button>
                             </a>
                         </Link>
                     </div>

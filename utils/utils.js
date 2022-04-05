@@ -15,6 +15,16 @@ export const formatMoney = (number) => {
     }
 }
 
+export const textAbbrev = (text) => {
+    return text.length > 6 ? 
+        text
+        .match(/[\p{Alpha}\p{Nd}]+/gu)
+        .reduce((previous, next) => previous + ((+next === 0 || parseInt(next)) ? parseInt(next): next[0] || ''), '')
+        .toUpperCase()
+    : 
+    text
+}
+
 export const getSearch = (data, search = '') => {
 
     function flattenDeep(val) {

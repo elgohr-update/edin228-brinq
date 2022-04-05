@@ -33,7 +33,7 @@ const ActivityCard = ({activity,border=false,panel=false,shadow=false,hideClient
                             <h4>By {activity.author}</h4>
                             <div className="small-subtext">{getFormattedDateTime(activity.date)}</div>
                         </div>
-                        <h4>{activity.activity_type}</h4>
+                        <h4 className="small-subtext">{activity.activity_type}</h4>
                     </div>
                     <div className="flex py-1">
                         {activity.system_action ? <span className="flex mr-1"><h6>{activity.author}</h6></span> : null}

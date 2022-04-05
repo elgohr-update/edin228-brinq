@@ -37,7 +37,7 @@ export default function ReportsClient({ data }) {
   }
   return (
     <main className="flex w-full flex-col">
-      <div className="flex w-full flex-col py-2 md:flex-row md:items-center px-4">
+      <div className="flex w-full flex-col py-2 md:flex-row md:items-center md:justify-between px-4">
         <ReportHeader icon={<IoMdListBox />} text="Clients" />
         <ReportNavbar />
       </div>
