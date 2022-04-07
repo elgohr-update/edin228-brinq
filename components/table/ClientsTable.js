@@ -23,6 +23,7 @@ const ClientsTable = () => {
     const [visibleReps, setVisibleReps] = useState(null)
     const [visibleTags, setVisibleTags] = useState(null)
     const [lineList, setLineList] = useState(['Commercial Lines','Personal Lines','Benefits'])
+    const [sortDescriptor,setSortDescriptor] = useState('ascending')
 
     const rows = state.reports.data.clients.raw
     const tableData = state.reports.data.clients.filtered
@@ -169,12 +170,10 @@ const ClientsTable = () => {
         }
     };
     const collator = useCollator({ numeric: true });
-    async function load() {
-        return {items:tableData}
-    }
-    async function sort({ items, sortDescriptor }) {
-        return {
-            items: items.sort((a, b) => {
+    
+    async function sort(sortDescriptor) {
+        setSortDescriptor(sortDescriptor)
+        const sorted = tableData.sort((a, b) => {
             let first = a[sortDescriptor.column];
             let second = b[sortDescriptor.column];
             let cmp = collator.compare(first, second);
@@ -182,10 +181,9 @@ const ClientsTable = () => {
                 cmp *= -1;
             }
             return cmp;
-            }),
-        };
+        })
+        setState({...state,reports:{...state.reports,data:{...state.reports.data,policies:{...state.reports.data.policies,filtered:sorted}}}}) 
     }
-    const list = useAsyncList({ load, sort });
 
     function selectItems(items) { 
         const base = items.entries()
@@ -302,10 +300,8 @@ const ClientsTable = () => {
                     shadow={false}
                     lined={true}
                     aria-label="Clients Table"
-                    sortDescriptor={list.sortDescriptor}
-                    onSortChange={list.sort}
-                    // selectionMode="multiple"
-                    // onSelectionChange={(selectedKeys)=>selectItems(selectedKeys)}
+                    sortDescriptor={sortDescriptor}
+                    onSortChange={(s) => sort(s)}
                     css={{
                         height: "100%",
                         minWidth: "100%",
@@ -328,7 +324,7 @@ const ClientsTable = () => {
                                 </Table.Column>
                         )}
                     </Table.Header>
-                    <Table.Body items={list.items} loadingState={list.loadingState}>
+                    <Table.Body items={tableData}>
                         {(item) => (
                             <Table.Row>
                                 {(columnKey) => (
@@ -342,8 +338,6 @@ const ClientsTable = () => {
                             shadow
                             align="end"
                             noMargin
-                            intialPage={1}
-                            total={Math.floor(Number(tableData.length/8))}
                             rowsPerPage={8}
                         />: null
                     }

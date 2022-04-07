@@ -126,7 +126,7 @@ const Sidebar = () => {
                                     <IoMdListBox className={`${isActiveIcon('/reports')}`} />
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
-                                    Reports
+                                    Book of Business
                                 </div> 
                             </a>
                         </Link>
