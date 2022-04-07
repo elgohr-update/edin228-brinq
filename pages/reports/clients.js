@@ -37,7 +37,7 @@ export default function ReportsClient({ data }) {
   }
   return (
     <main className="flex w-full flex-col">
-      <div className="flex w-full flex-col py-2 md:flex-row md:items-center md:justify-between px-4">
+      <div className={`flex w-full flex-col py-2 md:flex-row md:items-center md:justify-between px-4 sticky top-0 z-50 ${type}-shadow panel-flat-${type}`}>
         <ReportHeader icon={<IoMdListBox />} text="Clients" />
         <ReportNavbar />
       </div>
@@ -77,7 +77,7 @@ export default function ReportsClient({ data }) {
         </div>
         <div className="px-4">
           <div
-            className={`h-full w-full  rounded-lg ${type}-shadow panel-theme-${type} max-h-[75vh] overflow-auto`}
+            className={`h-full w-full  rounded-lg ${type}-shadow panel-theme-${type}`}
           >
             {data ? <ClientsTable /> : null}
           </div>

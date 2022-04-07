@@ -8,6 +8,7 @@ import ClientDrawer from "../components/ui/drawer/ClientDrawer";
 import { useAppContext } from "../context/state";
 import { HeaderContainer } from "../components/ui/Header/HeaderContainer";
 import { SidebarContainer } from "../components/ui/Sidebar/SidebarContainer";
+import { BodyContainer } from "../components/ui/body/BodyContainer";
 
 export default function AppLayout({ children }) {
     const { type } = useTheme();
@@ -49,9 +50,9 @@ export default function AppLayout({ children }) {
               {isAuth ? <SidebarContainer /> : null}
               <Col className="h-screen">
                 {isAuth ? <HeaderContainer /> : null}
-                <Row fluid className={`z-3 w-full content-main overflow-hidden`}>
+                <BodyContainer>
                   {isAuth ? children : null}
-                </Row>
+                </BodyContainer>
               </Col>              
             </Row>
         </div>

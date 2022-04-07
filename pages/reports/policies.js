@@ -36,7 +36,7 @@ export default function ReportsPolicies({ data }) {
     return sumFromArrayOfObjects(tableData, 'premium')
   }
   return (
-    <main className="flex w-full flex-col">
+    <main className="flex w-full flex-col relative">
       <div className="flex w-full flex-col py-2 md:flex-row md:items-center md:justify-between px-4">
         <ReportHeader icon={<BsBox />} text="Policies" />
         <ReportNavbar />
@@ -67,7 +67,7 @@ export default function ReportsPolicies({ data }) {
         </div>
         <div className="px-4">
           <div
-            className={`h-full w-full rounded-lg ${type}-shadow panel-theme-${type} max-h-[75vh] overflow-auto`}
+            className={`h-full w-full rounded-lg ${type}-shadow panel-theme-${type}`}
           >
             {data ? <PoliciesTable /> : null}
           </div>

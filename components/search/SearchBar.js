@@ -55,8 +55,8 @@ const SearchBar = () => {
       <div
         className={
           validSearch
-            ? `opacity-1 min-h-80 absolute top-[40px] left-[1px] z-50 w-[360px] overflow-auto rounded-lg transition-all duration-100 ease-out md:w-[360px] panel-theme-${type} ${type}-shadow`
-            : `rounded-lg panel-theme-${type} ${type}-shadow absolute w-[360px] opacity-0 transition-all duration-100 ease-out md:w-[550px]`
+            ? `opacity-1 min-h-80 absolute top-[40px] left-[1px] z-60 w-[360px] overflow-auto rounded-lg transition-all duration-100 ease-out md:w-[360px] panel-flatter-${type} ${type}-shadow`
+            : `rounded-lg panel-flatter-${type} ${type}-shadow absolute w-[360px] top-[-500px] opacity-0 transition-all duration-100 ease-out md:w-[550px]`
         }
       >
         {searchResults?.map((x) => {

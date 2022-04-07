@@ -265,6 +265,14 @@ h6 {
   background: #ffffff;
   backdrop-filter: blur(14px);
 }
+.panel-flatter-dark {
+  background: #17131be7;
+  backdrop-filter: blur(50px);
+}
+.panel-flatter-light {
+  background: #ffffff;
+  backdrop-filter: blur(14px);
+}
 .dark-shadow {
     box-shadow: 1px 1px 15px 4px #00000045,
         0 4px 6px -2px rgba(19, 15, 22, 0.26);

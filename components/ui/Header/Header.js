@@ -15,7 +15,7 @@ const Header = () => {
     const router = useRouter()
 
     return (
-        <div className={`z-40 flex flex-col md:flex-row md:items-center justify-between w-full h-full relative py-2 px-4`}>
+        <div className={`z-40 flex flex-col md:flex-row md:items-center justify-between w-full h-full relative py-2 px-4  panel-flat-${type}`}>
             <div className="z-20flex w-full md:w-1/4">
                 <SearchBar />
             </div>
