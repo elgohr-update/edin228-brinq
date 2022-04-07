@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react"
 export default async function handler(req, res) {
     const { query } = req
     const session = await getSession({req})
-    const baseUrl = `${process.env.FETCHBASE_URL}/clients/${query.cid}/policies?active=${query.active}`
+    const baseUrl = query.month ? `${process.env.FETCHBASE_URL}/clients/${query.cid}/policies?month=${query.month}&year=${query.year}` : `${process.env.FETCHBASE_URL}/clients/${query.cid}/policies?active=${query.active}`
     try {
         const results = await fetch(baseUrl, {
             method: 'GET',

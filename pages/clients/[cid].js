@@ -12,7 +12,7 @@ import { BiPaperPlane, BiLinkExternal, BiRefresh } from 'react-icons/bi'
 import { BsChatLeftQuoteFill } from 'react-icons/bs'
 import { RiPlayListAddFill } from 'react-icons/ri'
 import PolicyCard from '../../components/policy/PolicyCard'
-import { reverseList, sumFromArrayOfObjects } from '../../utils/utils'
+import { reverseList, sumFromArrayOfObjects, useApi } from '../../utils/utils'
 import Panel from '../../components/ui/panel/Panel'
 import SummaryCard from '../../components/ui/card/SummaryCard'
 import { AiFillDollarCircle } from 'react-icons/ai'
@@ -120,7 +120,7 @@ export default function Client({ client, events, emails, activity }) {
             >
               {getPolicies().map((u) => (
                 <Panel flat key={u.id} overflow={false} px={0} py={0}>
-                  <PolicyCard policy={u} />
+                  <PolicyCard policy={u} truncate={60} />
                 </Panel>
               ))}
             </div>
@@ -145,50 +145,10 @@ export async function getServerSideProps(context) {
   const { cid } = context.params
   const session = await getSession(context)
   if (session) {
-    const clientRes = await fetch(
-      `${process.env.FETCHBASE_URL}/clients/${cid}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-      }
-    )
-    const client = await clientRes.json()
-    const eventsRes = await fetch(
-      `${process.env.FETCHBASE_URL}/events/client/${cid}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-      }
-    )
-    const events = await eventsRes.json()
-    const emailsRes = await fetch(
-      `${process.env.FETCHBASE_URL}/emails/client/${cid}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-      }
-    )
-    const emails = await emailsRes.json()
-    const activityRes = await fetch(
-      `${process.env.FETCHBASE_URL}/activity/client/${cid}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-      }
-    )
-    const activity = await activityRes.json()
+    const client = await useApi('GET',`/clients/${cid}`,session.accessToken)
+    const events = await useApi('GET',`/events/client/${cid}`,session.accessToken)
+    const emails = await useApi('GET',`/emails/client/${cid}`,session.accessToken)
+    const activity = await useApi('GET',`/activity/client/${cid}`,session.accessToken)
 
     return { props: { client, events, emails, activity } }
   }

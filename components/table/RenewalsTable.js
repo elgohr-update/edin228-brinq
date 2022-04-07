@@ -1,4 +1,4 @@
-import { Table, useTheme, Button, Input, Avatar, Tooltip, Progress, useCollator } from '@nextui-org/react';
+import { Table, useTheme, Button, Input, Avatar, Tooltip, Progress, useCollator, useAsyncList } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { FaFilter, FaSearch } from 'react-icons/fa';
@@ -11,6 +11,7 @@ import TagBasic from '../ui/tag/TagBasic';
 
 const RenewalsTable = (data) => {
     const router = useRouter()
+    const { month, year } = router.query
     const { type } = useTheme();
     const [search, setSearch] = useState('')
     const [rows, setRows] = useState(data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40), id:x.client_id}}))
@@ -44,7 +45,7 @@ const RenewalsTable = (data) => {
         label: "NAME",
       },
       {
-        key: "expiring",
+        key: "expiration_date",
         label: "EXPIRING",
       },
       {
@@ -66,7 +67,7 @@ const RenewalsTable = (data) => {
     ];
 
     const openSidebar = (client) => {
-        setState({...state,drawer:{...state.drawer, client:{isOpen:true,clientId:client.id}}})
+        setState({...state,drawer:{...state.drawer, client:{isOpen:true,clientId:client.id, isRenewal:true, renewalMonth:month, renewalYear:year}}})
     }
 
     const renderCell = (client, columnKey) => {
@@ -87,7 +88,7 @@ const RenewalsTable = (data) => {
                 }
                 return (
                     <div className="px-2">
-                        <div className={checkTheme()} onClick={() => openSidebar(client)}>
+                        <div className={checkTheme()} onClick={() => openSidebar(client,true)}>
                             <Link href={`/client/${client.id}`}>
                                 <a className="hover:text-sky-500 transition duration-100 ease-in-out">
                                     {cellValue}
@@ -161,19 +162,14 @@ const RenewalsTable = (data) => {
                 return cellValue;
         }
     };
+    
     const collator = useCollator({ numeric: true });
-    function load({ signal }) {
-        // const res = await fetch("https://swapi.py4e.com/api/people/?search", {
-        //     signal,
-        // });
-        // const json = await res.json();
-        // return {
-        //     items: json.results,
-        // };
+    async function load() {
         return {items:tableData}
     }
-    async function sort() {
-        const data = tableData.sort((a, b) => {
+    async function sort({ items, sortDescriptor }) {
+        return {
+            items: items.sort((a, b) => {
             let first = a[sortDescriptor.column];
             let second = b[sortDescriptor.column];
             let cmp = collator.compare(first, second);
@@ -181,9 +177,11 @@ const RenewalsTable = (data) => {
                 cmp *= -1;
             }
             return cmp;
-        })
-        setTableRows(data)
+            }),
+        };
     }
+    const list = useAsyncList({ load, sort });
+
     return (
         <div className="flex flex-col h-full w-full md:px-2">
             <div className="w-full items-center flex justify-between h-16 py-4">
@@ -212,6 +210,8 @@ const RenewalsTable = (data) => {
                 shadow={false}
                 lined={true}
                 aria-label="Renewals Table"
+                sortDescriptor={list.sortDescriptor}
+                onSortChange={list.sort}
                 css={{
                     height: "100%",
                     minWidth: "100%",
@@ -220,21 +220,21 @@ const RenewalsTable = (data) => {
             >
                 <Table.Header columns={columns}>
                     {(column) => (
-                        column.key === 'client_name' || column.key === 'premium' || column.key === 'progress' || column.key === 'reps' ?
-                            <Table.Column key={column.key}>
-                                <div className="table-column-header pl-4">
+                        column.key === 'client_name' || column.key === 'premium' || column.key === 'expiration_date' || column.key === 'line' ?
+                            <Table.Column key={column.key} allowsSorting>
+                                <div className="table-column-header pl-2">
                                     {column.label}
                                 </div>
                             </Table.Column>
                         :
                             <Table.Column key={column.key}>
-                                <div className="table-column-header">
+                                <div className="table-column-header pl-2">
                                     {column.label}
                                 </div>
                             </Table.Column>
                     )}
                 </Table.Header>
-                <Table.Body items={tableData}>
+                <Table.Body items={list.items} loadingState={list.loadingState}>
                     {(item) => (
                         <Table.Row>
                             {(columnKey) => (
@@ -246,8 +246,10 @@ const RenewalsTable = (data) => {
                 {tableData.length > 7 ? 
                     <Table.Pagination
                         shadow
-                        noMargin
                         align="end"
+                        noMargin
+                        intialPage={1}
+                        total={Math.floor(Number(tableData.length/7))}
                         rowsPerPage={7}
                     />: null
                 }

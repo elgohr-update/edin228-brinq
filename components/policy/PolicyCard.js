@@ -8,7 +8,7 @@ import TagBasic from '../ui/tag/TagBasic';
 import TaskCard from './../task/TaskCard';
 import UserAvatar from '../user/Avatar';
 
-const PolicyCard = ({policy,border=false,vertical=false,color='sky',gradientColor="orange",panel=false,shadow=false}) => {
+const PolicyCard = ({policy,border=false,truncate=20,vertical=false,color='sky',gradientColor="orange",panel=false,shadow=false}) => {
     const { isDark, type } = useTheme();
     const [showMore, setShowMore] = useState(false)
     const [modifyStyle, setModifyStyle] = useState({p:false,s:false,b:false})
@@ -139,8 +139,8 @@ const PolicyCard = ({policy,border=false,vertical=false,color='sky',gradientColo
                         }   
                     </div>
                     <div className={`relative flex flex-col w-full md:w-fit`}>
-                        <h6 className={`font-semibold`}>{truncateString(String(policy.policy_number),20)}</h6>
-                        <h4 className={``}>{truncateString(policy.policy_type_full,20)}</h4>
+                        <h6 className={`font-semibold`}>{truncateString(String(policy.policy_number),truncate)}</h6>
+                        <h4 className={``}>{truncateString(policy.policy_type_full,truncate)}</h4>
                     </div>
                     <div onClick={() => toggleShowMore()} className={`md:hidden relative flex items-center justify-end ml-4 px-1 h-full hover:text-sky-500 cursor-pointer transition duration-100 ease-out`}>
                         <BsListTask />{showMore ? <AiOutlineDown /> : <AiOutlineLeft />}
@@ -148,8 +148,8 @@ const PolicyCard = ({policy,border=false,vertical=false,color='sky',gradientColo
                 </div>
                 <div className="flex items-center pt-4 md:pt-0 flex-1">
                     <div className={`relative flex flex-col flex-1`}>
-                        <h6 className={`font-semibold`}>{truncateString(policy.carrier,20)}</h6>
-                        <h4 className={``}>{truncateString(policy.writing,20)}</h4>
+                        <h6 className={`font-semibold`}>{truncateString(policy.carrier,truncate)}</h6>
+                        <h4 className={``}>{truncateString(policy.writing,truncate)}</h4>
                     </div>
                     <div className={`relative flex flex-col items-end flex-1`}>
                         <h4 className={`letter-spacing-1`}>{getFormattedDate(policy.effective_date)}</h4>

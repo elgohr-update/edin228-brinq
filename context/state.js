@@ -36,6 +36,9 @@ export function AppWrapper({ children }) {
           client:{
               isOpen:false,
               clientId:null,
+              isRenewal:false,
+              renewalMonth:null,
+              renewalYear:null
           }
       }
     }

@@ -13,10 +13,13 @@ import ClientHeader from '../../client/ClientTitle';
 import ClientActivity from '../../client/ClientActivity';
 import ClientContacts from '../../client/ClientContacts';
 import ClientInfo from '../../client/ClientInfo';
+import { useRouter } from 'next/router';
 
 
 const ClientDrawer = () => {
     const {state, setState} = useAppContext();
+    const router = useRouter()
+    const { month, year } = router.query
     const { type } = useTheme();
     const [client, setClient] = useState(null)
     const [activity, setActivity] = useState([])
@@ -44,7 +47,8 @@ const ClientDrawer = () => {
             })
         }
         const fetchPolicies = async () => {
-            const clientActivity = await fetch(`/api/clients/${clientId}/policies?active=true`, {
+            const queryUrl = state.drawer.client.isRenewal ? `?month=${month}&year=${year}` :`?active=true`
+            const clientActivity = await fetch(`/api/clients/${clientId}/policies${queryUrl}`, {
                 method: 'GET'
             }).then((res) => res.json())
             .then((policiesData) => {
@@ -80,7 +84,13 @@ const ClientDrawer = () => {
     }
 
     const closeDrawer = () => {
-        const setDefault = {isOpen:false,clientId:null}
+        const setDefault = {
+            isOpen:false,
+            clientId:null,
+            isRenewal:false,
+            renewalMonth:null,
+            renewalYear:null
+        }
         setState({...state,drawer:{...state.drawer, client:setDefault}})
     }
     const iconBg = () => {

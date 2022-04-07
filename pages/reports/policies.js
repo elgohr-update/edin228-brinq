@@ -52,6 +52,7 @@ export default function ReportsPolicies({ data }) {
             icon={<AiFillDollarCircle />}
             title="Premium"
             money
+            vertical={false}
           />
           <SummaryCard
             val={tableData?.length}
@@ -61,6 +62,7 @@ export default function ReportsPolicies({ data }) {
             shadow
             title="Policies"
             icon={<BsBox />}
+            vertical={false}
           />
         </div>
         <div className="px-4">

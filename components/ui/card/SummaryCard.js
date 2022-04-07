@@ -106,7 +106,7 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>, autoWidth=false,isIcon=true,val=0
     const baseClass = `relative flex p-4 ${autoWidth? `w-auto` : `flex-1  min-w-[240px]`} rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
-            <div className={`relative flex z-20 ${vertical ? 'flex-col': `w-full`}`}>
+            <div className={`relative flex z-20 ${vertical ? 'flex-col': `flex-col w-full`}`}>
                 <div className={`${vertical ? 'flex ': `flex `} flex font-bold text-3xl mb-2`}>{textValue()}</div>
                 <h5 className={`${vertical ? 'flex': `flex `} font-semibold`}>{title}</h5>
                 <div className={`top-border-flair ${returnGradient()}`} />

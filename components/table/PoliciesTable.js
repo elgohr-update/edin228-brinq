@@ -1,4 +1,4 @@
-import { Table, useTheme, Button, Input, Avatar, Tooltip, Progress, useCollator, Checkbox } from '@nextui-org/react';
+import { Table, useTheme, Button, Input, Avatar, Tooltip, Progress, useCollator, Checkbox, useAsyncList } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { FaFilter, FaSearch } from 'react-icons/fa';
@@ -69,7 +69,7 @@ const PoliciesTable = () => {
       },
       {
         key: "policy_number",
-        label: "",
+        label: "POLICY NUMBER",
       },
       {
         key: "client_name",
@@ -196,18 +196,12 @@ const PoliciesTable = () => {
         }
     };
     const collator = useCollator({ numeric: true });
-    function load({ signal }) {
-        // const res = await fetch("https://swapi.py4e.com/api/people/?search", {
-        //     signal,
-        // });
-        // const json = await res.json();
-        // return {
-        //     items: json.results,
-        // };
+    async function load() {
         return {items:tableData}
     }
-    async function sort() {
-        const data = tableData.sort((a, b) => {
+    async function sort({ items, sortDescriptor }) {
+        return {
+            items: items.sort((a, b) => {
             let first = a[sortDescriptor.column];
             let second = b[sortDescriptor.column];
             let cmp = collator.compare(first, second);
@@ -215,8 +209,10 @@ const PoliciesTable = () => {
                 cmp *= -1;
             }
             return cmp;
-        })
+            }),
+        };
     }
+    const list = useAsyncList({ load, sort });
 
     function selectItems(items) { 
         const base = items.entries()
@@ -307,6 +303,8 @@ const PoliciesTable = () => {
                     shadow={false}
                     lined={true}
                     aria-label="Policies Table"
+                    sortDescriptor={list.sortDescriptor}
+                    onSortChange={list.sort}
                     // selectionMode="multiple"
                     // onSelectionChange={(selectedKeys)=>selectItems(selectedKeys)}
                     css={{
@@ -318,20 +316,20 @@ const PoliciesTable = () => {
                     <Table.Header columns={columns}>
                         {(column) => (
                             column.key !== 'line' ?
-                                <Table.Column key={column.key}>
+                                <Table.Column key={column.key} allowsSorting>
                                     <div className="table-column-header pl-4">
                                         {column.label}
                                     </div>
                                 </Table.Column>
                             :
-                                <Table.Column key={column.key}>
+                                <Table.Column key={column.key} allowsSorting>
                                     <div className="table-column-header">
                                         {column.label}
                                     </div>
                                 </Table.Column>
                         )}
                     </Table.Header>
-                    <Table.Body items={tableData}>
+                    <Table.Body items={list.items} loadingState={list.loadingState}>
                         {(item) => (
                             <Table.Row>
                                 {(columnKey) => (
@@ -345,9 +343,10 @@ const PoliciesTable = () => {
                             shadow
                             align="end"
                             noMargin
+                            intialPage={1}
+                            total={Math.floor(Number(tableData.length/8))}
                             rowsPerPage={8}
-                        />
-                        : null
+                        />: null
                     }
                 </Table>
             </div>

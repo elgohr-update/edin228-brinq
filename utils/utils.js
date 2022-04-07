@@ -25,6 +25,21 @@ export const textAbbrev = (text) => {
     text
 }
 
+export const useApi = async (method,path,token) => {
+    const req = await fetch(
+        `${process.env.FETCHBASE_URL}${path}`,
+        {
+            method: `${method}`,
+            headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            },
+        }
+    )
+    const res = await req.json()
+    return res
+}
+
 export const getSearch = (data, search = '') => {
 
     function flattenDeep(val) {

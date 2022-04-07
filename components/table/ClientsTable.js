@@ -1,4 +1,4 @@
-import { Table, useTheme, Button, Input, Avatar, Tooltip, Progress, useCollator, Checkbox } from '@nextui-org/react';
+import { Table, useTheme, Button, Input, Avatar, Tooltip, Progress, useCollator, Checkbox, useAsyncList } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { FaFilter, FaSearch } from 'react-icons/fa';
@@ -169,18 +169,12 @@ const ClientsTable = () => {
         }
     };
     const collator = useCollator({ numeric: true });
-    function load({ signal }) {
-        // const res = await fetch("https://swapi.py4e.com/api/people/?search", {
-        //     signal,
-        // });
-        // const json = await res.json();
-        // return {
-        //     items: json.results,
-        // };
+    async function load() {
         return {items:tableData}
     }
-    async function sort() {
-        const data = tableData.sort((a, b) => {
+    async function sort({ items, sortDescriptor }) {
+        return {
+            items: items.sort((a, b) => {
             let first = a[sortDescriptor.column];
             let second = b[sortDescriptor.column];
             let cmp = collator.compare(first, second);
@@ -188,8 +182,10 @@ const ClientsTable = () => {
                 cmp *= -1;
             }
             return cmp;
-        })
+            }),
+        };
     }
+    const list = useAsyncList({ load, sort });
 
     function selectItems(items) { 
         const base = items.entries()
@@ -205,6 +201,7 @@ const ClientsTable = () => {
             setLineList(filtered)
         }
     }
+    
 
     return (
         <div className="flex flex-col md:flex-row h-full w-full">
@@ -305,6 +302,8 @@ const ClientsTable = () => {
                     shadow={false}
                     lined={true}
                     aria-label="Clients Table"
+                    sortDescriptor={list.sortDescriptor}
+                    onSortChange={list.sort}
                     // selectionMode="multiple"
                     // onSelectionChange={(selectedKeys)=>selectItems(selectedKeys)}
                     css={{
@@ -315,21 +314,21 @@ const ClientsTable = () => {
                 >
                     <Table.Header columns={columns}>
                         {(column) => (
-                            column.key === 'client_name' || column.key === 'premium' || column.key === 'progress' || column.key === 'reps' ?
-                                <Table.Column key={column.key}>
-                                    <div className="table-column-header pl-4">
+                            column.key === 'client_name' || column.key === 'premium' || column.key === 'policy_count' ?
+                                <Table.Column key={column.key} allowsSorting>
+                                    <div className="table-column-header pl-2">
                                         {column.label}
                                     </div>
                                 </Table.Column>
                             :
                                 <Table.Column key={column.key}>
-                                    <div className="table-column-header">
+                                    <div className="table-column-header pl-2">
                                         {column.label}
                                     </div>
                                 </Table.Column>
                         )}
                     </Table.Header>
-                    <Table.Body items={tableData}>
+                    <Table.Body items={list.items} loadingState={list.loadingState}>
                         {(item) => (
                             <Table.Row>
                                 {(columnKey) => (
@@ -343,6 +342,8 @@ const ClientsTable = () => {
                             shadow
                             align="end"
                             noMargin
+                            intialPage={1}
+                            total={Math.floor(Number(tableData.length/8))}
                             rowsPerPage={8}
                         />: null
                     }

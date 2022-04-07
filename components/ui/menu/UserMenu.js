@@ -29,7 +29,7 @@ const UserMenu = () => {
                 <UserAvatar tooltip={false} isLink={false} />
             </div>
             {openMenu?<HiddenBackdrop onClick={() => closeMenu()} />:null}            
-            <div className={openMenu?`z-50 transition-all duration-200 ease-out opacity-1 absolute top-[50px] right-[2px] min-h-20 max-h-60 min-w-[170px] max-w-[200px] rounded panel-theme-${type} ${type}-shadow`: 'absolute transition-all duration-200 ease-out opacity-0 top-[-37px]'}>
+            <div className={openMenu?`z-50 transition-all duration-200 ease-out opacity-1 absolute top-[50px] right-[2px] min-h-20 max-h-60 min-w-[170px] max-w-[200px] rounded panel-theme-${type} ${type}-shadow`: 'absolute transition-all duration-200 ease-out opacity-0 top-[-200px]'}>
                 <div className={`flex flex-col justify-between h-full ${openMenu?'opacity-1':'opacity-0'}`}>
                     <div className="flex flex-col w-full py-2 px-1 space-y-2">
                         <LinkedMenuItem href="/user/profile" icon={<RiFileUserFill />} label="Profile" />

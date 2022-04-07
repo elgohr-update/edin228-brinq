@@ -1,10 +1,11 @@
 import { Image, Switch, useTheme } from '@nextui-org/react'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
-import { AiFillCalendar, AiFillHome, AiOutlineAlignLeft } from 'react-icons/ai';
+import { AiFillHome, AiOutlineAlignLeft } from 'react-icons/ai';
 import { IoMdListBox } from 'react-icons/io';
 import { RiAdminFill } from 'react-icons/ri';
-import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
+import { BsFillMoonFill, BsFillSunFill,BsFillCalendar2CheckFill } from 'react-icons/bs';
+import { CgFileDocument } from 'react-icons/cg';
 import { useTheme as useNextTheme } from 'next-themes'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react';
@@ -112,7 +113,7 @@ const Sidebar = () => {
                         <Link href={`/renewals/${currentMonth()}/${currentYear()}`}>
                             <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
                                 <div className={`text-xl p-3 ${isActive('/renewals')}`}>
-                                    <AiFillCalendar className={`${isActiveIcon('/renewals')}`} />
+                                    <BsFillCalendar2CheckFill className={`${isActiveIcon('/renewals')}`} />
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Renewals
@@ -126,6 +127,16 @@ const Sidebar = () => {
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Reports
+                                </div> 
+                            </a>
+                        </Link>
+                        <Link href={`/tools/proposals`}>
+                            <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
+                                <div className={`text-xl p-3 ${isActive('/proposals')}`}>
+                                    <CgFileDocument className={`${isActiveIcon('/proposals')}`} />
+                                </div>
+                                <div className={`flex w-full sidebar-text-${isExpand()}`}>
+                                    Proposals
                                 </div> 
                             </a>
                         </Link>

@@ -44,6 +44,7 @@ export default function ReportsClient({ data }) {
       <div className="flex w-full flex-col">
         <div className="px-4 mb-2 flex h-full items-center space-x-4 overflow-x-auto py-4 md:mb-0 md:justify-center md:overflow-hidden">
           <SummaryCard
+            vertical={false}
             val={premSum()}
             color="teal"
             gradientColor="green-to-blue-2"
@@ -54,6 +55,7 @@ export default function ReportsClient({ data }) {
             money
           />
           <SummaryCard
+            vertical={false}
             val={tableData?.length}
             color="fuchsia"
             gradientColor="pink-to-blue"
@@ -63,6 +65,7 @@ export default function ReportsClient({ data }) {
             icon={<RiFolderUserFill />}
           />
           <SummaryCard
+            vertical={false}
             val={polSum()}
             color="fuchsia"
             gradientColor="orange-to-red-2"
