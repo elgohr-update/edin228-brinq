@@ -1,6 +1,5 @@
-import { Table, useTheme, Button, Input, Avatar, Tooltip, Progress, useCollator, Checkbox, useAsyncList } from '@nextui-org/react';
+import { Table, useTheme, Button, Input, Avatar, Tooltip, useCollator, Checkbox } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router';
 import { FaFilter, FaSearch } from 'react-icons/fa';
 import { truncateString, formatMoney, getSearch, getFormattedDate } from '../../utils/utils';
 import UserAvatar from '../user/Avatar';
@@ -10,14 +9,12 @@ import LineIcon from '../util/LineIcon';
 import TagBasic from '../ui/tag/TagBasic';
 
 const PoliciesTable = () => {
-    const router = useRouter()
     const { type } = useTheme();
     const [search, setSearch] = useState('')
     const {state, setState} = useAppContext();
     const [showFilter, setShowFilter] = useState(true)
     const [minPrem, setMinPrem] = useState(null)
     const [maxPrem, setMaxPrem] = useState(null)
-    const [visibleLines, setVisibleLines] = useState(null)
     const [visibleReps, setVisibleReps] = useState(null)
     const [visibleTags, setVisibleTags] = useState(null)
     const [lineList, setLineList] = useState(['Commercial Lines','Personal Lines','Benefits'])
@@ -211,10 +208,6 @@ const PoliciesTable = () => {
         setState({...state,reports:{...state.reports,data:{...state.reports.data,policies:{...state.reports.data.policies,filtered:sorted}}}}) 
     }
 
-    function selectItems(items) { 
-        const base = items.entries()
-    }
-
     function setLineFilter(checked,line){
         if (checked){
             const filtered = [...lineList, line]
@@ -336,9 +329,10 @@ const PoliciesTable = () => {
                     {tableData.length > 8 ? 
                         <Table.Pagination
                             shadow
-                            align="end"
+                            align="center"
                             noMargin
                             rowsPerPage={8}
+                            total={Math.floor(Number(tableData.length/8))}
                         />: null
                     }
                 </Table>

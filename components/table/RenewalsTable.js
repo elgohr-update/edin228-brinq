@@ -17,8 +17,7 @@ const RenewalsTable = (data) => {
     const [rows, setRows] = useState(data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40), id:x.client_id}}))
     const [tableData, setTableData] = useState(data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40), id:x.client_id}}))
     const {state, setState} = useAppContext();
-
-    
+    const [sortDescriptor,setSortDescriptor] = useState('ascending')
 
     useEffect(() => {
         const dat = data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40), id:x.client_id}})
@@ -164,12 +163,10 @@ const RenewalsTable = (data) => {
     };
     
     const collator = useCollator({ numeric: true });
-    async function load() {
-        return {items:tableData}
-    }
-    async function sort({ items, sortDescriptor }) {
-        return {
-            items: items.sort((a, b) => {
+    
+    async function sort(sortDescriptor) {
+        setSortDescriptor(sortDescriptor)
+        const sorted = tableData.sort((a, b) => {
             let first = a[sortDescriptor.column];
             let second = b[sortDescriptor.column];
             let cmp = collator.compare(first, second);
@@ -177,10 +174,9 @@ const RenewalsTable = (data) => {
                 cmp *= -1;
             }
             return cmp;
-            }),
-        };
+        })
+        setState({...state,reports:{...state.reports,data:{...state.reports.data,policies:{...state.reports.data.policies,filtered:sorted}}}}) 
     }
-    const list = useAsyncList({ load, sort });
 
     return (
         <div className="flex flex-col h-full w-full md:px-2">
@@ -210,8 +206,8 @@ const RenewalsTable = (data) => {
                 shadow={false}
                 lined={true}
                 aria-label="Renewals Table"
-                sortDescriptor={list.sortDescriptor}
-                onSortChange={list.sort}
+                sortDescriptor={sortDescriptor}
+                onSortChange={(s) => sort(s)}
                 css={{
                     height: "100%",
                     minWidth: "100%",
@@ -220,7 +216,7 @@ const RenewalsTable = (data) => {
             >
                 <Table.Header columns={columns}>
                     {(column) => (
-                        column.key === 'client_name' || column.key === 'premium' || column.key === 'expiration_date' || column.key === 'line' ?
+                        column.key === 'client_name' || column.key === 'premium' || column.key === 'policy_count'|| column.key === 'expiration_date' || column.key === 'line' ?
                             <Table.Column key={column.key} allowsSorting>
                                 <div className="table-column-header pl-2">
                                     {column.label}
@@ -234,7 +230,7 @@ const RenewalsTable = (data) => {
                             </Table.Column>
                     )}
                 </Table.Header>
-                <Table.Body items={list.items} loadingState={list.loadingState}>
+                <Table.Body items={tableData}>
                     {(item) => (
                         <Table.Row>
                             {(columnKey) => (
@@ -248,7 +244,6 @@ const RenewalsTable = (data) => {
                         shadow
                         align="end"
                         noMargin
-                        intialPage={1}
                         total={Math.floor(Number(tableData.length/7))}
                         rowsPerPage={7}
                     />: null
