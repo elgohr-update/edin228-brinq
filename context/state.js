@@ -6,6 +6,7 @@ export function AppWrapper({ children }) {
   const [state, setState] = useState(
     {
       search: '',
+      scrollY:0,
       reports:{
         default:'clients',
         data:{

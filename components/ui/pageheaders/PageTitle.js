@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ReportHeader = ({icon={},text="Header"}) => {
+const PageTitle = ({icon={},text="Header"}) => {
   return (
     <div className="flex items-center mr-8">
         <div className="flex items-center justify-center text-color-warning text-xs md:text-lg">{icon}</div>
@@ -12,4 +12,4 @@ const ReportHeader = ({icon={},text="Header"}) => {
   )
 }
 
-export default ReportHeader
+export default PageTitle

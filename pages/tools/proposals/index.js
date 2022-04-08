@@ -2,8 +2,12 @@ import { useTheme } from '@nextui-org/react'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React from 'react'
+import PageHeader from '../../../components/ui/pageheaders/PageHeader'
+import PageTitle from '../../../components/ui/pageheaders/PageTitle'
 import { useAppContext } from '../../../context/state'
 import AppLayout from '../../../layouts/AppLayout'
+import { CgFileDocument } from 'react-icons/cg';
+import ProposalNavbar from '../../../components/ui/navbar/ProposalNavbar'
 
 export default function Proposals() {
   const router = useRouter()
@@ -11,9 +15,12 @@ export default function Proposals() {
   const { state, setState } = useAppContext()
 
   return (
-    <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto md:overflow-hidden">
-      
-    </div>
+    <main className="flex w-full flex-col">
+      <PageHeader>
+        <PageTitle icon={<CgFileDocument />} text="Proposals" />
+        <ProposalNavbar />
+      </PageHeader>
+    </main>
   )
 }
 

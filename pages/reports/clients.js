@@ -10,8 +10,9 @@ import SummaryCard from '../../components/ui/card/SummaryCard'
 import { RiFolderUserFill } from 'react-icons/ri'
 import ClientsTable from '../../components/table/ClientsTable'
 import { IoMdListBox } from 'react-icons/io'
+import PageTitle from '../../components/ui/pageheaders/PageTitle'
+import PageHeader from '../../components/ui/pageheaders/PageHeader'
 import ReportNavbar from '../../components/ui/navbar/ReportNavbar'
-import ReportHeader from '../../components/ui/pageheaders/ReportHeader'
 
 export default function ReportsClient({ data }) {
   const { type } = useTheme()
@@ -37,10 +38,10 @@ export default function ReportsClient({ data }) {
   }
   return (
     <main className="flex w-full flex-col">
-      <div className={`flex w-full flex-col py-2 md:flex-row md:items-center md:justify-between px-4 sticky top-0 z-50 ${type}-shadow panel-flat-${type}`}>
-        <ReportHeader icon={<IoMdListBox />} text="Clients" />
+      <PageHeader>
+        <PageTitle icon={<IoMdListBox />} text="Clients" />
         <ReportNavbar />
-      </div>
+      </PageHeader>
       <div className="flex w-full flex-col">
         <div className="px-4 mb-2 flex h-full items-center space-x-4 overflow-x-auto py-4 md:mb-0 md:justify-center md:overflow-hidden">
           <SummaryCard

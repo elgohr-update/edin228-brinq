@@ -7,15 +7,17 @@ import SearchBar from './../../search/SearchBar';
 import UserMenu from './../menu/UserMenu';
 import NotificationBell from './../../notifications/NotificationBell';
 import NewActionMenu from './../menu/NewActionMenu';
+import { useAppContext } from '../../../context/state';
 
 
 const Header = () => {
     const { setTheme } = useNextTheme();
     const { isDark, type } = useTheme();
     const router = useRouter()
+    const {state, setState} = useAppContext();
 
     return (
-        <div className={`z-40 flex flex-col md:flex-row md:items-center justify-between w-full h-full relative py-2 px-4  panel-flat-${type}`}>
+        <div className={`z-40 flex flex-col md:flex-row md:items-center justify-between w-full h-full relative py-2 px-4 ${state.scrollY > 0 ? `panel-flat-${type}`: null}`}>
             <div className="z-20flex w-full md:w-1/4">
                 <SearchBar />
             </div>

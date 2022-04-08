@@ -222,7 +222,7 @@ const PoliciesTable = () => {
     return (
         <div className="flex flex-col md:flex-row h-full w-full">
             {showFilter ?
-                <div className={`flex flex-col w-full md:w-[400px] h-auto space-y-4 py-4 px-4 panel-flat-${type} ${type}-shadow`}>
+                <div className={`flex flex-col w-full md:w-[400px] rounded-lg h-auto space-y-4 py-4 px-4 panel-flat-${type} ${type}-shadow`}>
                     <h4>Filter Premium</h4>
                     <div className="flex items-center space-x-2">
                         <Input 

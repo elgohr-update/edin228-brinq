@@ -140,6 +140,16 @@ const Sidebar = () => {
                                 </div> 
                             </a>
                         </Link>
+                        <Link href={`/tools/costcomparison`}>
+                            <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
+                                <div className={`text-xl p-3 ${isActive('/costcomparison')}`}>
+                                    <CgFileDocument className={`${isActiveIcon('/costcomparison')}`} />
+                                </div>
+                                <div className={`flex w-full sidebar-text-${isExpand()}`}>
+                                    Cost Comparison
+                                </div> 
+                            </a>
+                        </Link>
                         {
                             session?.user?.admin ? 
                             <Link href="/admin">

@@ -10,7 +10,8 @@ import { sumFromArrayOfObjects } from '../../utils/utils'
 import SummaryCard from '../../components/ui/card/SummaryCard'
 import PoliciesTable from '../../components/table/PoliciesTable'
 import ReportNavbar from './../../components/ui/navbar/ReportNavbar'
-import ReportHeader from './../../components/ui/pageheaders/ReportHeader'
+import PageTitle from '../../components/ui/pageheaders/PageTitle'
+import PageHeader from '../../components/ui/pageheaders/PageHeader'
 
 export default function ReportsPolicies({ data }) {
   const router = useRouter()
@@ -37,10 +38,10 @@ export default function ReportsPolicies({ data }) {
   }
   return (
     <main className="flex w-full flex-col relative">
-      <div className="flex w-full flex-col py-2 md:flex-row md:items-center md:justify-between px-4">
-        <ReportHeader icon={<BsBox />} text="Policies" />
+      <PageHeader>
+        <PageTitle icon={<BsBox />} text="Policies" />
         <ReportNavbar />
-      </div>
+      </PageHeader>
       <div className="flex w-full flex-col">
         <div className="mb-2 flex h-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:justify-center md:overflow-hidden">
           <SummaryCard
