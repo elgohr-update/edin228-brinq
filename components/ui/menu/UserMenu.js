@@ -26,7 +26,7 @@ const UserMenu = () => {
     return (
         <div className="flex items-center justify-center w-full h-full relative">
             <div onClick={ () => setOpenMenu(!openMenu)}>
-                <UserAvatar tooltip={false} isLink={false} />
+                <UserAvatar squared={false} tooltip={false} isLink={false} />
             </div>
             {openMenu?<HiddenBackdrop onClick={() => closeMenu()} />:null}            
             <div className={openMenu?`z-50 transition-all duration-200 ease-out opacity-1 absolute top-[50px] right-[2px] min-h-20 max-h-60 min-w-[170px] max-w-[200px] rounded panel-theme-${type} ${type}-shadow`: 'absolute transition-all duration-200 ease-out opacity-0 top-[-200px]'}>

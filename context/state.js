@@ -41,6 +41,16 @@ export function AppWrapper({ children }) {
               renewalMonth:null,
               renewalYear:null
           }
+      },
+      costComparison:{
+        builder:{
+          template: {
+            id:null,
+            title: null,
+            headers: [],
+            rows: [],
+          }
+        }
       }
     }
   )

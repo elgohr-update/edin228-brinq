@@ -24,7 +24,7 @@ const lightTheme = createTheme({
   theme:{
     colors:{ 
       text:'#0c083d',
-      primary: '#00c1ed',
+      primary: '#00b8ff',
       primaryDark: '#0ad2ff1a',
       primaryLight: '#0ad2ff1a', 
       primaryShadow: '#0ad2ff91'
@@ -44,7 +44,7 @@ const darkTheme = createTheme({
   theme:{
     colors:{ 
       text:'#d3d3d3',
-      primary: '#00c1ed',
+      primary: '#00b8ff',
       primaryDark: '#0ad2ff1a',
       primaryLight: '#0ad2ff1a', 
       primaryShadow: '#0ad2ff91'

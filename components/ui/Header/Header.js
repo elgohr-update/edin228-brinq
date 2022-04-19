@@ -8,6 +8,7 @@ import UserMenu from './../menu/UserMenu';
 import NotificationBell from './../../notifications/NotificationBell';
 import NewActionMenu from './../menu/NewActionMenu';
 import { useAppContext } from '../../../context/state';
+import HeaderNav from './HeaderNav';
 
 
 const Header = () => {
@@ -25,15 +26,18 @@ const Header = () => {
                 <div className="pl-4 md:hidden">
                     Menu
                 </div>
-                <div className="flex justify-end">
+                <div className="flex items-center justify-end">
+                    <div className="flex items-end mr-2">
+                        <HeaderNav />
+                    </div>
                     <div className="mr-2">
-                        <UserMenu />
+                        <NewActionMenu />
                     </div>
                     <div className="mr-2">
                         <NotificationBell />
                     </div>
                     <div className="">
-                        <NewActionMenu />
+                        <UserMenu />
                     </div>
                 </div>
             </div>

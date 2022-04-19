@@ -59,9 +59,9 @@ const ClientDrawer = () => {
         fetchClient();
         fetchActivity();
         fetchPolicies();
-        return () => {
-            closeDrawer()
-        }
+        // return () => {
+        //     closeDrawer()
+        // }
     },[])
     
     const premSum = () => {
@@ -170,7 +170,7 @@ const ClientDrawer = () => {
                                 </div>
                                 <div className={`${ activity.length < 1 ? 'hidden' : 'flex' } flex-col w-full mt-4 px-4 h-full`}>
                                     <h4>Recent Activity</h4>
-                                    <ClientActivity activity={activity} />
+                                    {client? <ClientActivity activity={activity} /> : null}
                                 </div>
                             </div>                    
                         </div>

@@ -1,3 +1,4 @@
+import uuid from "react-uuid";
 
 export const truncateString = (str, num) => {
     if (str.length > num) {
@@ -13,6 +14,11 @@ export const formatMoney = (number) => {
     }else {
         return (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     }
+}
+
+export const getTemplateId = () => {
+    const tempId = uuid()+String(new Date().getTime())+String(Math.floor(Math.random() * 80))
+    return tempId 
 }
 
 export const textAbbrev = (text) => {

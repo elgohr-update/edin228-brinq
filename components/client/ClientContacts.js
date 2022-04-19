@@ -9,7 +9,7 @@ const ClientContacts = ({client, flat=true, noBg=true, shadow=false, overflow=fa
             Contacts
         </h4>
         <div className={`flex flex-wrap w-full`}>
-            {client?.contacts.map( c => (
+            {client?.contacts?.map( c => (
                 <ContactCard key={c.id} contact={c}  />
             ))}
         </div>

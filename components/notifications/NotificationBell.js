@@ -1,10 +1,6 @@
-import { Avatar, Switch, useTheme } from '@nextui-org/react'
-import Link from 'next/link';
+import { Avatar, useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { AiFillBell, AiFillCalendar, AiFillHome, AiOutlineAlignLeft } from 'react-icons/ai';
-import { IoMdListBox } from 'react-icons/io';
-import { RiAdminFill } from 'react-icons/ri';
-import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
+import { AiFillBell } from 'react-icons/ai';
 import { useTheme as useNextTheme } from 'next-themes'
 import { useRouter } from 'next/router'
 

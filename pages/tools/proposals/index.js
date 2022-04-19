@@ -18,7 +18,6 @@ export default function Proposals() {
     <main className="flex w-full flex-col">
       <PageHeader>
         <PageTitle icon={<CgFileDocument />} text="Proposals" />
-        <ProposalNavbar />
       </PageHeader>
     </main>
   )

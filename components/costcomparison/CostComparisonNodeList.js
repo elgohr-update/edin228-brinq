@@ -1,199 +1,64 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import CoverageNode from './CoverageNode'
-import { FaGripHorizontal } from 'react-icons/fa';
+import CoverageNode from './CoverageNode/CoverageNode'
+import { FaGripHorizontal } from 'react-icons/fa'
+import uuid from 'react-uuid'
+import { useAppContext } from '../../context/state'
+import { getTemplateId } from '../../utils/utils'
 
-// fake data generator
 const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list)
-    const [removed] = result.splice(startIndex, 1)
-    result.splice(endIndex, 0, removed)
-    return result
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+  return result
 }
 const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  // change background colour if dragging
   background: isDragging ? 'gray' : 'transparent',
-
-  // styles we need to apply on draggables
   ...draggableStyle,
 })
-
-export default function CostComparisonNodeList({nodes, columnCount}) {
-  const [state, setState] = useState([
-    {
-        id:1,
-        header: 'Primary Residence',
-        rows: [
-            {
-                money:false,
-                columns: [
-                    {data:'Policy Term'},
-                    {data:'12/12/2020 to 12/12/2021'},
-                    {data:'12/12/2021 to 12/12/2022'}
-                ]
-            },
-            {
-                money:false,
-                columns: [
-                    {data:'Insurance Carrier'},
-                    {data:'Chubb'},
-                    {data:'Chubb'}
-                ]
-            },
-            {
-                money:false,
-                columns: [
-                    {data:'Property Address'},
-                    {data:''},
-                    {data:''}
-                ]
-            },
-            {
-                money:false,
-                columns: [
-                    {data:'102 S Orange Grove #206'},
-                    {data:''},
-                    {data:''}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Dwelling'},
-                    {data:'117000'},
-                    {data:'117000'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Personal Property'},
-                    {data:'117000'},
-                    {data:'123600'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Liability Limit - Each Occurrence'},
-                    {data:'117000'},
-                    {data:'123600'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Medical Payments - Each Person'},
-                    {data:'117000'},
-                    {data:'123600'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Property Loss Deductible*'},
-                    {data:'117000'},
-                    {data:'123600'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Premium'},
-                    {data:'740'},
-                    {data:'924.50'}
-                ]
-            },
-        ]
-    },
-    {
-        id:2,
-        header: 'Primary Residence 2',
-        rows: [
-            {
-                money:false,
-                columns: [
-                    {data:'Policy Term'},
-                    {data:'12/12/2020 to 12/12/2021'},
-                    {data:'12/12/2021 to 12/12/2022'}
-                ]
-            },
-            {
-                money:false,
-                columns: [
-                    {data:'Insurance Carrier'},
-                    {data:'Chubb'},
-                    {data:'Chubb'}
-                ]
-            },
-            {
-                money:false,
-                columns: [
-                    {data:'Property Address'},
-                    {data:''},
-                    {data:''}
-                ]
-            },
-            {
-                money:false,
-                columns: [
-                    {data:'102 S Orange Grove #206'},
-                    {data:''},
-                    {data:''}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Dwelling'},
-                    {data:'117000'},
-                    {data:'117000'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Personal Property'},
-                    {data:'117000'},
-                    {data:'123600'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Liability Limit - Each Occurrence'},
-                    {data:'117000'},
-                    {data:'123600'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Medical Payments - Each Person'},
-                    {data:'117000'},
-                    {data:'123600'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Property Loss Deductible*'},
-                    {data:'117000'},
-                    {data:'123600'}
-                ]
-            },
-            {
-                money:true,
-                columns: [
-                    {data:'Premium'},
-                    {data:'740'},
-                    {data:'924.50'}
-                ]
-            },
-        ]
-    }
+//
+export default function CostComparisonNodeList({ nodes, columnCount }) {
+  const { state, setState } = useAppContext()
+  const [data, setData] = useState([
+    ...state.costComparison.builder.template.rows,
   ])
+  const basicData = {
+    data: '',
+  }
+  useEffect(() => {
+    const newData = [...data]
+    newData.forEach((coverage) => {
+      coverage.rows.forEach((row) => {
+        if (columnCount > row.columns.length) {
+          const newId = getTemplateId()
+          const newData = {
+            ...basicData,
+            id: newId,
+            bgColor: row.defaultBgColor,
+            textColor: row.defualyTextColor,
+            textBold: row.textBold,
+            textItalic: row.textItalic,
+            isMoney: row.isMoney,
+          }
+          row.columns.push(newData)
+        }
+      })
+    })
+    setData(newData)
+    setState({
+      ...state,
+      costComparison: {
+        ...state.costComparison,
+        builder: {
+          template: { ...state.costComparison.builder.template, rows: newData },
+        },
+      },
+    })
+  }, [columnCount])
+
+  useEffect(() => {
+    setData([...state.costComparison.builder.template.rows])
+  }, [state.costComparison.builder.template.rows])
 
   function onDragEnd(result) {
     const { source, destination } = result
@@ -202,53 +67,66 @@ export default function CostComparisonNodeList({nodes, columnCount}) {
     if (!destination) {
       return
     }
-    const items = reorder(state, source.index, destination.index)
-    setState(items)
+    const items = reorder(data, source.index, destination.index)
+    setData(items)
+    setState({
+      ...state,
+      costComparison: {
+        ...state.costComparison,
+        builder: {
+          template: { ...state.costComparison.builder.template, rows: items },
+        },
+      },
+    })
   }
 
   return (
-    <div className="relative">
+    <div className="oveflow-scroll hide-scrollbar relative max-h-[120vh]">
       <div style={{ display: 'flex' }}>
         <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
-                <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                >
-                    {state.map((item, index) => (
-                        <Draggable
-                            key={String(item.id)}
-                            draggableId={String(item.id)}
-                            index={index}
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {data.map((item, index) => (
+                  <Draggable
+                    key={String(item.id)}
+                    draggableId={String(item.id)}
+                    index={index}
+                  >
+                    {(provided, snapshot) => {
+                      // if (snapshot.isDragging) {
+                      //     provided.draggableProps.style.left = undefined;
+                      //     provided.draggableProps.style.top = undefined;
+                      // }
+                      return (
+                        <div
+                          className="relative"
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
                         >
-                            {(provided, snapshot) => {
-                                if (snapshot.isDragging) {
-                                    provided.draggableProps.style.left = undefined;
-                                    provided.draggableProps.style.top = undefined;
-                                }
-                                return (
-                                    <div
-                                        className="relative"
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        style={getItemStyle(
-                                            snapshot.isDragging,
-                                            provided.draggableProps.style
-                                        )}
-                                    >
-                                        <div className="absolute top-[12px] left-[10px] z-20" {...provided.dragHandleProps}>
-                                            <FaGripHorizontal />
-                                        </div>
-                                        <CoverageNode node={item} columnCount={columnCount}/>
-                                    </div>
-                            )}}
-                        </Draggable>
-                    ))}
-                    {provided.placeholder}
-                </div>
-                )}
-            </Droppable>
+                          <div
+                            className="absolute top-[8px] left-[10px] z-20"
+                            {...provided.dragHandleProps}
+                          >
+                            <FaGripHorizontal />
+                          </div>
+                          <CoverageNode
+                            coverageNode={item}
+                            columnCount={columnCount}
+                          />
+                        </div>
+                      )
+                    }}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </DragDropContext>
       </div>
     </div>

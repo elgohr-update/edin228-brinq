@@ -89,21 +89,21 @@ const Sidebar = () => {
                             
                         </div>  
                     </div>
-                    <div className={`flex flex-col px-2`}>
+                    <div className={`flex flex-col px-2 py-2`}>
                         <Link href="/dashboard">
-                            <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
-                                <div className={`text-xl p-3 ${isActive('/dashboard')}`}>
-                                    <AiFillHome className={`${isActiveIcon('/dashboard')}`} />
+                            <a className={`text-sm flex items-center w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/dashboard')} ${isActiveIcon('/dashboard')}`}>
+                                <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
+                                    <AiFillHome />
                                 </div>
-                                <div className={`flex w-full sidebar-text-${isExpand()}`}>
+                                <div className={`flex items-center w-full sidebar-text-${isExpand()}`}>
                                     Home
                                 </div> 
                             </a>
                         </Link>
                         <Link href="/crm">
-                            <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
-                                <div className={`text-xl p-3 icon-rotate ${isActive('/crm')}`}>
-                                    <AiOutlineAlignLeft className={`${isActiveIcon('/crm')}`} />
+                            <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/crm')} ${isActiveIcon('/crm')}`}>
+                                <div className={`flex items-center justify-center w-[30px] h-[30px] icon-rotate`}>
+                                    <AiOutlineAlignLeft />
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     CRM
@@ -111,9 +111,9 @@ const Sidebar = () => {
                             </a>
                         </Link>
                         <Link href={`/renewals/${currentMonth()}/${currentYear()}`}>
-                            <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
-                                <div className={`text-xl p-3 ${isActive('/renewals')}`}>
-                                    <BsFillCalendar2CheckFill className={`${isActiveIcon('/renewals')}`} />
+                            <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/renewals')} ${isActiveIcon('/renewals')}`}>
+                                <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
+                                    <BsFillCalendar2CheckFill />
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Renewals
@@ -121,9 +121,9 @@ const Sidebar = () => {
                             </a>
                         </Link>
                         <Link href={`/reports/${state?.reports?.default}`}>
-                            <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
-                                <div className={`text-xl p-3 ${isActive('/reports')}`}>
-                                    <IoMdListBox className={`${isActiveIcon('/reports')}`} />
+                            <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/reports')} ${isActiveIcon('/reports')}`}>
+                                <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
+                                    <IoMdListBox />
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Book of Business
@@ -131,9 +131,9 @@ const Sidebar = () => {
                             </a>
                         </Link>
                         <Link href={`/tools/proposals`}>
-                            <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
-                                <div className={`text-xl p-3 ${isActive('/proposals')}`}>
-                                    <CgFileDocument className={`${isActiveIcon('/proposals')}`} />
+                            <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/proposals')} ${isActiveIcon('/proposals')}`}>
+                                <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
+                                    <CgFileDocument/>
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Proposals
@@ -141,9 +141,9 @@ const Sidebar = () => {
                             </a>
                         </Link>
                         <Link href={`/tools/costcomparison`}>
-                            <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
-                                <div className={`text-xl p-3 ${isActive('/costcomparison')}`}>
-                                    <CgFileDocument className={`${isActiveIcon('/costcomparison')}`} />
+                            <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/costcomparison')} ${isActiveIcon('/costcomparison')}`}>
+                                <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
+                                    <CgFileDocument />
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Cost Comparison
@@ -153,9 +153,9 @@ const Sidebar = () => {
                         {
                             session?.user?.admin ? 
                             <Link href="/admin">
-                                <a className={`flex w-full py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()}`}>
-                                    <div className={`text-xl p-3 ${isActive('/admin')}`}>
-                                        <RiAdminFill className={`${isActiveIcon('/admin')}`} />
+                                <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/admin')} ${isActiveIcon('/admin')}`}>
+                                    <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
+                                        <RiAdminFill />
                                     </div>
                                     <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                         Admin

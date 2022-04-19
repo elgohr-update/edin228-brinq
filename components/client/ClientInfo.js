@@ -10,7 +10,7 @@ const ClientInfo = ({client, flat=true, noBg=true, shadow=false, overflow=false,
                 Reps
             </h4>
             <div className={`flex flex-wrap w-full space-y-2`}>
-                {client?.users.map( u => (
+                {client?.users?.map( u => (
                     <div className="flex" key={u.id}>
                         <User 
                             src={u.image_file}

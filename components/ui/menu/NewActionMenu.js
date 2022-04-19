@@ -20,9 +20,10 @@ const NewActionMenu = () => {
 
     return (
         <div className="flex items-center justify-center w-full h-full relative">
-            <Button size="md" className={`${type}-shadow`} color="gradient" auto onClick={ () => setOpenMenu(!openMenu)}>
-                <div className="pr-2">
-                    <BsPlusLg />
+            <Button size="sm" className={`${type}-shadow`} color="gradient" auto onClick={ () => setOpenMenu(!openMenu)}>
+                <div className="flex items-center pr-2 space-x-2">
+                    <div><BsPlusLg /></div>
+                    <div>Create</div>
                 </div>
                 <div className="pl-2">
                     <AiOutlineDown />

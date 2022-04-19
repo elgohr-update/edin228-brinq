@@ -40,7 +40,6 @@ export default function ReportsClient({ data }) {
     <main className="flex w-full flex-col">
       <PageHeader>
         <PageTitle icon={<IoMdListBox />} text="Clients" />
-        <ReportNavbar />
       </PageHeader>
       <div className="flex w-full flex-col">
         <div className="px-4 mb-2 flex h-full items-center space-x-4 overflow-x-auto py-4 md:mb-0 md:justify-center md:overflow-hidden">

@@ -1,7 +1,7 @@
-import { Table, useTheme, Button, Input, Avatar, Tooltip, Progress, useCollator, useAsyncList } from '@nextui-org/react';
-import React, { useEffect, useState } from 'react'
+import { Table, useTheme, Input, Avatar, Tooltip, Progress, useCollator } from '@nextui-org/react';
+import React, { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/router';
-import { FaFilter, FaSearch } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 import { truncateString, formatMoney, getSearch, getFormattedDate } from '../../utils/utils';
 import UserAvatar from '../user/Avatar';
 import Link from 'next/link';
@@ -9,9 +9,10 @@ import { useAppContext } from '../../context/state';
 import LineIcon from '../util/LineIcon';
 import TagBasic from '../ui/tag/TagBasic';
 
-const RenewalsTable = (data) => {
+export default function RenewalsTable(data) {
     const router = useRouter()
     const { month, year } = router.query
+    const [isPending, startTransition] = useTransition()
     const { type } = useTheme();
     const [search, setSearch] = useState('')
     const [rows, setRows] = useState(data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40), id:x.client_id}}))
@@ -20,19 +21,21 @@ const RenewalsTable = (data) => {
     const [sortDescriptor,setSortDescriptor] = useState('ascending')
 
     useEffect(() => {
-        const dat = data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40), id:x.client_id}})
+        const dat = data.data.map( x => {return {...x,client_name:truncateString(x.client_name,70), id:x.client_id}})
         setRows(dat)
         setTableData(dat)   
     }, [data])
 
-    useEffect(() => {
-        if (search.length > 3){
-            const filtered = getSearch(rows,search)
-            setTableData(filtered)
-        }else {
-            setTableData(rows)
-        }
-    }, [search])
+    const searchTable = (val) => {
+        startTransition( () => {
+            if (val.length > 1){
+                const filtered = getSearch(rows,val)
+                setTableData(filtered)
+            }else {
+                setTableData(rows)
+            }        
+        })
+    }
 
     const columns = [
       {
@@ -49,7 +52,7 @@ const RenewalsTable = (data) => {
       },
       {
         key: "policy_count",
-        label: "RENEWING POL",
+        label: "Policies",
       },
       {
         key: "premium",
@@ -74,9 +77,11 @@ const RenewalsTable = (data) => {
         switch (columnKey) {
             case "line":
                 return (
-                    <Tooltip content={cellValue}>
-                        <LineIcon iconSize={18} size="sm" line={cellValue} />
-                    </Tooltip>
+                    <div className="flex items-center justify-center">
+                        <Tooltip content={cellValue}>
+                            <LineIcon iconSize={18} size="sm" line={cellValue} />
+                        </Tooltip>
+                    </div>
                 )
             case "client_name":
                 const checkTheme = () => {
@@ -86,7 +91,7 @@ const RenewalsTable = (data) => {
                         `h-full w-full hover:bg-gray-500/10 p-4 rounded  transition duration-100 ease-out`
                 }
                 return (
-                    <div className="px-2">
+                    <div className="text-xs px-2">
                         <div className={checkTheme()} onClick={() => openSidebar(client,true)}>
                             <Link href={`/client/${client.id}`}>
                                 <a className="hover:text-sky-500 transition duration-100 ease-in-out">
@@ -109,15 +114,15 @@ const RenewalsTable = (data) => {
                 )
             case "policy_count":
                 return (
-                    <div className="flex w-[30px]">
-                        <div className="flex justify-end w-[90px]">
+                    <div className="text-xs flex justify-center">
+                        <div className="flex justify-end w-[50px]">
                             {cellValue}
                         </div>
                     </div>
                 )
             case "premium":
                 return (
-                    <div className="flex">
+                    <div className="text-xs flex justify-center">
                         <div className="flex justify-end w-[90px] text-teal-500">
                             {`$ ${formatMoney(cellValue)}`}
                         </div>
@@ -133,15 +138,15 @@ const RenewalsTable = (data) => {
                         <Progress shadow={true} size="sm" color="gradient" value={percentage} />
                     </div>
                 )
-            case "expiring":
+            case "expiration_date":
                 return (
-                    <div className="letter-spacing-1">
+                    <div className="text-xs letter-spacing-1 flex justify-center">
                         {getFormattedDate(client.expiration_date)}
                     </div>
                 )
             case "reps":
                 return(
-                    <div className="pl-10 w-[85px]">
+                    <div className="flex items-center justify-center">
                         <Avatar.Group count={client.users.length > 3? client.users.length : null}>
                             {client.users.map( u => (
                                 <UserAvatar
@@ -191,7 +196,7 @@ const RenewalsTable = (data) => {
                         underlined
                         placeholder="Search" 
                         labelLeft={<FaSearch />}
-                        onChange={ e => setSearch(e.target.value)}
+                        onChange={ e => searchTable(e.target.value)}
                     />
                 </div>
                 {/* <div className="flex items-center justify-end">
@@ -216,18 +221,32 @@ const RenewalsTable = (data) => {
             >
                 <Table.Header columns={columns}>
                     {(column) => (
-                        column.key === 'client_name' || column.key === 'premium' || column.key === 'policy_count'|| column.key === 'expiration_date' || column.key === 'line' ?
+                        column.key === 'client_name'  ?
                             <Table.Column key={column.key} allowsSorting>
-                                <div className="table-column-header pl-2">
+                                <div className="text-xs table-column-header pl-5">
                                     {column.label}
                                 </div>
                             </Table.Column>
                         :
-                            <Table.Column key={column.key}>
-                                <div className="table-column-header pl-2">
+                        column.key === 'line' || column.key === 'reps' ?
+                            <Table.Column key={column.key} allowsSorting>
+                                <div className="flex justify-center items-center text-xs table-column-header px-1">
                                     {column.label}
                                 </div>
                             </Table.Column>
+                        :
+                        column.key === 'progress' ?
+                            <Table.Column key={column.key} allowsSorting>
+                                <div className="text-xs table-column-header px-1">
+                                    {column.label}
+                                </div>
+                            </Table.Column>
+                        :
+                        <Table.Column key={column.key}  allowsSorting>
+                            <div className="flex items-center justify-center text-xs table-column-header px-1">
+                                {column.label}
+                            </div>
+                        </Table.Column>
                     )}
                 </Table.Header>
                 <Table.Body items={tableData}>
@@ -255,5 +274,4 @@ const RenewalsTable = (data) => {
     )
 }
 
-export default RenewalsTable
 

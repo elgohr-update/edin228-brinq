@@ -1,5 +1,5 @@
 import { Table, useTheme, Button, Input, Avatar, Tooltip, useCollator, Checkbox } from '@nextui-org/react';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import { FaFilter, FaSearch } from 'react-icons/fa';
 import { truncateString, formatMoney, getSearch, getFormattedDate } from '../../utils/utils';
 import UserAvatar from '../user/Avatar';
@@ -10,6 +10,7 @@ import TagBasic from '../ui/tag/TagBasic';
 
 const PoliciesTable = () => {
     const { type } = useTheme();
+    const [isPending, startTransition] = useTransition()
     const [search, setSearch] = useState('')
     const {state, setState} = useAppContext();
     const [showFilter, setShowFilter] = useState(true)
@@ -23,16 +24,17 @@ const PoliciesTable = () => {
     const rows = state.reports.data.policies.raw
     const tableData = state.reports.data.policies.filtered
 
-    useEffect(() => {
-        if (search.length > 1){
-            const filtered = getSearch(rows,search)
-            setState({...state,reports:{...state.reports,data:{...state.reports.data,policies:{...state.reports.data.policies,filtered:filtered}}}})
-        }
-        else {
-            const filtered = rows
-            setState({...state,reports:{...state.reports,data:{...state.reports.data,policies:{...state.reports.data.policies,filtered:filtered}}}})
-        }
-    }, [search])
+    const searchTable = (val) => {
+        startTransition( () => {
+            if (val.length > 1){
+                const filtered = getSearch(rows,val)
+                setState({...state,reports:{...state.reports,data:{...state.reports.data,policies:{...state.reports.data.policies,filtered:filtered}}}})
+            }else {
+                const filtered = rows
+                setState({...state,reports:{...state.reports,data:{...state.reports.data,policies:{...state.reports.data.policies,filtered:filtered}}}})
+            }        
+        })
+    }
 
     useEffect(() => {
         const mnPrem = minPrem && minPrem != 0?  Number(minPrem) : 0
@@ -280,7 +282,7 @@ const PoliciesTable = () => {
                             underlined
                             placeholder="Search" 
                             labelLeft={<FaSearch />}
-                            onChange={ e => setSearch(e.target.value)}
+                            onChange={ e => searchTable(e.target.value)}
                         />
                     </div>                    
                 </div>
