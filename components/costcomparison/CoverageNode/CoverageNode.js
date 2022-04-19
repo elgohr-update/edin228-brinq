@@ -1,7 +1,7 @@
 import { useTheme } from '@nextui-org/react'
 import React, { useState } from 'react'
 import { FaGripHorizontal } from 'react-icons/fa';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable } from '@react-forked/dnd'
 import { formatMoney } from '../../../utils/utils';
 import CoverageNodeCell from './CoverageNodeCell';
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable } from '@react-forked/dnd'
 
 // fake data generator
 const getItems = (count, offset = 0) =>

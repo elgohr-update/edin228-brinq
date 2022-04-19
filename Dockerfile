@@ -4,7 +4,7 @@ FROM node:alpine AS deps
 RUN apk update && apk add --no-cache libc6-compat && apk add git
 WORKDIR /app
 COPY package.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 
 # Rebuild the source code only when needed

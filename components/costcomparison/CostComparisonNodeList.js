@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable, Draggable } from '@react-forked/dnd'
 import CoverageNode from './CoverageNode/CoverageNode'
 import { FaGripHorizontal } from 'react-icons/fa'
 import uuid from 'react-uuid'

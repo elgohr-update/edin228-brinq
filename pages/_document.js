@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { CssBaseline } from '@nextui-org/react';
-import { resetServerContext } from "react-beautiful-dnd";
+import { resetServerContext } from "@react-forked/dnd";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
