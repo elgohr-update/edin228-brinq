@@ -3,8 +3,8 @@ FROM node:alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update && apk add --no-cache libc6-compat && apk add git
 WORKDIR /app
-COPY package.json yarn.lock ./
-RUN yarn install --immutable
+COPY package.json ./
+RUN npm install
 
 
 # Rebuild the source code only when needed
@@ -47,4 +47,4 @@ USER nextjs
 EXPOSE 3000
 
 ENV NEXT_TELEMETRY_DISABLED 1
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
