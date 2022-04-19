@@ -17,6 +17,7 @@ import { RiFolderUserFill } from 'react-icons/ri';
 export default function Renewals({data}) {
 
   
+
     const router = useRouter()
     const { month, year } = router.query
     const date = new Date(year, month-1, 1);
