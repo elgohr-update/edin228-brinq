@@ -46,11 +46,6 @@ export default function CostComparison() {
       {
         id: uuid(),
         title: 'Option 1',
-
-
-
-        
-
         textBold: false,
         textItalic: false,
         bgColor: null,
