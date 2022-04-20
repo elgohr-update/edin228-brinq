@@ -17,7 +17,7 @@ const UserAvatar = ({tooltip=false,size="md",tooltipPlacement="bottomEnd", isLin
         session?.user
 
     return (
-        <div className="flex items-center justify-center w-full h-full relative cursor-pointer z-40">
+        <div className="flex w-full h-full relative cursor-pointer z-40">
             {
                 tooltip && isLink ? 
                 <Link href={`/user/${user?.id}`}>

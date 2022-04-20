@@ -93,7 +93,7 @@ export default function RenewalsTable(data) {
                 return (
                     <div className="text-xs px-2">
                         <div className={checkTheme()} onClick={() => openSidebar(client,true)}>
-                            <Link href={`/client/${client.id}`}>
+                            <Link href={`/clients/${client.id}`}>
                                 <a className="hover:text-sky-500 transition duration-100 ease-in-out">
                                     {cellValue}
                                 </a>

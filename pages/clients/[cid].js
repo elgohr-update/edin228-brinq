@@ -17,6 +17,8 @@ import Panel from '../../components/ui/panel/Panel'
 import SummaryCard from '../../components/ui/card/SummaryCard'
 import { AiFillDollarCircle } from 'react-icons/ai'
 import { BsBox } from 'react-icons/bs'
+import ClientDataNavbar from '../../components/client/ClientDataNavbar'
+import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 
 export default function Client({ client, events, emails, activity }) {
   const router = useRouter()
@@ -46,8 +48,7 @@ export default function Client({ client, events, emails, activity }) {
     <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
       <div className="flex w-full flex-col">
         <div className="flex w-full flex-col items-center justify-between md:flex-row">
-          <ClientHeader client={client} />
-          <div className="flex w-full flex-col items-center md:flex-row md:justify-between">
+          {/* <div className="flex w-full flex-col items-center md:flex-row md:justify-between">
             <div className="flex w-full items-center justify-between md:justify-start">
               <SummaryCard
                 isIcon={false}
@@ -69,31 +70,13 @@ export default function Client({ client, events, emails, activity }) {
                 icon={<BsBox />}
               />
             </div>
-            <div className="flex items-center space-x-2 py-2 md:justify-end md:py-0">
-              <Button.Group size="xs" flat>
-                <Button>
-                  <BiPaperPlane />
-                </Button>
-                <Button>
-                  <BsChatLeftQuoteFill />
-                </Button>
-                <Button>
-                  <RiPlayListAddFill />
-                </Button>
-                <Button>
-                  <BiLinkExternal />
-                </Button>
-                <Button>
-                  <BiRefresh />
-                </Button>
-              </Button.Group>
-            </div>
-          </div>
+          </div> */}
         </div>
         <div className="flex w-full flex-col overflow-hidden md:flex-row">
           <div
             className={`relative flex w-full flex-col space-y-2 py-4 px-4 md:w-[300px] md:py-0`}
           >
+            <ClientHeader client={client} />
             <ClientInfo
               flat={true}
               shadow={true}
@@ -108,30 +91,54 @@ export default function Client({ client, events, emails, activity }) {
             />
           </div>
           <div className="flex h-full w-full flex-col overflow-hidden">
-            <div className="flex items-center justify-center space-x-2 px-4 pb-1 md:justify-start">
-              <div>Policies</div>
-              <div>Deals</div>
-              <div>Quotes</div>
-              <div>Emails</div>
-              <div>Suspenses</div>
+            <div className="flex items-center justify-between">
+              <ClientDataNavbar />
+              <div className="flex items-center space-x-2 py-2 md:justify-end md:py-0">
+                <Button.Group size="xs" flat>
+                  <Button>
+                    <BiPaperPlane />
+                  </Button>
+                  <Button>
+                    <BsChatLeftQuoteFill />
+                  </Button>
+                  <Button>
+                    <RiPlayListAddFill />
+                  </Button>
+                  <Button>
+                    <BiLinkExternal />
+                  </Button>
+                  <Button>
+                    <BiRefresh />
+                  </Button>
+                </Button.Group>
+              </div>
             </div>
-            <div
-              className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[81vh]`}
-            >
-              {getPolicies().map((u) => (
-                <Panel flat key={u.id} overflow={false} px={0} py={0}>
-                  <PolicyCard policy={u} truncate={60} />
-                </Panel>
-              ))}
-            </div>
+            {
+              state.client.dataNavbar === 1 ?
+              <div
+                className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
+              >
+                {getPolicies().map((u) => (
+                  <Panel flat key={u.id} overflow={false} px={0} py={0}>
+                    <PolicyCard policy={u} truncate={60} />
+                  </Panel>
+                ))}
+              </div>
+              : null
+            }
+            
           </div>
         </div>
       </div>
       <div
         className={`flex w-full flex-col pb-2 md:w-4/12 md:overflow-y-auto md:px-4`}
       >
-        <h4 className="flex w-full items-center px-4">Recent Activity</h4>
-        <ClientActivity activity={activity} />
+        <ClientActionNavbar />
+        {
+          state.client.actionNavbar === 1 ?
+            <ClientActivity activity={activity} />
+          : null
+        }
       </div>
     </div>
   )

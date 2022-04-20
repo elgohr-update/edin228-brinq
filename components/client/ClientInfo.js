@@ -1,14 +1,13 @@
 import { User } from '@nextui-org/react'
 import React from 'react'
 import Panel from '../ui/panel/Panel'
+import PanelTitle from '../ui/title/PanelTitle'
 
 const ClientInfo = ({client, flat=true, noBg=true, shadow=false, overflow=false, editable=false}) => {
   return (
     <Panel flat={flat} noBg={noBg} shadow={shadow} overflow={overflow}>
         <div className="flex flex-col w-full">
-            <h4 className={`mb-2`}>
-                Reps
-            </h4>
+            <PanelTitle title={`Reps`} color="indigo" />
             <div className={`flex flex-wrap w-full space-y-2`}>
                 {client?.users?.map( u => (
                     <div className="flex" key={u.id}>
@@ -24,9 +23,7 @@ const ClientInfo = ({client, flat=true, noBg=true, shadow=false, overflow=false,
         </div>
         <div className={`flex flex-col md:flex-row w-full py-2`}>
             <div className={`flex flex-col w-full `}>
-                <h4 className={`mb-2`}>
-                    Address
-                </h4>
+                <PanelTitle title={`Address`} color="orange" />
                 <div className="flex flex-col px-2">
                     <h6>{client?.client_name}</h6>
                     <h6>{client?.address}</h6>

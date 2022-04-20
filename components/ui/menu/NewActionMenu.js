@@ -10,6 +10,8 @@ import ActionMenuItem from './item/ActionMenuItem'
 import { BiFolderPlus,BiCalendarPlus } from 'react-icons/bi'
 import { FaRegPaperPlane } from 'react-icons/fa'
 
+import { getConstantIcons } from '../../../utils/utils'
+
 const NewActionMenu = () => {
   const { setTheme } = useNextTheme()
   const { isDark, type } = useTheme()
@@ -31,7 +33,7 @@ const NewActionMenu = () => {
       >
         <div className="flex items-center space-x-2 pr-2">
           <div>
-            <BsPlusLg />
+            { getConstantIcons('plus') }
           </div>
           <div className="hidden md:flex tracking-widest">Create</div>
         </div>
@@ -49,7 +51,7 @@ const NewActionMenu = () => {
       >
         <div className="flex w-full flex-col space-y-1 p-1">
           <ActionMenuItem
-            icon={<MdOutlineStickyNote2 />}
+            icon={getConstantIcons('activity')}
             label="New Activity/Suspense"
           />
           <ActionMenuItem

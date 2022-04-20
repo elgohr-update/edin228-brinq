@@ -1,6 +1,5 @@
 import Head from "next/head";
-import { Container, Row, Col, useTheme } from '@nextui-org/react';
-import Sidebar from "../components/ui/Sidebar/Sidebar";
+import { Row, Col, useTheme } from '@nextui-org/react';
 import { useEffect,useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
@@ -33,7 +32,6 @@ export default function AppLayout({ children }) {
         setIsAuth(false)
         router.push("/login")
       }
-      console.log(status)
     }, [session,status,router]);
 
     return (

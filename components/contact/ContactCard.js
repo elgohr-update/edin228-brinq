@@ -17,7 +17,7 @@ const ContactCard = ({contact,border=false,vertical=false,panel=false,shadow=fal
     const isBorder = () =>{
         return border ? `${isDark?`border-slate-900`:`border-slate-200`} border` : ``
     }
-    const baseClass = `relative flex flex-1 min-w-[240px] p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+    const baseClass = `relative flex min-w-[240px] p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
             <div className={`${vertical ? 'flex justify-end': `flex`} z-20`}>

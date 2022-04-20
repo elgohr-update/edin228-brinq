@@ -64,6 +64,13 @@ const ClientDrawer = () => {
         // }
     },[])
     
+    useEffect(() => {
+        router.events.on("routeChangeStart", () => {
+            closeDrawer()
+        });
+    }, [router.events]);
+
+
     const premSum = () => {
         return sumFromArrayOfObjects(policies,'premium')
     }

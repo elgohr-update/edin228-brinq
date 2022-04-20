@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useTheme } from '@nextui-org/react';
-import { AiOutlineLeft,AiOutlineDown } from 'react-icons/ai';
 import { BsBox } from 'react-icons/bs';
-import LineIcon from '../util/LineIcon';
-import { formatMoney, getFormattedDate, getFormattedDateTime, truncateString } from '../../utils/utils';
+import { getFormattedDateTime } from '../../utils/utils';
 import TagBasic from '../ui/tag/TagBasic';
 import UserAvatar from '../user/Avatar';
 import Link from 'next/link';
@@ -24,8 +22,8 @@ const ActivityCard = ({activity,border=false,panel=false,shadow=false,hideClient
     return (
         <div className={baseClass}>
             <div className={`flex w-full`}>
-                <div className="mr-4 z-90">
-                    <UserAvatar squared={false} tooltip={false} isUser={true} passUser={activity.users.find(x => x.id === activity.author_id)} />
+                <div className="flex mr-4 z-90">
+                    <UserAvatar squared={false} tooltip={false} size="sm" isUser={true} passUser={activity.users.find(x => x.id === activity.author_id)} />
                 </div>
                 <div className={`relative flex flex-col w-full`}>
                     <div className={`flex items-center justify-between w-full`}>

@@ -51,6 +51,10 @@ export function AppWrapper({ children }) {
             rows: [],
           }
         }
+      },
+      client: {
+        dataNavbar: 1,
+        actionNavbar: 1,
       }
     }
   )

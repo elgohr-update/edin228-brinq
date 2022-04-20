@@ -170,6 +170,7 @@ const PolicyCard = ({policy,border=false,truncate=30,vertical=false,color='sky',
                                         key={u.id}
                                         isGrouped={true}
                                         squared={false}
+                                        size={`sm`}
                                     />
                                 ))}
                             </Avatar.Group>   
@@ -211,9 +212,12 @@ const PolicyCard = ({policy,border=false,truncate=30,vertical=false,color='sky',
                             </h4>
                             <div></div>
                         </div>
-                        {policy.tasks.map( t => {
-                            return <TaskCard key={t.id} task={t} />
-                        })}
+                        <div className="flex flex-col space-y-1">
+                            {policy.tasks.map( t => {
+                                return <TaskCard key={t.id} task={t} />
+                            })}    
+                        </div>
+                        
                     </div>
                 </div>
                 

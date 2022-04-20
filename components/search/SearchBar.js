@@ -1,21 +1,16 @@
-import { Input, Switch, useTheme } from '@nextui-org/react'
-import Link from 'next/link'
+import { Input, useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import { BiSearch } from 'react-icons/bi'
-import { useTheme as useNextTheme } from 'next-themes'
 import { useRouter } from 'next/router'
 import HiddenBackdrop from '../util/HiddenBackdrop'
-import { useSession } from 'next-auth/react'
 import ClientSearchCard from './card/ClientSearchCard'
 import ContactSearchCard from './card/ContactSearchCard'
 
 const SearchBar = () => {
-  const { setTheme } = useNextTheme()
-  const { isDark, type } = useTheme()
+  const { type } = useTheme()
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([{ id: 1 }])
   const [validSearch, setValidSearch] = useState(null)
-  const { data: session } = useSession()
   const router = useRouter()
 
   useEffect(() => {
@@ -34,6 +29,12 @@ const SearchBar = () => {
       fetchData()
     }
   }, [search])
+
+  useEffect(() => {
+    router.events.on('routeChangeStart', () => {
+      closeSearch()
+    })
+  }, [router.events])
 
   const closeSearch = () => {
     setSearch('')
@@ -55,8 +56,8 @@ const SearchBar = () => {
       <div
         className={
           validSearch
-            ? `opacity-1 min-h-80 absolute top-[40px] left-[1px] z-60 w-[360px] overflow-auto rounded-lg transition-all duration-100 ease-out md:w-[360px] panel-flatter-${type} ${type}-shadow`
-            : `rounded-lg panel-flatter-${type} ${type}-shadow absolute w-[360px] top-[-500px] opacity-0 transition-all duration-100 ease-out md:w-[550px]`
+            ? `opacity-1 min-h-80 z-60 absolute top-[40px] left-[1px] w-[360px] overflow-auto rounded-lg transition-all duration-100 ease-out md:w-[360px] panel-flatter-${type} ${type}-shadow`
+            : `rounded-lg panel-flatter-${type} ${type}-shadow absolute top-[-500px] w-[360px] opacity-0 transition-all duration-100 ease-out md:w-[550px]`
         }
       >
         {searchResults?.map((x) => {

@@ -1,11 +1,11 @@
 import { Image, Switch, useTheme } from '@nextui-org/react'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
-import { AiFillHome, AiOutlineAlignLeft } from 'react-icons/ai';
-import { IoMdListBox } from 'react-icons/io';
+import { AiOutlineHome, AiOutlineAlignLeft, AiOutlineCalendar } from 'react-icons/ai';
 import { RiAdminFill } from 'react-icons/ri';
-import { BsFillMoonFill, BsFillSunFill,BsFillCalendar2CheckFill } from 'react-icons/bs';
-import { CgFileDocument } from 'react-icons/cg';
+import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
+import { BiBook } from 'react-icons/bi';
+import { CgFileDocument, CgToolbox } from 'react-icons/cg';
 import { useTheme as useNextTheme } from 'next-themes'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react';
@@ -59,7 +59,6 @@ const Sidebar = () => {
         }
         return ''
     }
-
     return (
         <div className="z-50 flex flex-col w-full h-full relative">
             <div  className={`flex flex-col justify-between absolute h-full w-full panel-theme-${type} ${type}-shadow sidebar-${isExpand()}`} onMouseOver={() => hoverSidebar('in')} onMouseOut={() => hoverSidebar('out')}>
@@ -93,7 +92,7 @@ const Sidebar = () => {
                         <Link href="/dashboard">
                             <a className={`text-sm flex items-center w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/dashboard')} ${isActiveIcon('/dashboard')}`}>
                                 <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
-                                    <AiFillHome />
+                                    <AiOutlineHome />
                                 </div>
                                 <div className={`flex items-center w-full sidebar-text-${isExpand()}`}>
                                     Home
@@ -113,7 +112,7 @@ const Sidebar = () => {
                         <Link href={`/renewals/${currentMonth()}/${currentYear()}`}>
                             <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/renewals')} ${isActiveIcon('/renewals')}`}>
                                 <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
-                                    <BsFillCalendar2CheckFill />
+                                    <AiOutlineCalendar />
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Renewals
@@ -123,7 +122,7 @@ const Sidebar = () => {
                         <Link href={`/reports/${state?.reports?.default}`}>
                             <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/reports')} ${isActiveIcon('/reports')}`}>
                                 <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
-                                    <IoMdListBox />
+                                    <BiBook />
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Book of Business
@@ -133,7 +132,7 @@ const Sidebar = () => {
                         <Link href={`/tools/proposals`}>
                             <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/proposals')} ${isActiveIcon('/proposals')}`}>
                                 <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
-                                    <CgFileDocument/>
+                                    <CgToolbox/>
                                 </div>
                                 <div className={`flex w-full sidebar-text-${isExpand()}`}>
                                     Proposals
@@ -152,16 +151,16 @@ const Sidebar = () => {
                         </Link>
                         {
                             session?.user?.admin ? 
-                            <Link href="/admin">
-                                <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/admin')} ${isActiveIcon('/admin')}`}>
-                                    <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
-                                        <RiAdminFill />
-                                    </div>
-                                    <div className={`flex w-full sidebar-text-${isExpand()}`}>
-                                        Admin
-                                    </div> 
-                                </a>
-                            </Link>
+                                <Link href="/admin">
+                                    <a className={`border-t text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/admin')} ${isActiveIcon('/admin')}`}>
+                                        <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
+                                            <RiAdminFill />
+                                        </div>
+                                        <div className={`flex w-full sidebar-text-${isExpand()}`}>
+                                            Admin
+                                        </div> 
+                                    </a>
+                                </Link>
                             :null
                         }
                     </div>
