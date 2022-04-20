@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useAppContext } from '../../context/state';
 import LineIcon from '../util/LineIcon';
 import TagBasic from '../ui/tag/TagBasic';
+import TagContainer from '../ui/tag/TagContainer';
 
 const PoliciesTable = () => {
     const { type } = useTheme();
@@ -122,17 +123,7 @@ const PoliciesTable = () => {
                                     {cellValue}
                                 </a>
                             </Link>
-                            {
-                                policy.client?.tags ?
-                                    <div className="flex items-center flex-wrap pt-2 space-x-2">
-                                        {
-                                            policy.client?.tags.map( x => {
-                                                return <TagBasic key={x.id} text={x.name} color={x.color} />
-                                            })
-                                        }
-                                    </div>
-                                :null
-                            }
+                            <TagContainer tags={policy?.client?.tags} />
                         </div>
                     </div>
                 )

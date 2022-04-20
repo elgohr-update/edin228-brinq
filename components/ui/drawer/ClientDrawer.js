@@ -127,7 +127,7 @@ const ClientDrawer = () => {
                                 <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
                             </div>
                             <div className={`mt-2 flex flex-col w-full overflow-auto h-[78vh]`}>
-                                <ClientInfo client={client} />
+                                <ClientInfo client={client} horizontal />
                                 <ClientContacts client={client} />
                                 <div className={`flex flex-col w-full`}>
                                     <div className={`flex items-center justify-center w-full space-x-3 mb-3`}>

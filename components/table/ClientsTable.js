@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useAppContext } from '../../context/state';
 import LineIcon from '../util/LineIcon';
 import TagBasic from '../ui/tag/TagBasic';
+import TagContainer from '../ui/tag/TagContainer';
 
 const ClientsTable = () => {
     const { type } = useTheme();
@@ -117,17 +118,7 @@ const ClientsTable = () => {
                                     {cellValue}
                                 </a>
                             </Link>
-                            {
-                                client.tags ?
-                                    <div className="flex items-center flex-wrap pt-2 space-x-2">
-                                        {
-                                            client.tags.map( x => {
-                                                return <TagBasic key={x.id} text={x.name} color={x.color} />
-                                            })
-                                        }
-                                    </div>
-                                :null
-                            }
+                            <TagContainer tags={client?.tags} />
                         </div>
                     </div>
                 )

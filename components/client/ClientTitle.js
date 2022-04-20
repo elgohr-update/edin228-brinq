@@ -1,6 +1,7 @@
 import React from 'react'
 import Panel from '../ui/panel/Panel'
 import TagBasic from '../ui/tag/TagBasic'
+import TagContainer from '../ui/tag/TagContainer'
 import LineIcon from '../util/LineIcon'
 
 const ClientTitle = ({client, flat=true, noBg=true, shadow=false, editable=false}) => {
@@ -12,15 +13,7 @@ const ClientTitle = ({client, flat=true, noBg=true, shadow=false, editable=false
             </div>
             <div className="flex flex-col w-full">
                 <h3>{client?.client_name}</h3>
-                <div className="flex items-center w-full">
-                    <div className={`flex flex-1 flex-wrap w-full space-x-2`}>
-                        {
-                            client?.tags?.map( x => {
-                                return <TagBasic key={x.id} text={x.name} color={x.color} />
-                            })
-                        }
-                    </div>
-                </div>  
+                <TagContainer tags={client?.tags} />
             </div>    
         </div>
     </Panel>

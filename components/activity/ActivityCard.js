@@ -34,8 +34,11 @@ const ActivityCard = ({activity,border=false,panel=false,shadow=false,hideClient
                         <h4 className="text-xs small-subtext">{activity.activity_type}</h4>
                     </div>
                     <div className="flex py-1">
-                        {activity.system_action ? <span className="flex mr-1"><h6>{activity.author}</h6></span> : null}
-                        <span className="flex flex-1 flex-grow flex-wrap"><h6 dangerouslySetInnerHTML={{ __html: activity.description }} /></span>
+                        { 
+                            activity.system_action ? 
+                                <h6>{`${activity.author} `+activity.description}</h6> :
+                                <h6>{activity.description}</h6>
+                        }
                     </div>
                     <div className={`flex items-center space-x-2`}>
                         {

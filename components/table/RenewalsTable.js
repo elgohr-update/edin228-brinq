@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useAppContext } from '../../context/state';
 import LineIcon from '../util/LineIcon';
 import TagBasic from '../ui/tag/TagBasic';
+import TagContainer from '../ui/tag/TagContainer';
 
 export default function RenewalsTable(data) {
     const router = useRouter()
@@ -98,17 +99,7 @@ export default function RenewalsTable(data) {
                                     {cellValue}
                                 </a>
                             </Link>
-                            {
-                                client.tags ?
-                                    <div className="flex items-center flex-wrap pt-2">
-                                        {
-                                            client.tags.map( x => {
-                                                return <TagBasic key={x.id} text={x.name} color={x.color} />
-                                            })
-                                        }
-                                    </div>
-                                :null
-                            }
+                            <TagContainer tags={client?.tags} />
                         </div>
                     </div>
                 )

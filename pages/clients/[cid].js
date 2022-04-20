@@ -19,6 +19,7 @@ import { AiFillDollarCircle } from 'react-icons/ai'
 import { BsBox } from 'react-icons/bs'
 import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
+import ClientReferences from '../../components/client/ClientReferences'
 
 export default function Client({ client, events, emails, activity }) {
   const router = useRouter()
@@ -40,38 +41,9 @@ export default function Client({ client, events, emails, activity }) {
       : reverseList(client.policies)
   }
 
-  const premSum = () => {
-    return sumFromArrayOfObjects(client.policies, 'premium')
-  }
-
   return (
     <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
       <div className="flex w-full flex-col">
-        <div className="flex w-full flex-col items-center justify-between md:flex-row">
-          {/* <div className="flex w-full flex-col items-center md:flex-row md:justify-between">
-            <div className="flex w-full items-center justify-between md:justify-start">
-              <SummaryCard
-                isIcon={false}
-                autoWidth
-                val={premSum()}
-                color="teal"
-                gradientColor="green-to-blue-2"
-                icon={<AiFillDollarCircle />}
-                title="Premium"
-                money
-              />
-              <SummaryCard
-                isIcon={false}
-                autoWidth
-                val={getPolicies(true).length}
-                color="fuchsia"
-                gradientColor="orange-to-red-2"
-                title="Policies"
-                icon={<BsBox />}
-              />
-            </div>
-          </div> */}
-        </div>
         <div className="flex w-full flex-col overflow-hidden md:flex-row">
           <div
             className={`relative flex w-full flex-col space-y-2 py-4 px-4 md:w-[300px] md:py-0`}
