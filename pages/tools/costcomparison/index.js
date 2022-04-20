@@ -425,6 +425,9 @@ export default function CostComparison() {
     <main className="flex w-full flex-col">
       <PageHeader>
         <PageTitle icon={<CgFileDocument />} text="Cost Comparison Builder" />
+        <div className={`panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}>
+          <ProposalNavbar />
+        </div>
       </PageHeader>
       <div className="flex w-full flex-col pl-4 pr-2 md:flex-row md:space-x-2">
         <div

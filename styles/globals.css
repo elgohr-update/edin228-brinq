@@ -190,9 +190,6 @@ h6 {
   background-image:linear-gradient(179deg, #f8f8f8, #ffffff85);
 }
 
-.header-main {
-    height:6vh;
-}
 .container-main {
     padding: 0 !important;
 }
@@ -849,11 +846,12 @@ h6 {
 .notif-bell-badge {
     position:absolute;
     top:-2px;
-    right:-2px;
-    height:12px;
-    width:12px;
+    right:0px;
+    height:9px;
+    width:9px;
     border-radius:50px;
     background:linear-gradient(to bottom, red,rgb(209, 35, 240));
+    border:1px solid var(--nextui-colors-text);
 }
 
 /* Tag Basic */

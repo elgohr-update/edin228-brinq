@@ -4,7 +4,7 @@ import { Row } from '@nextui-org/react';
 
 export const HeaderContainer = () => {
   return (
-    <Row fluid className="hidden md:flex header-main w-full">
+    <Row fluid className="flex h-[68px] w-full">
         <Header />
     </Row>
   )

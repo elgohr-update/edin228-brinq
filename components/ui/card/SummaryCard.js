@@ -113,10 +113,11 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>, autoWidth=false,isIcon=true,val=0
             </div>
             { 
                 isIcon ? 
-                <div className={`${vertical ? 'flex justify-end': `flex justify-end w-full`} z-20 ml-4`}>
-                    <div className={`flex items-center ${type}-shadow justify-center rounded-lg ${isDark?'bg-slate-500/20':'bg-white/40'} p-2 text-2xl w-[50px] h-[50px]`}>
-                        <div className={`text-clip-gradient ${returnGradient()}`}>{icon}</div>
+                <div className={`${vertical ? 'flex justify-end': `flex justify-end w-full`} relative z-20 ml-4`}>
+                    <div className={`z-20 flex items-center ${type}-shadow justify-center rounded-lg ${isDark?'bg-slate-500/20':'bg-white/40'} p-2 text-2xl w-[50px] h-[50px]`}>
+                        <div>{icon}</div>
                     </div>
+                    <div className={`absolute rounded-lg z-10 ${returnGradient()} w-[50px] h-[50px]`}></div>
                 </div>
                 :null
             }

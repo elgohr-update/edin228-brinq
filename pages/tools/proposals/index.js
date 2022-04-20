@@ -18,6 +18,9 @@ export default function Proposals() {
     <main className="flex w-full flex-col">
       <PageHeader>
         <PageTitle icon={<CgFileDocument />} text="Proposals" />
+        <div className={`panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}>
+          <ProposalNavbar />
+        </div>
       </PageHeader>
     </main>
   )

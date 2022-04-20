@@ -1,6 +1,6 @@
 import { Avatar, useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { AiFillBell } from 'react-icons/ai';
+import { BsBell } from 'react-icons/bs';
 import { useTheme as useNextTheme } from 'next-themes'
 import { useRouter } from 'next/router'
 
@@ -21,14 +21,9 @@ const NotificationBell = () => {
 
     return (
         <div className="flex items-center justify-center w-full h-full relative cursor-pointer">
-            <Avatar 
-                squared
-                pointer
-                size="md" 
-                ghost="true"
-                className={`z-10 ${type}-shadow`}
-                icon={<AiFillBell size={20} fill="currentColor" />}
-            />
+            <div className="hover:text-sky-500 transition duration-100 ease-out">
+                <BsBell size={20} />
+            </div>
             <div className={notifications.length > 0 ?`z-20 notif-bell-badge` :'hidden'} />
         </div>
     )

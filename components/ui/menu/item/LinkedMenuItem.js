@@ -9,8 +9,8 @@ const LinkedMenuItem = ({label='',icon='',href='',isColor=false,color='error', i
         <>
             <Link href={href}>
                 <a>
-                    <div className={`flex items-center justify-between rounded-lg cursor-pointer px-4 py-2 w-full transtion ease-out duration-100 ${isColor? `text-color-${color}`:''}  ${isDark? `hover:bg-gray-600/10 ` : `hover:bg-slate-500/10 `}`}>
-                        <h5>{icon}</h5>
+                    <div className={`flex items-center rounded-lg cursor-pointer px-4 py-2 w-full transtion ease-out duration-100 ${isColor? `text-color-${color}`:''}  ${isDark? `hover:bg-gray-600/10 ` : `hover:bg-slate-500/10 `}`}>
+                        <h5 className="mr-4">{icon}</h5>
                         <h5 className={`${isBold?'font-semibold':''}`}>{label}</h5>
                     </div>
                 </a>
