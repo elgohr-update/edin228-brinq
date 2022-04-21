@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useTheme } from '@nextui-org/react';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { BiCircle } from 'react-icons/bi';
-import { getFormattedDate } from '../../utils/utils';
+import { getConstantIcons, getFormattedDate } from '../../utils/utils';
 import UserAvatar from '../user/Avatar';
 
 const TaskCard = ({task,border=false,vertical=false,color='sky',gradientColor="orange",panel=false,shadow=false}) => {
@@ -29,8 +29,13 @@ const TaskCard = ({task,border=false,vertical=false,color='sky',gradientColor="o
     const isSelected = () => {
         return selected ? `bg-gray-500/10 ${type}-shadow`:`hover:bg-gray-500/10 `
     }
+    const isLate = (due) => {
+        const today = new Date()
+        const date = new Date(due)
+        return today > date ? `text-color-error` : ``
+    }
 
-    const baseClass = `${isSelected()} cursor-pointer flex flex-col w-full h-full relative transition-all duration-100 ease-out w-full p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+    const baseClass = `${isSelected()} cursor-pointer text-xs flex flex-col w-full h-full relative transition-all duration-100 ease-out w-full p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
             <div className={`flex w-full items-center space-x-4`} onClick={() => setSelected(!selected)}>
@@ -39,12 +44,24 @@ const TaskCard = ({task,border=false,vertical=false,color='sky',gradientColor="o
                 </div>
                 <div className={`relative flex flex-col space-y-1 flex-1`}>
                     <div className="text-xs">{task?.title}</div>
+                    <div className="flex items-center">
+                        <div className="flex items-center space-x-1 text-xs">
+                            <h4>{getConstantIcons('comment')}</h4>
+                            <h4>{task.comments.length}</h4>
+                        </div>
+                    </div>
                 </div>
+                {
+                    task.done?
+                    <div className={`relative flex flex-col space-y-1 items-end w-50`}>
+                        <h4>Completed</h4>
+                        <h6 className={`letter-spacing-1 text-color-success`}>{getFormattedDate(task?.completed_date)}</h6>
+                    </div>
+                    :null
+                }
                 <div className={`relative flex flex-col space-y-1 items-end w-50`}>
-                    <h6 className={`letter-spacing-1 text-color-success`}>{task.done?getFormattedDate(task?.completed_date):null}</h6>
-                </div>
-                <div className={`relative flex flex-col space-y-1 items-end w-50`}>
-                    <h4 className={`letter-spacing-1 ${task.done?`line-through`:'opacity-100'}`}>{getFormattedDate(task?.date)}</h4>
+                    <h4>Due</h4>
+                    <h4 className={`letter-spacing-1 ${task.done?`line-through`:`${isLate(task.date)} opacity-100`}`}>{getFormattedDate(task?.date)}</h4>
                 </div>
                 <div className={`relative flex flex-col space-y-1  w-50`}>
                     <UserAvatar 

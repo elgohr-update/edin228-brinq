@@ -12,15 +12,11 @@ import { BiPaperPlane, BiLinkExternal, BiRefresh } from 'react-icons/bi'
 import { BsChatLeftQuoteFill } from 'react-icons/bs'
 import { RiPlayListAddFill } from 'react-icons/ri'
 import PolicyCard from '../../components/policy/PolicyCard'
-import { reverseList, sumFromArrayOfObjects, useApi } from '../../utils/utils'
+import { reverseList, useApi } from '../../utils/utils'
 import Panel from '../../components/ui/panel/Panel'
-import SummaryCard from '../../components/ui/card/SummaryCard'
-import { AiFillDollarCircle } from 'react-icons/ai'
-import { BsBox } from 'react-icons/bs'
 import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
-import ClientReferences from '../../components/client/ClientReferences'
-import PolicyTypeHeatmap from '../../components/policytype/PolicyTypeHeatmap'
+import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
 
 export default function Client({ client, events, emails, activity, policyTypes }) {
   const router = useRouter()
@@ -88,11 +84,9 @@ export default function Client({ client, events, emails, activity, policyTypes }
             </div>
             {
               state.client.dataNavbar === 1 ?
-              <div className="flex flex-col w-full">
+              <div className="flex flex-col w-full md:overflow-hidden">
                 <div>
-                  <div>
-                    <PolicyTypeHeatmap all={policyTypes} policies={getPolicies(true)} line={client.line} />
-                  </div>
+                  <ClientPolicyInfo client={client} policyTypes={policyTypes} policies={getPolicies(true)} />
                 </div>
                 <div
                   className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
@@ -111,14 +105,18 @@ export default function Client({ client, events, emails, activity, policyTypes }
         </div>
       </div>
       <div
-        className={`flex w-full flex-col pb-2 md:w-4/12 md:overflow-y-auto md:px-4`}
+        className={`flex w-full flex-col pb-2 md:w-4/12 md:overflow-hidden`}
       >
-        <ClientActionNavbar />
-        {
-          state.client.actionNavbar === 1 ?
-            <ClientActivity activity={activity} />
-          : null
-        }
+        <div className="md:px-4">
+          <ClientActionNavbar />
+        </div>
+        <div className="md:overflow-y-auto md:px-4">
+          {
+            state.client.actionNavbar === 1 ?
+              <ClientActivity activity={activity} />
+            : null
+          }
+        </div>
       </div>
     </div>
   )

@@ -244,7 +244,7 @@ h6 {
   color: var(--nextui-colors-success);
 }
 .text-color-error {
-  color: var(--nextui-colors-error);
+  color: var(--nextui-colors-error) !important;
 }
 .bg-color-primary {
   background: var(--nextui-colors-primary);

@@ -30,7 +30,7 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,color='sky',
         return vertical ? `flex-col space-y-2` : `flex-row items-center`
     }
     const isPanel = () =>{
-        return modifyStyle.p ? `panel-flat-${type}` : ``
+        return modifyStyle.p ? `panel-flatter-${type}` : ``
     }
     const isShadow = () =>{
         return modifyStyle.s? `${type}-shadow` : ``
@@ -118,7 +118,7 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,color='sky',
                 return 'purple-to-blue-gradient-2'
         }
     }
-    const baseClass = `relative transition-all ${border?`${isDark?`border-slate-900`:`border-slate-200`} border`:null} ${shadow?`${type}-shadow`:null} duration-200 ease-out ${!showMore?`max-h-60`:`max-h-screen`} flex-col w-full p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+    const baseClass = `relative text-xs transition-all ${border?`${isDark?`border-slate-900`:`border-slate-200`} border`:null} ${shadow?`${type}-shadow`:null} duration-200 ease-out ${!showMore?`max-h-60`:`max-h-screen`} flex-col w-full p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
             <div className={`flex flex-col md:flex-row w-full md:items-center`}>
@@ -126,7 +126,7 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,color='sky',
                     <div className="mr-4">
                         <LineIcon iconSize={18} size="sm" line={policy.line} />
                     </div>
-                    <div className={`relative flex flex-col space-y-1 items-end mr-4`}>
+                    <div className={`relative flex space-x-1 md:space-x-0 md:flex-col md:space-y-1 md:items-end mr-4`}>
                         <TagBasic text={policy.policy_type} />
                         {   
                             policy.nonrenewed ? <TagBasic text={`NRNWD`} color="red" /> :
@@ -146,16 +146,20 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,color='sky',
                         <BsListTask />{showMore ? <AiOutlineDown /> : <AiOutlineLeft />}
                     </div>
                 </div>
-                <div className="flex items-center pt-4 md:pt-0 flex-1">
-                    <div className={`relative flex flex-col flex-1`}>
+                <div className={`relative flex md:hidden flex-col flex-1 py-2`}>
+                    <h6 className={`font-semibold`}>{truncateString(policy.carrier,truncate)}</h6>
+                    <h4 className={``}>{truncateString(policy.writing,truncate)}</h4>
+                </div>
+                <div className="flex items-center md:pt-0 flex-1">
+                    <div className={`hidden relative md:flex flex-col flex-1`}>
                         <h6 className={`font-semibold`}>{truncateString(policy.carrier,truncate)}</h6>
                         <h4 className={``}>{truncateString(policy.writing,truncate)}</h4>
                     </div>
-                    <div className={`relative flex flex-col items-end flex-1`}>
+                    <div className={`relative flex flex-col items-end md:flex-1`}>
                         <h4 className={`letter-spacing-1`}>{getFormattedDate(policy.effective_date)}</h4>
                         <h6 className={`letter-spacing-1`}>{getFormattedDate(policy.expiration_date)}</h6>
                     </div>
-                    <div className={`relative flex justify-end flex-1 pr-4`}>
+                    <div className={`relative flex justify-end w-full md:flex-1 pr-6 md:pr-4`}>
                         <h6 className={`text-teal-500 font-bold`}>$ {formatMoney(policy.premium)}</h6>
                     </div>
                     <div className="flex items-center w-full flex-1">
@@ -188,30 +192,6 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,color='sky',
                 <div className="pt-2">
                     <div className={`top2-border-flair pink-to-blue-gradient-1`} />
                     <div className={`flex flex-col w-full py-2`}>
-                        <div className={`flex w-full items-center space-x-2`}>
-                            <div className="mr-8">
-                            </div>
-                            <h4 className={`relative flex flex-1 tracking-widest`}>
-                                DESCRIPTION
-                            </h4>
-                            <h4 className={`relative flex items-end w-50 tracking-widest`}>
-                                COMPLETED
-                            </h4>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <h4 className={`relative flex items-end w-50 tracking-widest`}>
-                                DUE
-                            </h4>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <h4 className={`relative flex w-50 tracking-widest`}>
-                                REP
-                            </h4>
-                            <div></div>
-                        </div>
                         <div className="flex flex-col space-y-1">
                             {policy.tasks.map( t => {
                                 return <TaskCard key={t.id} task={t} />
