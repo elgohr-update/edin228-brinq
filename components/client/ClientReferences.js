@@ -10,7 +10,7 @@ const ClientReferences = ({client, flat=true, noBg=true, shadow=false, overflow=
         <div className={`flex flex-col w-full space-y-1`}>
             {
                 client?.clientrefgroups[0]?.refs.filter(x => x.client_id != client.id).map( cref => (
-                    <ClientCrossReferenceCard cref={cref} />
+                    <ClientCrossReferenceCard key={cref.client_id} cref={cref} />
                 ))
             }
         </div>

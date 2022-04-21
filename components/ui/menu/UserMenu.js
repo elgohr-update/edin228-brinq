@@ -31,8 +31,8 @@ const UserMenu = () => {
       <div
         className={
           openMenu
-            ? `opacity-1 min-h-20 absolute top-[50px] right-[2px] z-50 w-[160px] rounded transition-all duration-200 ease-out panel-theme-${type} ${type}-shadow`
-            : 'absolute top-[-200px] w-[160px] right-[2px] opacity-0 transition-all duration-200 ease-out'
+            ? `opacity-1 min-h-20 absolute top-[50px] right-[2px] z-50 w-[160px] rounded-lg panel-flatter-${type} ${type}-shadow`
+            : 'absolute top-[-200px] w-[160px] right-[2px] opacity-0'
         }
       >
         <div
@@ -52,7 +52,7 @@ const UserMenu = () => {
               label="Settings"
             />
           </div>
-          <div className={`panel-flat-${type} p-1`}>
+          <div className={`panel-flat-${type} rounded-b-lg p-1`}>
             <LinkedMenuItem
               href="/user/signout"
               icon={<FiLogOut />}

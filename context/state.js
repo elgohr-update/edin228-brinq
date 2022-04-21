@@ -55,6 +55,9 @@ export function AppWrapper({ children }) {
       client: {
         dataNavbar: 1,
         actionNavbar: 1,
+      },
+      admin:{
+        navBar: 1
       }
     }
   )

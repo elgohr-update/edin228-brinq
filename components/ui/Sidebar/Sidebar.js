@@ -2,7 +2,7 @@ import { Image, Switch, useTheme } from '@nextui-org/react'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { AiOutlineHome, AiOutlineAlignLeft, AiOutlineCalendar } from 'react-icons/ai';
-import { RiAdminFill } from 'react-icons/ri';
+import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 import { BiBook } from 'react-icons/bi';
 import { CgFileDocument, CgToolbox } from 'react-icons/cg';
@@ -151,16 +151,20 @@ const Sidebar = () => {
                         </Link>
                         {
                             session?.user?.admin ? 
-                                <Link href="/admin">
-                                    <a className={`border-t text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/admin')} ${isActiveIcon('/admin')}`}>
-                                        <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
-                                            <RiAdminFill />
-                                        </div>
-                                        <div className={`flex w-full sidebar-text-${isExpand()}`}>
-                                            Admin
-                                        </div> 
-                                    </a>
-                                </Link>
+                                <div>
+                                    <div className="border-t opacity-30 mt-6 mb-4" />
+                                    <Link href="/admin">
+                                        <a className={`text-sm flex w-full px-2 py-2 hover:text-sky-500 transition duration-75 ease-out ${themeHover()} ${isActive('/admin')} ${isActiveIcon('/admin')}`}>
+                                            <div className={`flex items-center justify-center w-[30px] h-[30px]`}>
+                                                <MdOutlineAdminPanelSettings />
+                                            </div>
+                                            <div className={`flex w-full sidebar-text-${isExpand()}`}>
+                                                Admin
+                                            </div> 
+                                        </a>
+                                    </Link>    
+                                </div>
+                                
                             :null
                         }
                     </div>

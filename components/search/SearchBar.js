@@ -43,7 +43,7 @@ const SearchBar = () => {
   return (
     <div className="relative flex h-full w-full items-center justify-between">
       <Input
-        className={`z-10 ${type}-shadow`}
+        className={`z-10 ${type}-shadow ${validSearch ? `outline outline-2 outline-sky-500`:''}`}
         type="search"
         size="sm"
         fullWidth
@@ -56,8 +56,8 @@ const SearchBar = () => {
       <div
         className={
           validSearch
-            ? `opacity-1 min-h-80 z-60 absolute top-[40px] left-[1px] w-[360px] overflow-auto rounded-lg transition-all duration-100 ease-out md:w-[360px] panel-flatter-${type} ${type}-shadow`
-            : `rounded-lg panel-flatter-${type} ${type}-shadow absolute top-[-500px] w-[360px] opacity-0 transition-all duration-100 ease-out md:w-[550px]`
+            ? `opacity-1 min-h-80 z-60 absolute pt-14 pb-4 px-1 top-[-10px] left-[-7px] w-[370px] overflow-auto rounded-lg transition-all duration-100 ease-out panel-flatter-${type} ${type}-shadow`
+            : `rounded-lg panel-flatter-${type} ${type}-shadow absolute top-[-500px] w-[360px] opacity-0 transition-all duration-100 ease-out`
         }
       >
         {searchResults?.map((x) => {

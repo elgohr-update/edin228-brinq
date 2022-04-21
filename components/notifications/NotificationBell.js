@@ -1,6 +1,6 @@
 import { Avatar, useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { BsBell } from 'react-icons/bs';
+import { BiBell } from 'react-icons/bi';
 import { useTheme as useNextTheme } from 'next-themes'
 import { useRouter } from 'next/router'
 
@@ -22,9 +22,9 @@ const NotificationBell = () => {
     return (
         <div className="flex items-center justify-center w-full h-full relative cursor-pointer">
             <div className="hover:text-sky-500 transition duration-100 ease-out">
-                <BsBell size={20} />
+                <BiBell size={20} />
             </div>
-            <div className={notifications.length > 0 ?`z-20 notif-bell-badge` :'hidden'} />
+            <div className={notifications.length > 0 ?`z-20 notif-bell-badge border-2 ${isDark ? `border-black`:`border-white`}` :'hidden'} />
         </div>
     )
 }

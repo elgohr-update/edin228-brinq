@@ -1,8 +1,8 @@
 import React from 'react'
-import { useTheme } from '@nextui-org/react';
+import { Tooltip, useTheme } from '@nextui-org/react';
 import { textAbbrev } from '../../../utils/utils';
 
-const TagBasic = ({text='',color='sky',shadow=true}) => {
+const TagBasic = ({text='',color='sky',shadow=true,tooltip=false,tooltipContent=null}) => {
     const { isDark, type } = useTheme();
     const isShadow = () =>{
         return shadow ? `${type}-shadow` : ``
@@ -32,9 +32,18 @@ const TagBasic = ({text='',color='sky',shadow=true}) => {
     }
 
     return (
-        <div className={`tag-basic tag-text-shadow ${getColor()} ${isShadow()}`}>
-            { textAbbrev(text) }
-        </div>
+        
+            tooltip ? 
+            <Tooltip content={tooltipContent}>
+                <div className={`tag-basic tag-text-shadow ${getColor()} ${isShadow()}`}>
+                    { textAbbrev(text) }
+                </div> 
+            </Tooltip>
+            :
+            <div className={`tag-basic tag-text-shadow ${getColor()} ${isShadow()}`}>
+                { textAbbrev(text) }
+            </div>
+        
     )
 }
 

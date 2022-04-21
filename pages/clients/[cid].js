@@ -20,8 +20,9 @@ import { BsBox } from 'react-icons/bs'
 import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientReferences from '../../components/client/ClientReferences'
+import PolicyTypeHeatmap from '../../components/policytype/PolicyTypeHeatmap'
 
-export default function Client({ client, events, emails, activity }) {
+export default function Client({ client, events, emails, activity, policyTypes }) {
   const router = useRouter()
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
@@ -87,14 +88,21 @@ export default function Client({ client, events, emails, activity }) {
             </div>
             {
               state.client.dataNavbar === 1 ?
-              <div
-                className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
-              >
-                {getPolicies().map((u) => (
-                  <Panel flat key={u.id} overflow={false} px={0} py={0}>
-                    <PolicyCard policy={u} truncate={60} />
-                  </Panel>
-                ))}
+              <div className="flex flex-col w-full">
+                <div>
+                  <div>
+                    <PolicyTypeHeatmap all={policyTypes} policies={getPolicies(true)} line={client.line} />
+                  </div>
+                </div>
+                <div
+                  className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
+                >
+                  {getPolicies().map((u) => (
+                    <Panel flat key={u.id} overflow={false} px={0} py={0}>
+                      <PolicyCard policy={u} truncate={60} />
+                    </Panel>
+                  ))}
+                </div>
               </div>
               : null
             }
@@ -128,8 +136,9 @@ export async function getServerSideProps(context) {
     const events = await useApi('GET',`/events/client/${cid}`,session.accessToken)
     const emails = await useApi('GET',`/emails/client/${cid}`,session.accessToken)
     const activity = await useApi('GET',`/activity/client/${cid}`,session.accessToken)
+    const policyTypes = await useApi('GET',`/policytypes/`, session.accessToken)
 
-    return { props: { client, events, emails, activity } }
+    return { props: { client, events, emails, activity, policyTypes } }
   }
-  return { props: { client: null, events: null, emails: null, activity: null } }
+  return { props: { client: null, events: null, emails: null, activity: null, policyTypes:null } }
 }

@@ -6,11 +6,11 @@ import { MdPermContactCalendar } from 'react-icons/md'
 function ContactSearchCard({ contact }) {
   const { isDark, type } = useTheme()
   return (
-    <div className="flex w-full items-center px-4 py-2">
-      <div className="flex items-center ">
+    <div className="flex text-sm w-full px-4 py-2">
+      <div className="flex ">
         <div className={`z-20 flex`}>
           <div
-            className={`flex items-center ${type}-shadow mr-2 justify-center rounded ${
+            className={`flex ${type}-shadow mr-2 justify-center rounded ${
               isDark ? 'bg-slate-500/20' : 'bg-white/40'
             } h-[30px] w-[30px] p-2`}
           >

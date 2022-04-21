@@ -2,8 +2,10 @@ import uuid from 'react-uuid'
 import { BsBox, BsPlusLg, BsClipboard,BsCheckCircleFill } from 'react-icons/bs'
 import { FaRegPaperPlane } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
+import { RiLinksLine } from 'react-icons/ri'
+import { HiOutlineOfficeBuilding } from 'react-icons/hi'
 import { MdOutlineStickyNote2, MdOutlineFolderShared } from 'react-icons/md'
-import { AiOutlineLeft,AiOutlineDown,AiOutlineRight,AiOutlineUp,AiOutlineCalendar } from 'react-icons/ai'
+import { AiOutlineFile, AiOutlineLeft,AiOutlineDown,AiOutlineRight,AiOutlineUp,AiOutlineCalendar } from 'react-icons/ai'
 import { BiNotepad,BiCommentDetail,BiCommentAdd,BiCircle } from 'react-icons/bi'
 
 export const getConstantIcons = (item) => {
@@ -39,9 +41,15 @@ export const getConstantIcons = (item) => {
     <BiCommentAdd />
   ) : item == 'circleCheck' ? (
     <BsCheckCircleFill />
-  ) : item == '' ? (
+  ) : item == 'circle' ? (
     <BiCircle />
-  ) :null 
+  ) : item == 'file' ? (
+    <AiOutlineFile />
+  ) : item == 'link' ? (
+    <RiLinksLine />
+  ) : item == 'agency' ? (
+    <HiOutlineOfficeBuilding />
+  ) : null 
 }
 
 export const truncateString = (str, num) => {

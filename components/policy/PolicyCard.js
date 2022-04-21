@@ -8,7 +8,7 @@ import TagBasic from '../ui/tag/TagBasic';
 import TaskCard from './../task/TaskCard';
 import UserAvatar from '../user/Avatar';
 
-const PolicyCard = ({policy,border=false,truncate=30,vertical=false,color='sky',gradientColor="orange",panel=false,shadow=false}) => {
+const PolicyCard = ({policy,border=false,truncate=20,vertical=false,color='sky',gradientColor="orange",panel=false,shadow=false}) => {
     const { isDark, type } = useTheme();
     const [showMore, setShowMore] = useState(false)
     const [modifyStyle, setModifyStyle] = useState({p:false,s:false,b:false})

@@ -45,8 +45,8 @@ const NewActionMenu = () => {
       <div
         className={
           openMenu
-            ? `opacity-1 absolute top-[30px] right-[2px] z-50 w-[200px] rounded-lg transition-all duration-200 ease-out panel-theme-${type} ${type}-shadow`
-            : 'absolute right-[2px] top-[-500px] w-[200px] opacity-0 transition-all duration-200 ease-out'
+            ? `opacity-1 absolute top-[30px] right-[2px] z-50 w-[200px] rounded-lg panel-flatter-${type} ${type}-shadow`
+            : 'absolute right-[2px] top-[-500px] w-[200px] opacity-0'
         }
       >
         <div className="flex w-full flex-col space-y-1 p-1">

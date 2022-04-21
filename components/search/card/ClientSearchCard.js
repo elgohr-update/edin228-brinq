@@ -10,7 +10,7 @@ function ClientSearchCard({ client }) {
     <div className="flex w-full items-center px-4 py-2">
       <Link href={`/clients/${client.id}`}>
         <a>
-          <div className="flex items-center transition duration-100 hover:text-sky-500">
+          <div className="flex text-sm items-center transition duration-100 hover:text-sky-500">
             <div className={`z-20 flex`}>
               <div
                 className={`flex items-center ${type}-shadow mr-2 justify-center rounded ${

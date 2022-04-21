@@ -285,8 +285,7 @@ h6 {
   backdrop-filter: blur(14px);
 }
 .panel-flatter-dark {
-  background: #17131be7;
-  backdrop-filter: blur(50px);
+  background: #110f14;
 }
 .panel-flatter-light {
   background: #ffffff;
@@ -845,13 +844,12 @@ h6 {
 /* Notification Bell */
 .notif-bell-badge {
     position:absolute;
-    top:-2px;
-    right:0px;
-    height:9px;
-    width:9px;
-    border-radius:50px;
+    top:0px;
+    right:-1px;
+    height:10px;
+    width:10px;
+    border-radius:50%;
     background:linear-gradient(to bottom, red,rgb(209, 35, 240));
-    border:1px solid var(--nextui-colors-text);
 }
 
 /* Tag Basic */
@@ -889,8 +887,8 @@ h6 {
 }
 .tag-blue-bg {
   background:#47566d;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(310deg, #3e70bd, #3ac8f3);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(310deg, #3e70bd, #3ac8f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(310deg, #3e70bd, #005aff);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(310deg, #3e70bd, #005aff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color:white;
 }
 .tag-red-bg {
@@ -922,7 +920,7 @@ h6 {
   color:white;
   text-shadow:2px 1px 4px #1b1a28c2;
   border: none !important;
-  background:linear-gradient(145deg, #00b8ff, #00ffe7);
+  background:linear-gradient(145deg, #00b8ff, #005aff);
 }
 .deal-tag-green{
   background:#33f9a7;
