@@ -5,7 +5,7 @@ import { FiMail } from 'react-icons/fi'
 import { RiLinksLine } from 'react-icons/ri'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
 import { MdOutlineStickyNote2, MdOutlineFolderShared } from 'react-icons/md'
-import { AiOutlineFile, AiOutlineLeft,AiOutlineDown,AiOutlineRight,AiOutlineUp,AiOutlineCalendar } from 'react-icons/ai'
+import { AiOutlineEdit,AiOutlineFile, AiOutlineLeft,AiOutlineDown,AiOutlineRight,AiOutlineUp,AiOutlineCalendar } from 'react-icons/ai'
 import { BiNotepad,BiCommentDetail,BiCommentAdd,BiCircle } from 'react-icons/bi'
 
 export const getConstantIcons = (item) => {
@@ -49,6 +49,8 @@ export const getConstantIcons = (item) => {
     <RiLinksLine />
   ) : item == 'agency' ? (
     <HiOutlineOfficeBuilding />
+  ) : item == 'edit' ? (
+    <AiOutlineEdit />
   ) : null 
 }
 

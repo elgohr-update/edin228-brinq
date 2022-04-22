@@ -30,6 +30,19 @@ export default async function handler(req, res) {
                     res.status(200).json(results.body)
                 }    
             }
+            else {
+                const results = await fetch(baseUrl, {
+                    method: 'PUT',
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${session.accessToken}`
+                    },
+                    body:req.body
+                })
+                if (results) {
+                    res.status(200).json(results.body)
+                }    
+            }
             
         }
         

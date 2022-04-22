@@ -7,10 +7,10 @@ import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import AdminLayout from '../../layouts/AdminLayout'
 import PageHeader from '../../components/ui/pageheaders/PageHeader'
 import PageTitle from '../../components/ui/pageheaders/PageTitle'
-import PolicyTypeSettings from '../../components/admin/PolicyTypeSettings/PolicyTypeSettings'
 import UsersControlPanel from '../../components/admin/users/UsersControlPanel'
 import Agency from '../../components/admin/agency/Agency'
 import AdminNavbar from '../../components/admin/AdminNavbar'
+import PolicySettings from '../../components/admin/policy/PolicySettings'
 
 export default function Admin() {
   const router = useRouter()
@@ -39,7 +39,7 @@ export default function Admin() {
                 <Agency />
               :
               state.admin.navBar == 4 ?
-                <PolicyTypeSettings />
+                <PolicySettings />
               :
               null
             }

@@ -21,11 +21,7 @@ export default function PolicyTypeHeatmap({ all, policies, line }) {
   }, [])
 
   const isPurchased = (tagId) => {
-    return activePolicyTypes.filter( x => x.id === tagId).length > 0 ? true : false
-  }
-
-  const getTagColor = (tag) => {
-      return tag.cl ? 'blue' : tag.pl ? 'red' : tag.b ? 'green' : 'def'
+    return activePolicyTypes.filter( x => x.id === tagId).length > 0 ? 'blue'  : 'def'
   }
 
   return (
@@ -33,7 +29,7 @@ export default function PolicyTypeHeatmap({ all, policies, line }) {
       <div className="space-1 flex w-full flex-wrap">
         {filteredAll.map((pt) => (
           <div key={pt.id} className="m-1">
-            <TagBasic text={pt.tag} tooltip tooltipContent={pt.name} color={isPurchased(pt.id) ? getTagColor(pt) : `def`} />
+            <TagBasic text={pt.tag} tooltip tooltipContent={pt.name} color={isPurchased(pt.id)} />
           </div>
         ))}
       </div>
