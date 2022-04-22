@@ -148,6 +148,7 @@ export default function RenewalsTable(data) {
                                     key={u.id}
                                     isGrouped={true}
                                     squared={false}
+                                    size={`sm`}
                                 />
                             ))}
                         </Avatar.Group>     

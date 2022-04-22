@@ -24,9 +24,29 @@ export default function Admin() {
       </PageHeader>
       <div className="flex flex-col w-full pl-4">
           <AdminNavbar />
-          <Agency />
-          <PolicyTypeSettings />
-          <UsersControlPanel />
+          <div>
+            {
+              state.admin.navBar == 1 ?
+                <div className="flex w-full">
+                  <Agency />
+                  <UsersControlPanel />
+                </div>
+              :
+              state.admin.navBar == 2 ?
+                <Agency />
+              :
+              state.admin.navBar == 3 ?
+                <Agency />
+              :
+              state.admin.navBar == 4 ?
+                <PolicyTypeSettings />
+              :
+              null
+            }
+          </div>
+          
+          
+          
       </div>
     </main>
   )

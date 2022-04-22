@@ -102,7 +102,7 @@ const PoliciesTable = () => {
         switch (columnKey) {
             case "line":
                 return (
-                    <div className="flex w-[30px]">
+                    <div className="flex items-center justify-center">
                         <Tooltip content={cellValue}>
                             <LineIcon iconSize={18} size="sm" line={cellValue} />
                         </Tooltip>
@@ -111,12 +111,12 @@ const PoliciesTable = () => {
             case "client_name":
                 const checkTheme = () => {
                     return type === 'dark' ?
-                        `cursor-pointer hover:bg-gray-600/10 p-4 rounded  transition duration-100 ease-out`
+                        `h-full w-full hover:bg-gray-600/10 p-4 rounded  transition duration-100 ease-out`
                     :
-                        `cursor-pointer hover:bg-gray-500/10 p-4 rounded  transition duration-100 ease-out`
+                        `h-full w-full hover:bg-gray-500/10 p-4 rounded  transition duration-100 ease-out`
                 }
                 return (
-                    <div className="px-2">
+                    <div className="text-xs px-2">
                         <div className={checkTheme()} onClick={() => openSidebar(policy.client_id)}>
                             <Link href={`/client/${policy.client_id}`}>
                                 <a className="hover:text-sky-500 transition duration-100 ease-in-out">
@@ -157,7 +157,7 @@ const PoliciesTable = () => {
                 )
             case "premium":
                 return (
-                    <div className="flex">
+                    <div className="text-xs flex justify-center">
                         <div className="flex justify-end w-[90px] text-teal-500">
                             {`$ ${formatMoney(cellValue)}`}
                         </div>
@@ -176,6 +176,7 @@ const PoliciesTable = () => {
                                     key={u.id}
                                     isGrouped={true}
                                     squared={false}
+                                    size={`sm`}
                                 />
                             ))}
                         </Avatar.Group>     
@@ -243,17 +244,15 @@ const PoliciesTable = () => {
                     </div>
                     <div className="flex flex-col spacy-y-4">
                         <h4>Filter Lines</h4>
-                        <Checkbox.Group value={lineList}>
-                            <Checkbox color="primary" labelColor="primary" size="sm" value="Commercial Lines" onChange={(e) => setLineFilter(e.target.checked,'Commercial Lines')}>
-                                Commercial Lines
-                            </Checkbox>
-                            <Checkbox color="error" labelColor="error" size="sm" value="Personal Lines" onChange={(e) => setLineFilter(e.target.checked,'Personal Lines')}>
-                                Personal Lines
-                            </Checkbox>
-                            <Checkbox color="success" labelColor="success" size="sm" value="Benefits" onChange={(e) => setLineFilter(e.target.checked,'Benefits')}>
-                                Benefits
-                            </Checkbox>   
-                        </Checkbox.Group>
+                        <Checkbox color="primary" labelColor="primary" size="sm" initialChecked={true} value="Commercial Lines" onChange={(e) => setLineFilter(e,'Commercial Lines')}>
+                            Commercial Lines
+                        </Checkbox>
+                        <Checkbox color="error" labelColor="error" size="sm" initialChecked={true} value="Personal Lines" onChange={(e) => setLineFilter(e,'Personal Lines')}>
+                            Personal Lines
+                        </Checkbox>
+                        <Checkbox color="success" labelColor="success" size="sm" initialChecked={true} value="Benefits" onChange={(e) => setLineFilter(e,'Benefits')}>
+                            Benefits
+                        </Checkbox>   
                     </div>
                 </div>    
             :null
@@ -319,13 +318,13 @@ const PoliciesTable = () => {
                             </Table.Row>
                         )}
                     </Table.Body>
-                    {tableData.length > 8 ? 
+                    {tableData.length > 9 ? 
                         <Table.Pagination
                             shadow
                             align="center"
                             noMargin
-                            rowsPerPage={8}
-                            total={Math.floor(Number(tableData.length/8))}
+                            rowsPerPage={9}
+                            total={Math.floor(Number(tableData.length/9))}
                         />: null
                     }
                 </Table>

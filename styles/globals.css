@@ -6,10 +6,10 @@
   --nextui-borderWeights-normal: 2px;
 }
 /* Fixes */
-.nextui-c-hSfoSF-bVtBym-bordered-false {
+.nextui-c-hWZRae-bVtBym-bordered-false {
   border-width: 0px !important;
 }
-.nextui-c-eFnRgP-krOtXB-borderWeight-normal .nextui-avatar-img {
+.nextui-c-iPvdXb-krOtXB-borderWeight-normal .nextui-avatar-img {
   border-width: 0px !important;
 }
 .nextui-c-cqpNQI-ihOkgrg-css {
@@ -23,27 +23,27 @@ button {
   background-color: transparent;
   background-image: none;
 }
-.nextui-c-gnEedP-ikltse-color-default {
+.nextui-c-lojsts-ikltse-color-default {
   background: var(--nextui-colors-primary) !important;
   color: var(--nextui-colors-white) !important;
 }
-.nextui-c-gnEedP-kUMTig-color-gradient {
+.nextui-c-lojsts-kUMTig-color-gradient {
   background: var(--nextui-colors-gradient);
   color: var(--nextui-colors-white);
 }
-.nextui-c-gnEedP-heMdyx-cv {
+.nextui-c-lojsts-heMdyx-cv {
   background: var(--nextui-colors-primaryLight) !important;
   color: var(--nextui-colors-primary) !important;
 }
-.nextui-c-gnEedP-hBfXmr-cv {
+.nextui-c-lojsts-hBfXmr-cv {
   background: var(--nextui-colors-secondaryLight) !important;
   color: var(--nextui-colors-secondary) !important;
 }
-.nextui-c-gnEedP-bXueNC-cv {
+.nextui-c-lojsts-bXueNC-cv {
   background: var(--nextui-colors-successLight) !important;
   color: var(--nextui-colors-success) !important;
 }
-.nextui-c-gnEedP-bZaGpN-cv {
+.nextui-c-lojsts-bZaGpN-cv {
   background: var(--nextui-colors-errorLight) !important;
   color: var(--nextui-colors-error) !important;
 }
@@ -266,6 +266,7 @@ h6 {
   text-transform: uppercase;
   letter-spacing:2px;
   font-weight: 400;
+  font-size:0.65rem;
 }
 
 .panel-theme-dark {
@@ -871,7 +872,7 @@ h6 {
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align:center;
-  padding:2px 4px;
+  padding:1px 2px;
 }
 .tag-gray-bg {
   background:#47566d;  /* fallback for old browsers */

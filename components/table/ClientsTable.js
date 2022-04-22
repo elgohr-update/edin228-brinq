@@ -97,7 +97,7 @@ const ClientsTable = () => {
         switch (columnKey) {
             case "line":
                 return (
-                    <div className="flex w-[30px]">
+                    <div className="flex items-center justify-center">
                         <Tooltip content={cellValue}>
                             <LineIcon iconSize={18} size="sm" line={cellValue} />
                         </Tooltip>
@@ -106,12 +106,12 @@ const ClientsTable = () => {
             case "client_name":
                 const checkTheme = () => {
                     return type === 'dark' ?
-                        `cursor-pointer hover:bg-gray-600/10 p-4 rounded  transition duration-100 ease-out`
+                        `h-full w-full hover:bg-gray-600/10 p-4 rounded  transition duration-100 ease-out`
                     :
-                        `cursor-pointer hover:bg-gray-500/10 p-4 rounded  transition duration-100 ease-out`
+                        `h-full w-full hover:bg-gray-500/10 p-4 rounded  transition duration-100 ease-out`
                 }
                 return (
-                    <div className="px-2">
+                    <div className="text-xs px-2">
                         <div className={checkTheme()} onClick={() => openSidebar(client)}>
                             <Link href={`/client/${client.id}`}>
                                 <a className="hover:text-sky-500 transition duration-100 ease-in-out">
@@ -124,15 +124,15 @@ const ClientsTable = () => {
                 )
             case "policy_count":
                 return (
-                    <div className="flex w-[30px]">
-                        <div className="flex justify-end w-[90px]">
+                    <div className="text-xs flex justify-center">
+                        <div className="flex justify-end w-[50px]">
                             {cellValue}
                         </div>
                     </div>
                 )
             case "premium":
                 return (
-                    <div className="flex">
+                    <div className="text-xs flex justify-center">
                         <div className="flex justify-end w-[90px] text-teal-500">
                             {`$ ${formatMoney(cellValue)}`}
                         </div>
@@ -151,6 +151,7 @@ const ClientsTable = () => {
                                     key={u.id}
                                     isGrouped={true}
                                     squared={false}
+                                    size={`sm`}
                                 />
                             ))}
                         </Avatar.Group>     
@@ -244,17 +245,15 @@ const ClientsTable = () => {
                     </div>
                     <div className="flex flex-col spacy-y-4">
                         <h4>Filter Lines</h4>
-                        <Checkbox.Group value={lineList}>
-                            <Checkbox color="primary" labelColor="primary" size="sm" value="Commercial Lines" onChange={(e) => setLineFilter(e.target.checked,'Commercial Lines')}>
-                                Commercial Lines
-                            </Checkbox>
-                            <Checkbox color="error" labelColor="error" size="sm" value="Personal Lines" onChange={(e) => setLineFilter(e.target.checked,'Personal Lines')}>
-                                Personal Lines
-                            </Checkbox>
-                            <Checkbox color="success" labelColor="success" size="sm" value="Benefits" onChange={(e) => setLineFilter(e.target.checked,'Benefits')}>
-                                Benefits
-                            </Checkbox>   
-                        </Checkbox.Group>
+                        <Checkbox color="primary" labelColor="primary" size="sm" initialChecked={true} value="Commercial Lines" onChange={(e) => setLineFilter(e,'Commercial Lines')}>
+                            Commercial Lines
+                        </Checkbox>
+                        <Checkbox color="error" labelColor="error" size="sm" initialChecked={true} value="Personal Lines" onChange={(e) => setLineFilter(e,'Personal Lines')}>
+                            Personal Lines
+                        </Checkbox>
+                        <Checkbox color="success" labelColor="success" size="sm" initialChecked={true} value="Benefits" onChange={(e) => setLineFilter(e,'Benefits')}>
+                            Benefits
+                        </Checkbox>   
                     </div>
                 </div>    
             :null
@@ -297,18 +296,25 @@ const ClientsTable = () => {
                 >
                     <Table.Header columns={columns}>
                         {(column) => (
-                            column.key === 'client_name' || column.key === 'premium' || column.key === 'policy_count' ?
+                            column.key === 'client_name'  ?
                                 <Table.Column key={column.key} allowsSorting>
-                                    <div className="table-column-header pl-2">
+                                    <div className="text-xs table-column-header pl-5">
                                         {column.label}
                                     </div>
                                 </Table.Column>
                             :
-                                <Table.Column key={column.key}>
-                                    <div className="table-column-header pl-2">
+                            column.key === 'line' || column.key === 'reps' ?
+                                <Table.Column key={column.key} allowsSorting>
+                                    <div className="flex justify-center items-center text-xs table-column-header px-1">
                                         {column.label}
                                     </div>
                                 </Table.Column>
+                            :
+                            <Table.Column key={column.key}  allowsSorting>
+                                <div className="flex items-center justify-center text-xs table-column-header px-1">
+                                    {column.label}
+                                </div>
+                            </Table.Column>
                         )}
                     </Table.Header>
                     <Table.Body items={tableData}>

@@ -8,11 +8,11 @@ export default function PolicyTypeHeatmap({ all, policies, line }) {
   useEffect(() => {
     const filtered =
       line == 'Commercial Lines'
-        ? all.filter((x) => x.cl == true)
+        ? all.filter((x) => x.cl == true && x.starred)
         : line == 'Personal Lines'
-        ? all.filter((x) => x.pl == true)
+        ? all.filter((x) => x.pl == true && x.starred)
         : line == 'Benefits'
-        ? all.filter((x) => x.b == true)
+        ? all.filter((x) => x.b == true && x.starred)
         : []
     setFilteredAll(filtered)
     const activePT = []
