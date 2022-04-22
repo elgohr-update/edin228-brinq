@@ -61,7 +61,7 @@ export default function PolicyTypeSettings() {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="flex flex-col md:w-4/12">
+      <div className="flex flex-col md:w-3/12">
         <div className="h-full w-full py-4">
           <h6>Prefered Policies</h6>
         </div>

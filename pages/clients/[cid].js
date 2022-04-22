@@ -1,7 +1,7 @@
-import { Button, useTheme } from '@nextui-org/react'
+import { Button, Switch, useTheme } from '@nextui-org/react'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import ClientActivity from '../../components/client/ClientActivity'
 import ClientContacts from '../../components/client/ClientContacts'
 import ClientHeader from '../../components/client/ClientTitle'
@@ -22,6 +22,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
   const router = useRouter()
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
+  const [showActive, setShowActive] = useState(true)
 
   const getPolicies = (active = false) => {
     return active
@@ -85,13 +86,14 @@ export default function Client({ client, events, emails, activity, policyTypes }
             {
               state.client.dataNavbar === 1 ?
               <div className="flex flex-col w-full md:overflow-hidden">
-                <div>
+                <div className="flex items-center w-full px-4">
                   <ClientPolicyInfo client={client} policyTypes={policyTypes} policies={getPolicies(true)} />
+                  <Switch checked={showActive} size="xs" onChange={(e) => setShowActive(e.target.checked)}/>
                 </div>
                 <div
                   className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
                 >
-                  {getPolicies().map((u) => (
+                  {getPolicies(showActive).map((u) => (
                     <Panel flat key={u.id} overflow={false} px={0} py={0}>
                       <PolicyCard policy={u} truncate={60} />
                     </Panel>
