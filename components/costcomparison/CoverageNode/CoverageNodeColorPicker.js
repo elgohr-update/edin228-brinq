@@ -1,7 +1,6 @@
 import { useTheme } from '@nextui-org/react'
 import React, { useState } from 'react'
 import { useAppContext } from '../../../context/state'
-import objectScan from 'object-scan';
 
 export default function CoverageNodeColorPicker({
   node,
