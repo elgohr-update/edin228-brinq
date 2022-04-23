@@ -19,6 +19,7 @@ import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
 
 export default function Client({ client, events, emails, activity, policyTypes }) {
+  
   const router = useRouter()
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
