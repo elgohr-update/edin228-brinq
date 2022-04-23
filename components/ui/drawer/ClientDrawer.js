@@ -35,6 +35,7 @@ const ClientDrawer = () => {
         }
         const fetchActivity = async () => {
             const res = await useNextApi('GET',`/api/clients/${clientId}/activity?limit=8`)
+            console.log(res)
             setActivity(res);
         }
         const fetchPolicies = async () => {
@@ -158,10 +159,7 @@ const ClientDrawer = () => {
                                     null 
                                     }
                                 </div>
-                                <div className={`${ activity.length < 1 ? 'hidden' : 'flex' } flex-col w-full mt-4 px-4 h-full`}>
-                                    <h4>Recent Activity</h4>
-                                    {client? <ClientActivity activity={activity} /> : null}
-                                </div>
+                                {client && activity.length > 0? <ClientActivity activity={activity} /> : null}
                             </div>                    
                         </div>
                     </div>
