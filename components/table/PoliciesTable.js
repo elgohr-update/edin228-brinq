@@ -118,7 +118,7 @@ const PoliciesTable = () => {
                 return (
                     <div className="text-xs px-2">
                         <div className={checkTheme()} onClick={() => openSidebar(policy.client_id)}>
-                            <Link href={`/client/${policy.client_id}`}>
+                            <Link href={`/clients/${policy.client_id}`}>
                                 <a className="hover:text-sky-500 transition duration-100 ease-in-out">
                                     {cellValue}
                                 </a>
@@ -318,13 +318,13 @@ const PoliciesTable = () => {
                             </Table.Row>
                         )}
                     </Table.Body>
-                    {tableData.length > 9 ? 
+                    {tableData.length > 10 ? 
                         <Table.Pagination
                             shadow
                             align="center"
                             noMargin
-                            rowsPerPage={9}
-                            total={Math.floor(Number(tableData.length/9))}
+                            rowsPerPage={10}
+                            total={Math.floor(Number(tableData.length/10))}
                         />: null
                     }
                 </Table>

@@ -88,7 +88,10 @@ export default function Client({ client, events, emails, activity, policyTypes }
               <div className="flex flex-col w-full md:overflow-hidden">
                 <div className="flex items-center w-full px-4">
                   <ClientPolicyInfo client={client} policyTypes={policyTypes} policies={getPolicies(true)} />
-                  <Switch checked={showActive} size="xs" onChange={(e) => setShowActive(e.target.checked)}/>
+                  <div>
+                    <h4>Active</h4>
+                    <Switch checked={showActive} size="xs" onChange={(e) => setShowActive(e.target.checked)}/>
+                  </div>
                 </div>
                 <div
                   className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
@@ -107,7 +110,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
         </div>
       </div>
       <div
-        className={`flex w-full flex-col pb-2 md:w-4/12 md:overflow-hidden`}
+        className={`flex mt-4 md:mt-0 w-full flex-col pb-2 md:w-5/12 md:overflow-hidden`}
       >
         <div className="md:px-4">
           <ClientActionNavbar />

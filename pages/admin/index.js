@@ -18,35 +18,29 @@ export default function Admin() {
   const { state, setState } = useAppContext()
 
   return (
-    <main className="flex w-full flex-col">
+    <main className="flex flex-col w-full">
       <PageHeader>
         <PageTitle icon={<MdOutlineAdminPanelSettings />} text="Admin" />
-      </PageHeader>
-      <div className="flex flex-col w-full pl-4">
+        <div className={`ml-4 w-max panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}>
           <AdminNavbar />
-          <div>
-            {
-              state.admin.navBar == 1 ?
-                <div className="flex w-full">
-                  <Agency />
-                  <UsersControlPanel />
-                </div>
-              :
-              state.admin.navBar == 2 ?
-                <Agency />
-              :
-              state.admin.navBar == 3 ?
-                <Agency />
-              :
-              state.admin.navBar == 4 ?
-                <PolicySettings />
-              :
-              null
-            }
-          </div>
-          
-          
-          
+        </div>
+      </PageHeader>
+      
+      <div className="flex flex-col pl-4">
+        <div className="flex">
+          {state.admin.navBar == 1 ? (
+            <div className="flex w-full">
+              <Agency />
+              <UsersControlPanel />
+            </div>
+          ) : state.admin.navBar == 2 ? (
+            <Agency />
+          ) : state.admin.navBar == 3 ? (
+            <Agency />
+          ) : state.admin.navBar == 4 ? (
+            <PolicySettings />
+          ) : null}
+        </div>
       </div>
     </main>
   )

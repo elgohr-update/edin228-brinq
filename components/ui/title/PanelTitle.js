@@ -41,9 +41,9 @@ export default function PanelTitle({title,color}) {
   return (
     <div className="flex items-center py-1 mb-1">
         <div className={`flex mr-2 h-[15px] w-[10px] rounded ${getColor().bg}`} />
-        <h4 className="tracking-wide">
+        <h6 className="tracking-wide">
             {title}
-        </h4>
+        </h6>
 
     </div>
   )

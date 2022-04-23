@@ -29,18 +29,18 @@ const ClientActionNavbar = () => {
         itemId={2}
       />
       <NavAction
-        onClick={() => setActive(2)}
+        onClick={() => setActive(3)}
         icon={getConstantIcons('file')}
         title={'Files'}
         activeItem={activeItem}
-        itemId={2}
+        itemId={3}
       />
       <NavAction
-        onClick={() => setActive(3)}
+        onClick={() => setActive(4)}
         icon={getConstantIcons('calendar')}
         title={'Events'}
         activeItem={activeItem}
-        itemId={3}
+        itemId={4}
       />
     </div>
   )

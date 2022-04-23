@@ -326,13 +326,13 @@ const ClientsTable = () => {
                             </Table.Row>
                         )}
                     </Table.Body>
-                    {tableData.length > 8 ? 
+                    {tableData.length > 10 ? 
                         <Table.Pagination
                             shadow
                             align="center"
                             noMargin
-                            rowsPerPage={8}
-                            total={Math.floor(Number(tableData.length/8))}
+                            rowsPerPage={10}
+                            total={Math.floor(Number(tableData.length/10))}
                         />: null
                     }
                 </Table>

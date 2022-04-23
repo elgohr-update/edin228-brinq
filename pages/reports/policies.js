@@ -45,7 +45,7 @@ export default function ReportsPolicies({ data }) {
         </div>
       </PageHeader>
       <div className="flex w-full flex-col">
-        <div className="mb-2 flex h-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:justify-center md:overflow-hidden">
+        <div className="mb-2 flex h-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
           <SummaryCard
             val={premSum()}
             color="teal"
