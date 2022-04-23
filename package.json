@@ -5,12 +5,16 @@
     "build": "next build",
     "start": "next start -H 0.0.0.0 -p ${PORT:-8080}"
   },
+  "engines": {
+    "node": "14.x",
+    "npm": "~1.0.20"
+  },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.2",
     "@nextui-org/react": "^1.0.0-beta.6",
     "@react-forked/dnd": "^14.0.2",
     "next": "^12.1.5",
-    "next-auth": "4.3.1",
+    "next-auth": "^4.3.1",
     "next-themes": "^0.1.1",
     "react": "^18.0.0",
     "react-color-palette": "^6.2.0",
