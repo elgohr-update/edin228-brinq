@@ -42,8 +42,7 @@ const ClientDrawer = () => {
                 method: 'GET'
             }).then((res) => res.json())
             .then((activityData) => {
-                const format = activityData
-                setActivity(format);
+                setActivity(activityData);
             })
         }
         const fetchPolicies = async () => {
@@ -52,8 +51,7 @@ const ClientDrawer = () => {
                 method: 'GET'
             }).then((res) => res.json())
             .then((policiesData) => {
-                const format = policiesData
-                setPolicies(format);
+                setPolicies(policiesData);
             })
         }
         fetchClient();
