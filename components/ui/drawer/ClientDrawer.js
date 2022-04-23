@@ -32,7 +32,7 @@ const ClientDrawer = () => {
         const fetchClient = async () => {
             const clientInfo = await fetch(`/api/clients/${clientId}?onlyInfo=true`, {
                 method: 'GET'
-            }).then((res) => res.json())
+            })
             .then((clientData) => {
                 setClient(clientData);
             })
@@ -40,7 +40,7 @@ const ClientDrawer = () => {
         const fetchActivity = async () => {
             const clientActivity = await fetch(`/api/clients/${clientId}/activity?limit=8`, {
                 method: 'GET'
-            }).then((res) => res.json())
+            })
             .then((activityData) => {
                 setActivity(activityData);
             })
@@ -49,7 +49,7 @@ const ClientDrawer = () => {
             const queryUrl = state.drawer.client.isRenewal ? `?month=${month}&year=${year}` :`?active=true`
             const clientActivity = await fetch(`/api/clients/${clientId}/policies${queryUrl}`, {
                 method: 'GET'
-            }).then((res) => res.json())
+            })
             .then((policiesData) => {
                 setPolicies(policiesData);
             })
