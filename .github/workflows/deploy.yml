@@ -12,6 +12,11 @@ on:
         required: true
         default: 'warning'
 
+env:
+  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+  FETCHBASE_URL: ${{ secrets.FETCHBASE_URL }}
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -26,10 +31,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build and Publish to Github Packages Registry
         uses: elgohr/Publish-Docker-Github-Action@master
-        env:
-          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-          FETCHBASE_URL: ${{ secrets.FETCHBASE_URL }}
+        
         with:
           name: edin228/brinq/brinq
           registry: ghcr.io
