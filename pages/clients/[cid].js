@@ -46,7 +46,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
         <div className="flex w-full flex-col overflow-hidden md:flex-row">
           <div
             className={`relative flex w-full flex-col space-y-2 py-4 px-4 md:w-[300px] md:py-0`}
-          >
+          > 
             <ClientHeader client={client} />
             <ClientInfo
               flat={true}
