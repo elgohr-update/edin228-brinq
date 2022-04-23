@@ -39,6 +39,7 @@ export default function AppLayout({ children }) {
         <Head>
             <title>brinq</title>
             <link rel="icon" href="/brinq-icon.ico" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </Head>
         <div className={`overflow-hidden container-main`}>
             <div className={`fixed h-screen w-full main-bg main-bg-${type} z-1`}/>
