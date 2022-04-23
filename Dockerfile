@@ -22,7 +22,7 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 ARG NODE_ENV=production
 RUN echo ${NODE_ENV}
-RUN NODE_ENV=${NODE_ENV} npm run build
+RUN NODE_ENV=${NODE_ENV} NEXTAUTH_URL=NEXTAUTH_URL NEXTAUTH_SECRET=NEXTAUTH_SECRET FETCHBASE_URL=FETCHBASE_URL npm run build
 
 # Production image, copy all the files and run next
 FROM node:alpine AS runner
@@ -38,6 +38,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/pages ./pages
+COPY --from=builder /app/entrypoint.sh ./entrypoint.sh
 
 USER nextjs
 
@@ -45,4 +46,5 @@ USER nextjs
 EXPOSE 3000
 
 ENV NEXT_TELEMETRY_DISABLED 1
+ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["npm", "start"]
