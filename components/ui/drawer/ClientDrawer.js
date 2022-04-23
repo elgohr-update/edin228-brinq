@@ -76,7 +76,7 @@ const ClientDrawer = () => {
             isRenewal:false,
             renewalMonth:null,
             renewalYear:null,
-            actionNavbar: 1,
+            nav: 1,
         }
         setState({...state,drawer:{...state.drawer, client:setDefault}})
     }
@@ -113,7 +113,7 @@ const ClientDrawer = () => {
                                     <ClientDrawerNavbar />
                                     { state.drawer.client.nav === 1 ? 
                                         <div className={`rounded relative flex flex-col z-10 w-full`}>
-                                            <div className={`flex flex-col px-4 py-1 w-full transition-all duration-1000 ease-out ${!showMore1?`max-h-90`:`h-full`} overflow-hidden`}>
+                                            <div className={`flex flex-col px-4 py-1 w-full space-y-1 transition-all duration-100 ease-out ${!showMore1?`max-h-90`:`h-full`} overflow-hidden`}>
                                                 {getPolicies().map( u => (
                                                     <PolicyCard key={u.id} policy={u} />
                                                 ))}

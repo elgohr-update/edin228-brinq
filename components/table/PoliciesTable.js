@@ -94,7 +94,7 @@ const PoliciesTable = () => {
     ];
 
     const openSidebar = (client) => {
-        setState({...state,drawer:{...state.drawer, client:{isOpen:true,clientId:client}}})
+        setState({...state,drawer:{...state.drawer, client:{...state.drawer.client,nav:1,isOpen:true,clientId:client}}})
     }
 
     const renderCell = (policy, columnKey) => {

@@ -89,7 +89,7 @@ const ClientsTable = () => {
     ];
 
     const openSidebar = (client) => {
-        setState({...state,drawer:{...state.drawer, client:{isOpen:true,clientId:client.id}}})
+        setState({...state,drawer:{...state.drawer, client:{...state.drawer.client,nav:1,isOpen:true,clientId:client.id}}})
     }
 
     const renderCell = (client, columnKey) => {

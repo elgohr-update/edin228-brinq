@@ -21,7 +21,7 @@ const ClientDrawerNavbar = () => {
         activeItem={activeItem}
         itemId={1}
       />
-      {/* <NavAction
+      <NavAction
         onClick={() => setActive(2)}
         icon={getConstantIcons('deal')}
         title={'Deals'}
@@ -41,7 +41,7 @@ const ClientDrawerNavbar = () => {
         title={'Suspenses'}
         activeItem={activeItem}
         itemId={4}
-      /> */}
+      />
     </div>
   )
 }

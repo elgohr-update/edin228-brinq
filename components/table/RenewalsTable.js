@@ -70,7 +70,7 @@ export default function RenewalsTable(data) {
     ];
 
     const openSidebar = (client) => {
-        setState({...state,drawer:{...state.drawer, client:{isOpen:true,clientId:client.id, isRenewal:true, renewalMonth:month, renewalYear:year}}})
+        setState({...state,drawer:{...state.drawer, client:{...state.drawer.client, nav:1,isOpen:true,clientId:client.id, isRenewal:true, renewalMonth:month, renewalYear:year}}})
     }
 
     const renderCell = (client, columnKey) => {
