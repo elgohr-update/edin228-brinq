@@ -4,7 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export default NextAuth({
     providers:[
         CredentialsProvider({
-            // The name to display on the sign in form (e.g. "Sign in with...")
+            id: "username-login",
             name: "Credentials",
             async authorize(credentials, req) {
                 const baseUrl = `${process.env.FETCHBASE_URL}/login/access-token`

@@ -32,10 +32,10 @@ export default function Login() {
                     <h2 className="py-6 uppercase font-bold">Login</h2>
                     <form className="flex flex-col px-8 py-4 items-center h-full w-full">
                         <div className="flex justify-center mb-4 w-full">
-                            <Input fullWidth onChange={(e) => setUsername(e.target.value)} type="Email" labelLeft="@" placeholder="Email"  className={`${type}-shadow w-full`}/>
+                            <Input aria-label="username" fullWidth onChange={(e) => setUsername(e.target.value)} type="Email" labelLeft="@" placeholder="Email"  className={`${type}-shadow w-full`}/>
                         </div>
                         <div className="flex flex-col justify-center mb-4 w-full">
-                            <Input fullWidth onChange={(e) => setPassword(e.target.value)} type="password" labelLeft={<AiFillLock/>} placeholder="Password"  className={`${type}-shadow w-full`}/>
+                            <Input aria-label="password" fullWidth onChange={(e) => setPassword(e.target.value)} type="password" labelLeft={<AiFillLock/>} placeholder="Password"  className={`${type}-shadow w-full`}/>
                             <div className="flex justify-end w-full text-xs mt-2">
                                 Forgot Password?
                             </div>
