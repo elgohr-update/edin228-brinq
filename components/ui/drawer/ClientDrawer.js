@@ -6,7 +6,7 @@ import { useAppContext } from '../../../context/state';
 import { BsBox,BsChevronDown,BsChevronUp } from 'react-icons/bs';
 import { FaReceipt } from 'react-icons/fa';
 import PolicyCard from '../../policy/PolicyCard';
-import { sumFromArrayOfObjects } from '../../../utils/utils';
+import { sumFromArrayOfObjects, useNextApi } from '../../../utils/utils';
 import SummaryCard from '../card/SummaryCard';
 import { AiFillDollarCircle,AiOutlineClose } from 'react-icons/ai';
 import ClientHeader from '../../client/ClientTitle';
@@ -30,36 +30,21 @@ const ClientDrawer = () => {
     useEffect( () => {
         const clientId = state.drawer.client.clientId
         const fetchClient = async () => {
-            const clientInfo = await fetch(`/api/clients/${clientId}?onlyInfo=true`, {
-                method: 'GET'
-            })
-            .then((clientData) => {
-                setClient(clientData);
-            })
+            const res = await useNextApi('GET',`/api/clients/${clientId}?onlyInfo=true`)
+            setClient(res);
         }
         const fetchActivity = async () => {
-            const clientActivity = await fetch(`/api/clients/${clientId}/activity?limit=8`, {
-                method: 'GET'
-            })
-            .then((activityData) => {
-                setActivity(activityData);
-            })
+            const res = await useNextApi('GET',`/api/clients/${clientId}/activity?limit=8`)
+            setActivity(res);
         }
         const fetchPolicies = async () => {
             const queryUrl = state.drawer.client.isRenewal ? `?month=${month}&year=${year}` :`?active=true`
-            const clientActivity = await fetch(`/api/clients/${clientId}/policies${queryUrl}`, {
-                method: 'GET'
-            })
-            .then((policiesData) => {
-                setPolicies(policiesData);
-            })
+            const res = await useNextApi('GET',`/api/clients/${clientId}/policies${queryUrl}`)
+            setPolicies(res);
         }
         fetchClient();
         fetchActivity();
         fetchPolicies();
-        // return () => {
-        //     closeDrawer()
-        // }
     },[])
     
     useEffect(() => {

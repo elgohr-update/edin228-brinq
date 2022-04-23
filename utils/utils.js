@@ -1,12 +1,25 @@
 import uuid from 'react-uuid'
-import { BsBox, BsPlusLg, BsClipboard,BsCheckCircleFill } from 'react-icons/bs'
+import { BsBox, BsPlusLg, BsClipboard, BsCheckCircleFill } from 'react-icons/bs'
 import { FaRegPaperPlane } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 import { RiLinksLine } from 'react-icons/ri'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
 import { MdOutlineStickyNote2, MdOutlineFolderShared } from 'react-icons/md'
-import { AiOutlineEdit,AiOutlineFile, AiOutlineLeft,AiOutlineDown,AiOutlineRight,AiOutlineUp,AiOutlineCalendar } from 'react-icons/ai'
-import { BiNotepad,BiCommentDetail,BiCommentAdd,BiCircle } from 'react-icons/bi'
+import {
+  AiOutlineEdit,
+  AiOutlineFile,
+  AiOutlineLeft,
+  AiOutlineDown,
+  AiOutlineRight,
+  AiOutlineUp,
+  AiOutlineCalendar,
+} from 'react-icons/ai'
+import {
+  BiNotepad,
+  BiCommentDetail,
+  BiCommentAdd,
+  BiCircle,
+} from 'react-icons/bi'
 
 export const getConstantIcons = (item) => {
   return item == 'policy' ? (
@@ -51,7 +64,7 @@ export const getConstantIcons = (item) => {
     <HiOutlineOfficeBuilding />
   ) : item == 'edit' ? (
     <AiOutlineEdit />
-  ) : null 
+  ) : null
 }
 
 export const truncateString = (str, num) => {
@@ -99,6 +112,14 @@ export const useApi = async (method, path, token) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+  })
+  const res = await req.json()
+  return res
+}
+
+export const useNextApi = async (method, path) => {
+  const req = await fetch(`${path}`, {
+    method: `${method}`
   })
   const res = await req.json()
   return res
