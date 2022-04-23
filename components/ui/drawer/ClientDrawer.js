@@ -35,7 +35,6 @@ const ClientDrawer = () => {
         }
         const fetchActivity = async () => {
             const res = await useNextApi('GET',`/api/clients/${clientId}/activity?limit=8`)
-            console.log(res)
             setActivity(res);
         }
         const fetchPolicies = async () => {
@@ -43,9 +42,9 @@ const ClientDrawer = () => {
             const res = await useNextApi('GET',`/api/clients/${clientId}/policies${queryUrl}`)
             setPolicies(res);
         }
-        fetchClient();
-        fetchActivity();
-        fetchPolicies();
+        fetchClient().then( () => fetchActivity()).then( () => fetchPolicies());
+        // fetchActivity();
+        // fetchPolicies();
     },[])
     
     useEffect(() => {
