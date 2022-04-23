@@ -1,10 +1,9 @@
-import { Button, Loading, User, useTheme } from '@nextui-org/react'
+import { Button, Loading, useTheme } from '@nextui-org/react'
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop';
 import { useAppContext } from '../../../context/state';
 import { BsBox,BsChevronDown,BsChevronUp } from 'react-icons/bs';
-import { FaReceipt } from 'react-icons/fa';
 import PolicyCard from '../../policy/PolicyCard';
 import { sumFromArrayOfObjects, useNextApi } from '../../../utils/utils';
 import SummaryCard from '../card/SummaryCard';
@@ -112,20 +111,24 @@ const ClientDrawer = () => {
                                 <div className={`flex flex-col w-full`}>
                                     <ClientDrawerNavbar />
                                     { state.drawer.client.nav === 1 ? 
-                                        <div className={`rounded relative flex flex-col z-10 w-full`}>
-                                            <div className={`flex flex-col px-4 py-1 w-full space-y-1 transition-all duration-100 ease-out ${!showMore1?`max-h-90`:`h-full`} overflow-hidden`}>
-                                                {getPolicies().map( u => (
-                                                    <PolicyCard key={u.id} policy={u} />
-                                                ))}
+                                        policies ?
+                                            <div className={`rounded relative flex flex-col z-10 w-full`}>
+                                                <div className={`flex flex-col px-4 py-1 w-full h-full space-y-1 transition-all duration-100 ease-out overflow-hidden`}>
+                                                    {getPolicies().map( u => (
+                                                        <PolicyCard key={u.id} policy={u} />
+                                                    ))}
+                                                </div>
+                                                {
+                                                    policies.length > 4 && activity.length > 0 ?
+                                                        <div className="absolute bottom-[-23px] z-20 flex items-center w-full justify-center">
+                                                            <Button onClick={() => toggleShowMore1()} auto size="xs" color="gradient" icon={!showMore1 ? <BsChevronDown/> : <BsChevronUp/>}></Button>
+                                                        </div>
+                                                    :null
+                                                }
                                             </div>
-                                            {
-                                                policies.length > 4 && activity.length > 0 ?
-                                                    <div className="absolute bottom-[-23px] z-20 flex items-center w-full justify-center">
-                                                        <Button onClick={() => toggleShowMore1()} auto size="xs" color="gradient" icon={!showMore1 ? <BsChevronDown/> : <BsChevronUp/>}></Button>
-                                                    </div>
-                                                :null
-                                            }
-                                            
+                                        : 
+                                        <div className="flex w-full justify-center items-center">
+                                            <Loading type="points" size="lg" color="secondary" textColor="primary"/>
                                         </div>
                                     : 
                                         state.drawer.client.nav == 2 ? 
