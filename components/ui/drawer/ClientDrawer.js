@@ -14,6 +14,7 @@ import ClientActivity from '../../client/ClientActivity';
 import ClientContacts from '../../client/ClientContacts';
 import ClientInfo from '../../client/ClientInfo';
 import { useRouter } from 'next/router';
+import ClientDrawerNavbar from '../../client/ClientDrawerNavbar';
 
 
 const ClientDrawer = () => {
@@ -24,7 +25,6 @@ const ClientDrawer = () => {
     const [client, setClient] = useState(null)
     const [activity, setActivity] = useState([])
     const [policies, setPolicies] = useState([])
-    const [tab, setTab] = useState(1)
     const [showMore1, setShowMore1] = useState(false)
     
     useEffect( () => {
@@ -57,10 +57,6 @@ const ClientDrawer = () => {
     const premSum = () => {
         return sumFromArrayOfObjects(policies,'premium')
     }
-    
-    const triggerTab = (t) => {
-        setTab(t)
-    }
 
     const toggleShowMore1 = () => {
         setShowMore1(!showMore1)
@@ -79,7 +75,8 @@ const ClientDrawer = () => {
             clientId:null,
             isRenewal:false,
             renewalMonth:null,
-            renewalYear:null
+            renewalYear:null,
+            actionNavbar: 1,
         }
         setState({...state,drawer:{...state.drawer, client:setDefault}})
     }
@@ -113,17 +110,8 @@ const ClientDrawer = () => {
                                 <ClientInfo client={client} horizontal />
                                 <ClientContacts client={client} />
                                 <div className={`flex flex-col w-full`}>
-                                    <div className={`flex items-center justify-center w-full space-x-3 mb-3`}>
-                                        <div className={`flex items-center space-x-2 cursor-pointer text-xs tracking-widest font-normal hover:bg-sky-500/20 transition rounded-lg px-2 py-1 duration-100 ${tab === 1 ? `text-sky-500 bg-sky-400/20 ${type}-shadow`:'opacity-60'}`} onClick={() => triggerTab(1)}>
-                                            <div><BsBox /></div>
-                                            <div>Policies</div>
-                                        </div>
-                                        <div className={`flex items-center space-x-2 cursor-pointer text-xs tracking-widest font-normal hover:bg-sky-500/20 transition rounded-lg px-2 py-1 duration-100 ${tab === 2 ? `text-sky-500 bg-sky-400/20 ${type}-shadow`:'opacity-60'}`} onClick={() => triggerTab(2)}>
-                                            <div><FaReceipt /></div>
-                                            <div>Deals</div>
-                                        </div>
-                                    </div>
-                                    { tab == 1 ? 
+                                    <ClientDrawerNavbar />
+                                    { state.drawer.client.nav === 1 ? 
                                         <div className={`rounded relative flex flex-col z-10 w-full`}>
                                             <div className={`flex flex-col px-4 py-1 w-full transition-all duration-1000 ease-out ${!showMore1?`max-h-90`:`h-full`} overflow-hidden`}>
                                                 {getPolicies().map( u => (
@@ -132,7 +120,7 @@ const ClientDrawer = () => {
                                             </div>
                                             {
                                                 policies.length > 4 && activity.length > 0 ?
-                                                    <div className="absolute bottom-[-30px] z-20 flex items-center w-full justify-center">
+                                                    <div className="absolute bottom-[-23px] z-20 flex items-center w-full justify-center">
                                                         <Button onClick={() => toggleShowMore1()} auto size="xs" color="gradient" icon={!showMore1 ? <BsChevronDown/> : <BsChevronUp/>}></Button>
                                                     </div>
                                                 :null
@@ -140,7 +128,7 @@ const ClientDrawer = () => {
                                             
                                         </div>
                                     : 
-                                        tab == 2 ? 
+                                        state.drawer.client.nav == 2 ? 
                                         <div className={`rounded relative flex flex-col z-10 w-full`}>
                                             <div className={`flex flex-col w-full px-1 py-4 overflow-hidden ${showMore1?``:`max-h-[250px]`} `}>
                                                 
@@ -158,7 +146,7 @@ const ClientDrawer = () => {
                                     null 
                                     }
                                 </div>
-                                {client && activity.length > 0? <ClientActivity activity={activity} /> : null}
+                                {client && activity.length > 0? <div className="mt-4"><ClientActivity activity={activity} /></div> : null}
                             </div>                    
                         </div>
                     </div>

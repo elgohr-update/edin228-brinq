@@ -39,7 +39,8 @@ export function AppWrapper({ children }) {
               clientId:null,
               isRenewal:false,
               renewalMonth:null,
-              renewalYear:null
+              renewalYear:null,
+              nav: 1,
           }
       },
       costComparison:{
