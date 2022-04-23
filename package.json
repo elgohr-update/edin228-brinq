@@ -6,8 +6,7 @@
     "start": "next start -H 0.0.0.0 -p ${PORT:-8080}"
   },
   "engines": {
-    "node": "14.x",
-    "npm": "~1.0.20"
+    "node": "14.x"
   },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.2",
