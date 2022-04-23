@@ -43,7 +43,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
   return (
     <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
       <div className="flex w-full flex-col">
-        <div className="flex w-full flex-col overflow-hidden md:flex-row">
+        <div className="flex w-full flex-col md:overflow-hidden md:flex-row">
           <div
             className={`relative flex w-full flex-col space-y-2 py-4 px-4 md:w-[300px] md:py-0`}
           > 
@@ -61,7 +61,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
               client={client}
             />
           </div>
-          <div className="flex h-full w-full flex-col overflow-hidden">
+          <div className="flex h-full w-full flex-col md:overflow-hidden">
             <div className="flex items-center justify-between">
               <ClientDataNavbar />
               <div className="flex items-center space-x-2 py-2 md:justify-end md:py-0">
@@ -95,7 +95,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
                   </div>
                 </div>
                 <div
-                  className={`flex h-full flex-1 flex-col space-y-2 overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
+                  className={`flex h-full flex-1 flex-col space-y-2 md:overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
                 >
                   {getPolicies(showActive).map((u) => (
                     <Panel flat key={u.id} overflow={false} px={0} py={0}>
