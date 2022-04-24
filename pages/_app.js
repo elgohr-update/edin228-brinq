@@ -64,18 +64,18 @@ function MyApp({ Component,  pageProps: { session, ...pageProps }}) {
   return (
     <SessionProvider session={session}>
       <AppWrapper>
-        <NextThemesProvider
-          defaultTheme="system"
-          attribute="class"
-          value={{
-            light: lightTheme.className,
-            dark: darkTheme.className
-          }}
-        >
-          <NextUIProvider>
-            {getLayout(<Component {...pageProps} />)}
-          </NextUIProvider>
-        </NextThemesProvider>
+          <NextThemesProvider
+            defaultTheme="system"
+            attribute="class"
+            value={{
+              light: lightTheme.className,
+              dark: darkTheme.className
+            }}
+          >
+            <NextUIProvider>
+              {getLayout(<Component {...pageProps} />)}
+            </NextUIProvider>
+          </NextThemesProvider>
       </AppWrapper>
     </SessionProvider>
   )

@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import NavAction from '../ui/navbar/NavAction'
 import { getConstantIcons } from '../../utils/utils'
-import { useAppContext } from '../../context/state'
+import { clientNavState } from '../../atoms/client'
+import { useRecoilState } from 'recoil';
 
 const ClientActionNavbar = () => {
-  const { state, setState } = useAppContext()
-  const [activeItem, setActiveItem] = useState(state.client.actionNavbar)
+  const [clientState, setClientState] = useRecoilState(clientNavState)
 
   const setActive = (key) => {
-    setActiveItem(key)
-    setState({...state, client:{...state.client,actionNavbar:key}})
+    setClientState({...clientState,actionNavbar:key})
   }
 
   return (
@@ -18,28 +17,28 @@ const ClientActionNavbar = () => {
         onClick={() => setActive(1)}
         icon={getConstantIcons('activity')}
         title={'Recent Activity'}
-        activeItem={activeItem}
+        activeItem={clientState.actionNavbar}
         itemId={1}
       />
       <NavAction
         onClick={() => setActive(2)}
         icon={getConstantIcons('note')}
         title={'Notes'}
-        activeItem={activeItem}
+        activeItem={clientState.actionNavbar}
         itemId={2}
       />
       <NavAction
         onClick={() => setActive(3)}
         icon={getConstantIcons('file')}
         title={'Files'}
-        activeItem={activeItem}
+        activeItem={clientState.actionNavbar}
         itemId={3}
       />
       <NavAction
         onClick={() => setActive(4)}
         icon={getConstantIcons('calendar')}
         title={'Events'}
-        activeItem={activeItem}
+        activeItem={clientState.actionNavbar}
         itemId={4}
       />
     </div>
