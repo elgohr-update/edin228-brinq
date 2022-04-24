@@ -17,8 +17,6 @@ import Panel from '../../components/ui/panel/Panel'
 import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
-import { clientNavState } from '../../atoms/client'
-import { useRecoilValue } from 'recoil';
 
 export default function Client({ client, events, emails, activity, policyTypes }) {
   
@@ -26,7 +24,6 @@ export default function Client({ client, events, emails, activity, policyTypes }
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
   const [showActive, setShowActive] = useState(true)
-  const clientState = useRecoilValue(clientNavState)
 
   const getPolicies = (active = false) => {
     return active
@@ -88,7 +85,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
               </div>
             </div>
             {
-              clientState.dataNavbar === 1 ?
+              state.client.dataNavbar === 1 ?
               <div className="flex flex-col w-full md:overflow-hidden">
                 <div className="flex items-center w-full px-4">
                   <ClientPolicyInfo client={client} policyTypes={policyTypes} policies={getPolicies(true)} />
@@ -121,7 +118,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
         </div>
         <div className="md:overflow-y-auto md:px-4">
           {
-            clientState.actionNavbar === 1 ?
+            state.client.actionNavbar === 1 ?
               <ClientActivity activity={activity} />
             : null
           }
