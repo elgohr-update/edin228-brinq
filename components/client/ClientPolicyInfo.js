@@ -1,11 +1,11 @@
 import React from 'react'
-import PolicyTypeHeatmap from '../policytype/PolicyTypeStarred'
+import PolicyTypeStarred from '../policytype/PolicyTypeStarred'
 import SummaryCard from '../ui/card/SummaryCard'
 import { BsBox } from 'react-icons/bs';
 import { AiFillDollarCircle } from 'react-icons/ai';
 import { sumFromArrayOfObjects } from '../../utils/utils';
 
-export default function ClientPolicyInfo({ policies, client, policyTypes }) {
+export default function ClientPolicyInfo({ policies, client }) {
   
   const premSum = () => {
     return sumFromArrayOfObjects(policies, 'premium')
@@ -35,8 +35,7 @@ export default function ClientPolicyInfo({ policies, client, policyTypes }) {
         />
       </div>
       <div className="flex w-full justify-end">
-        <PolicyTypeHeatmap
-          all={policyTypes}
+        <PolicyTypeStarred
           policies={policies}
           line={client.line}
         />

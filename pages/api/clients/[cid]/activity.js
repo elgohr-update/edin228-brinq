@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react"
 export default async function handler(req, res) {
     const { query } = req
     const session = await getSession({req})
-    const baseUrl = `${process.env.FETCHBASE_URL}/clients/${query.cid}/activity?limit=${query.limit}`
+    const baseUrl = `${ !query.limit ? `${process.env.FETCHBASE_URL}/clients/${query.cid}/activity` : `${process.env.FETCHBASE_URL}/clients/${query.cid}/activity?limit=${query.limit}`}`
     try {
         const results = await fetch(baseUrl, {
             method: 'GET',

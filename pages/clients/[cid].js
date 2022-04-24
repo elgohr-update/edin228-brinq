@@ -18,7 +18,7 @@ import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
 
-export default function Client({ client, events, emails, activity, policyTypes }) {
+export default function Client({ client, events, emails }) {
   
   const router = useRouter()
   const { isDark, type } = useTheme()
@@ -88,7 +88,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
               state.client.dataNavbar === 1 ?
               <div className="flex flex-col w-full md:overflow-hidden">
                 <div className="flex items-center w-full px-4">
-                  <ClientPolicyInfo client={client} policyTypes={policyTypes} policies={getPolicies(true)} />
+                  <ClientPolicyInfo client={client} policies={getPolicies(true)} />
                   <div>
                     <h4>Active</h4>
                     <Switch checked={showActive} size="xs" onChange={(e) => setShowActive(e.target.checked)}/>
@@ -119,7 +119,7 @@ export default function Client({ client, events, emails, activity, policyTypes }
         <div className="md:overflow-y-auto md:px-4">
           {
             state.client.actionNavbar === 1 ?
-              <ClientActivity activity={activity} />
+              <ClientActivity clientId={client?.id} limit={null} />
             : null
           }
         </div>
@@ -139,10 +139,8 @@ export async function getServerSideProps(context) {
     const client = await useApi('GET',`/clients/${cid}`,session.accessToken)
     const events = await useApi('GET',`/events/client/${cid}`,session.accessToken)
     const emails = await useApi('GET',`/emails/client/${cid}`,session.accessToken)
-    const activity = await useApi('GET',`/activity/client/${cid}`,session.accessToken)
-    const policyTypes = await useApi('GET',`/policytypes/`, session.accessToken)
 
-    return { props: { client, events, emails, activity, policyTypes } }
+    return { props: { client, events, emails } }
   }
-  return { props: { client: null, events: null, emails: null, activity: null, policyTypes:null } }
+  return { props: { client: null, events: null, emails: null } }
 }

@@ -1,175 +1,239 @@
 import { Button, Loading, useTheme } from '@nextui-org/react'
-import Link from 'next/link';
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import HiddenBackdrop from '../../util/HiddenBackdrop';
-import { useAppContext } from '../../../context/state';
-import { BsBox,BsChevronDown,BsChevronUp } from 'react-icons/bs';
-import PolicyCard from '../../policy/PolicyCard';
-import { sumFromArrayOfObjects, useNextApi } from '../../../utils/utils';
-import SummaryCard from '../card/SummaryCard';
-import { AiFillDollarCircle,AiOutlineClose } from 'react-icons/ai';
-import ClientHeader from '../../client/ClientTitle';
-import ClientActivity from '../../client/ClientActivity';
-import ClientContacts from '../../client/ClientContacts';
-import ClientInfo from '../../client/ClientInfo';
-import { useRouter } from 'next/router';
-import ClientDrawerNavbar from '../../client/ClientDrawerNavbar';
-
+import HiddenBackdrop from '../../util/HiddenBackdrop'
+import { useAppContext } from '../../../context/state'
+import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
+import PolicyCard from '../../policy/PolicyCard'
+import { sumFromArrayOfObjects, useNextApi } from '../../../utils/utils'
+import SummaryCard from '../card/SummaryCard'
+import { AiFillDollarCircle, AiOutlineClose } from 'react-icons/ai'
+import ClientHeader from '../../client/ClientTitle'
+import ClientActivity from '../../client/ClientActivity'
+import ClientContacts from '../../client/ClientContacts'
+import ClientInfo from '../../client/ClientInfo'
+import { useRouter } from 'next/router'
+import ClientDrawerNavbar from '../../client/ClientDrawerNavbar'
 
 const ClientDrawer = () => {
-    const {state, setState} = useAppContext();
-    const router = useRouter()
-    const { month, year } = router.query
-    const { type } = useTheme();
-    const [client, setClient] = useState(null)
-    const [activity, setActivity] = useState([])
-    const [policies, setPolicies] = useState([])
-    const [showMore1, setShowMore1] = useState(false)
-    
-    useEffect( () => {
-        const clientId = state.drawer.client.clientId
-        const fetchClient = async () => {
-            const res = await useNextApi('GET',`/api/clients/${clientId}?onlyInfo=true`)
-            setClient(res);
-        }
-        const fetchActivity = async () => {
-            const res = await useNextApi('GET',`/api/clients/${clientId}/activity?limit=8`)
-            setActivity(res);
-        }
-        const fetchPolicies = async () => {
-            const queryUrl = state.drawer.client.isRenewal ? `?month=${month}&year=${year}` :`?active=true`
-            const res = await useNextApi('GET',`/api/clients/${clientId}/policies${queryUrl}`)
-            setPolicies(res);
-        }
-        fetchClient().then( () => fetchActivity()).then( () => fetchPolicies());
-        // fetchActivity();
-        // fetchPolicies();
-    },[])
-    
-    useEffect(() => {
-        router.events.on("routeChangeStart", () => {
-            closeDrawer()
-        });
-    }, [router.events]);
+  const { state, setState } = useAppContext()
+  const router = useRouter()
+  const { month, year } = router.query
+  const { type } = useTheme()
+  const [client, setClient] = useState(null)
+  const [policies, setPolicies] = useState([])
+  const [showMore1, setShowMore1] = useState(false)
 
-
-    const premSum = () => {
-        return sumFromArrayOfObjects(policies,'premium')
+  useEffect(() => {
+    const clientId = state.drawer.client.clientId
+    const fetchClient = async () => {
+      const res = await useNextApi(
+        'GET',
+        `/api/clients/${clientId}?onlyInfo=true`
+      )
+      setClient(res)
     }
-
-    const toggleShowMore1 = () => {
-        setShowMore1(!showMore1)
+    const fetchPolicies = async () => {
+      const queryUrl = state.drawer.client.isRenewal
+        ? `?month=${month}&year=${year}`
+        : `?active=true`
+      const res = await useNextApi(
+        'GET',
+        `/api/clients/${clientId}/policies${queryUrl}`
+      )
+      setPolicies(res)
     }
+    fetchClient().then(() => fetchPolicies())
+  }, [])
 
-    const getPolicies = () => {
-        if (showMore1){
-            return policies
-        }
-        return policies.slice(0,4)
-    }
+  useEffect(() => {
+    router.events.on('routeChangeStart', () => {
+      closeDrawer()
+    })
+  }, [router.events])
 
-    const closeDrawer = () => {
-        const setDefault = {
-            isOpen:false,
-            clientId:null,
-            isRenewal:false,
-            renewalMonth:null,
-            renewalYear:null,
-            nav: 1,
-        }
-        setState({...state,drawer:{...state.drawer, client:setDefault}})
-    }
-    const iconBg = () => {
-        return client?.line === 'Commercial Lines' ? `bg-color-primary`: client?.line === 'Personal Lines' ? `bg-color-error`: client?.line === 'Benefits' ? `bg-color-success` : ''
-    }
+  const premSum = () => {
+    return sumFromArrayOfObjects(policies, 'premium')
+  }
 
-    return (        
-        <div className={`flex w-full h-full fixed top-0 left-0 z-[999999]`}>
-            <div className={`flex fixed right-0 h-full flex-col w-full md:w-[800px] ${type}-shadow panel-theme-${type}`}>
-                {!client ? 
-                    <div className="flex h-full w-full flex-1 justify-center items-center">
-                        <Loading type="points" size="xl" color="secondary" textColor="primary"/>
-                    </div> :
-                    <div className="flex h-full flex-1 py-4">
-                        <div className={`flex flex-col w-full`}>
-                            <div className={`flex relative w-full px-2 mb-2`}>
-                                <div className="flex flex-col md:flex-row md:pt-2 w-full relative">
-                                    <ClientHeader client={client} />
-                                    <div className="flex items-center justify-center md:justify-end w-full pl-4 pr-8">
-                                        <SummaryCard isIcon={false} autoWidth val={premSum()} color="teal" gradientColor="green-to-blue-2" icon={<AiFillDollarCircle />} title="Premium" money   />
-                                        <SummaryCard isIcon={false} autoWidth val={policies.length} color="fuchsia" gradientColor="orange-to-red-2" title="Policies" icon={<BsBox />}  />
-                                    </div>
-                                    <div className="flex md:hidden absolute top-0 right-0" onClick={() => closeDrawer()}>
-                                        <AiOutlineClose />
-                                    </div>
-                                </div>
-                                <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
-                            </div>
-                            <div className={`mt-2 flex flex-col w-full overflow-auto h-[78vh]`}>
-                                <ClientInfo client={client} horizontal />
-                                <ClientContacts client={client} />
-                                <div className={`flex flex-col w-full`}>
-                                    <ClientDrawerNavbar />
-                                    { state.drawer.client.nav === 1 ? 
-                                        policies ?
-                                            <div className={`rounded relative flex flex-col z-10 w-full`}>
-                                                <div className={`flex flex-col px-4 py-1 w-full h-full space-y-1 transition-all duration-100 ease-out overflow-hidden`}>
-                                                    {getPolicies().map( u => (
-                                                        <PolicyCard key={u.id} policy={u} />
-                                                    ))}
-                                                </div>
-                                                {
-                                                    policies.length > 4 && activity.length > 0 ?
-                                                        <div className="absolute bottom-[-23px] z-20 flex items-center w-full justify-center">
-                                                            <Button onClick={() => toggleShowMore1()} auto size="xs" color="gradient" icon={!showMore1 ? <BsChevronDown/> : <BsChevronUp/>}></Button>
-                                                        </div>
-                                                    :null
-                                                }
-                                            </div>
-                                        : 
-                                        <div className="flex w-full justify-center items-center">
-                                            <Loading type="points" size="lg" color="secondary" textColor="primary"/>
-                                        </div>
-                                    : 
-                                        state.drawer.client.nav == 2 ? 
-                                        <div className={`rounded relative flex flex-col z-10 w-full`}>
-                                            <div className={`flex flex-col w-full px-1 py-4 overflow-hidden ${showMore1?``:`max-h-[250px]`} `}>
-                                                
-                                            </div>
-                                            {
-                                                client?.deals?.length > 5 ?
-                                                    <div className="absolute bottom-[-30px] z-20 flex items-center w-full justify-center">
-                                                        <Button onClick={() => toggleShowMore1()} auto size="xs" color="gradient" icon={!showMore1 ? <BsChevronDown/> : <BsChevronUp/>}></Button>
-                                                    </div>
-                                                :null
-                                            }
-                                            
-                                        </div>
-                                    : 
-                                    null 
-                                    }
-                                </div>
-                                {client && activity.length > 0? <div className="mt-4"><ClientActivity activity={activity} /></div> : null}
-                            </div>                    
+  const toggleShowMore1 = () => {
+    setShowMore1(!showMore1)
+  }
+
+  const getPolicies = () => {
+    if (showMore1) {
+      return policies
+    }
+    return policies.slice(0, 4)
+  }
+
+  const closeDrawer = () => {
+    const setDefault = {
+      isOpen: false,
+      clientId: null,
+      isRenewal: false,
+      renewalMonth: null,
+      renewalYear: null,
+      nav: 1,
+    }
+    setState({ ...state, drawer: { ...state.drawer, client: setDefault } })
+  }
+  const iconBg = () => {
+    return client?.line === 'Commercial Lines'
+      ? `bg-color-primary`
+      : client?.line === 'Personal Lines'
+      ? `bg-color-error`
+      : client?.line === 'Benefits'
+      ? `bg-color-success`
+      : ''
+  }
+
+  return (
+    <div className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}>
+      <div
+        className={`fixed right-0 flex h-full w-full flex-col md:w-[800px] ${type}-shadow panel-theme-${type}`}
+      >
+        {!client ? (
+          <div className="flex h-full w-full flex-1 items-center justify-center">
+            <Loading
+              type="points"
+              size="xl"
+              color="secondary"
+              textColor="primary"
+            />
+          </div>
+        ) : (
+          <div className="flex h-full flex-1 py-4">
+            <div className={`flex w-full flex-col`}>
+              <div className={`relative mb-2 flex w-full px-2`}>
+                <div className="relative flex w-full flex-col md:flex-row md:pt-2">
+                  <ClientHeader client={client} />
+                  <div className="flex w-full items-center justify-center pl-4 pr-8 md:justify-end">
+                    <SummaryCard
+                      isIcon={false}
+                      autoWidth
+                      val={premSum()}
+                      color="teal"
+                      gradientColor="green-to-blue-2"
+                      icon={<AiFillDollarCircle />}
+                      title="Premium"
+                      money
+                    />
+                    <SummaryCard
+                      isIcon={false}
+                      autoWidth
+                      val={policies.length}
+                      color="fuchsia"
+                      gradientColor="orange-to-red-2"
+                      title="Policies"
+                      icon={<BsBox />}
+                    />
+                  </div>
+                  <div
+                    className="absolute top-0 right-0 flex md:hidden"
+                    onClick={() => closeDrawer()}
+                  >
+                    <AiOutlineClose />
+                  </div>
+                </div>
+                <div
+                  className={`bottom-border-flair pink-to-blue-gradient-1`}
+                />
+              </div>
+              <div
+                className={`mt-2 flex h-[78vh] w-full flex-col overflow-auto`}
+              >
+                <ClientInfo client={client} horizontal />
+                <ClientContacts client={client} />
+                <div className={`flex w-full flex-col`}>
+                  <ClientDrawerNavbar />
+                  {state.drawer.client.nav === 1 ? (
+                    policies ? (
+                      <div
+                        className={`relative z-10 flex w-full flex-col rounded`}
+                      >
+                        <div
+                          className={`flex h-full w-full flex-col space-y-1 overflow-hidden px-4 py-1 transition-all duration-100 ease-out`}
+                        >
+                          {getPolicies().map((u) => (
+                            <PolicyCard key={u.id} policy={u} />
+                          ))}
                         </div>
+                        {policies.length > 4 && activity.length > 0 ? (
+                          <div className="absolute bottom-[-23px] z-20 flex w-full items-center justify-center">
+                            <Button
+                              onClick={() => toggleShowMore1()}
+                              auto
+                              size="xs"
+                              color="gradient"
+                              icon={
+                                !showMore1 ? <BsChevronDown /> : <BsChevronUp />
+                              }
+                            ></Button>
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <div className="flex w-full items-center justify-center">
+                        <Loading
+                          type="points"
+                          size="lg"
+                          color="secondary"
+                          textColor="primary"
+                        />
+                      </div>
+                    )
+                  ) : state.drawer.client.nav == 2 ? (
+                    <div
+                      className={`relative z-10 flex w-full flex-col rounded`}
+                    >
+                      <div
+                        className={`flex w-full flex-col overflow-hidden px-1 py-4 ${
+                          showMore1 ? `` : `max-h-[250px]`
+                        } `}
+                      ></div>
+                      {client?.deals?.length > 5 ? (
+                        <div className="absolute bottom-[-30px] z-20 flex w-full items-center justify-center">
+                          <Button
+                            onClick={() => toggleShowMore1()}
+                            auto
+                            size="xs"
+                            color="gradient"
+                            icon={
+                              !showMore1 ? <BsChevronDown /> : <BsChevronUp />
+                            }
+                          ></Button>
+                        </div>
+                      ) : null}
                     </div>
-                }
-                {!client ? 
-                    null :
-                    <div className="flex justify-end w-full pt-1 pb-4 px-2">
-                        <Link href={`/clients/${state.drawer.client.clientId}`}>
-                            <a className="w-full">
-                                <Button shadow color="gradient" className="w-full">
-                                    View More
-                                </Button>
-                            </a>
-                        </Link>
-                    </div>
-                }
+                  ) : null}
+                </div>
+                {client? (
+                  <div className="mt-4">
+                    <ClientActivity clientId={state.drawer.client.clientId} />
+                  </div>
+                ) : null}
+              </div>
             </div>
-            {state.drawer.client.isOpen?<HiddenBackdrop onClick={() => closeDrawer()} />:null}   
-        </div>
-    )
+          </div>
+        )}
+        {!client ? null : (
+          <div className="flex w-full justify-end px-2 pt-1 pb-4">
+            <Link href={`/clients/${state.drawer.client.clientId}`}>
+              <a className="w-full">
+                <Button shadow color="gradient" className="w-full">
+                  View More
+                </Button>
+              </a>
+            </Link>
+          </div>
+        )}
+      </div>
+      {state.drawer.client.isOpen ? (
+        <HiddenBackdrop onClick={() => closeDrawer()} />
+      ) : null}
+    </div>
+  )
 }
 
 export default ClientDrawer

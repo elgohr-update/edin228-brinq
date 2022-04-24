@@ -1,31 +1,46 @@
 import { Input } from '@nextui-org/react'
-import React, { useState,useTransition } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import ActivityCard from '../activity/ActivityCard'
 import Panel from '../ui/panel/Panel'
-import { FaSearch } from 'react-icons/fa';
-import { getSearch } from '../../utils/utils';
+import { FaSearch } from 'react-icons/fa'
+import { getSearch, useNextApi } from '../../utils/utils'
 
 const ClientActivity = ({
-  activity,
   flat = true,
   noBg = true,
   shadow = false,
   overflow = false,
   editable = false,
+  clientId,
+  limit = 8
 }) => {
   const [isPending, startTransition] = useTransition()
-  const [search, setSearch] = useState(null)
-  const [data, setData] = useState(activity)
+  const [data, setData] = useState(null)
+  const [raw, setRaw] = useState(null)
+
+  useEffect(() => {
+    const fetchActivity = async () => {
+      const res = await useNextApi(
+        'GET',
+        `${limit? `/api/clients/${clientId}/activity?limit=${limit}` : `/api/clients/${clientId}/activity`}`
+      )
+      setData(res)
+      setRaw(res)
+    }
+    if (!raw) {
+      fetchActivity()
+    }
+  }, [])
 
   const searchActivity = (val) => {
-      startTransition( () => {
-          if (val.length > 1){
-              const filtered = getSearch(activity,val)
-              setData(filtered)
-          }else {
-              setData(activity)
-          }        
-      })
+    startTransition(() => {
+      if (val.length > 1) {
+        const filtered = getSearch(raw, val)
+        setData(filtered)
+      } else {
+        setData(raw)
+      }
+    })
   }
 
   return (
