@@ -1,11 +1,10 @@
 import { useTheme } from '@nextui-org/react'
-import { getSession } from 'next-auth/react'
 import { useEffect } from 'react'
 import { BsBox } from 'react-icons/bs'
 import { AiFillDollarCircle } from 'react-icons/ai'
 import { useAppContext } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
-import { sumFromArrayOfObjects } from '../../utils/utils'
+import { sumFromArrayOfObjects, timeout, useNextApi } from '../../utils/utils'
 import SummaryCard from '../../components/ui/card/SummaryCard'
 import { RiFolderUserFill } from 'react-icons/ri'
 import ClientsTable from '../../components/table/ClientsTable'
@@ -14,19 +13,39 @@ import PageTitle from '../../components/ui/pageheaders/PageTitle'
 import PageHeader from '../../components/ui/pageheaders/PageHeader'
 import ReportNavbar from '../../components/ui/navbar/ReportNavbar'
 
-export default function ReportsClient({ data }) {
+export default function ReportsClient() {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
 
   useEffect(() => {
+    let isCancelled = false;
+    const handleChange = async () => {
+      await timeout(100);
+      if (!isCancelled){
+        if (state.reports.data.clients.raw.length < 1){
+          fetchData()  
+        }
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true;
+    }
+  }, [])
+
+  const fetchData = async () => {
+    const res = await useNextApi(
+      'GET',
+      `/api/clients/list/all`
+    )
     setState({
       ...state,
       reports: {
         ...state.reports,
-        data: { ...state.reports.data, clients: { raw: data, filtered: data } },
+        data: { ...state.reports.data, clients: { raw: res, filtered: res, loading:false } },
       },
     })
-  }, [data])
+  }
 
   const tableData = state.reports.data.clients.filtered
 
@@ -82,7 +101,7 @@ export default function ReportsClient({ data }) {
           <div
             className={`h-full w-full  rounded-lg ${type}-shadow panel-theme-${type}`}
           >
-            {data ? <ClientsTable /> : null}
+            {tableData ? <ClientsTable /> : null}
           </div>
         </div>
       </div>
@@ -92,22 +111,4 @@ export default function ReportsClient({ data }) {
 
 ReportsClient.getLayout = function getLayout(page) {
   return <AppLayout>{page}</AppLayout>
-}
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context)
-  const baseUrl = `${process.env.FETCHBASE_URL}/clients/list/all`
-  if (session) {
-    const res = await fetch(baseUrl, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session?.accessToken}`,
-      },
-    })
-    const data = await res.json()
-
-    return { props: { data } }
-  }
-  return { props: { data: null } }
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useTransition } from 'react'
 import ActivityCard from '../activity/ActivityCard'
 import Panel from '../ui/panel/Panel'
 import { FaSearch } from 'react-icons/fa'
-import { getSearch, useNextApi } from '../../utils/utils'
+import { getSearch, timeout, useNextApi } from '../../utils/utils'
 
 const ClientActivity = ({
   flat = true,
@@ -17,20 +17,31 @@ const ClientActivity = ({
   const [isPending, startTransition] = useTransition()
   const [data, setData] = useState(null)
   const [raw, setRaw] = useState(null)
-
+  
   useEffect(() => {
-    const fetchActivity = async () => {
-      const res = await useNextApi(
-        'GET',
-        `${limit? `/api/clients/${clientId}/activity?limit=${limit}` : `/api/clients/${clientId}/activity`}`
-      )
-      setData(res)
-      setRaw(res)
+    let isCancelled = false;
+    const handleChange = async () => {
+      await timeout(100);
+      if (!isCancelled){
+        if (!raw) {
+          fetchActivity()
+        }
+      }
     }
-    if (!raw) {
-      fetchActivity()
+    handleChange()
+    return () => {
+      isCancelled = true;
     }
   }, [])
+
+  const fetchActivity = async () => {
+    const res = await useNextApi(
+      'GET',
+      `/api/clients/${clientId}/activity?limit=${limit}`
+    )
+    setData(res)
+    setRaw(res)
+  }
 
   const searchActivity = (val) => {
     startTransition(() => {

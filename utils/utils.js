@@ -105,6 +105,10 @@ export const textAbbrev = (text) => {
     : text
 }
 
+export const timeout = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve,ms));
+  }
+
 export const useApi = async (method, path, token) => {
   const req = await fetch(`${process.env.FETCHBASE_URL}${path}`, {
     method: `${method}`,

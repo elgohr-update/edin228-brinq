@@ -5,7 +5,7 @@ import HiddenBackdrop from '../../util/HiddenBackdrop'
 import { useAppContext } from '../../../context/state'
 import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import PolicyCard from '../../policy/PolicyCard'
-import { sumFromArrayOfObjects, useNextApi } from '../../../utils/utils'
+import { sumFromArrayOfObjects, timeout, useNextApi } from '../../../utils/utils'
 import SummaryCard from '../card/SummaryCard'
 import { AiFillDollarCircle, AiOutlineClose } from 'react-icons/ai'
 import ClientHeader from '../../client/ClientTitle'
@@ -25,25 +25,17 @@ const ClientDrawer = () => {
   const [showMore1, setShowMore1] = useState(false)
 
   useEffect(() => {
-    const clientId = state.drawer.client.clientId
-    const fetchClient = async () => {
-      const res = await useNextApi(
-        'GET',
-        `/api/clients/${clientId}?onlyInfo=true`
-      )
-      setClient(res)
+    let isCancelled = false;
+    const handleChange = async () => {
+      await timeout(100);
+      if (!isCancelled){
+        fetchClient().then(() => fetchPolicies())
+      }
     }
-    const fetchPolicies = async () => {
-      const queryUrl = state.drawer.client.isRenewal
-        ? `?month=${month}&year=${year}`
-        : `?active=true`
-      const res = await useNextApi(
-        'GET',
-        `/api/clients/${clientId}/policies${queryUrl}`
-      )
-      setPolicies(res)
+    handleChange()
+    return () => {
+      isCancelled = true;
     }
-    fetchClient().then(() => fetchPolicies())
   }, [])
 
   useEffect(() => {
@@ -51,6 +43,26 @@ const ClientDrawer = () => {
       closeDrawer()
     })
   }, [router.events])
+
+  const fetchClient = async () => {
+    const clientId = state.drawer.client.clientId
+    const res = await useNextApi(
+      'GET',
+      `/api/clients/${clientId}?onlyInfo=true`
+    )
+    setClient(res)
+  }
+  const fetchPolicies = async () => {
+    const clientId = state.drawer.client.clientId
+    const queryUrl = state.drawer.client.isRenewal
+      ? `?month=${month}&year=${year}`
+      : `?active=true`
+    const res = await useNextApi(
+      'GET',
+      `/api/clients/${clientId}/policies${queryUrl}`
+    )
+    setPolicies(res)
+  }
 
   const premSum = () => {
     return sumFromArrayOfObjects(policies, 'premium')
@@ -159,7 +171,7 @@ const ClientDrawer = () => {
                             <PolicyCard key={u.id} policy={u} />
                           ))}
                         </div>
-                        {policies.length > 4 && activity.length > 0 ? (
+                        {policies.length > 4 ? (
                           <div className="absolute bottom-[-23px] z-20 flex w-full items-center justify-center">
                             <Button
                               onClick={() => toggleShowMore1()}

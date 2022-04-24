@@ -18,7 +18,7 @@ import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
 
-export default function Client({ client, events, emails }) {
+export default function Client({ client }) {
   
   const router = useRouter()
   const { isDark, type } = useTheme()
@@ -119,7 +119,7 @@ export default function Client({ client, events, emails }) {
         <div className="md:overflow-y-auto md:px-4">
           {
             state.client.actionNavbar === 1 ?
-              <ClientActivity clientId={client?.id} limit={null} />
+              <ClientActivity clientId={client?.id} limit={50} />
             : null
           }
         </div>
@@ -137,10 +137,10 @@ export async function getServerSideProps(context) {
   const session = await getSession(context)
   if (session) {
     const client = await useApi('GET',`/clients/${cid}`,session.accessToken)
-    const events = await useApi('GET',`/events/client/${cid}`,session.accessToken)
-    const emails = await useApi('GET',`/emails/client/${cid}`,session.accessToken)
+    // const events = await useApi('GET',`/events/client/${cid}`,session.accessToken)
+    // const emails = await useApi('GET',`/emails/client/${cid}`,session.accessToken)
 
-    return { props: { client, events, emails } }
+    return { props: { client } }
   }
-  return { props: { client: null, events: null, emails: null } }
+  return { props: { client: null } }
 }

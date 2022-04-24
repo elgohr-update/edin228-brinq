@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useNextApi } from '../../utils/utils'
+import { timeout, useNextApi } from '../../utils/utils'
 import TagBasic from '../ui/tag/TagBasic'
 
 export default function PolicyTypeStarred({ policies, line }) {
   const [all, setAll] = useState(null)
   const [filteredAll, setFilteredAll] = useState([])
   const [activePolicyTypes, setActivePolicyTypes] = useState([])
-
+  
   useEffect(() => {
-    const getPolicyTypes = async () => {
-      const res = await useNextApi('GET',`/api/policytypes/`)
-      setAll(res);
+    let isCancelled = false;
+    const handleChange = async () => {
+      await timeout(100);
+      if (!isCancelled){
+        if (!all){
+          getPolicyTypes()
+        }
+      }
     }
-    if (!all){
-      getPolicyTypes()
+    handleChange()
+    return () => {
+      isCancelled = true;
     }
   }, [])
+  
+  const getPolicyTypes = async () => {
+    const res = await useNextApi('GET',`/api/policytypes/`)
+    setAll(res);
+  }
 
   useEffect(() => {
     const filterPT = () => {
