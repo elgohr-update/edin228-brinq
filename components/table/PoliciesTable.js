@@ -9,7 +9,7 @@ import {
   Checkbox,
   Loading,
 } from '@nextui-org/react'
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaFilter, FaSearch } from 'react-icons/fa'
 import {
   truncateString,
@@ -26,7 +26,6 @@ import TagContainer from '../ui/tag/TagContainer'
 
 const PoliciesTable = () => {
   const { type } = useTheme()
-  const [isPending, startTransition] = useTransition()
   const [search, setSearch] = useState('')
   const { state, setState } = useAppContext()
   const [showFilter, setShowFilter] = useState(true)
@@ -45,33 +44,31 @@ const PoliciesTable = () => {
   const tableData = state.reports.data.policies.filtered
 
   const searchTable = (val) => {
-    startTransition(() => {
-      if (val.length > 1) {
-        const filtered = getSearch(rows, val)
-        setState({
-          ...state,
-          reports: {
-            ...state.reports,
-            data: {
-              ...state.reports.data,
-              policies: { ...state.reports.data.policies, filtered: filtered },
-            },
+    if (val.length > 1) {
+      const filtered = getSearch(rows, val)
+      setState({
+        ...state,
+        reports: {
+          ...state.reports,
+          data: {
+            ...state.reports.data,
+            policies: { ...state.reports.data.policies, filtered: filtered },
           },
-        })
-      } else {
-        const filtered = rows
-        setState({
-          ...state,
-          reports: {
-            ...state.reports,
-            data: {
-              ...state.reports.data,
-              policies: { ...state.reports.data.policies, filtered: filtered },
-            },
+        },
+      })
+    } else {
+      const filtered = rows
+      setState({
+        ...state,
+        reports: {
+          ...state.reports,
+          data: {
+            ...state.reports.data,
+            policies: { ...state.reports.data.policies, filtered: filtered },
           },
-        })
-      }
-    })
+        },
+      })
+    }
   }
 
   useEffect(() => {

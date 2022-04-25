@@ -1,5 +1,5 @@
 import { Input } from '@nextui-org/react'
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useEffect, useState } from 'react'
 import ActivityCard from '../activity/ActivityCard'
 import Panel from '../ui/panel/Panel'
 import { FaSearch } from 'react-icons/fa'
@@ -14,7 +14,6 @@ const ClientActivity = ({
   clientId,
   limit = 8
 }) => {
-  const [isPending, startTransition] = useTransition()
   const [data, setData] = useState(null)
   const [raw, setRaw] = useState(null)
   
@@ -44,14 +43,12 @@ const ClientActivity = ({
   }
 
   const searchActivity = (val) => {
-    startTransition(() => {
-      if (val.length > 1) {
-        const filtered = getSearch(raw, val)
-        setData(filtered)
-      } else {
-        setData(raw)
-      }
-    })
+    if (val.length > 1) {
+      const filtered = getSearch(raw, val)
+      setData(filtered)
+    } else {
+      setData(raw)
+    }
   }
 
   return (

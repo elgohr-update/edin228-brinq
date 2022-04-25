@@ -1027,3 +1027,22 @@ h6 {
   border: 1px solid var(--nextui-colors-primary);
   border-radius:4px;
 }
+
+/* Text Editor */
+.ProseMirror {
+  outline:none;
+}
+.ProseMirror p {
+  font-size:0.9rem;
+}
+.ProseMirror ul,
+.ProseMirror ol{
+  list-style:initial;
+  margin-left:1.5rem;
+}
+.ProseMirror ol{
+  list-style-type:decimal;
+}
+.text-editor-is-active-button {
+  color: var(--nextui-colors-primary);
+}

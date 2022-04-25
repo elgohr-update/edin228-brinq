@@ -1,7 +1,7 @@
 import { Button, Switch, useTheme } from '@nextui-org/react'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ClientActivity from '../../components/client/ClientActivity'
 import ClientContacts from '../../components/client/ClientContacts'
 import ClientHeader from '../../components/client/ClientTitle'
@@ -12,23 +12,77 @@ import { BiPaperPlane, BiLinkExternal, BiRefresh } from 'react-icons/bi'
 import { BsChatLeftQuoteFill } from 'react-icons/bs'
 import { RiPlayListAddFill } from 'react-icons/ri'
 import PolicyCard from '../../components/policy/PolicyCard'
-import { reverseList, useApi } from '../../utils/utils'
+import { reverseList, timeout, useApi, useNextApi } from '../../utils/utils'
 import Panel from '../../components/ui/panel/Panel'
 import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
 
-export default function Client({ client }) {
-  
+export default function Client({data}) {
   const router = useRouter()
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
   const [showActive, setShowActive] = useState(true)
+  const [client, setClient] = useState(data)
+  const [policies, setPolicies] = useState(data?.policies)
+
+  useEffect( () => {
+    if (state.reloadTrigger.policies){
+      let isCancelled = false;
+      const handleChange = async () => {
+        await timeout(100);
+        if (!isCancelled){
+          fetchPolicies()
+          setState({
+              ...state,reloadTrigger:{...state.reloadTrigger,policies:false}
+          })
+        }
+      }
+      handleChange()
+      return () => {
+        isCancelled = true;
+      }  
+    }
+    else if (state.reloadTrigger.client){
+      let isCancelled = false;
+      const handleChange = async () => {
+        await timeout(100);
+        if (!isCancelled){
+          fetchClient()
+          setState({
+              ...state,reloadTrigger:{...state.reloadTrigger,client:false}
+          })
+        }
+      }
+      handleChange()
+      return () => {
+        isCancelled = true;
+      }  
+    }
+  },[state.reloadTrigger])
+
+  const fetchClient = async () => {
+    const clientId = router.query.cid
+    const res = await useNextApi(
+      'GET',
+      `/api/clients/${clientId}`
+    )
+    setClient(res)
+  }
+
+  const fetchPolicies = async () => {
+    const clientId = router.query.cid
+    const res = await useNextApi(
+      'GET',
+      `/api/clients/${clientId}/policies`
+    )
+    setPolicies(res)
+  }
 
   const getPolicies = (active = false) => {
     return active
       ? reverseList(
-          client.policies.filter(
+          policies.filter(
             (x) =>
               !x.renewed &&
               !x.canceled &&
@@ -37,7 +91,7 @@ export default function Client({ client }) {
               !x.ams360quote
           )
         )
-      : reverseList(client.policies)
+      : reverseList(policies)
   }
 
   return (
@@ -137,10 +191,7 @@ export async function getServerSideProps(context) {
   const session = await getSession(context)
   if (session) {
     const client = await useApi('GET',`/clients/${cid}`,session.accessToken)
-    // const events = await useApi('GET',`/events/client/${cid}`,session.accessToken)
-    // const emails = await useApi('GET',`/emails/client/${cid}`,session.accessToken)
-
-    return { props: { client } }
+    return { props: { data:client } }
   }
-  return { props: { client: null } }
+  return { props: { data: null } }
 }

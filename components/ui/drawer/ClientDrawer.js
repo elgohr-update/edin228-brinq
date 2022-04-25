@@ -38,6 +38,25 @@ const ClientDrawer = () => {
     }
   }, [])
 
+  useEffect( () => {
+    if (state.reloadTrigger.policies){
+      let isCancelled = false;
+      const handleChange = async () => {
+        await timeout(100);
+        if (!isCancelled){
+          fetchPolicies()
+          setState({
+              ...state,reloadTrigger:{...state.reloadTrigger,policies:false}
+          })
+        }
+      }
+      handleChange()
+      return () => {
+        isCancelled = true;
+      }  
+    }
+  },[state.reloadTrigger])
+
   useEffect(() => {
     router.events.on('routeChangeStart', () => {
       closeDrawer()
@@ -188,7 +207,7 @@ const ClientDrawer = () => {
                     ) : (
                       <div className="flex w-full items-center justify-center">
                         <Loading
-                          type="points"
+                          type="points-opacity"
                           size="lg"
                           color="secondary"
                           textColor="primary"

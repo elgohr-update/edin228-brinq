@@ -1,5 +1,5 @@
 import { Input, useTheme } from '@nextui-org/react'
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../../../context/state'
 import { formatMoney } from '../../../utils/utils'
 import CoverageNodeColorPicker from './CoverageNodeColorPicker'
@@ -9,7 +9,6 @@ export default function CoverageNodeCell({nodeCell,rowId,nodeId}) {
     const [editMenu, setEditMenu] = useState(false)
     const { isDark, type } = useTheme()
     const [baseNode, setbaseNode] = useState(null)
-    const [isPending, startTransition] = useTransition()
     const baseRows = [...state.costComparison.builder.template.rows]
 
     useEffect(() => {
@@ -26,10 +25,8 @@ export default function CoverageNodeCell({nodeCell,rowId,nodeId}) {
         return status ? 'is-active-icon' : 'default-text-color'
     }
     const setText = (val) => {
-        startTransition( () => {
-            baseNode.data = val
-            setState({...state,costComparison:{...state.costComparison, builder:{template:{...state.costComparison.builder.template, rows:baseRows}}}})    
-        })
+        baseNode.data = val
+        setState({...state,costComparison:{...state.costComparison, builder:{template:{...state.costComparison.builder.template, rows:baseRows}}}})   
     }
     const setBold = () => {
         baseNode.textBold = !baseNode.textBold 

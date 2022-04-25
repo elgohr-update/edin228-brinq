@@ -4,15 +4,12 @@ import { BsCheckCircleFill } from 'react-icons/bs';
 import { BiCircle } from 'react-icons/bi';
 import { getConstantIcons, getFormattedDate } from '../../utils/utils';
 import UserAvatar from '../user/Avatar';
+import NewComment from '../comments/NewComment';
+import CommentContainer from '../comments/CommentContainer';
 
 const TaskCard = ({task,border=false,vertical=false,color='sky',gradientColor="orange",panel=false,shadow=false}) => {
     const { isDark, type } = useTheme();
-    const [showMore, setShowMore] = useState(false)
     const [selected, setSelected] = useState(false)
-
-    const toggleShowMore = () => {
-        setShowMore(!showMore)
-    }
 
     const isVertical = () =>{
         return vertical ? `flex-col space-y-2` : `flex-row items-center`
@@ -74,9 +71,10 @@ const TaskCard = ({task,border=false,vertical=false,color='sky',gradientColor="o
             </div>
             {
                 selected ? 
-                <div>
-                    asdasdsadsadsadssad
-                </div>
+                    <div className="flex flex-col w-full py-2">
+                        <CommentContainer comments={task.comments} />
+                        <NewComment source={task} />
+                    </div>
                 :null
             }
         </div>

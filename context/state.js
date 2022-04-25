@@ -62,6 +62,10 @@ export function AppWrapper({ children }) {
       },
       admin:{
         navBar: 1
+      },
+      reloadTrigger: {
+        policies:false,
+        client:false,
       }
     }
   )

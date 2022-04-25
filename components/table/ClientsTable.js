@@ -9,7 +9,7 @@ import {
   Checkbox,
   Loading,
 } from '@nextui-org/react'
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaFilter, FaSearch } from 'react-icons/fa'
 import { formatMoney, getSearch } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
@@ -20,7 +20,6 @@ import TagContainer from '../ui/tag/TagContainer'
 
 const ClientsTable = () => {
   const { type } = useTheme()
-  const [isPending, startTransition] = useTransition()
   const [search, setSearch] = useState('')
   const { state, setState } = useAppContext()
   const [showFilter, setShowFilter] = useState(true)
@@ -41,33 +40,31 @@ const ClientsTable = () => {
   const tableData = state.reports.data.clients.filtered
 
   const searchTable = (val) => {
-    startTransition(() => {
-      if (val.length > 1) {
-        const filtered = getSearch(rows, val)
-        setState({
-          ...state,
-          reports: {
-            ...state.reports,
-            data: {
-              ...state.reports.data,
-              clients: { ...state.reports.data.clients, filtered: filtered },
-            },
+    if (val.length > 1) {
+      const filtered = getSearch(rows, val)
+      setState({
+        ...state,
+        reports: {
+          ...state.reports,
+          data: {
+            ...state.reports.data,
+            clients: { ...state.reports.data.clients, filtered: filtered },
           },
-        })
-      } else {
-        const filtered = rows
-        setState({
-          ...state,
-          reports: {
-            ...state.reports,
-            data: {
-              ...state.reports.data,
-              clients: { ...state.reports.data.clients, filtered: filtered },
-            },
+        },
+      })
+    } else {
+      const filtered = rows
+      setState({
+        ...state,
+        reports: {
+          ...state.reports,
+          data: {
+            ...state.reports.data,
+            clients: { ...state.reports.data.clients, filtered: filtered },
           },
-        })
-      }
-    })
+        },
+      })
+    }
   }
 
   useEffect(() => {

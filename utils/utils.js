@@ -106,8 +106,8 @@ export const textAbbrev = (text) => {
 }
 
 export const timeout = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve,ms));
-  }
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
 
 export const useApi = async (method, path, token) => {
   const req = await fetch(`${process.env.FETCHBASE_URL}${path}`, {
@@ -121,12 +121,21 @@ export const useApi = async (method, path, token) => {
   return res
 }
 
-export const useNextApi = async (method, path) => {
-  const req = await fetch(`${path}`, {
-    method: `${method}`
-  })
-  const res = await req.json()
-  return res
+export const useNextApi = async (method, path, body = null) => {
+  if (body) {
+    const req = await fetch(`${path}`, {
+      method: `${method}`,
+      body: body,
+    })
+    const res = await req.json()
+    return res
+  } else {
+    const req = await fetch(`${path}`, {
+      method: `${method}`,
+    })
+    const res = await req.json()
+    return res
+  }
 }
 
 export const getSearch = (data, search = '') => {
@@ -185,8 +194,27 @@ export const getFormattedDateTime = (date) => {
   return `${timeStr}   ${dateStr}`
 }
 
+export const getFormattedUTCDateTime = (date) => {
+    const d = new Date(date)
+    // const d = new Date( base.getTime() - base.getTimezoneOffset() * -60000 )
+    let year = d.getFullYear()
+    let month = (1 + d.getMonth()).toString().padStart(2, '0')
+    let day = d.getDate().toString().padStart(2, '0')
+    const dateStr = month + '.' + day + '.' + year
+    const timeStr = d.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    })
+    return `${timeStr}   ${dateStr}`
+  }
+
 export const reverseList = (list) => {
-  return list?.map((value, index, arr) => arr[arr.length - index - 1])
+    if (list){
+        return list?.map((value, index, arr) => arr[arr.length - index - 1])
+    }
+    return []
+  
 }
 
 export const sumFromArrayOfObjects = (data = [], field) => {

@@ -1,5 +1,5 @@
 import { Table, useTheme, Input, Avatar, Tooltip, Progress, useCollator } from '@nextui-org/react';
-import React, { useEffect, useState, useTransition } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { FaSearch } from 'react-icons/fa';
 import { truncateString, formatMoney, getSearch, getFormattedDate } from '../../utils/utils';
@@ -13,7 +13,6 @@ import TagContainer from '../ui/tag/TagContainer';
 export default function RenewalsTable(data) {
     const router = useRouter()
     const { month, year } = router.query
-    const [isPending, startTransition] = useTransition()
     const { type } = useTheme();
     const [search, setSearch] = useState('')
     const [rows, setRows] = useState(data.data.map( x => {return {...x,client_name:truncateString(x.client_name,40), id:x.client_id}}))
@@ -28,14 +27,12 @@ export default function RenewalsTable(data) {
     }, [data])
 
     const searchTable = (val) => {
-        startTransition( () => {
-            if (val.length > 1){
-                const filtered = getSearch(rows,val)
-                setTableData(filtered)
-            }else {
-                setTableData(rows)
-            }        
-        })
+        if (val.length > 1){
+            const filtered = getSearch(rows,val)
+            setTableData(filtered)
+        }else {
+            setTableData(rows)
+        }       
     }
 
     const columns = [

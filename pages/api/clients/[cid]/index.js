@@ -3,7 +3,6 @@ import { getSession } from "next-auth/react"
 export default async function handler(req, res) {
     const { query } = req
     const session = await getSession({req})
-    const baseUrl = `${process.env.FETCHBASE_URL}/clients/${query.cid}?onlyInfo=${query.onlyInfo}`
     try {
         if (query.onlyInfo){
             let results = await fetch(`${process.env.FETCHBASE_URL}/clients/${query.cid}/info`, {
