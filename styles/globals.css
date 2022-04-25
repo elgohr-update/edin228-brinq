@@ -6,6 +6,12 @@
   --nextui-borderWeights-normal: 2px;
 }
 /* Fixes */
+/* ---modal */
+.nextui-c-csEDlc,
+.nextui-c-blxbWP {
+  z-index:9999999 !important;
+}
+
 .nextui-c-hWZRae-bVtBym-bordered-false {
   border-width: 0px !important;
 }

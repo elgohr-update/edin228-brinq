@@ -4,6 +4,7 @@ import ActivityCard from '../activity/ActivityCard'
 import Panel from '../ui/panel/Panel'
 import { FaSearch } from 'react-icons/fa'
 import { getSearch, timeout, useNextApi } from '../../utils/utils'
+import { useAppContext } from '../../context/state'
 
 const ClientActivity = ({
   flat = true,
@@ -16,7 +17,8 @@ const ClientActivity = ({
 }) => {
   const [data, setData] = useState(null)
   const [raw, setRaw] = useState(null)
-  
+  const { state, setState } = useAppContext()
+
   useEffect(() => {
     let isCancelled = false;
     const handleChange = async () => {
@@ -32,6 +34,25 @@ const ClientActivity = ({
       isCancelled = true;
     }
   }, [])
+
+  useEffect( () => {
+    if (state.reloadTrigger.activities){
+      let isCancelled = false;
+      const handleChange = async () => {
+        await timeout(100);
+        if (!isCancelled){
+          fetchActivity()
+          setState({
+              ...state,reloadTrigger:{...state.reloadTrigger,activities:false}
+          })
+        }
+      }
+      handleChange()
+      return () => {
+        isCancelled = true;
+      }  
+    }
+  },[state.reloadTrigger])
 
   const fetchActivity = async () => {
     const res = await useNextApi(

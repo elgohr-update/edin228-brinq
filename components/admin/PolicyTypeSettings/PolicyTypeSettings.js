@@ -1,8 +1,10 @@
+import { Loading } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import PolicyTypeTag from '../../policytype/PolicyTypeTag'
 import PanelTitle from '../../ui/title/PanelTitle'
 
 export default function PolicyTypeSettings() {
+  const [loading, setLoading] = useState(true)
   const [policyTypes, setPolicyTypes] = useState([])
   const [clPolicyTypes, setClPolicyTypes] = useState([])
   const [plPolicyTypes, setPlPolicyTypes] = useState([])
@@ -22,6 +24,7 @@ export default function PolicyTypeSettings() {
         setClPolicyTypes(filtered(data, `Commercial Lines`))
         setPlPolicyTypes(filtered(data, `Personal Lines`))
         setBPolicyTypes(filtered(data, `Benefits`))
+        setLoading(false)
       })
   }
 
@@ -69,7 +72,7 @@ export default function PolicyTypeSettings() {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       <div className="h-full w-full py-2">
         <PanelTitle
           title={`Preferred Policies and Policy Types`}
@@ -79,42 +82,60 @@ export default function PolicyTypeSettings() {
       <div className="flex flex-col px-4">
         <PanelTitle title={`Commercial Lines`} color="sky" />
         <div className="space-1 flex w-full flex-wrap py-1">
-          {clPolicyTypes.map((pt) => (
-            <PolicyTypeTag
-              key={pt.id}
-              pt={pt}
-              onClick={(ptid, bundle) =>
-                bundle ? submitChanges(ptid, bundle) : setStarred(ptid)
-              }
-              isStarred={isStarred(pt.starred)}
-            />
-          ))}
+          {loading ? (
+            <div className="flex w-full items-center justify-center">
+              <Loading size="md" color="primary" textColor="primary" />
+            </div>
+          ) : (
+            clPolicyTypes.map((pt) => (
+              <PolicyTypeTag
+                key={pt.id}
+                pt={pt}
+                onClick={(ptid, bundle) =>
+                  bundle ? submitChanges(ptid, bundle) : setStarred(ptid)
+                }
+                isStarred={isStarred(pt.starred)}
+              />
+            ))
+          )}
         </div>
         <PanelTitle title={`Personal Lines`} color="red" />
         <div className="space-1 flex w-full flex-wrap py-1">
-          {plPolicyTypes.map((pt) => (
-            <PolicyTypeTag
-              key={pt.id}
-              pt={pt}
-              onClick={(ptid, bundle) =>
-                bundle ? submitChanges(ptid, bundle) : setStarred(ptid)
-              }
-              isStarred={isStarred(pt.starred)}
-            />
-          ))}
+          {loading ? (
+            <div className="flex w-full items-center justify-center">
+              <Loading size="md" color="primary" textColor="primary" />
+            </div>
+          ) : (
+            plPolicyTypes.map((pt) => (
+              <PolicyTypeTag
+                key={pt.id}
+                pt={pt}
+                onClick={(ptid, bundle) =>
+                  bundle ? submitChanges(ptid, bundle) : setStarred(ptid)
+                }
+                isStarred={isStarred(pt.starred)}
+              />
+            ))
+          )}
         </div>
         <PanelTitle title={`Benefits`} color="lime" />
         <div className="space-1 flex w-full flex-wrap py-1">
-          {bPolicyTypes.map((pt) => (
-            <PolicyTypeTag
-              key={pt.id}
-              pt={pt}
-              onClick={(ptid, bundle) =>
-                bundle ? submitChanges(ptid, bundle) : setStarred(ptid)
-              }
-              isStarred={isStarred(pt.starred)}
-            />
-          ))}
+          {loading ? (
+            <div className="flex w-full items-center justify-center">
+              <Loading size="md" color="primary" textColor="primary" />
+            </div>
+          ) : (
+            bPolicyTypes.map((pt) => (
+              <PolicyTypeTag
+                key={pt.id}
+                pt={pt}
+                onClick={(ptid, bundle) =>
+                  bundle ? submitChanges(ptid, bundle) : setStarred(ptid)
+                }
+                isStarred={isStarred(pt.starred)}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

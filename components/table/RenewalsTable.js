@@ -247,13 +247,13 @@ export default function RenewalsTable(data) {
                         </Table.Row>
                     )}
                 </Table.Body>
-                {tableData.length > 20 ? 
+                {tableData.length > 8 ? 
                     <Table.Pagination
                         shadow
                         align="end"
                         noMargin
-                        total={Math.floor(Number(tableData.length/20))}
-                        rowsPerPage={20}
+                        total={Math.floor(Number(tableData.length/8))}
+                        rowsPerPage={8}
                     />: null
                 }
             </Table>

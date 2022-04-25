@@ -55,6 +55,7 @@ const ClientDrawer = () => {
         isCancelled = true;
       }  
     }
+    
   },[state.reloadTrigger])
 
   useEffect(() => {
