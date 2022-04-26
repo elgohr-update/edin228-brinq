@@ -2,7 +2,7 @@ import { Button, Loading, useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
-import { useAppContext } from '../../../context/state'
+import { useAppContext, useReloadContext } from '../../../context/state'
 import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import PolicyCard from '../../policy/PolicyCard'
 import { sumFromArrayOfObjects, timeout, useNextApi } from '../../../utils/utils'
@@ -17,6 +17,7 @@ import ClientDrawerNavbar from '../../client/ClientDrawerNavbar'
 
 const ClientDrawer = () => {
   const { state, setState } = useAppContext()
+  const { reload, setReload } = useReloadContext()
   const router = useRouter()
   const { month, year } = router.query
   const { type } = useTheme()
@@ -39,14 +40,15 @@ const ClientDrawer = () => {
   }, [])
 
   useEffect( () => {
-    if (state.reloadTrigger.policies){
+    if (reload.policies){
       let isCancelled = false;
       const handleChange = async () => {
         await timeout(100);
         if (!isCancelled){
           fetchPolicies()
-          setState({
-              ...state,reloadTrigger:{...state.reloadTrigger,policies:false}
+          setReload({
+            ...reload,
+            policies: false
           })
         }
       }
@@ -56,7 +58,7 @@ const ClientDrawer = () => {
       }  
     }
     
-  },[state.reloadTrigger])
+  },[reload])
 
   useEffect(() => {
     router.events.on('routeChangeStart', () => {

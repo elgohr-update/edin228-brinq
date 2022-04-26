@@ -6,7 +6,7 @@ import ClientActivity from '../../components/client/ClientActivity'
 import ClientContacts from '../../components/client/ClientContacts'
 import ClientHeader from '../../components/client/ClientTitle'
 import ClientInfo from '../../components/client/ClientInfo'
-import { useAppContext } from '../../context/state'
+import { useAppContext, useReloadContext } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
 import { BiPaperPlane, BiLinkExternal, BiRefresh } from 'react-icons/bi'
 import { BsChatLeftQuoteFill } from 'react-icons/bs'
@@ -22,19 +22,21 @@ export default function Client({data}) {
   const router = useRouter()
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
+  const { reload, setReload } = useReloadContext()
   const [showActive, setShowActive] = useState(true)
   const [client, setClient] = useState(data)
   const [policies, setPolicies] = useState(data?.policies)
 
   useEffect( () => {
-    if (state.reloadTrigger.policies){
+    if (reload.policies){
       let isCancelled = false;
       const handleChange = async () => {
         await timeout(100);
         if (!isCancelled){
           fetchPolicies()
-          setState({
-              ...state,reloadTrigger:{...state.reloadTrigger,policies:false}
+          setReload({
+            ...reload,
+            policies: false
           })
         }
       }
@@ -43,14 +45,15 @@ export default function Client({data}) {
         isCancelled = true;
       }  
     }
-    else if (state.reloadTrigger.client){
+    else if (reload.client){
       let isCancelled = false;
       const handleChange = async () => {
         await timeout(100);
         if (!isCancelled){
           fetchClient()
-          setState({
-              ...state,reloadTrigger:{...state.reloadTrigger,client:false}
+          setReload({
+            ...reload,
+            client: false
           })
         }
       }
@@ -59,7 +62,7 @@ export default function Client({data}) {
         isCancelled = true;
       }  
     }
-  },[state.reloadTrigger])
+  },[reload])
 
   const fetchClient = async () => {
     const clientId = router.query.cid

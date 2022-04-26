@@ -62,10 +62,6 @@ export function AppWrapper({ children }) {
       },
       admin:{
         navBar: 1
-      },
-      reloadTrigger: {
-        policies:false,
-        client:false,
       }
     }
   )
@@ -79,4 +75,25 @@ export function AppWrapper({ children }) {
 
 export function useAppContext() {
   return useContext(AppContext);
+}
+
+const ReloadContext = createContext();
+
+export function ReloadWrapper({ children }) {
+  const [reload, setReload] = useState(
+    {
+        activities:false,
+        policies:false,
+        client:false,
+    }
+  )
+  return (
+    <ReloadContext.Provider value={{reload, setReload}}>
+      {children}
+    </ReloadContext.Provider>
+  );
+}
+
+export function useReloadContext() {
+  return useContext(ReloadContext);
 }
