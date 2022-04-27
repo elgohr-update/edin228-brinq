@@ -324,7 +324,7 @@ import {
                 color="primary"
                 labelColor="primary"
                 size="sm"
-                initialChecked={true}
+                initialChecked
                 value="Commercial Lines"
                 onChange={(e) => setLineFilter(e, 'Commercial Lines')}
               >
@@ -334,7 +334,7 @@ import {
                 color="error"
                 labelColor="error"
                 size="sm"
-                initialChecked={true}
+                initialChecked
                 value="Personal Lines"
                 onChange={(e) => setLineFilter(e, 'Personal Lines')}
               >
@@ -344,7 +344,7 @@ import {
                 color="success"
                 labelColor="success"
                 size="sm"
-                initialChecked={true}
+                initialChecked
                 value="Benefits"
                 onChange={(e) => setLineFilter(e, 'Benefits')}
               >

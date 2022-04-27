@@ -223,6 +223,13 @@ export const sumFromArrayOfObjects = (data = [], field) => {
   return total
 }
 
+export const sumFromArray = (data = []) => {
+  let total = data?.reduce(function (tot, record) {
+    return tot + record
+  }, 0)
+  return total
+}
+
 export const abbreviateMoney = (num, fixed) => {
   if (num === null) {
     return null

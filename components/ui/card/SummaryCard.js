@@ -103,7 +103,7 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>, noPadding=false, autoWidth=false,
                 return 'purple-to-blue-gradient-2'
         }
     }
-    const baseClass = `relative flex ${noPadding?`p-0`:`px-4 py-2`} ${autoWidth? `w-auto` : `flex-1  min-w-[240px]`} rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+    const baseClass = `relative flex ${noPadding?`p-0`:`px-4 py-2`} ${autoWidth? `w-auto min-w-[240px]` : `flex-1  min-w-[240px]`} rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
             <div className={`relative flex z-20 ${vertical ? 'flex-col': `flex-col w-full`}`}>
