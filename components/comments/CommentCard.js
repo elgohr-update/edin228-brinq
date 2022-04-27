@@ -5,6 +5,7 @@ import UserAvatar from '../user/Avatar'
 import { BsFillReplyFill } from 'react-icons/bs'
 import NewComment from './NewComment'
 import CommentContainer from './CommentContainer'
+import FileTagContainer from '../files/FileTagContainer'
 
 const CommentCard = ({
   comment,
@@ -60,6 +61,7 @@ const CommentCard = ({
           <div className="flex py-1">
             <h6>{comment.post}</h6>
           </div>
+          <FileTagContainer files={comment.attachments} />
           <CommentContainer comments={comment.replies} />
           {showReply ? (
             <NewComment source={comment} commentType={'reply'} />

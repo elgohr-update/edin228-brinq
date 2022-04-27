@@ -24,6 +24,11 @@ export function AppWrapper({ children }) {
             raw: [],
             filtered: [],
             loading:true,
+          },
+          nb:{
+            raw: [],
+            filtered: [],
+            loading:true,
           }
         },
         filters:{

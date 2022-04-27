@@ -20,13 +20,14 @@ export default function FileUploaderContainer({ onSave }) {
   }
 
   const handleChange = (f) => {
-    const b = Array.from(f)
-    const newFiles = [...files, ...b]
+    const base = Array.from(f)
+    const adjustedFiles = base.map( x => {return {data:x,description:'',private:true}})
+    const newFiles = [...files, ...adjustedFiles]
     setFiles(newFiles)
   }
 
   const removeFile = (f) => {
-    const newFiles = files.filter((x) => x.lastModified != f)
+    const newFiles = files.filter((x) => x.data.lastModified != f)
     setFiles(newFiles)
   }
 
@@ -45,7 +46,6 @@ export default function FileUploaderContainer({ onSave }) {
         aria-labelledby="modal-title"
         open={visible}
         onClose={closeHandler}
-        fileOrFIles={Array}
       >
         <Modal.Header>
           <Text
@@ -64,21 +64,22 @@ export default function FileUploaderContainer({ onSave }) {
             handleChange={handleChange}
             name="file"
             types={fileTypes}
+            fileOrFIles={Array}
           />
           <div className="flex w-full flex-col space-y-2">
             {Array.from(files).map((f) => (
               <div
-                key={f.name + String(f.lastModified)}
+                key={f.data.name + String(f.data.lastModified)}
                 className="flex items-center justify-between"
               >
-                <div>{f.name}</div>
+                <div>{f.data.name}</div>
                 <div>
                   <Button
                     auto
                     size="xs"
                     color="error"
                     light
-                    onClick={() => removeFile(f.lastModified)}
+                    onClick={() => removeFile(f.data.lastModified)}
                   >
                     X
                   </Button>
@@ -88,7 +89,7 @@ export default function FileUploaderContainer({ onSave }) {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button auto flat color="gradient" onClick={closeHandler}>
+          <Button auto color="gradient" onClick={closeHandler}>
             Save
           </Button>
         </Modal.Footer>
