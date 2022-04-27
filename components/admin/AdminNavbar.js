@@ -13,7 +13,7 @@ const AdminNavbar = () => {
   }
 
   return (
-    <div className={`flex items-center space-x-2 mb-1`}>
+    <div className={`flex items-center space-x-2`}>
       <NavAction
         onClick={() => setActive(1)}
         icon={getConstantIcons('agency')}

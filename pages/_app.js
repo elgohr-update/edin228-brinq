@@ -4,7 +4,7 @@ import '../styles/globals.css'
 import { SessionProvider } from "next-auth/react"
 import { createTheme, NextUIProvider } from "@nextui-org/react"
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
-import { AppWrapper, ReloadWrapper } from '../context/state';
+import { AgencyWrapper, AppWrapper, ReloadWrapper } from '../context/state';
 import ProgressBar from '@badrap/bar-of-progress';
 import Router from 'next/router';
 
@@ -64,20 +64,22 @@ function MyApp({ Component,  pageProps: { session, ...pageProps }}) {
   return (
     <SessionProvider session={session}>
       <AppWrapper>
-        <ReloadWrapper>
-          <NextThemesProvider
-            defaultTheme="system"
-            attribute="class"
-            value={{
-              light: lightTheme.className,
-              dark: darkTheme.className
-            }}
-          >
-            <NextUIProvider>
-              {getLayout(<Component {...pageProps} />)}
-            </NextUIProvider>
-          </NextThemesProvider>
-        </ReloadWrapper>  
+        <AgencyWrapper>
+          <ReloadWrapper>
+            <NextThemesProvider
+              defaultTheme="system"
+              attribute="class"
+              value={{
+                light: lightTheme.className,
+                dark: darkTheme.className
+              }}
+            >
+              <NextUIProvider>
+                {getLayout(<Component {...pageProps} />)}
+              </NextUIProvider>
+            </NextThemesProvider>
+          </ReloadWrapper>  
+        </AgencyWrapper>
       </AppWrapper>
     </SessionProvider>
   )

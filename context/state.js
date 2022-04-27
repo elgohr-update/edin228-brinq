@@ -90,6 +90,7 @@ export function ReloadWrapper({ children }) {
         activities:false,
         policies:false,
         client:false,
+        agency:false
     }
   )
   return (
@@ -101,4 +102,28 @@ export function ReloadWrapper({ children }) {
 
 export function useReloadContext() {
   return useContext(ReloadContext);
+}
+
+const AgencyContext = createContext();
+
+export function AgencyWrapper({ children }) {
+  const [agency, setAgency] = useState(
+    {
+      id:null,
+      uid:null,
+      name:null,
+      email:null,
+      image_file:null,
+      users:null,
+    }
+  )
+  return (
+    <AgencyContext.Provider value={{agency, setAgency}}>
+      {children}
+    </AgencyContext.Provider>
+  );
+}
+
+export function useAgencyContext() {
+  return useContext(AgencyContext);
 }

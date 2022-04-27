@@ -233,7 +233,7 @@ import {
               <Avatar.Group
                 count={policy.users.length > 3 ? policy.users.length : null}
               >
-                {policy.users.map((u) => (
+                {policy.users.filter(p => p.producer == true).map((u) => (
                   <UserAvatar
                     tooltip={true}
                     tooltipPlacement="topEnd"

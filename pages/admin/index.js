@@ -11,6 +11,7 @@ import UsersControlPanel from '../../components/admin/users/UsersControlPanel'
 import Agency from '../../components/admin/agency/Agency'
 import AdminNavbar from '../../components/admin/AdminNavbar'
 import PolicySettings from '../../components/admin/policy/PolicySettings'
+import DealsSalesSettings from '../../components/admin/deals/DealsSalesSettings'
 
 export default function Admin() {
   const router = useRouter()
@@ -34,7 +35,7 @@ export default function Admin() {
               <UsersControlPanel />
             </div>
           ) : state.admin.navBar == 2 ? (
-            <Agency />
+            <DealsSalesSettings />
           ) : state.admin.navBar == 3 ? (
             <Agency />
           ) : state.admin.navBar == 4 ? (
