@@ -1,12 +1,13 @@
-import { User, useTheme } from '@nextui-org/react'
+import { useTheme } from '@nextui-org/react'
 import React from 'react'
-import { abbreviateMoney } from '../../utils/utils'
+import { abbreviateMoney, sortByProperty } from '../../utils/utils'
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -19,40 +20,32 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
   Filler
 )
 
-export default function ChartSummaryCard({
+export default function NewBusinessBarChart({
   noPadding = false,
   autoWidth = false,
-  label = null,
-  content = null,
-  subContent = null,
   border = false,
-  percent = false,
-  money = false,
   vertical = true,
   color = 'sky',
   gradientColor = 'orange',
-  panel = false,
-  shadow = false,
+  panel = true,
+  shadow = true,
   fullData = null,
   slice = false,
-  currentMonth = null,
-  direction = 'up',
+  currentMonth = 0,
 }) {
   const { isDark, type } = useTheme()
 
-  const contentValue = () => {
-    return money
-      ? `$${abbreviateMoney(parseFloat(content))}`
-      : percent
-      ? `${Number(content) ? content : 0}%`
-      : content
+  const getSorted = () => {
+    return sortByProperty(fullData.users, 'totalPrem')
   }
+
   const isVertical = () => {
     return vertical ? `flex-col` : `flex-row items-center`
   }
@@ -148,25 +141,21 @@ export default function ChartSummaryCard({
     }
   }
 
-  const getDataset = () => {
-    return slice
-      ? fullData.premByMonth.slice(0, currentMonth + 1)
-      : fullData.premByMonth
-  }
-
   const getChartColor = () => {
-    if (direction == 'up') {
-      const set = {
-        color: '#17c964',
-        fill: '#17c96445',
-      }
-      return set
-    }
     const set = {
-      color: '#f21361',
-      fill: '#d6135875',
+      color: '#17c964',
+      fill: '#17c96445',
     }
     return set
+  }
+
+  const getDataset = () => {
+    return [
+      {
+        data: getSorted().map((x) => x.totalPrem),
+        label: 'Current Total',
+      },
+    ]
   }
 
   const months = [
@@ -185,64 +174,69 @@ export default function ChartSummaryCard({
   ]
 
   const data = {
-    labels: slice ? months.slice(0, currentMonth + 1) : months,
-    datasets: [
-      {
-        data: [...getDataset()],
-      },
-    ],
+    labels: getSorted().map((x) => x.name),
+    datasets: [...getDataset()],
   }
 
   const options = {
     plugins: {
       legend: {
         display: false,
+        labels: {
+          boxWidth: 10,
+          boxHeight: 10,
+        },
+      },
+      title: {
+        display: true,
+        text: 'New Business Totals',
+        position: 'top',
+        align: 'start',
       },
     },
     elements: {
-      line: {
-        tension: 0.4,
-        borderWidth: 2,
-        borderColor: getChartColor().color,
-        fill: true,
-        backgroundColor: getChartColor().fill,
+      bar: {
+        barPercentage: 0.3,
+        categoryPercentage: 1,
+        backgroundColor: [
+          '#17a8c9',
+          '#6c17c9',
+          '#0df1b2',
+          '#ec008c',
+          '#ff9966',
+          '#5f81e0',
+        ],
+        borderRadius: 20,
+        barThickness: 10,
       },
       point: {
-        radius: 0,
-        hitRadius: 0,
+        radius: 3,
+        hitRadius: 5,
+        hoverRadius: 5,
+        backgroundColor: '#fff',
       },
     },
     scales: {
       xAxis: {
-        display: false,
+        display: true,
       },
       yAxis: {
-        display: false,
+        display: true,
       },
     },
     responsive: true,
     maintainAspectRatio: true,
   }
 
-  const baseClass = `relative z-20 flex ${noPadding ? `p-0` : `px-4 py-2`} ${
-    autoWidth ? `w-auto` : `flex-1  min-w-[240px]`
+  const baseClass = `relative z-20 flex items-center justify-center h-full ${
+    noPadding ? `p-0` : `px-4 py-2`
+  } ${
+    autoWidth ? `w-auto` : `w-full min-w-[240px]`
   } rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
     <div className={baseClass}>
-      <div>
-        <User
-          src={fullData.user.image_file}
-          name={fullData.user.name}
-          className="px-0"
-          size="xs"
-        />
-      </div>
-      <div>{contentValue()}</div>
-      <div>{subContent}</div>
-      <div className="absolute right-0 bottom-0 z-10 opacity-40 rounded-lg">
-        <Line data={data} width={100} height={50} options={options} />
-      </div>
+      <Bar data={data} width={`100%`} height={20} options={options} />
     </div>
   )
 }

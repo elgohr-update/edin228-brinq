@@ -230,6 +230,11 @@ export const sumFromArray = (data = []) => {
   return total
 }
 
+export const sortByProperty = (data = [], prop='') => {
+    const sorted =  data.sort((a, b) => (a[prop] < b[prop]) ? 1 : -1)
+    return sorted
+}
+
 export const abbreviateMoney = (num, fixed) => {
   if (num === null) {
     return null

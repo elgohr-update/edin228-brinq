@@ -427,13 +427,13 @@ import {
                   </Table.Row>
                 )}
               </Table.Body>
-              {tableData.length > 10 ? (
+              {tableData.length > 12 ? (
                 <Table.Pagination
                   shadow
                   align="center"
                   noMargin
-                  rowsPerPage={10}
-                  total={Math.floor(Number(tableData.length / 10))}
+                  rowsPerPage={12}
+                  total={Math.floor(Number(tableData.length / 12))}
                 />
               ) : null}
             </Table>

@@ -1,5 +1,5 @@
 import { useTheme } from '@nextui-org/react'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { abbreviateMoney } from '../../utils/utils'
 import {
   Chart as ChartJS,
@@ -13,6 +13,7 @@ import {
   Filler,
 } from 'chart.js'
 import { Chart, Bar, Line, Scatter, Bubble } from 'react-chartjs-2'
+import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -25,13 +26,39 @@ ChartJS.register(
   Filler
 )
 
+const colors = [
+  'red',
+  'orange',
+  'yellow',
+  'lime',
+  'green',
+  'teal',
+  'blue',
+  'purple',
+];
+function createGradient(ctx, area) {
+  const colorStart = faker.random.arrayElement(colors);
+  const colorMid = faker.random.arrayElement(
+    colors.filter(color => color !== colorStart)
+  );
+  const colorEnd = faker.random.arrayElement(
+    colors.filter(color => color !== colorStart && color !== colorMid)
+  );
+
+  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+
+  gradient.addColorStop(0, colorStart);
+  gradient.addColorStop(0.5, colorMid);
+  gradient.addColorStop(1, colorEnd);
+
+  return gradient;
+}
+
 export default function NewBusinessLineChart({
   noPadding = false,
   autoWidth = false,
   border = false,
   vertical = true,
-  color = 'sky',
-  gradientColor = 'orange',
   panel = true,
   shadow = true,
   fullData = null,
@@ -39,6 +66,28 @@ export default function NewBusinessLineChart({
   currentMonth = 0
 }) {
   const { isDark, type } = useTheme()
+  const chartRef = useRef(null)
+  const [chartData, setChartData] = useState({
+    datasets: [],
+  });
+
+  useEffect(() => {
+    const chart = chartRef.current;
+
+    if (!chart) {
+      return;
+    }
+
+    const chartData = {
+      ...data,
+      datasets: data.datasets.map(dataset => ({
+        ...dataset,
+        borderColor: createGradient(chart.ctx, chart.chartArea),
+      })),
+    };
+
+    setChartData(chartData);
+  }, []);
 
   const isVertical = () => {
     return vertical ? `flex-col` : `flex-row items-center`
@@ -54,95 +103,6 @@ export default function NewBusinessLineChart({
       ? `${isDark ? `border-slate-900` : `border-slate-200`} border`
       : ``
   }
-  const getColor = () => {
-    const def = { bg: `bg-sky-300/80`, text: `text-sky-400` }
-    switch (color) {
-      case 'emerald':
-        return { bg: `bg-emerald-300/80`, text: `text-emerald-400` }
-      case 'purple':
-        return { bg: `bg-purple-300/80`, text: `text-purple-400` }
-      case 'pink':
-        return { bg: `bg-pink-300/80`, text: `text-pink-400` }
-      case 'teal':
-        return { bg: `bg-teal-300/80`, text: `text-teal-400` }
-      case 'amber':
-        return { bg: `bg-amber-300/80`, text: `text-amber-400` }
-      case 'fuchsia':
-        return { bg: `bg-fuchsia-300/80`, text: `text-fuchsia-400` }
-      case 'rose':
-        return { bg: `bg-rose-300/80`, text: `text-rose-400` }
-      case 'violet':
-        return { bg: `bg-violet-300/80`, text: `text-violet-400` }
-      case 'indigo':
-        return { bg: `bg-indigo-300/80`, text: `text-indigo-400` }
-      case 'cyan':
-        return { bg: `bg-cyan-300/80`, text: `text-cyan-400` }
-      case 'red':
-        return { bg: `bg-red-300/80`, text: `text-red-400` }
-      case 'yellow':
-        return { bg: `bg-yellow-300/80`, text: `text-yellow-400` }
-      case 'orange':
-        return { bg: `bg-orange-300/80`, text: `text-orange-400` }
-      case 'lime':
-        return { bg: `bg-lime-300/80`, text: `text-lime-400` }
-      default:
-        return def
-    }
-  }
-
-  const returnGradient = () => {
-    switch (gradientColor) {
-      case 'orange':
-        return 'orange-gradient-1'
-      case 'orange-reverse':
-        return 'orange-reverse-gradient-1'
-      case 'pink':
-        return 'pink-gradient-1'
-      case 'green':
-        return 'green-gradient-1'
-      case 'blue':
-        return 'blue-gradient-1'
-      case 'peach':
-        return 'peach-gradient-1'
-      case 'blood-orange':
-        return 'blood-orange-gradient-1'
-      case 'grand-blue':
-        return 'grand-blue-gradient-1'
-      case 'celestial':
-        return 'celestial-gradient-1'
-      case 'purple-to-green':
-        return 'purple-to-green-gradient-1'
-      case 'pink-to-orange':
-        return 'pink-to-orange-gradient-1'
-      case 'pink-to-blue':
-        return 'pink-to-blue-gradient-1'
-      case 'green-to-orange':
-        return 'green-to-orange-gradient-1'
-      case 'grand-blue-to-orange':
-        return 'grand-blue-to-orange-gradient-1'
-      case 'green-to-blue-2':
-        return 'green-to-blue-gradient-2'
-      case 'blue-to-orange-2':
-        return 'blue-to-orange-gradient-2'
-      case 'orange-to-red-2':
-        return 'orange-to-red-gradient-2'
-      case 'orange-to-green-gradient-2':
-        return 'orange-to-green-gradient-2'
-      case 'blue-to-orange-gradient-3':
-        return 'blue-to-orange-gradient-3'
-      case 'purple-to-blue-gradient-2':
-        return 'purple-to-blue-gradient-2'
-    }
-  }
-  
-  const getChartColor = () => {
-    const set = {
-      color: '#17c964',
-      fill: '#17c96445',
-    }
-    return set
-  }
-
   const getDataset = () => {
     return [
       {
@@ -170,24 +130,7 @@ export default function NewBusinessLineChart({
     'November',
     'December',
   ]
-
-  // function createGradient(ctx, area) {
-  //   const colorStart = faker.random.arrayElement(colors);
-  //   const colorMid = faker.random.arrayElement(
-  //     colors.filter(color => color !== colorStart)
-  //   );
-  //   const colorEnd = faker.random.arrayElement(
-  //     colors.filter(color => color !== colorStart && color !== colorMid)
-  //   );
   
-  //   const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
-  
-  //   gradient.addColorStop(0, colorStart);
-  //   gradient.addColorStop(0.5, colorMid);
-  //   gradient.addColorStop(1, colorEnd);
-  
-  //   return gradient;
-  // }
 
   const data = {
     labels: slice ? months.slice(0,currentMonth+1) : months,
@@ -245,7 +188,7 @@ export default function NewBusinessLineChart({
 
   return (
     <div className={baseClass}>
-      <Line data={data} width={`100%`} height={40} options={options} />
+      <Line data={chartData} ref={chartRef} width={`100%`} height={28} options={options} />
     </div>
   )
 }

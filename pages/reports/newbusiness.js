@@ -26,6 +26,7 @@ import NewBusinessTable from '../../components/table/NewBusinessTable'
 import ChartSummaryCard from '../../components/charts/ChartSummaryCard'
 import PanelTitle from '../../components/ui/title/PanelTitle'
 import NewBusinessLineChart from '../../components/charts/NewBusinessLineChart'
+import NewBusinessBarChart from '../../components/charts/NewBusinessBarChart'
 
 export default function ReportsNewBusiness() {
   const { type } = useTheme()
@@ -165,7 +166,7 @@ export default function ReportsNewBusiness() {
           return (
             <div className="flex items-center space-x-1">
               <div className="text-color-success flex items-center">
-                <div>{percent}%</div>
+                <h6>{percent}%</h6>
                 {percent != 0 ? (
                   <div>
                     <AiOutlineArrowUp />
@@ -182,7 +183,7 @@ export default function ReportsNewBusiness() {
           return (
             <div className="flex items-center space-x-1">
               <div className="text-color-error flex items-center">
-                <div>{percent}%</div>
+                <h6>{percent}%</h6>
                 {percent != 0 ? (
                   <div>
                     <AiOutlineArrowDown />
@@ -214,7 +215,7 @@ export default function ReportsNewBusiness() {
           return (
             <div className="flex items-center space-x-1">
               <div className="text-color-success flex items-center">
-                <div>{percent}%</div>
+                <h6>{percent}%</h6>
                 {percent != 0 ? (
                   <div>
                     <AiOutlineArrowUp />
@@ -231,7 +232,7 @@ export default function ReportsNewBusiness() {
           return (
             <div className="flex items-center space-x-1">
               <div className="text-color-error flex items-center">
-                <div>{percent}%</div>
+                <h6>{percent}%</h6>
                 {percent != 0 ? (
                   <div>
                     <AiOutlineArrowDown />
@@ -304,7 +305,7 @@ export default function ReportsNewBusiness() {
               <PanelTitle title={`This Month`} color="indigo" />
             </div>
             <div className="flex w-full flex-col items-center md:flex-row">
-              <div className="flex h-full flex-col items-center space-y-2 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+              <div className="flex h-full flex-col items-center space-y-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
                 {chartData?.users.map((p) => (
                   <ChartSummaryCard
                     key={p.id}
@@ -323,12 +324,12 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="flexflex-col">
+          <div className="flex flex-col">
             <div>
               <PanelTitle title={`Year to Date`} color="orange" />
             </div>
             <div className="flex w-full flex-col space-x-4 md:flex-row">
-              <div className="flex h-full flex-col items-center space-y-2 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+              <div className="flex h-full flex-col items-center space-y-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
                 {chartData?.users.map((p) => (
                   <ChartSummaryCard
                     key={p.id}
@@ -347,7 +348,13 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="flex w-full py-4 px-4">
+          <div className="flex flex-col w-full px-4 space-y-4">
+            {chartData ? (
+              <NewBusinessBarChart
+                currentMonth={currentMonth()}
+                fullData={chartData}
+              />
+            ) : null}
             {chartData ? (
               <NewBusinessLineChart
                 currentMonth={currentMonth()}

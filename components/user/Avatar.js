@@ -28,10 +28,8 @@ const UserAvatar = ({
     let isCancelled = false
     const handleChange = async () => {
       await timeout(100)
-      if (!isCancelled && session) {
-        if (!agency?.id) {
-          fetchData()
-        }
+      if (!isCancelled && !agency.id) {
+        fetchData()
       }
     }
     handleChange()

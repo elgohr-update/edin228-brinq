@@ -6,7 +6,7 @@ const PageHeader = ({children}) => {
     const { state, setState } = useAppContext()
     const { isDark, type } = useTheme()
     return (
-        <div className={`flex w-full py-2 items-center justify-between px-4 sticky top-0 z-50 ${state.scrollY > 0 ? `${type}-shadow panel-flat-${type}`: null}`}>
+        <div className={`flex w-full py-2 items-center justify-between px-4  z-50 ${state.scrollY > 0 ? `${type}-shadow panel-flat-${type}`: null}`}>
             {children}
         </div>
     )
