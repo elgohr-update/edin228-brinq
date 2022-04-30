@@ -4,7 +4,7 @@ import { useEffect,useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 import ClientDrawer from "../components/ui/drawer/ClientDrawer";
-import { useAgencyContext, useAppContext, useClientDrawerContext, useReloadContext } from "../context/state";
+import { useActivityDrawerContext, useAgencyContext, useClientDrawerContext, useReloadContext } from "../context/state";
 import { HeaderContainer } from "../components/ui/Header/HeaderContainer";
 import { SidebarContainer } from "../components/ui/Sidebar/SidebarContainer";
 import { BodyContainer } from "../components/ui/body/BodyContainer";
@@ -20,10 +20,10 @@ export default function AdminLayout({ children }) {
       },
     })
     const router = useRouter();
-    const {state, setState} = useAppContext();
     const { agency, setAgency } = useAgencyContext()
     const { reload, setReload } = useReloadContext()
-    const { clientDrawer, setClientDrawer } = useClientDrawerContext()
+    const { clientDrawer } = useClientDrawerContext()
+    const { activityDrawer } = useActivityDrawerContext()
     const [isAuth, setIsAuth] = useState(true)
 
     useEffect(() => {      
@@ -87,6 +87,7 @@ export default function AdminLayout({ children }) {
             <div className={`fixed h-screen w-full main-bg main-bg-${type} z-1`}/>
             <div className={`fixed h-screen w-full blur-screen blur-screen-${type} z-2`} />
             {clientDrawer.isOpen ? <ClientDrawer /> : null}   
+            {activityDrawer.isOpen ? null : null}   
             <Row fluid className={`overflow-hidden z-3`}>
               {isAuth ? <SidebarContainer /> : null}
               <Col className="h-screen">

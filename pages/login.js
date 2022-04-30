@@ -28,11 +28,11 @@ export default function Login() {
   return (
     <main className="flex h-full w-full items-center justify-center overflow-hidden px-4 py-40 md:py-64">
       <div
-        className={`flex h-full w-full flex-col rounded-lg md:w-3/12 panel-theme-${type} ${type}-shadow`}
+        className={`flex h-full w-full flex-col rounded-lg md:w-3/12`}
       >
         <div className="flex h-full flex-col items-center">
           <div
-            className={`panel-theme-${type} w-full rounded-t px-24 py-4 md:px-40`}
+            className={`w-full rounded-t px-24 py-4 md:px-40`}
           >
             <img src="/brinq-logo-full-color.png" alt="brinq" />
           </div>
@@ -62,12 +62,12 @@ export default function Login() {
                 placeholder="Password"
                 className={`${type}-shadow w-full`}
               />
-              <div className="mt-2 flex w-full justify-end text-xs">
+              <h4 className="mt-2 flex w-full justify-end text-xs pr-4">
                 Forgot Password?
-              </div>
+              </h4>
             </div>
             <div className="mt-8 flex w-full justify-center">
-              <Button type="submit" color="gradient" shadow>
+              <Button type="submit" color="gradient">
                 Sign In
               </Button>
             </div>

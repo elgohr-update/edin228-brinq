@@ -56,7 +56,7 @@ const SearchBar = () => {
         size="sm"
         fullWidth
         placeholder="Search"
-        aria-label="asdsad"
+        aria-label="Search"
         labelRight={<BiSearch />}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
