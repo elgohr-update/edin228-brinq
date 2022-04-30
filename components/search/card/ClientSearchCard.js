@@ -15,14 +15,14 @@ function ClientSearchCard({ client }) {
               <div
                 className={`flex items-center ${type}-shadow mr-2 justify-center rounded ${
                   isDark ? 'bg-slate-500/20' : 'bg-white/40'
-                } h-[30px] w-[30px] p-2`}
+                } h-[22px] w-[22px] p-2`}
               >
-                <div className={``}>
+                <div className={`text-xs`}>
                   <RiFolderUserFill />
                 </div>
               </div>
             </div>
-            <div>{truncateString(client.client_name, 20)}</div>
+            <div>{truncateString(client.client_name, 40)}</div>
           </div>
         </a>
       </Link>

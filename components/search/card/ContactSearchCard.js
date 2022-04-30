@@ -10,11 +10,11 @@ function ContactSearchCard({ contact }) {
       <div className="flex ">
         <div className={`z-20 flex`}>
           <div
-            className={`flex ${type}-shadow mr-2 justify-center rounded ${
+            className={`flex ${type}-shadow mr-2 items-center justify-center rounded ${
               isDark ? 'bg-slate-500/20' : 'bg-white/40'
-            } h-[30px] w-[30px] p-2`}
+            } h-[22px] w-[22px]`}
           >
-            <div className={``}>
+            <div className={`text-xs`}>
               <MdPermContactCalendar />
             </div>
           </div>

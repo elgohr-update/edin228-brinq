@@ -59,7 +59,7 @@ export default function ReportsClient() {
     <main className="flex w-full flex-col">
       <PageHeader>
         <PageTitle icon={<IoMdListBox />} text="Clients" />
-        <div className={`panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}>
+        <div>
           <ReportNavbar />
         </div>
       </PageHeader>

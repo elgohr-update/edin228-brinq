@@ -27,6 +27,7 @@ import ChartSummaryCard from '../../components/charts/ChartSummaryCard'
 import PanelTitle from '../../components/ui/title/PanelTitle'
 import NewBusinessLineChart from '../../components/charts/NewBusinessLineChart'
 import NewBusinessBarChart from '../../components/charts/NewBusinessBarChart'
+import NewBusinessCurrentMonthBarChart from '../../components/charts/NewBusinessCurrentMonthBarChart'
 
 export default function ReportsNewBusiness() {
   const { type } = useTheme()
@@ -68,8 +69,8 @@ export default function ReportsNewBusiness() {
   const getChartData = () => {
     const producers = getProducers()
     const users = []
-    producers.forEach((p) => {
-      let data = state.reports.data.nb.raw.filter((d) =>
+    producers?.forEach((p) => {
+      let data = state.reports.data.nb.filtered.filter((d) =>
         checkUser(d.users, p.id)
       )
       let totalPrem = sumFromArrayOfObjects(data, 'premium')
@@ -79,13 +80,13 @@ export default function ReportsNewBusiness() {
         let sum = sumFromArrayOfObjects(base, 'premium')
         premByMonth.push(sum)
       })
-      const bundle = { id: p.id, name: p.name, user:p, premByMonth, totalPrem }
+      const bundle = { id: p.id, name: p.name, user: p, premByMonth, totalPrem }
       users.push(bundle)
     })
     let totalPremByMonth = []
     let baseTotalPremByMonth = []
     Array.from(Array(12).keys()).forEach((m) => {
-      let base = state.reports.data.nb.raw.filter((d) =>
+      let base = state.reports.data.nb.filtered.filter((d) =>
         checkMonth(m, d.effective_date)
       )
       let sum = sumFromArrayOfObjects(base, 'premium')
@@ -292,20 +293,41 @@ export default function ReportsNewBusiness() {
     <main className="relative flex w-full flex-col">
       <PageHeader>
         <PageTitle icon={<BsStars />} text="New Business" />
-        <div
-          className={`panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}
-        >
+        <div>
           <ReportNavbar />
         </div>
       </PageHeader>
       <div className="flex w-full flex-col">
+        <div className="mb-2 flex h-full items-center justify-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+          <SummaryCard
+            val={premSum()}
+            color="teal"
+            gradientColor="green-to-blue-2"
+            panel
+            shadow
+            icon={<AiFillDollarCircle />}
+            title="New Business Premium YTD"
+            money
+            vertical={false}
+          />
+          <SummaryCard
+            val={tableData?.length}
+            color="fuchsia"
+            gradientColor="pink-to-blue"
+            panel
+            shadow
+            title="Policies"
+            icon={<BsBox />}
+            vertical={false}
+          />
+        </div>
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col">
             <div className="pl-4">
               <PanelTitle title={`This Month`} color="indigo" />
             </div>
             <div className="flex w-full flex-col items-center md:flex-row">
-              <div className="flex h-full flex-col items-center space-y-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+              <div className="flex h-full flex-col items-center overflow-x-auto space-y-4 pl-4 pr-2 pt-2 pb-4 md:mb-0 md:overflow-hidden">
                 {chartData?.users.map((p) => (
                   <ChartSummaryCard
                     key={p.id}
@@ -325,11 +347,11 @@ export default function ReportsNewBusiness() {
             </div>
           </div>
           <div className="flex flex-col">
-            <div>
+            <div className="pl-4">
               <PanelTitle title={`Year to Date`} color="orange" />
             </div>
-            <div className="flex w-full flex-col space-x-4 md:flex-row">
-              <div className="flex h-full flex-col items-center space-y-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+            <div className="flex w-full flex-col md:flex-row">
+              <div className="flex h-full flex-col items-center overflow-x-auto space-y-4 pl-2 pr-4 pt-2 pb-4 md:mb-0 md:overflow-hidden">
                 {chartData?.users.map((p) => (
                   <ChartSummaryCard
                     key={p.id}
@@ -348,12 +370,21 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col w-full px-4 space-y-4">
+          <div className="flex w-full flex-col gap-4 pr-4 py-4">
             {chartData ? (
-              <NewBusinessBarChart
-                currentMonth={currentMonth()}
-                fullData={chartData}
-              />
+              <div className="flex w-full flex-col md:flex-row gap-4">
+                <div className="flex w-full md:w-1/2">
+                  <NewBusinessCurrentMonthBarChart
+                    currentMonth={currentMonth()}
+                    fullData={chartData}
+                  />
+                </div>
+                <div className="flex w-full md:w-1/2">
+                  <NewBusinessBarChart
+                    fullData={chartData}
+                  />
+                </div>
+              </div>
             ) : null}
             {chartData ? (
               <NewBusinessLineChart
@@ -364,34 +395,11 @@ export default function ReportsNewBusiness() {
             ) : null}
           </div>
         </div>
-        <div className="mb-2 flex h-full items-center justify-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
-          <SummaryCard
-            val={premSum()}
-            color="teal"
-            gradientColor="green-to-blue-2"
-            panel
-            shadow
-            icon={<AiFillDollarCircle />}
-            title="Premium"
-            money
-            vertical={false}
-          />
-          <SummaryCard
-            val={tableData?.length}
-            color="fuchsia"
-            gradientColor="pink-to-blue"
-            panel
-            shadow
-            title="Policies"
-            icon={<BsBox />}
-            vertical={false}
-          />
-        </div>
-        <div className="px-4">
+        <div className="px-4 pb-4">
           <div
             className={`h-full w-full rounded-lg ${type}-shadow panel-theme-${type}`}
           >
-            {tableData ? <NewBusinessTable /> : null}
+            {tableData && chartData ? <NewBusinessTable /> : null}
           </div>
         </div>
       </div>

@@ -59,7 +59,7 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,shadow=false
                             <TagBasic text={`ACTV`} color="green" />
                         }   
                     </div>
-                    <div className={`relative flex flex-col w-full md:min-w-[150px] md:mr-2`}>
+                    <div className={`relative flex flex-col w-full md:min-w-[150px] md:max-w-[150px] md:mr-2`}>
                         <h6 className={`font-semibold`}>{truncateString(String(policy.policy_number),16)}</h6>
                         <h4 className={``}>{truncateString(policy.policy_type_full,truncate)}</h4>
                     </div>

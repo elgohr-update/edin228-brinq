@@ -14,7 +14,7 @@ import { FaFilter, FaSearch } from 'react-icons/fa'
 import { formatMoney, getSearch } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import Link from 'next/link'
-import { useAppContext } from '../../context/state'
+import { useAppContext, useClientDrawerContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import TagContainer from '../ui/tag/TagContainer'
 
@@ -22,6 +22,7 @@ const ClientsTable = () => {
   const { type } = useTheme()
   const [search, setSearch] = useState('')
   const { state, setState } = useAppContext()
+  const { clientDrawer, setClientDrawer } = useClientDrawerContext()
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
@@ -126,18 +127,7 @@ const ClientsTable = () => {
   ]
 
   const openSidebar = (client) => {
-    setState({
-      ...state,
-      drawer: {
-        ...state.drawer,
-        client: {
-          ...state.drawer.client,
-          nav: 1,
-          isOpen: true,
-          clientId: client.id,
-        },
-      },
-    })
+    setClientDrawer({...clientDrawer,nav:1,isOpen:true,clientId:client.id})
   }
 
   const renderCell = (client, columnKey) => {
@@ -420,7 +410,7 @@ const ClientsTable = () => {
                 align="center"
                 noMargin
                 rowsPerPage={10}
-                total={Math.floor(Number(tableData.length / 10))}
+                total={Math.ceil(Number(tableData.length / 10))}
               />
             ) : null}
           </Table>

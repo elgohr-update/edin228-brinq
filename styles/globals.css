@@ -868,6 +868,12 @@ h6 {
   width:10px;
   border-radius:50%;
 }
+.tag-active {
+  border:2px solid var(--nextui-colors-primary);
+}
+.tag-inactive {
+  opacity: 0.5;
+}
 .tag-basic {
   display:flex;
   align-items:center;
@@ -975,6 +981,10 @@ h6 {
   z-index:20;
   filter: drop-shadow(0px 0px 4px #a90aff71);
   border-radius: 50px 50px 0 0;
+}
+
+.navlink-active {
+  background:linear-gradient(0deg, #d515b524, transparent);
 }
 /* Color Picker */
 .color-picker-container {

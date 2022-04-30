@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import NavAction from '../ui/navbar/NavAction'
 import { getConstantIcons } from '../../utils/utils'
-import { useAppContext } from '../../context/state'
+import { useClientDrawerContext } from '../../context/state'
 
 const ClientDrawerNavbar = () => {
-  const { state, setState } = useAppContext()
-  const [activeItem, setActiveItem] = useState(state.drawer.client.nav)
+  const { clientDrawer, setClientDrawer } = useClientDrawerContext()
+  const [activeItem, setActiveItem] = useState(clientDrawer.nav)
 
   const setActive = (key) => {
     setActiveItem(key)
-    setState({...state,drawer:{...state.drawer, client:{...state.drawer.client,nav:key}}})
+    setClientDrawer({...clientDrawer,nav:key})
   }
 
   return (

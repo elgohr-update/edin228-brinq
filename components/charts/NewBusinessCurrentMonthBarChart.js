@@ -1,12 +1,13 @@
-import { User, useTheme } from '@nextui-org/react'
+import { useTheme } from '@nextui-org/react'
 import React, { useEffect, useRef, useState } from 'react'
-import { abbreviateMoney } from '../../utils/utils'
+import { basicSort, sortByProperty } from '../../utils/utils'
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -19,6 +20,7 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -26,10 +28,6 @@ ChartJS.register(
 )
 
 const colors = [
-  '#09ffa4',
-  '#09ffa445',
-  '#09f4ff',
-  '#09f4ff45',  
   '#5555FF',
   '#9787FF',
   '#FF55B8',
@@ -71,20 +69,11 @@ const colors = [
   '#17a8c9',
   '#fbf530',
 ]
-function createSolidGradient(ctx, area,indx) {
+function createGradient(ctx, area, indx) {
   const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
-  gradient.addColorStop(0, colors[0]);
-  gradient.addColorStop(0.5, colors[0]);
-  gradient.addColorStop(1, colors[2]);
-
-  return gradient
-}
-
-function createTranspGradient(ctx, area,indx) {
-  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
-  gradient.addColorStop(0, colors[3]);
-  gradient.addColorStop(0.5, colors[3]);
-  gradient.addColorStop(1, colors[3]);
+  gradient.addColorStop(0, colors[indx + 10])
+  gradient.addColorStop(0.5, colors[indx + 1])
+  gradient.addColorStop(1, colors[indx + 6])
 
   return gradient
 }
@@ -98,27 +87,22 @@ var multiply = {
   },
 }
 
-export default function ChartSummaryCard({
+export default function NewBusinessCurrentMonthBarChart({
   noPadding = false,
   autoWidth = false,
-  content = null,
-  subContent = null,
   border = false,
-  percent = false,
-  money = false,
   vertical = true,
-  panel = false,
-  shadow = false,
+  panel = true,
+  shadow = true,
   fullData = null,
-  slice = false,
-  currentMonth = null,
-  direction = 'up',
+  currentMonth = 0,
 }) {
   const { isDark, type } = useTheme()
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState({
     datasets: [],
   })
+
   useEffect(() => {
     const chart = chartRef.current
 
@@ -130,35 +114,37 @@ export default function ChartSummaryCard({
       ...data,
       datasets: data.datasets.map((dataset, indx) => ({
         ...dataset,
+        backgroundColor: [
+          createGradient(chart.ctx, chart.chartArea, indx),
+          createGradient(chart.ctx, chart.chartArea, indx + 1),
+          createGradient(chart.ctx, chart.chartArea, indx + 2),
+          createGradient(chart.ctx, chart.chartArea, indx + 3),
+          createGradient(chart.ctx, chart.chartArea, indx + 4),
+          createGradient(chart.ctx, chart.chartArea, indx + 5),
+          createGradient(chart.ctx, chart.chartArea, indx + 6),
+          createGradient(chart.ctx, chart.chartArea, indx + 7),
+          createGradient(chart.ctx, chart.chartArea, indx + 8),
+          createGradient(chart.ctx, chart.chartArea, indx + 9),
+
+        ],
       })),
     }
 
     setChartData(chartData)
   }, [fullData])
 
-  const getDataset = () => {
-    return slice
-      ? [
-          {
-            data: fullData.premByMonth.slice(0, currentMonth + 1),
-            label: 'Current Sales',
-          },
-        ]
-      : [
-          {
-            data: fullData.premByMonth,
-            label: 'Current Sales',
-          },
-        ]
+  const getSorted = () => {
+    const base = fullData.users.map((x) => {
+      return { name: x.name, prem: x.premByMonth[currentMonth] }
+    })
+    const sorted = sortByProperty(base, 'prem')
+    const split = {
+      labels: sorted.map((x) => x.name),
+      data: sorted.map((x) => x.prem),
+    }
+    return split
   }
 
-  const contentValue = () => {
-    return money
-      ? `$${abbreviateMoney(parseFloat(content))}`
-      : percent
-      ? `${Number(content) ? content : 0}%`
-      : content
-  }
   const isVertical = () => {
     return vertical ? `flex-col` : `flex-row items-center`
   }
@@ -174,19 +160,13 @@ export default function ChartSummaryCard({
       : ``
   }
 
-  const getChartColor = () => {
-    if (direction == 'up') {
-      const set = {
-        color: '#31ff8a',
-        fill: '#31f5ff38',
-      }
-      return set
-    }
-    const set = {
-      color: '#ff31c0',
-      fill: '#ff316a45',
-    }
-    return set
+  const getDataset = () => {
+    return [
+      {
+        data: getSorted().data,
+        label: 'Current Sales',
+      },
+    ]
   }
 
   const months = [
@@ -205,7 +185,7 @@ export default function ChartSummaryCard({
   ]
 
   const data = {
-    labels: slice ? months.slice(0, currentMonth + 1) : months,
+    labels: getSorted().labels,
     datasets: [...getDataset()],
   }
 
@@ -213,52 +193,72 @@ export default function ChartSummaryCard({
     plugins: {
       legend: {
         display: false,
+        labels: {
+          boxWidth: 10,
+          boxHeight: 10,
+        },
+      },
+      title: {
+        display: true,
+        text: "This Month's New Business",
+        position: 'top',
+        align: 'start',
       },
     },
     elements: {
-      line: {
-        tension: 0.4,
-        borderWidth: 2,
-        borderColor: getChartColor().color,
-        fill: true,
-        backgroundColor: getChartColor().fill,
+      bar: {
+        barPercentage: 0.3,
+        categoryPercentage: 1,
+        borderSkipped: false,
+        borderRadius: {
+          topLeft: 100,
+          topRight: 0,
+          bottomRight: 100,
+          bottomLeft: 0,
+        },
+        barThickness: 10,
       },
       point: {
         radius: 0,
-        hitRadius: 0,
+        hitRadius: 5,
+        hoverRadius: 5,
+        backgroundColor: '#fff',
       },
     },
     scales: {
       xAxis: {
-        display: false,
+        display: true,
+        grid: {
+          display: false,
+        },
       },
       yAxis: {
-        display: false,
+        display: true,
+        grid: {
+          display: false,
+        },
       },
     },
     responsive: true,
     maintainAspectRatio: true,
   }
 
-  const baseClass = `relative z-20 flex ${noPadding ? `p-0` : `px-4 py-2`} ${
-    autoWidth ? `w-auto` : `flex-1  min-w-[240px]`
+  const baseClass = `relative z-20 flex items-center justify-center h-full ${
+    noPadding ? `p-0` : `px-4 py-2`
+  } ${
+    autoWidth ? `w-auto` : `w-full min-w-[240px]`
   } rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
     <div className={baseClass}>
-      <div>
-        <User
-          src={fullData.user.image_file}
-          name={fullData.user.name}
-          className="px-0"
-          size="xs"
-        />
-      </div>
-      <div>{contentValue()}</div>
-      <div>{subContent}</div>
-      <div className="absolute right-0 bottom-5 z-10 rounded-lg opacity-40">
-        <Line data={chartData} ref={chartRef} width={100} height={40} plugins={[multiply]} options={options} />
-      </div>
+      <Bar
+        width={`100%`}
+        height={40}
+        options={options}
+        data={chartData}
+        ref={chartRef}
+        plugins={[multiply]}
+      />
     </div>
   )
 }

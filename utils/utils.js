@@ -235,6 +235,64 @@ export const sortByProperty = (data = [], prop='') => {
     return sorted
 }
 
+export const basicSort = (data = []) => {
+    const sorted =  data.sort((a, b) => (a < b) ? 1 : -1)
+    return sorted
+}
+
+export const getMonths = () => {
+    return [
+        {
+            month: 'Jan',
+            m: 0
+        },
+        {
+            month: 'Feb',
+            m: 1
+        },
+        {
+            month: 'Mar',
+            m: 2
+        },
+        {
+            month: 'Apr',
+            m: 3
+        },
+        {
+            month: 'May',
+            m: 4
+        },
+        {
+            month: 'Jun',
+            m: 5
+        },
+        {
+            month: 'Jul',
+            m: 6
+        },
+        {
+            month: 'Aug',
+            m: 7
+        },
+        {
+            month: 'Sep',
+            m: 8
+        },
+        {
+            month: 'Oct',
+            m: 9
+        },
+        {
+            month: 'Nov',
+            m: 10
+        },
+        {
+            month: 'Dec',
+            m: 11
+        }
+    ]
+}
+
 export const abbreviateMoney = (num, fixed) => {
   if (num === null) {
     return null

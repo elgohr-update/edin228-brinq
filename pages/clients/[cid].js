@@ -90,11 +90,18 @@ export default function Client({data}) {
               !x.renewed &&
               !x.canceled &&
               !x.nottaken &&
-              !x.nonrenewed &&
-              !x.ams360quote
+              !x.nonrenewed
           )
         )
       : reverseList(policies)
+  }
+
+  const syncAms = async () => {
+    const clientId = router.query.cid
+    const res = await useNextApi(
+      'GET',
+      `/api/clients/${clientId}/ams360/sync`
+    )
   }
 
   return (
@@ -135,7 +142,7 @@ export default function Client({data}) {
                   <Button>
                     <BiLinkExternal />
                   </Button>
-                  <Button>
+                  <Button onClick={() => syncAms()}>
                     <BiRefresh />
                   </Button>
                 </Button.Group>

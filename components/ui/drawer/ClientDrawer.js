@@ -2,7 +2,7 @@ import { Button, Loading, useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
-import { useAppContext, useReloadContext } from '../../../context/state'
+import { useClientDrawerContext, useReloadContext } from '../../../context/state'
 import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import PolicyCard from '../../policy/PolicyCard'
 import { sumFromArrayOfObjects, timeout, useNextApi } from '../../../utils/utils'
@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import ClientDrawerNavbar from '../../client/ClientDrawerNavbar'
 
 const ClientDrawer = () => {
-  const { state, setState } = useAppContext()
+  const { clientDrawer, setClientDrawer } = useClientDrawerContext()
   const { reload, setReload } = useReloadContext()
   const router = useRouter()
   const { month, year } = router.query
@@ -67,7 +67,7 @@ const ClientDrawer = () => {
   }, [router.events])
 
   const fetchClient = async () => {
-    const clientId = state.drawer.client.clientId
+    const clientId = clientDrawer.clientId
     const res = await useNextApi(
       'GET',
       `/api/clients/${clientId}?onlyInfo=true`
@@ -75,8 +75,8 @@ const ClientDrawer = () => {
     setClient(res)
   }
   const fetchPolicies = async () => {
-    const clientId = state.drawer.client.clientId
-    const queryUrl = state.drawer.client.isRenewal
+    const clientId = clientDrawer.clientId
+    const queryUrl = clientDrawer.isRenewal
       ? `?month=${month}&year=${year}`
       : `?active=true`
     const res = await useNextApi(
@@ -110,7 +110,7 @@ const ClientDrawer = () => {
       renewalYear: null,
       nav: 1,
     }
-    setState({ ...state, drawer: { ...state.drawer, client: setDefault } })
+    setClientDrawer(setDefault)
   }
   const iconBg = () => {
     return client?.line === 'Commercial Lines'
@@ -181,7 +181,7 @@ const ClientDrawer = () => {
                 <ClientContacts client={client} />
                 <div className={`flex w-full flex-col`}>
                   <ClientDrawerNavbar />
-                  {state.drawer.client.nav === 1 ? (
+                  {clientDrawer.nav === 1 ? (
                     policies ? (
                       <div
                         className={`relative z-10 flex w-full flex-col rounded`}
@@ -217,7 +217,7 @@ const ClientDrawer = () => {
                         />
                       </div>
                     )
-                  ) : state.drawer.client.nav == 2 ? (
+                  ) : clientDrawer.nav == 2 ? (
                     <div
                       className={`relative z-10 flex w-full flex-col rounded`}
                     >
@@ -244,7 +244,7 @@ const ClientDrawer = () => {
                 </div>
                 {client? (
                   <div className="mt-4">
-                    <ClientActivity clientId={state.drawer.client.clientId} />
+                    <ClientActivity clientId={clientDrawer.clientId} />
                   </div>
                 ) : null}
               </div>
@@ -253,7 +253,7 @@ const ClientDrawer = () => {
         )}
         {!client ? null : (
           <div className="flex w-full justify-end px-2 pt-1 pb-4">
-            <Link href={`/clients/${state.drawer.client.clientId}`}>
+            <Link href={`/clients/${clientDrawer.clientId}`}>
               <a className="w-full">
                 <Button shadow color="gradient" className="w-full">
                   View More
@@ -263,7 +263,7 @@ const ClientDrawer = () => {
           </div>
         )}
       </div>
-      {state.drawer.client.isOpen ? (
+      {clientDrawer.isOpen ? (
         <HiddenBackdrop onClick={() => closeDrawer()} />
       ) : null}
     </div>

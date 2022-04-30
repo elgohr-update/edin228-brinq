@@ -19,15 +19,15 @@ import {
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import Link from 'next/link'
-import { useAppContext } from '../../context/state'
+import { useAppContext, useClientDrawerContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import TagContainer from '../ui/tag/TagContainer'
 
 const PoliciesTable = () => {
   const { type } = useTheme()
-  const [search, setSearch] = useState('')
   const { state, setState } = useAppContext()
+  const { clientDrawer, setClientDrawer } = useClientDrawerContext()
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
@@ -137,18 +137,7 @@ const PoliciesTable = () => {
   ]
 
   const openSidebar = (client) => {
-    setState({
-      ...state,
-      drawer: {
-        ...state.drawer,
-        client: {
-          ...state.drawer.client,
-          nav: 1,
-          isOpen: true,
-          clientId: client,
-        },
-      },
-    })
+    setClientDrawer({...clientDrawer,nav:1,isOpen:true,clientId:client})
   }
 
   const renderCell = (policy, columnKey) => {
@@ -433,7 +422,7 @@ const PoliciesTable = () => {
                 align="center"
                 noMargin
                 rowsPerPage={10}
-                total={Math.floor(Number(tableData.length / 10))}
+                total={Math.ceil(Number(tableData.length / 10))}
               />
             ) : null}
           </Table>

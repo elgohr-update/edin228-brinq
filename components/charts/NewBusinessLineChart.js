@@ -1,6 +1,5 @@
 import { useTheme } from '@nextui-org/react'
-import React, { useRef, useState } from 'react'
-import { abbreviateMoney } from '../../utils/utils'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,7 +12,6 @@ import {
   Filler,
 } from 'chart.js'
 import { Chart, Bar, Line, Scatter, Bubble } from 'react-chartjs-2'
-import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -27,32 +25,65 @@ ChartJS.register(
 )
 
 const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'lime',
-  'green',
-  'teal',
-  'blue',
-  'purple',
-];
-function createGradient(ctx, area) {
-  const colorStart = faker.random.arrayElement(colors);
-  const colorMid = faker.random.arrayElement(
-    colors.filter(color => color !== colorStart)
-  );
-  const colorEnd = faker.random.arrayElement(
-    colors.filter(color => color !== colorStart && color !== colorMid)
-  );
-
+  '#5555FF',
+  '#9787FF',
+  '#FF55B8',
+  '#FF8787',
+  '#ec008c',
+  '#ff9966',
+  '#17a8c9',
+  '#fbf530',
+  '#5555FF',
+  '#9787FF',
+  '#FF55B8',
+  '#FF8787',
+  '#ec008c',
+  '#ff9966',
+  '#17a8c9',
+  '#fbf530',
+  '#5555FF',
+  '#9787FF',
+  '#FF55B8',
+  '#FF8787',
+  '#ec008c',
+  '#ff9966',
+  '#17a8c9',
+  '#fbf530',
+  '#5555FF',
+  '#9787FF',
+  '#FF55B8',
+  '#FF8787',
+  '#ec008c',
+  '#ff9966',
+  '#17a8c9',
+  '#fbf530',
+  '#5555FF',
+  '#9787FF',
+  '#FF55B8',
+  '#FF8787',
+  '#ec008c',
+  '#ff9966',
+  '#17a8c9',
+  '#fbf530',
+]
+function createGradient(ctx, area, indx) {
   const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
 
-  gradient.addColorStop(0, colorStart);
-  gradient.addColorStop(0.5, colorMid);
-  gradient.addColorStop(1, colorEnd);
+  gradient.addColorStop(0, colors[indx+9]);
+  gradient.addColorStop(0.5, colors[indx+5]);
+  gradient.addColorStop(1, colors[indx+10]);
 
   return gradient;
 }
+
+var multiply = {
+  beforeDatasetsDraw: function(chart, options, el) {
+    chart.ctx.globalCompositeOperation = 'multiply';
+  },
+  afterDatasetsDraw: function(chart, options) {
+    chart.ctx.globalCompositeOperation = 'source-over';
+  },
+};
 
 export default function NewBusinessLineChart({
   noPadding = false,
@@ -80,14 +111,14 @@ export default function NewBusinessLineChart({
 
     const chartData = {
       ...data,
-      datasets: data.datasets.map(dataset => ({
+      datasets: data.datasets.map((dataset, indx) => ({
         ...dataset,
-        borderColor: createGradient(chart.ctx, chart.chartArea),
+        borderColor: createGradient(chart.ctx, chart.chartArea, indx),
       })),
     };
 
     setChartData(chartData);
-  }, []);
+  }, [fullData]);
 
   const isVertical = () => {
     return vertical ? `flex-col` : `flex-row items-center`
@@ -107,11 +138,11 @@ export default function NewBusinessLineChart({
     return [
       {
         data: slice ? fullData?.totalPremByMonth.slice(0,currentMonth+1) : fullData?.totalPremByMonth,
-        label: 'Current Total'
+        label: 'Current Sales'
       },
       {
         data: slice ? fullData?.totalPremGoalByMonth.slice(0,currentMonth+1) : fullData?.totalPremGoalByMonth,
-        label: 'Monthly Goals'
+        label: 'Sales Goal'
       }
     ]
   }
@@ -142,8 +173,9 @@ export default function NewBusinessLineChart({
       legend: {
         display: true,
         labels: {
-          boxWidth:10,
-          boxHeight:10,
+          boxWidth:6,
+          boxHeight:6,
+          usePointStyle:true
         }
       },
       title: {
@@ -156,15 +188,27 @@ export default function NewBusinessLineChart({
     elements: {
       line: {
         tension: 0.5,
-        borderWidth: 2,
-        borderColor: ['#17a8c9','#6c17c9'],
-        fill: true,
-        backgroundColor: ['#1fb7f83b', '#7c1ff83b'],
+        borderWidth: 4,
+        borderColor: [
+          '#5555FF',
+          '#9787FF',
+          '#FF55B8',
+          '#FF8787',
+          'teal',
+          'blue',
+          'purple',
+          '#ec008c',
+          '#ff9966',
+          '#17a8c9',
+          '#fbf530'
+        ],
+        fill: false,
+        // backgroundColor: ['#1fb7f83b', '#7c1ff83b'],
         borderCapStyle: 'butt',
         capBezierPoints: true,
       },
       point: {
-        radius: 3,
+        radius: 4,
         hitRadius: 5, 
         hoverRadius: 5,
         backgroundColor: '#fff' 
@@ -188,7 +232,7 @@ export default function NewBusinessLineChart({
 
   return (
     <div className={baseClass}>
-      <Line data={chartData} ref={chartRef} width={`100%`} height={28} options={options} />
+      <Line data={chartData} ref={chartRef} width={`100%`} height={22} plugins={[multiply]} options={options} />
     </div>
   )
 }

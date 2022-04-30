@@ -3,7 +3,7 @@ import React from 'react'
 export default function NavAction({onClick,icon,title, activeItem, itemId}) {
     const isActive = () => {
         if (activeItem == itemId){
-            return 'opacity-100 active-path-small'
+            return 'opacity-100 active-path-small navlink-active'
         }
         return 'opacity-70 hover:opacity-100'
     }

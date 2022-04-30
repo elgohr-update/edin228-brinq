@@ -54,7 +54,7 @@ export default function ReportsPolicies() {
     <main className="flex w-full flex-col relative">
       <PageHeader>
         <PageTitle icon={<BsBox />} text="Policies" />
-        <div className={`panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}>
+        <div>
           <ReportNavbar />
         </div>
       </PageHeader>

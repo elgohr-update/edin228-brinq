@@ -15,7 +15,7 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>, noPadding=false, autoWidth=false,
         return vertical ? `flex-col space-y-2` : `flex-row items-center`
     }
     const isPanel = () =>{
-        return panel ? `panel-flatter-${type}` : ``
+        return panel ? `panel-theme-${type}` : ``
     }
     const isShadow = () =>{
         return shadow ? `${type}-shadow` : ``

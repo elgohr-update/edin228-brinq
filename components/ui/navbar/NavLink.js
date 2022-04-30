@@ -6,7 +6,7 @@ export default function NavLink({url,slug,icon,title}) {
     const router = useRouter()
     const isActive = (currentPage) => {
         if (router.pathname.includes(currentPage)){
-            return 'opacity-100 active-path-small'
+            return 'opacity-100 active-path-small  navlink-active'
         }
         return 'opacity-70 hover:opacity-100'
     }
