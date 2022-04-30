@@ -1,6 +1,4 @@
 import { useTheme } from '@nextui-org/react'
-import { getSession } from 'next-auth/react'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { useAppContext } from '../../context/state'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
@@ -14,8 +12,7 @@ import PolicySettings from '../../components/admin/policy/PolicySettings'
 import DealsSalesSettings from '../../components/admin/deals/DealsSalesSettings'
 
 export default function Admin() {
-  const router = useRouter()
-  const { isDark, type } = useTheme()
+  const { type } = useTheme()
   const { state, setState } = useAppContext()
 
   return (
@@ -50,17 +47,3 @@ export default function Admin() {
 Admin.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>
 }
-
-// export async function getServerSideProps(context) {
-//   const { cid } = context.params
-//   const session = await getSession(context)
-//   if (session) {
-//     const client = await useApi('GET',`/clients/${cid}`,session.accessToken)
-//     const events = await useApi('GET',`/events/client/${cid}`,session.accessToken)
-//     const emails = await useApi('GET',`/emails/client/${cid}`,session.accessToken)
-//     const activity = await useApi('GET',`/activity/client/${cid}`,session.accessToken)
-
-//     return { props: { client, events, emails, activity } }
-//   }
-//   return { props: { client: null, events: null, emails: null, activity: null } }
-// }

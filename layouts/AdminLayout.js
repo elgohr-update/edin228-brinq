@@ -4,7 +4,7 @@ import { useEffect,useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 import ClientDrawer from "../components/ui/drawer/ClientDrawer";
-import { useAgencyContext, useAppContext, useReloadContext } from "../context/state";
+import { useAgencyContext, useAppContext, useClientDrawerContext, useReloadContext } from "../context/state";
 import { HeaderContainer } from "../components/ui/Header/HeaderContainer";
 import { SidebarContainer } from "../components/ui/Sidebar/SidebarContainer";
 import { BodyContainer } from "../components/ui/body/BodyContainer";
