@@ -211,7 +211,9 @@ export default function NewBusinessLineChart({
         radius: 4,
         hitRadius: 5, 
         hoverRadius: 5,
-        backgroundColor: '#fff' 
+        backgroundColor: [
+          '#FF55B8'
+        ]
       },
     },
     scales: {

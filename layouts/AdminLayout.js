@@ -4,6 +4,7 @@ import { useEffect,useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 import ClientDrawer from "../components/ui/drawer/ClientDrawer";
+import ActivityDrawer from "../components/ui/drawer/ActivityDrawer";
 import { useActivityDrawerContext, useAgencyContext, useClientDrawerContext, useReloadContext } from "../context/state";
 import { HeaderContainer } from "../components/ui/Header/HeaderContainer";
 import { SidebarContainer } from "../components/ui/Sidebar/SidebarContainer";
@@ -87,7 +88,7 @@ export default function AdminLayout({ children }) {
             <div className={`fixed h-screen w-full main-bg main-bg-${type} z-1`}/>
             <div className={`fixed h-screen w-full blur-screen blur-screen-${type} z-2`} />
             {clientDrawer.isOpen ? <ClientDrawer /> : null}   
-            {activityDrawer.isOpen ? null : null}   
+            {activityDrawer.isOpen ? <ActivityDrawer /> : null}  
             <Row fluid className={`overflow-hidden z-3`}>
               {isAuth ? <SidebarContainer /> : null}
               <Col className="h-screen">

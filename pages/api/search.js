@@ -13,10 +13,8 @@ export default async function handler(req, res) {
             }
         })
         if (results) {
-            // const combo = [...results.clients, ...results.contacts]
             res.status(200).json(results.body)
         }
-        
     }
     catch (err) {
         res.status(500).json({ error: 'failed to load data' })

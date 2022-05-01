@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react"
 export default async function handler(req, res) {
     const { query } = req
     const session = await getSession({req})
-    const baseUrl = `${process.env.FETCHBASE_URL}/policy/list/all/new-business?year=${query.year}`
+    const baseUrl = `${process.env.FETCHBASE_URL}/utils/ams360/value-list/ActivityAction`
     try {
         const results = await fetch(baseUrl, {
             method: 'GET',
@@ -15,7 +15,6 @@ export default async function handler(req, res) {
         if (results) {
             res.status(200).json(results.body)
         }
-        
     }
     catch (err) {
         res.status(500).json({ error: 'failed to load data' })

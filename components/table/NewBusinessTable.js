@@ -27,7 +27,7 @@ import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import TagContainer from '../ui/tag/TagContainer'
 
-const NewBusinessTable = () => {
+const NewBusinessTable = ({year=2022}) => {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
@@ -78,8 +78,12 @@ const NewBusinessTable = () => {
 
   const startingEffective = () => {
       const today = new Date()
-      const m = today.getMonth()
-      const months = Array.from(Array(m+1).keys()).map( x => x)
+      if (today.getFullYear() == year){
+        const m = today.getMonth()
+        const months = Array.from(Array(m+1).keys()).map( x => x)
+        return months
+      }
+      const months = Array.from(Array(12).keys()).map( x => x)
       return months
   }
 
@@ -96,6 +100,10 @@ const NewBusinessTable = () => {
     setProducers(prods)
     setEffective(startingEffective())
   },[])
+
+  useEffect( () => {
+    setEffective(startingEffective())
+  },[year])
 
   useEffect(() => {
     const mnPrem = minPrem && minPrem != 0 ? Number(minPrem) : 0

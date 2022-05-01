@@ -9,9 +9,10 @@ import { HeaderContainer } from "../components/ui/Header/HeaderContainer";
 import { SidebarContainer } from "../components/ui/Sidebar/SidebarContainer";
 import { BodyContainer } from "../components/ui/body/BodyContainer";
 import { timeout, useNextApi } from "../utils/utils";
+import ActivityDrawer from "../components/ui/drawer/ActivityDrawer";
 
 export default function AppLayout({ children }) {
-    const { type } = useTheme();
+    const { isDark, type } = useTheme();
     const { data: session, status } = useSession({
       required: true,
       onUnauthenticated() {
@@ -88,7 +89,7 @@ export default function AppLayout({ children }) {
             <div className={`fixed h-screen w-full main-bg main-bg-${type} z-1`}/>
             <div className={`fixed h-screen w-full blur-screen blur-screen-${type} z-2`} />
             {clientDrawer.isOpen ? <ClientDrawer /> : null}   
-            {activityDrawer.isOpen ? null : null}   
+            {activityDrawer.isOpen ? <ActivityDrawer /> : null}   
             <Row fluid className={`overflow-hidden z-3`}>
               {isAuth ? <SidebarContainer /> : null}
               <Col className="h-screen">

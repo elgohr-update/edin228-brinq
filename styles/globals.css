@@ -5,11 +5,74 @@
 :root {
   --nextui-borderWeights-normal: 2px;
 }
+.select-wrapper * {
+
+}
+.dark-theme {
+  --color-select-input: #111111;
+  --color-on-select-input: #bdc1c6;
+  --color-select-input-placeholder: rgb(145, 145, 145);
+  --color-select-input-border: #1d1f20;
+  --color-select-input-disabled: rgb(145, 145, 145);
+
+  --color-select-input-error: rgba(255, 0, 0, 0.5);
+  --color-select-input-icon: #757b80;
+
+  --color-select-chip: #303134;
+  --color-select-chip-icon: #757b80;
+  --color-select-chip-border: transparent;
+  --color-on-select-chip: #bdc1c6;
+
+  --color-select-menu-border: #1d1f20;
+  --color-select-menu: #111111;
+  --color-select-menu-group: grey;
+  --color-on-select-menu-item: #bdc1c6;
+  --select-border-radius: 4px;
+
+  --color-select-menu-item-active: #303134;
+  --color-on-select-menu-item-active: #bdc1c6;
+
+  --color-select-menu-item-selected: #2684FF;
+  --color-on-select-menu-item-selected: #bdc1c6;
+}
+.light-theme {
+  --color-select-input: white;
+  --color-on-select-input: rgb(51, 51, 51);
+  --color-select-input-placeholder: rgb(145, 145, 145);
+  --color-select-input-border: rgb(204, 204, 204);
+  --color-select-input-disabled: rgb(145, 145, 145);
+
+  --color-select-input-error: rgba(255, 0, 0, 0.5);
+  --color-select-input-icon: rgb(145, 145, 145);
+
+  --color-select-chip: rgb(230, 230, 230);
+  --color-select-chip-icon: rgb(145, 145, 145);
+  --color-select-chip-border: transparent;
+  --color-on-select-chip: rgb(51, 51, 51);
+
+  --color-select-menu-border: rgb(204, 204, 204);
+  --color-select-menu: white;
+  --color-select-menu-group: grey;
+  --color-on-select-menu-item: rgb(51, 51, 51);
+  --select-border-radius: 4px;
+
+  --color-select-menu-item-active: #DEEBFF;
+  --color-on-select-menu-item-active: rgb(51, 51, 51);
+
+  --color-select-menu-item-selected: #2684FF;
+  --color-on-select-menu-item-selected: white;
+}
+.rdk-portal {
+  z-index: 99999999999 !important;
+}
+.SelectMenu-module_menu__I2a4- .SelectMenu-module_option__3Ns1t {
+  background: var(--color-select-menu) !important;
+}
 /* Fixes */
 /* ---modal */
 .nextui-c-csEDlc,
 .nextui-c-blxbWP {
-  z-index:9999999 !important;
+  z-index:9999998 !important;
 }
 
 .nextui-c-hWZRae-bVtBym-bordered-false {

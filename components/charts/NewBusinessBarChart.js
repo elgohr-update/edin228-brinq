@@ -191,7 +191,7 @@ export default function NewBusinessBarChart({
       },
       title: {
         display: true,
-        text: 'New Business Totals',
+        text: 'New Business YTD',
         position: 'top',
         align: 'start',
       },

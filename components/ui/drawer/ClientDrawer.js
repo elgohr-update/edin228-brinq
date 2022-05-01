@@ -1,4 +1,4 @@
-import { Button, Loading, useTheme } from '@nextui-org/react'
+import { Button,useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
@@ -14,6 +14,7 @@ import ClientContacts from '../../client/ClientContacts'
 import ClientInfo from '../../client/ClientInfo'
 import { useRouter } from 'next/router'
 import ClientDrawerNavbar from '../../client/ClientDrawerNavbar'
+import DrawerLoader from '../loaders/DrawerLoader'
 
 const ClientDrawer = () => {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
@@ -128,14 +129,7 @@ const ClientDrawer = () => {
         className={`fixed right-0 flex h-full w-full flex-col md:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!client ? (
-          <div className="flex h-full w-full flex-1 items-center justify-center">
-            <Loading
-              type="points"
-              size="xl"
-              color="secondary"
-              textColor="primary"
-            />
-          </div>
+          <DrawerLoader />
         ) : (
           <div className="flex h-full flex-1 py-4">
             <div className={`flex w-full flex-col`}>
@@ -208,14 +202,7 @@ const ClientDrawer = () => {
                         ) : null}
                       </div>
                     ) : (
-                      <div className="flex w-full items-center justify-center">
-                        <Loading
-                          type="points-opacity"
-                          size="lg"
-                          color="secondary"
-                          textColor="primary"
-                        />
-                      </div>
+                      <DrawerLoader />
                     )
                   ) : clientDrawer.nav == 2 ? (
                     <div

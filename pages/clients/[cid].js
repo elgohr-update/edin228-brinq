@@ -6,7 +6,7 @@ import ClientActivity from '../../components/client/ClientActivity'
 import ClientContacts from '../../components/client/ClientContacts'
 import ClientHeader from '../../components/client/ClientTitle'
 import ClientInfo from '../../components/client/ClientInfo'
-import { useAppContext, useReloadContext } from '../../context/state'
+import { useActivityDrawerContext, useAppContext, useReloadContext } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
 import { BiPaperPlane, BiLinkExternal, BiRefresh } from 'react-icons/bi'
 import { BsChatLeftQuoteFill } from 'react-icons/bs'
@@ -22,6 +22,7 @@ export default function Client({data}) {
   const router = useRouter()
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
+  const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
   const { reload, setReload } = useReloadContext()
   const [showActive, setShowActive] = useState(true)
   const [client, setClient] = useState(data)
@@ -104,6 +105,10 @@ export default function Client({data}) {
     )
   }
 
+  const openActivity = () => {
+    setActivityDrawer({isOpen:true,clientId:router.query.cid})
+  }
+
   return (
     <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
       <div className="flex w-full flex-col">
@@ -136,7 +141,7 @@ export default function Client({data}) {
                   <Button>
                     <BsChatLeftQuoteFill />
                   </Button>
-                  <Button>
+                  <Button onClick={() => openActivity()}>
                     <RiPlayListAddFill />
                   </Button>
                   <Button>
