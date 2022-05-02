@@ -169,7 +169,7 @@ const ClientDrawer = () => {
                 />
               </div>
               <div
-                className={`mt-2 flex h-[78vh] w-full flex-col overflow-auto`}
+                className={`mt-2 flex h-[74vh] w-full flex-col overflow-auto`}
               >
                 <ClientInfo client={client} horizontal />
                 <ClientContacts client={client} />
