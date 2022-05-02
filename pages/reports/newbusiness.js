@@ -16,6 +16,7 @@ import {
   sumFromArray,
   sumFromArrayOfObjects,
   timeout,
+  toMonthName,
   useNextApi,
 } from '../../utils/utils'
 import SummaryCard from '../../components/ui/card/SummaryCard'
@@ -36,18 +37,35 @@ export default function ReportsNewBusiness() {
   const [chartData, setChartData] = useState(null)
   const { agency, setAgency } = useAgencyContext()
   const { reload, setReload } = useReloadContext()
+  const [dataMonth, setDataMonth] = useState(null)
   const [dataYear, setDataYear] = useState(null)
   const [dataYearOptions, setDataYearOptions] = useState(null)
+  const [dataMonthOptions, setDataMonthOptions] = useState([
+    { id: 0, label: 'January', value: 0 },
+    { id: 1, label: 'February', value: 1 },
+    { id: 2, label: 'March', value: 2 },
+    { id: 3, label: 'April', value: 3 },
+    { id: 4, label: 'May', value: 4 },
+    { id: 5, label: 'June', value: 5 },
+    { id: 6, label: 'July', value: 6 },
+    { id: 7, label: 'August', value: 7 },
+    { id: 8, label: 'September', value: 8 },
+    { id: 9, label: 'October', value: 9 },
+    { id: 10, label: 'November', value: 10 },
+    { id: 11, label: 'December', value: 11 },
+  ])
 
   useEffect(() => {
     let isCancelled = false
     const handleYears = () => {
       const base = new Date()
       const currentYear = base.getFullYear()
+      const currentMonth = base.getMonth()
       const years = []
       Array.from(Array(5).keys()).forEach((y) => {
         years.push({ id: currentYear - y, year: String(currentYear - y) })
       })
+      setDataMonth(currentMonth)
       setDataYear(currentYear)
       setDataYearOptions(years)
     }
@@ -177,13 +195,12 @@ export default function ReportsNewBusiness() {
   }
 
   const getMonthsData = (p) => {
-    const m = currentMonth()
-    const d = p.premByMonth[m]
+    const d = p.premByMonth[dataMonth]
     return d
   }
 
   const getMonthComparison = (p) => {
-    const m = currentMonth()
+    const m = dataMonth
     if (m > 0) {
       const current = p.premByMonth[m]
       const last = p.premByMonth[m - 1]
@@ -233,7 +250,7 @@ export default function ReportsNewBusiness() {
   }
 
   const getTotalToLastMonthComparison = (p) => {
-    const m = currentMonth()
+    const m = dataMonth
     if (m > 0) {
       const current = p.totalPrem
       const last = current - p.premByMonth[m]
@@ -282,7 +299,7 @@ export default function ReportsNewBusiness() {
   }
 
   const getTotalToLastMonthDirection = (p) => {
-    const m = currentMonth()
+    const m = dataMonth
     if (m > 0) {
       const current = p.totalPrem
       const last = current - p.premByMonth[m]
@@ -299,7 +316,7 @@ export default function ReportsNewBusiness() {
   }
 
   const getDirection = (p) => {
-    const m = currentMonth()
+    const m = dataMonth
     if (m > 0) {
       const current = p.premByMonth[m]
       const last = p.premByMonth[m - 1]
@@ -337,7 +354,7 @@ export default function ReportsNewBusiness() {
             panel
             shadow
             icon={<AiFillDollarCircle />}
-            title="New Business Premium YTD"
+            title={`New Business Premium ${dataYear} Total`}
             money
             vertical={false}
           />
@@ -351,61 +368,76 @@ export default function ReportsNewBusiness() {
             icon={<BsBox />}
             vertical={false}
           />
-          <div className="flex flex-col">
-            <div>
-              <PanelTitle title={`New Business Year`} color="sky" />
+          <div className="flex items-center gap-2">
+            <div className="flex flex-col">
+              <div>
+                <PanelTitle title={`New Business Month`} color="pink" />
+              </div>
+              <SelectInput
+                styling={`flex w-full min-w-[150px]`}
+                clearable={false}
+                value={dataMonth}
+                opts={dataMonthOptions}
+                labelField={`label`}
+                keyField={`id`}
+                valueField={`value`}
+                placeholder={'New Business Month'}
+                filterable={false}
+                onChange={(v) => setDataMonth(v)}
+              />
             </div>
-            <SelectInput
-              styling={`flex w-full min-w-[150px]`}
-              clearable={false}
-              value={dataYear}
-              opts={dataYearOptions}
-              labelField={`year`}
-              keyField={`id`}
-              valueField={`id`}
-              placeholder={'New Business Year'}
-              filterable={false}
-              onChange={(v) => setDataYear(v)}
-            />
+            <div className="flex flex-col">
+              <div>
+                <PanelTitle title={`New Business Year`} color="sky" />
+              </div>
+              <SelectInput
+                styling={`flex w-full min-w-[150px]`}
+                clearable={false}
+                value={dataYear}
+                opts={dataYearOptions}
+                labelField={`year`}
+                keyField={`id`}
+                valueField={`id`}
+                placeholder={'New Business Year'}
+                filterable={false}
+                onChange={(v) => setDataYear(v)}
+              />
+            </div>
           </div>
         </div>
         <div className="flex flex-col md:flex-row">
-          <div className="flex w-full md:w-4/12 md:items-center md:justify-evenly">
-            {dataYear == currentYear() ? (
-              <div className="flex flex-col">
-                <div className="pl-4">
-                  <PanelTitle title={`This Month`} color="indigo" />
-                </div>
-                <div className="flex w-full flex-col items-center md:flex-row">
-                  <div className="flex h-full flex-col items-center space-y-4 overflow-x-auto pl-4 pr-2 pt-2 pb-4 md:mb-0 md:overflow-hidden">
-                    {chartData?.users.map((p) => (
-                      <ChartSummaryCard
-                        key={p.id}
-                        label={p.name}
-                        fullData={p}
-                        panel
-                        shadow
-                        content={getMonthsData(p)}
-                        subContent={getMonthComparison(p)}
-                        currentMonth={currentMonth()}
-                        direction={getDirection(p)}
-                        money
-                        slice
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : null}
+          <div className="flex md:items-center md:justify-evenly">
             <div className="flex flex-col">
               <div className="pl-4">
+                <PanelTitle title={`${toMonthName(dataMonth)} ${dataYear} New Business`} color="indigo" />
+              </div>
+              <div className="flex w-full flex-col items-center md:flex-row">
+                <div className="flex h-full flex-col items-center space-y-4 overflow-x-auto p-4 pt-2 pr-2 md:mb-0 md:overflow-hidden">
+                  {chartData?.users.map((p) => (
+                    <ChartSummaryCard
+                      key={p.id}
+                      label={p.name}
+                      fullData={p}
+                      panel
+                      shadow
+                      content={getMonthsData(p)}
+                      subContent={getMonthComparison(p)}
+                      currentMonth={dataMonth}
+                      direction={getDirection(p)}
+                      money
+                      slice
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <div >
                 <PanelTitle title={`Year to Date`} color="orange" />
               </div>
               <div className="flex w-full flex-col md:flex-row">
                 <div
-                  className={`flex h-full flex-col items-center space-y-4 overflow-x-auto ${
-                    dataYear == currentYear() ? 'pl-2' : 'pl-4'
-                  } pr-4 pt-2 pb-4 md:mb-0 md:overflow-hidden`}
+                  className={`flex h-full flex-col items-center space-y-4 overflow-x-auto p-4 pt-2 pl-2 md:mb-0 md:overflow-hidden`}
                 >
                   {chartData?.users.map((p) => (
                     <ChartSummaryCard
@@ -416,7 +448,7 @@ export default function ReportsNewBusiness() {
                       shadow
                       content={p.totalPrem}
                       subContent={getTotalToLastMonthComparison(p)}
-                      currentMonth={currentMonth()}
+                      currentMonth={dataMonth}
                       direction={getTotalToLastMonthDirection(p)}
                       money
                       slice
@@ -426,29 +458,26 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="flex w-full md:w-8/12 flex-col gap-4 py-4 pr-4">
+          <div className="flex w-full flex-col gap-4 py-4 pr-4 md:w-9/12">
             {chartData ? (
               <div className="flex w-full flex-col gap-4 md:flex-row">
-                {dataYear == currentYear() ? (
-                  <div className="flex w-full md:w-1/2">
+                <div className="flex w-full md:w-1/2">
                     <NewBusinessCurrentMonthBarChart
-                      currentMonth={currentMonth()}
+                      currentMonth={dataMonth}
+                      year={dataYear}
                       fullData={chartData}
                     />
                   </div>
-                ) : null}
                 <div
-                  className={`flex w-full ${
-                    dataYear == currentYear() ? 'md:w-1/2' : 'md:w-8/12'
-                  }`}
+                  className={`flex w-full md:w-1/2`}
                 >
-                  <NewBusinessBarChart fullData={chartData} />
+                  <NewBusinessBarChart fullData={chartData} year={dataYear} />
                 </div>
               </div>
             ) : null}
             {chartData ? (
               <NewBusinessLineChart
-                currentMonth={currentMonth()}
+                currentMonth={dataMonth}
                 slice
                 fullData={chartData}
               />

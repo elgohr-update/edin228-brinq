@@ -1,6 +1,6 @@
 import { useTheme } from '@nextui-org/react'
 import React, { useEffect, useRef, useState } from 'react'
-import { basicSort, sortByProperty } from '../../utils/utils'
+import { basicSort, sortByProperty, toMonthName } from '../../utils/utils'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -96,6 +96,7 @@ export default function NewBusinessCurrentMonthBarChart({
   shadow = true,
   fullData = null,
   currentMonth = 0,
+  year = 0
 }) {
   const { isDark, type } = useTheme()
   const chartRef = useRef(null)
@@ -131,7 +132,7 @@ export default function NewBusinessCurrentMonthBarChart({
     }
 
     setChartData(chartData)
-  }, [fullData])
+  }, [fullData,currentMonth])
 
   const getSorted = () => {
     const base = fullData.users.map((x) => {
@@ -200,7 +201,7 @@ export default function NewBusinessCurrentMonthBarChart({
       },
       title: {
         display: true,
-        text: "This Month's New Business",
+        text: `${toMonthName(currentMonth)} ${year} New Business`,
         position: 'top',
         align: 'start',
       },

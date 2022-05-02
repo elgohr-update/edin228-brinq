@@ -33,7 +33,7 @@
   --color-on-select-menu-item-active: #bdc1c6;
 
   --color-select-menu-item-selected: #2684FF;
-  --color-on-select-menu-item-selected: #bdc1c6;
+  --color-on-select-menu-item-selected: #0070f3;
 }
 .light-theme {
   --color-select-input: white;
@@ -60,7 +60,7 @@
   --color-on-select-menu-item-active: rgb(51, 51, 51);
 
   --color-select-menu-item-selected: #2684FF;
-  --color-on-select-menu-item-selected: white;
+  --color-on-select-menu-item-selected: #0070f3;
 }
 .rdk-portal {
   z-index: 99999999999 !important;
@@ -70,9 +70,13 @@
 }
 /* Fixes */
 /* ---modal */
-.nextui-c-csEDlc,
+
 .nextui-c-blxbWP {
   z-index:9999998 !important;
+}
+
+.nextui-c-csEDlc {
+  z-index:9999999 !important;
 }
 
 .nextui-c-hWZRae-bVtBym-bordered-false {

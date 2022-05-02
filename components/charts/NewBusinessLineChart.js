@@ -25,6 +25,8 @@ ChartJS.register(
 )
 
 const colors = [
+  'transparent',
+  '#9d85ff26',
   '#5555FF',
   '#9787FF',
   '#FF55B8',
@@ -64,14 +66,23 @@ const colors = [
   '#ec008c',
   '#ff9966',
   '#17a8c9',
-  '#fbf530',
+  '#fbf530'
 ]
-function createGradient(ctx, area, indx) {
+function createGradient(ctx, area, indx, fill=false, fixedIndx=1) {
   const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
 
-  gradient.addColorStop(0, colors[indx+9]);
-  gradient.addColorStop(0.5, colors[indx+5]);
-  gradient.addColorStop(1, colors[indx+10]);
+  if (fill){
+    gradient.addColorStop(0, colors[0]);
+    gradient.addColorStop(0.2, colors[0]);
+    gradient.addColorStop(0.5, colors[fixedIndx]);
+    gradient.addColorStop(0.8, colors[fixedIndx]);
+    gradient.addColorStop(1, colors[fixedIndx]);
+  }
+  else {
+    gradient.addColorStop(0, colors[indx+1]);
+    gradient.addColorStop(0.5, colors[indx+6]);
+    gradient.addColorStop(1, colors[indx+8]);
+  }
 
   return gradient;
 }
@@ -114,6 +125,7 @@ export default function NewBusinessLineChart({
       datasets: data.datasets.map((dataset, indx) => ({
         ...dataset,
         borderColor: createGradient(chart.ctx, chart.chartArea, indx),
+        backgroundColor: createGradient(chart.ctx, chart.chartArea, indx, true),
       })),
     };
 

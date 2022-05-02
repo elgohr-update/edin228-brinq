@@ -96,6 +96,7 @@ export default function NewBusinessBarChart({
   panel = true,
   shadow = true,
   fullData = null,
+  year=0
 }) {
   const { isDark, type } = useTheme()
   const chartRef = useRef(null)
@@ -191,7 +192,7 @@ export default function NewBusinessBarChart({
       },
       title: {
         display: true,
-        text: 'New Business YTD',
+        text: `${year} New Business Total`,
         position: 'top',
         align: 'start',
       },

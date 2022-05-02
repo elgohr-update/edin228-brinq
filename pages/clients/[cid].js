@@ -114,7 +114,7 @@ export default function Client({data}) {
       <div className="flex w-full flex-col">
         <div className="flex w-full flex-col md:overflow-hidden md:flex-row">
           <div
-            className={`relative flex w-full flex-col space-y-2 py-4 px-4 md:w-[300px] md:py-0`}
+            className={`relative flex w-full flex-col space-y-2 py-4 px-4 md:w-[300px] md:py-0 md:pb-8`}
           > 
             <ClientHeader client={client} />
             <ClientInfo
@@ -164,7 +164,7 @@ export default function Client({data}) {
                   </div>
                 </div>
                 <div
-                  className={`flex h-full flex-1 flex-col space-y-2 md:overflow-y-auto px-4 py-2 md:max-h-[89vh]`}
+                  className={`flex h-full flex-1 flex-col space-y-2 md:overflow-y-auto px-4 py-2 md:pb-8 md:max-h-[89vh]`}
                 >
                   {getPolicies(showActive).map((u) => (
                     <Panel flat key={u.id} overflow={false} px={0} py={0}>

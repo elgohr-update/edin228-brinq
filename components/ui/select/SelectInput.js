@@ -16,6 +16,7 @@ export default function SelectInput({
   multiple = false,
   inputChange=null,
   clearable=true,
+  disabled=false,
   onChange,
 }) {
 
@@ -31,6 +32,7 @@ export default function SelectInput({
         onInputChange={inputChange ? (e) => inputChange(e.target.value) : null}
         value={value}
         onChange={(v) => onChange(v)}
+        disabled={disabled}
       >
         {opts?.map((o) => (
           <SelectOption key={o[keyField]} value={o[valueField]}>

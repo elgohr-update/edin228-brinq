@@ -1,20 +1,13 @@
 import { Image, Switch, useTheme } from '@nextui-org/react'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import {
-  AiOutlineHome,
-  AiOutlineAlignLeft,
-  AiOutlineCalendar,
-} from 'react-icons/ai'
+import React, { useState } from 'react'
+import { AiOutlineHome, AiOutlineCalendar } from 'react-icons/ai'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { BsFillMoonFill, BsFillSunFill, BsBox, BsStars } from 'react-icons/bs'
 import { BiBook } from 'react-icons/bi'
 import { IoMdListBox } from 'react-icons/io'
 import { CgFileDocument, CgToolbox } from 'react-icons/cg'
 import { useTheme as useNextTheme } from 'next-themes'
-import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import { useAppContext } from '../../../context/state'
 import SidebarItem from './SidebarItem'
 import SidebarDropdown from './SidebarDropdown'
 
@@ -23,8 +16,6 @@ const Sidebar = () => {
   const { setTheme } = useNextTheme()
   const { isDark, type } = useTheme()
   const { data: session } = useSession()
-  const router = useRouter()
-  const { state, setState } = useAppContext()
 
   const currentYear = () => {
     const date = new Date()
@@ -45,35 +36,21 @@ const Sidebar = () => {
     const res = status === 'in' ? true : false
     setExpand(res)
   }
-  const themeHover = () => {
-    if (type === 'dark') {
-      return ''
-    }
-    return ''
-  }
 
-  const isActive = (currentPage) => {
-    if (router.pathname.includes(currentPage)) {
-      return 'active-path'
-    }
-    return ''
-  }
-  const isActiveIcon = (currentPage) => {
-    if (router.pathname.includes(currentPage)) {
-      return 'active-icon'
-    }
-    return ''
-  }
   return (
     <div className="relative z-50 flex h-full w-full flex-col">
       <div
-        className={`absolute flex h-full w-full flex-col justify-between panel-theme-${type} ${type}-shadow sidebar-${isExpand()}`}
+        className={`absolute flex h-full w-full flex-col justify-between ${
+          expand ? `panel-theme-${type} ${type}-shadow` : ``
+        } sidebar-${isExpand()}`}
         onMouseOver={() => hoverSidebar('in')}
         onMouseOut={() => hoverSidebar('out')}
       >
         <div className="flex w-full flex-col">
           <div
-            className={`flex h-10 items-center justify-center py-8 panel-theme-${type}`}
+            className={`flex h-10 items-center justify-center py-8 ${
+              expand ? `panel-theme-${type}` : ``
+            }`}
           >
             <div className="relative flex w-full items-center justify-center transition duration-100 ease-out">
               <div
@@ -113,7 +90,7 @@ const Sidebar = () => {
               icon={<AiOutlineHome />}
               label={'Home'}
             />
-            <SidebarItem
+            {/* <SidebarItem
               href={'/crm'}
               isOpen={isExpand()}
               icon={
@@ -122,7 +99,7 @@ const Sidebar = () => {
                 </div>
               }
               label={'CRM'}
-            />
+            /> */}
             <SidebarItem
               href={`/renewals/${currentMonth()}/${currentYear()}`}
               isOpen={isExpand()}
@@ -190,11 +167,15 @@ const Sidebar = () => {
             ) : null}
           </div>
         </div>
-        <div className="flex items-center justify-center py-2">
-          <div>
+        <div
+          className={`flex items-center p-4 transition duration-100 ease-out ${
+            expand ? 'opacity-1' : 'opacity-0'
+          }`}
+        >
+          <div className="flex flex-col">
+            <h4>Theme</h4>
             <Switch
-              shadow
-              size="sm"
+              size="xs"
               checked={isDark}
               color="primary"
               onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
