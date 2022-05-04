@@ -23,42 +23,6 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>, noPadding=false, autoWidth=false,
     const isBorder = () =>{
         return border ? `${isDark?`border-slate-900`:`border-slate-200`} border` : ``
     }
-    const getColor = () => {
-        const def = {bg:`bg-sky-300/80`,text:`text-sky-400`}
-        switch (color) {
-            case 'emerald':
-                return {bg:`bg-emerald-300/80`,text:`text-emerald-400`}
-            case 'purple':
-                return {bg:`bg-purple-300/80`,text:`text-purple-400`}
-            case 'pink':
-                return {bg:`bg-pink-300/80`,text:`text-pink-400`}
-            case 'teal':
-                return {bg:`bg-teal-300/80`,text:`text-teal-400`}
-            case 'amber':
-                return {bg:`bg-amber-300/80`,text:`text-amber-400`}
-            case 'fuchsia':
-                return {bg:`bg-fuchsia-300/80`,text:`text-fuchsia-400`}
-            case 'rose':
-                return {bg:`bg-rose-300/80`,text:`text-rose-400`}
-            case 'violet':
-                return {bg:`bg-violet-300/80`,text:`text-violet-400`}
-            case 'indigo':
-                return {bg:`bg-indigo-300/80`,text:`text-indigo-400`}
-            case 'cyan':
-                return {bg:`bg-cyan-300/80`,text:`text-cyan-400`}
-            case 'red':
-                return {bg:`bg-red-300/80`,text:`text-red-400`}
-            case 'yellow':
-                return {bg:`bg-yellow-300/80`,text:`text-yellow-400`}
-            case 'orange':
-                return {bg:`bg-orange-300/80`,text:`text-orange-400`}
-            case 'lime':
-                return {bg:`bg-lime-300/80`,text:`text-lime-400`}
-            default:
-                return def;
-        }
-    }
-
     const returnGradient = () => {
         switch(gradientColor) {
             case 'orange':
@@ -114,7 +78,7 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>, noPadding=false, autoWidth=false,
             { 
                 isIcon ? 
                 <div className={`${vertical ? 'flex justify-end': `flex justify-end w-full`} relative z-20  pl-10`}>
-                    <div className={`z-20 flex items-center ${type}-shadow justify-center rounded-lg ${isDark?'bg-slate-500/20':'bg-white/40'} p-2 text-2xl w-[40px] h-[40px]`}>
+                    <div className={`z-20 flex items-center ${type}-shadow text-white justify-center rounded-lg ${isDark?'bg-slate-500/20':'bg-white/40'} p-2 text-2xl w-[40px] h-[40px]`}>
                         <div>{icon}</div>
                     </div>
                     <div className={`absolute rounded-lg z-10 ${returnGradient()} w-[40px] h-[40px]`}></div>

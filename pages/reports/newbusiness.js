@@ -185,15 +185,6 @@ export default function ReportsNewBusiness() {
     }
   }
 
-  const currentMonth = () => {
-    const base = new Date()
-    return base.getMonth()
-  }
-  const currentYear = () => {
-    const base = new Date()
-    return base.getFullYear()
-  }
-
   const getMonthsData = (p) => {
     const d = p.premByMonth[dataMonth]
     return d
@@ -346,7 +337,7 @@ export default function ReportsNewBusiness() {
         </div>
       </PageHeader>
       <div className="flex w-full flex-col">
-        <div className="mb-2 flex h-full items-center justify-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+        <div className="mb-2 flex h-full items-center justify-center space-x-4 overflow-x-auto px-4 pb-6 pt-4 md:mb-0 md:overflow-hidden">
           <SummaryCard
             val={premSum()}
             color="teal"

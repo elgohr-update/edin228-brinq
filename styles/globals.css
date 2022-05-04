@@ -867,16 +867,18 @@ h6 {
     height:100vh;
 }
 .sidebar-open{
-    width: 220px;
+    width: 275px;
     transition: 150ms ease-out;
 }
 .sidebar-closed{
+    position:absolute;
     width:60px;
     transition: 150ms ease-out;
 }
 .sidebar-text-open{
     position:absolute;
-    left:60px;
+    padding-left:35px;
+    /* left:60px; */
     opacity:1;
     transition: 200ms ease-out;
     text-transform: uppercase;
@@ -913,6 +915,22 @@ h6 {
 .active-icon-glow {
   color: var(--nextui-colors-primary);
   filter: drop-shadow(0px 0px 17px var(--nextui-colors-primary));
+}
+.active-path-secondary {
+  filter: drop-shadow(0px 0px 17px #8d0aff);
+  background:#640aff23;
+  border-radius:12px;
+  transition:all 250ms ease-out;
+}
+.active-path-small-secondary {
+transition:all 250ms ease-out;
+}
+.active-icon-secondary {
+color: var(--nextui-colors-secondary);
+}
+.active-icon-glow-secondary {
+color: var(--nextui-colors-secondary);
+filter: drop-shadow(0px 0px 17px var(--nextui-colors-secondary));
 }
 
 /* Notification Bell */

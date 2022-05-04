@@ -112,6 +112,7 @@ const Sidebar = () => {
               label={'Book of Business'}
               basePath="/reports"
               isOpen={isExpand()}
+              isExpand={expand}
             >
               <SidebarItem
                 href={`/reports/clients`}
@@ -140,6 +141,7 @@ const Sidebar = () => {
               label={'Tools'}
               basePath="/tools"
               isOpen={isExpand()}
+              isExpand={expand}
             >
               <SidebarItem
                 href={'/tools/proposals'}
