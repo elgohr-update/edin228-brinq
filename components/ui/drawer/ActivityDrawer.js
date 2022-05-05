@@ -14,6 +14,7 @@ import PanelTitle from '../title/PanelTitle'
 import SelectInput from '../select/SelectInput'
 import DrawerLoader from '../loaders/DrawerLoader'
 import FileUploaderContainer from '../../files/FileUploaderContainer'
+import { AiOutlineClose } from 'react-icons/ai';
 
 const ActivityDrawer = () => {
   const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
@@ -254,6 +255,12 @@ const ActivityDrawer = () => {
                 </Checkbox>
               </div>
             </div>
+            <div
+              className="absolute top-0 right-5 flex md:hidden"
+              onClick={() => closeDrawer()}
+            >
+              <div className="text-color-error"><AiOutlineClose /></div>
+            </div>
             <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
           </div>
           {activityDrawer.clientId && !clientInfo ? (
@@ -449,7 +456,7 @@ const ActivityDrawer = () => {
                   Activity
                 </Button>
                 <Button
-                  color={!isSubmitEnabled()? 'primary' : 'gradient'}
+                  color={!isSubmitEnabled() ? 'primary' : 'gradient'}
                   disabled={!isSubmitEnabled()}
                   auto
                 >

@@ -25,16 +25,15 @@ const NewActionMenu = () => {
       <Popover placement={`bottom-right`} triggerType={'menu'}>
         <Popover.Trigger>
           <Button
-            size="xs"
+            size="sm"
             className={`${type}-shadow`}
             color="gradient"
             auto
           >
-            <div className="flex items-center space-x-2 pr-2">
+            <div className="flex items-center space-x-2">
               <div>
                 { getConstantIcons('plus') }
               </div>
-              <div className="hidden md:flex tracking-widest">Create</div>
             </div>
             <div className="pl-2">
               <AiOutlineDown />

@@ -113,15 +113,6 @@ const ClientDrawer = () => {
     }
     setClientDrawer(setDefault)
   }
-  const iconBg = () => {
-    return client?.line === 'Commercial Lines'
-      ? `bg-color-primary`
-      : client?.line === 'Personal Lines'
-      ? `bg-color-error`
-      : client?.line === 'Benefits'
-      ? `bg-color-success`
-      : ''
-  }
 
   return (
     <div className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}>

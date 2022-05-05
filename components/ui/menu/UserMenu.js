@@ -1,27 +1,14 @@
-import { Button, Popover, Switch, useTheme } from '@nextui-org/react'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import { AiOutlineDown } from 'react-icons/ai'
-import { useTheme as useNextTheme } from 'next-themes'
-import { useRouter } from 'next/router'
-import { BsPlusLg } from 'react-icons/bs'
+import { Button, Popover, useTheme } from '@nextui-org/react'
+import React from 'react'
 import { FiLogOut } from 'react-icons/fi'
 import { FaCog } from 'react-icons/fa'
 import { RiFileUserFill } from 'react-icons/ri'
-import HiddenBackdrop from '../../util/HiddenBackdrop'
 import UserAvatar from '../../user/Avatar'
 import LinkedMenuItem from './item/LinkedMenuItem'
-import { useSession, signIn, signOut, getProviders } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 
 const UserMenu = () => {
-  const { setTheme } = useNextTheme()
-  const { isDark, type } = useTheme()
-  const [openMenu, setOpenMenu] = useState(false)
-  const router = useRouter()
-
-  const closeMenu = () => {
-    setOpenMenu(false)
-  }
+  const { type } = useTheme()
 
   return (
     <div className="relative flex h-full w-full items-center justify-center">

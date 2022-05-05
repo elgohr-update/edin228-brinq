@@ -26,9 +26,9 @@ export default function Login() {
   }
 
   return (
-    <main className="flex h-full w-full items-center justify-center overflow-hidden px-4 py-40 md:py-64">
+    <main className="flex h-full w-full items-center justify-center overflow-hidden px-4 py-40 md:px-28 md:py-0 lg:px-4 lg:py-64">
       <div
-        className={`flex h-full w-full flex-col rounded-lg md:w-3/12`}
+        className={`flex h-full w-full flex-col rounded-lg lg:w-3/12`}
       >
         <div className="flex h-full flex-col items-center">
           <div
@@ -66,7 +66,7 @@ export default function Login() {
                 Forgot Password?
               </h4>
             </div>
-            <div className="mt-8 flex w-full justify-center">
+            <div className="mt-2 flex w-full justify-center">
               <Button type="submit" color="gradient">
                 Sign In
               </Button>

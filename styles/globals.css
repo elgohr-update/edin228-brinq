@@ -5,8 +5,10 @@
 :root {
   --nextui-borderWeights-normal: 2px;
 }
-.select-wrapper * {
-
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
 }
 .dark-theme {
   --color-select-input: #111111;
@@ -90,11 +92,6 @@
 }
 .nextui-c-ilVpnA{
   font-size:0.8rem;
-}
-button {
-  -webkit-appearance: button;
-  background-color: transparent;
-  background-image: none;
 }
 .nextui-c-lojsts-ikltse-color-default {
   background: var(--nextui-colors-primary) !important;
@@ -885,6 +882,9 @@ h6 {
     letter-spacing: 2px;
     font-size:0.55rem;
     font-weight: bold;
+}
+.sidebar-text-size{
+  font-size:0.55rem;
 }
 .sidebar-text-closed{
     position:absolute;

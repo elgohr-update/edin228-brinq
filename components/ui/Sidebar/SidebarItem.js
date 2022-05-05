@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export default function SidebarItem({ href, isOpen, icon, label, basePath = href }) {
+export default function SidebarItem({ href, isOpen, icon, label, basePath = href, isMobile=false }) {
   const router = useRouter()
   const isActive = () => {
     if (router.pathname.includes(basePath)) {
@@ -27,7 +27,7 @@ export default function SidebarItem({ href, isOpen, icon, label, basePath = href
           <div className={`flex h-[30px] w-[30px] text-xs items-center justify-center`}>
             {icon}
           </div>
-          <div className={`flex w-full items-center sidebar-text-${isOpen}`}>
+          <div className={`flex w-full items-center ${isMobile ? 'relative uppercase sidebar-text-size tracking-widest font-bold' : `sidebar-text-${isOpen}` } `}>
             {label}
           </div>
         </a>

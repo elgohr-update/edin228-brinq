@@ -6,6 +6,7 @@ import NotificationBell from './../../notifications/NotificationBell';
 import NewActionMenu from './../menu/NewActionMenu';
 import { useAppContext } from '../../../context/state';
 import { BiSearch } from 'react-icons/bi'
+import MobileSidebar from '../Sidebar/MobileSidebar';
 
 
 const Header = () => {
@@ -18,11 +19,11 @@ const Header = () => {
             <div className="hidden z-20 lg:flex w-full lg:w-1/4 pl-4">
                 <SearchBar />
             </div>
-            <div className="z-10 flex items-center w-full justify-between lg:justify-end mt-2 lg:mt-0 px-4">
-                <div className="pl-4 lg:hidden">
-                    Menu
+            <div className="z-40 flex items-center w-full justify-between lg:justify-end mt-2 lg:mt-0 px-4">
+                <div className="pl-4 lg:hidden z-30">
+                    <MobileSidebar />
                 </div>
-                <div className="flex items-center justify-end">
+                <div className="z-20 flex items-center justify-end">
                     <div className="flex lg:hidden mr-4 cursor-pointer" onClick={() => setShowSearchBar(!showSearchBar)}>
                         <BiSearch />
                     </div>

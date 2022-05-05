@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { getConstantIcons } from '../../../utils/utils'
 
-export default function SidebarDropdown({ children, icon, label, basePath, isOpen, isExpand }) {
+export default function SidebarDropdown({ children, icon, label, basePath, isOpen, isExpand, isMobile=false }) {
   const router = useRouter()
   const [show, setShow] = useState(false)
   const isActive = () => {
@@ -28,7 +28,7 @@ export default function SidebarDropdown({ children, icon, label, basePath, isOpe
         <div className={`flex h-[30px] w-[30px] items-center justify-center`}>
           {icon}
         </div>
-        <div className={`flex w-full items-center sidebar-text-${isOpen}`}>
+        <div className={`flex w-full items-center  ${isMobile ? 'relative uppercase sidebar-text-size tracking-widest font-bold' : `sidebar-text-${isOpen}` }`}>
           {label}
           <div className="pl-2">{ show ? getConstantIcons('down') : getConstantIcons('left')}</div>
         </div>
