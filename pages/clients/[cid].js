@@ -109,11 +109,11 @@ export default function Client({ data }) {
   }
 
   return (
-    <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
+    <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto lg:flex-row lg:overflow-hidden">
       <div className="flex w-full flex-col">
-        <div className="flex w-full flex-col md:flex-row md:overflow-hidden">
+        <div className="flex w-full flex-col lg:flex-row lg:overflow-hidden">
           <div
-            className={`relative flex w-full flex-col space-y-2 py-4 px-4 md:w-[300px] md:py-0 md:pb-8`}
+            className={`relative flex w-full flex-col space-y-2 py-4 px-4 lg:w-[400px] lg:py-0 lg:pb-8`}
           >
             <ClientHeader client={client} />
             <ClientInfo
@@ -129,10 +129,10 @@ export default function Client({ data }) {
               client={client}
             />
           </div>
-          <div className="flex h-full w-full flex-col md:overflow-hidden">
+          <div className="flex h-full w-full flex-col lg:overflow-hidden">
             <div className="flex items-center justify-between">
               <ClientDataNavbar />
-              <div className="flex items-center space-x-2 py-2 md:justify-end md:py-0">
+              <div className="flex items-center space-x-2 py-2 lg:justify-end lg:py-0">
                 <Button.Group size="xs" flat>
                   <Button>
                     <BiPaperPlane />
@@ -153,7 +153,7 @@ export default function Client({ data }) {
               </div>
             </div>
             {state.client.dataNavbar === 1 ? (
-              <div className="flex w-full flex-col md:overflow-hidden">
+              <div className="flex w-full flex-col lg:overflow-hidden">
                 <div className="flex w-full items-center px-4">
                   <ClientPolicyInfo
                     client={client}
@@ -169,7 +169,7 @@ export default function Client({ data }) {
                   </div>
                 </div>
                 <div
-                  className={`flex h-full flex-1 flex-col space-y-2 px-4 py-2 md:max-h-[89vh] md:overflow-y-auto md:pb-8`}
+                  className={`flex h-full flex-1 flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
                 >
                   {getPolicies(showActive).map((u) => (
                     <Panel flat key={u.id} overflow={false} px={0} py={0}>
@@ -183,12 +183,12 @@ export default function Client({ data }) {
         </div>
       </div>
       <div
-        className={`mt-4 flex w-full flex-col pb-2 md:mt-0 md:w-5/12 md:overflow-hidden`}
+        className={`mt-4 flex w-full flex-col pb-2 lg:mt-0 lg:w-5/12 lg:overflow-hidden`}
       >
-        <div className="md:px-4">
+        <div className="lg:px-4">
           <ClientActionNavbar />
         </div>
-        <div className="md:overflow-y-auto md:px-4">
+        <div className="lg:overflow-y-auto lg:px-4">
           {state.client.actionNavbar === 1 ? (
             <ClientActivity clientId={client?.id} limit={50} />
           ) : null}
