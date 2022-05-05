@@ -58,7 +58,7 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
             <div
               className={`${
                 expand ? 'absolute opacity-0' : 'opacity-1 relative'
-              } flex scale-[0.7] transition`}
+              } flex scale-[0.5] transition`}
             >
               <Image
                 showSkeleton
