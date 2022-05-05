@@ -394,7 +394,7 @@ const PoliciesTable = () => {
             {tableData.length > 10 ? (
               <Table.Pagination
                 shadow
-                align="center"
+                align="start"
                 noMargin
                 rowsPerPage={10}
                 total={Math.ceil(Number(tableData.length / 10))}

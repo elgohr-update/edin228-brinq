@@ -410,12 +410,12 @@ const NewBusinessTable = ({year=2022}) => {
           </div>
           <div className="flex flex-col">
             <h4 className="mb-2">Effective</h4>
-            <div className="flex flex-wrap space-x-1 space-y-1 lg:space-x-0 lg:space-y-0 lg:gap-2">
+            <div className="flex flex-wrap lg:gap-2">
               {getMonths().map((x) => (
                 <div
                   key={x.m}
                   onClick={() => setMonthFilter(x.m)}
-                  className={`tag-basic cursor-pointer ${
+                  className={`tag-basic mr-2 mb-2 lg:mr-0 lg:mb-0 cursor-pointer ${
                     isTagActive(x.m)
                       ? `deal-tag-blue`
                       : `tag-gray-bg tag-inactive`
@@ -521,7 +521,7 @@ const NewBusinessTable = ({year=2022}) => {
             {tableData.length > 14 ? (
               <Table.Pagination
                 shadow
-                align="end"
+                align="start"
                 noMargin
                 rowsPerPage={14}
                 total={Math.ceil(Number(tableData.length / 14))}

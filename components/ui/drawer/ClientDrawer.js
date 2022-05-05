@@ -117,13 +117,13 @@ const ClientDrawer = () => {
   return (
     <div className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}>
       <div
-        className={`fixed right-0 flex h-full w-full flex-col md:w-[800px] ${type}-shadow panel-theme-${type}`}
+        className={`fixed right-0 flex h-full overflow-hidden w-full flex-col md:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!client ? (
           <DrawerLoader />
         ) : (
-          <div className="flex h-full flex-1 py-4">
-            <div className={`flex w-full flex-col`}>
+          <div className="flex h-full flex-1 py-4 overflow-hidden">
+            <div className={`flex w-full flex-col `}>
               <div className={`relative mb-2 flex w-full px-2`}>
                 <div className="relative flex w-full flex-col md:flex-row md:pt-2">
                   <ClientHeader client={client} />
@@ -160,7 +160,7 @@ const ClientDrawer = () => {
                 />
               </div>
               <div
-                className={`mt-2 flex h-[74vh] w-full flex-col overflow-auto`}
+                className={`mt-2 flex w-full flex-col overflow-auto`}
               >
                 <ClientInfo client={client} horizontal />
                 <ClientContacts client={client} />

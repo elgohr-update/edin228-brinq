@@ -300,7 +300,7 @@ export default function RenewalsTable(data) {
         {tableData.length > 8 ? (
           <Table.Pagination
             shadow
-            align="end"
+            align="start"
             noMargin
             total={Math.ceil(Number(tableData.length / 8))}
             rowsPerPage={8}

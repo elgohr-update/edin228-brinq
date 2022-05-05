@@ -1,7 +1,7 @@
-import { Button } from '@nextui-org/react'
-import React, { useState } from 'react'
+import { Button, Loading } from '@nextui-org/react'
+import React, { useEffect, useState } from 'react'
 import { useReloadContext } from '../../context/state'
-import { useNextApi } from '../../utils/utils'
+import { timeout, useNextApi } from '../../utils/utils'
 import TextEditor from '../ui/editor/TextEditor'
 import UserAvatar from '../user/Avatar'
 import FileUploaderContainer from '../files/FileUploaderContainer'
@@ -9,6 +9,7 @@ import { useSession } from 'next-auth/react'
 
 export default function NewComment({ source, commentType = 'task' }) {
   const [comment, setComment] = useState('')
+  const [loading, setLoading] = useState(false)
   const [files, setFiles] = useState(null)
   const { reload, setReload } = useReloadContext()
   const { data: session } = useSession()
@@ -19,6 +20,11 @@ export default function NewComment({ source, commentType = 'task' }) {
       html: comment.html,
     }
     if (comment?.text?.length > 1) {
+      setReload({
+        ...reload,
+        comment: true,
+      })
+      setLoading(true)
       const res = await useNextApi(
         'POST',
         `/api/comments?${commentType}_id=${source.id}`,
@@ -37,14 +43,17 @@ export default function NewComment({ source, commentType = 'task' }) {
               })
             )
           }
-          const upload = await fetch(`${process.env.NEXT_PUBLIC_FETCHBASE_URL}/files/?comment_id=${res.id}`, {
-            method: `POST`,
-            headers: {
-              Authorization: `Bearer ${session.accessToken}`,
-            },
-            body: formData,
-          })
-          if (upload){
+          const upload = await fetch(
+            `${process.env.NEXT_PUBLIC_FETCHBASE_URL}/files/?comment_id=${res.id}`,
+            {
+              method: `POST`,
+              headers: {
+                Authorization: `Bearer ${session.accessToken}`,
+              },
+              body: formData,
+            }
+          )
+          if (upload) {
             setReload({
               ...reload,
               activities: true,
@@ -56,6 +65,9 @@ export default function NewComment({ source, commentType = 'task' }) {
             ...reload,
             policies: true,
           })
+          setFiles(null)
+          setComment('')
+          setLoading(false)
         }
       }
     }
@@ -71,8 +83,19 @@ export default function NewComment({ source, commentType = 'task' }) {
         <UserAvatar squared={false} tooltip={false} size="sm" />
       </div>
       <div className="relative flex w-full flex-col space-y-2">
+        {loading ?
+          <div className="absolute z-50 flex h-full w-full items-center justify-center rounded-lg">
+            <Loading
+              type="points"
+              size="md"
+              color="primary"
+              textColor="primary"
+            />
+          </div>
+          :null
+        }
         <TextEditor getValue={(e) => setComment(e)} />
-        <div className="absolute bottom-2 right-2 flex items-center justify-end space-x-2">
+        <div className="absolute bottom-2 right-2 z-40 flex items-center justify-end space-x-2">
           <FileUploaderContainer onSave={(e) => onSave(e)} />
           <Button
             color="success"

@@ -78,6 +78,7 @@ export function ReloadWrapper({ children }) {
     policies: false,
     client: false,
     agency: false,
+    comment: false,
   })
   return (
     <ReloadContext.Provider value={{ reload, setReload }}>
@@ -151,3 +152,4 @@ export function ActivityDrawerWrapper({ children }) {
 export function useActivityDrawerContext() {
   return useContext(ActivityDrawerContext)
 }
+

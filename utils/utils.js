@@ -201,8 +201,8 @@ export const getFormattedDateTime = (date) => {
 }
 
 export const getFormattedUTCDateTime = (date) => {
-  const d = new Date(date)
-  // const d = new Date( base.getTime() - base.getTimezoneOffset() * -60000 )
+  const base = new Date(date)
+  const d = new Date( base.getTime() - base.getTimezoneOffset() * -60000 )
   let year = d.getFullYear()
   let month = (1 + d.getMonth()).toString().padStart(2, '0')
   let day = d.getDate().toString().padStart(2, '0')

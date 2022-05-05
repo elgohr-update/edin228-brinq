@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Tooltip, useTheme } from '@nextui-org/react'
-import { getFormattedDateTime } from '../../utils/utils'
+import { getFormattedDateTime, getFormattedUTCDateTime } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import { BsFillReplyFill } from 'react-icons/bs'
 import NewComment from './NewComment'
@@ -45,7 +45,7 @@ const CommentCard = ({
             <div className="flex items-end space-x-2">
               <h4>By {comment.user.name}</h4>
               <div className="small-subtext">
-                {getFormattedDateTime(comment.created)}
+                {getFormattedUTCDateTime(comment.created)}
               </div>
             </div>
 

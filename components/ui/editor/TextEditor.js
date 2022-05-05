@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { useTheme } from '@nextui-org/react'
@@ -9,9 +9,12 @@ import {
   AiOutlineUnorderedList,
   AiOutlineOrderedList,
 } from 'react-icons/ai'
+import { useReloadContext } from '../../../context/state'
+import { timeout } from '../../../utils/utils'
 
-export default function TextEditor({ getValue }) {
+export default function TextEditor({ getValue, isComment=true }) {
   const { isDark, type } = useTheme()
+  const { reload, setReload } = useReloadContext()
   const editor = useEditor({
     extensions: [StarterKit],
     content: '<p></p>',
@@ -24,6 +27,26 @@ export default function TextEditor({ getValue }) {
       getValue(textBundle)
     },
   })
+
+  useEffect(() => {
+    if (reload.comment && isComment) {
+      let isCancelled = false
+      const handleChange = async () => {
+        await timeout(100)
+        if (!isCancelled) {
+          editor.commands.clearContent()
+          setReload({
+            ...reload,
+            comment: false,
+          })
+        }
+      }
+      handleChange()
+      return () => {
+        isCancelled = true
+      }
+    }
+  }, [reload])
 
   const checkActive = (a, b) => {
       if (editor){

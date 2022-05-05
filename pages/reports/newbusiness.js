@@ -408,7 +408,7 @@ export default function ReportsNewBusiness() {
                 />
               </div>
               <div className="flex w-full flex-col overflow-hidden lg:flex-row">
-                <div className="flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 pr-2 lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4">
+                <div className="flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 lg:pr-2 lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4">
                   {chartData?.users.map((p) => (
                     <ChartSummaryCard
                       key={p.id}
@@ -433,7 +433,7 @@ export default function ReportsNewBusiness() {
               </div>
               <div className="flex w-full flex-col overflow-hidden lg:flex-row">
                 <div
-                  className={`flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 pl-2 lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4`}
+                  className={`flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 lg:pl-2 lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4`}
                 >
                   {chartData?.users.map((p) => (
                     <ChartSummaryCard
