@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 import React from 'react'
-import { Image, Switch, useTheme } from '@nextui-org/react'
+import { Image, useTheme } from '@nextui-org/react'
 import { useTheme as useNextTheme } from 'next-themes'
 import { AiOutlineHome, AiOutlineCalendar } from 'react-icons/ai'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
@@ -72,7 +72,7 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
           </div>
         </div>
         <div className="flex flex-col overflow-hidden">
-          <div className={`flex flex-col gap-4 overflow-y-auto overflow-x-hidden px-2 py-2`}>
+          <div className={`flex flex-col space-y-4 overflow-y-auto overflow-x-hidden px-2 py-4`}>
             <SidebarItem
               href={'/dashboard'}
               isOpen={isExpand()}
@@ -174,16 +174,17 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
           expand ? 'opacity-1' : 'opacity-0'
         }`}
       >
-        <div className="flex flex-col">
-          <h4>Theme</h4>
-          <Switch
-            size="xs"
-            checked={isDark}
-            color="primary"
-            onChange={(e) => setTheme(e.target.checked ? 'dark' : 'light')}
-            iconOn={<BsFillMoonFill />}
-            iconOff={<BsFillSunFill />}
-          />
+        <div className="flex flex-col w-full py-1">
+          <div className={`flex text-xs rounded-lg w-full items-center py-1 px-1 panel-theme-${type}`}>
+            <div onClick={() => setTheme('light')} className={`flex cursor-pointer rounded-lg items-center justify-center py-1 space-x-1 w-full ${!isDark ? `panel-flat-${type} ${type}-shadow` : ``}`}>
+                <div><BsFillSunFill /></div>
+                <div>Light</div>
+            </div>
+            <div onClick={() => setTheme('dark')} className={`flex cursor-pointer rounded-lg items-center justify-center py-1 space-x-1 w-full ${isDark ? `panel-flat-${type} ${type}-shadow` : ``}`}>
+                <div><BsFillMoonFill /></div>
+                <div>Dark</div>
+            </div>
+          </div>
         </div>
       </div>
     </>
