@@ -60,7 +60,7 @@ const ContactCard = ({
           </div>
         </Popover.Trigger>
         <Popover.Content>
-          <div className="flex w-full h-full px-4 py-2 items-center gap-4">
+          <div className="flex w-full h-full px-4 py-2 items-center space-x-2">
             <Tooltip content={'Edit'}>
                 <div className="flex items-center justify-center transition duration-100 ease-out hover:text-sky-500 cursor-pointer">{getConstantIcons('edit')}</div>
             </Tooltip>

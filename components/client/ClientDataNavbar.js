@@ -21,7 +21,7 @@ const ClientDataNavbar = () => {
         activeItem={activeItem}
         itemId={1}
       />
-      <NavAction
+      {/* <NavAction
         onClick={() => setActive(2)}
         icon={getConstantIcons('deal')}
         title={'Deals'}
@@ -34,7 +34,7 @@ const ClientDataNavbar = () => {
         title={'Emails'}
         activeItem={activeItem}
         itemId={3}
-      />
+      /> */}
       <NavAction
         onClick={() => setActive(4)}
         icon={getConstantIcons('activity')}

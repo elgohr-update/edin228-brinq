@@ -410,7 +410,7 @@ const NewBusinessTable = ({year=2022}) => {
           </div>
           <div className="flex flex-col">
             <h4 className="mb-2">Effective</h4>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap space-x-1 space-y-1 lg:space-x-0 lg:space-y-0 lg:gap-2">
               {getMonths().map((x) => (
                 <div
                   key={x.m}

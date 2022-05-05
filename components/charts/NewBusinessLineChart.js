@@ -65,35 +65,34 @@ const colors = [
   '#ec008c',
   '#ff9966',
   '#17a8c9',
-  '#fbf530'
+  '#fbf530',
 ]
-function createGradient(ctx, area, indx, fill=false, fixedIndx=1) {
-  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+function createGradient(ctx, area, indx, fill = false, fixedIndx = 1) {
+  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
 
-  if (fill){
-    gradient.addColorStop(0, colors[0]);
-    gradient.addColorStop(0.2, colors[0]);
-    gradient.addColorStop(0.5, colors[fixedIndx]);
-    gradient.addColorStop(0.8, colors[fixedIndx]);
-    gradient.addColorStop(1, colors[fixedIndx]);
-  }
-  else {
-    gradient.addColorStop(0, colors[indx+1]);
-    gradient.addColorStop(0.5, colors[indx+6]);
-    gradient.addColorStop(1, colors[indx+8]);
+  if (fill) {
+    gradient.addColorStop(0, colors[0])
+    gradient.addColorStop(0.2, colors[0])
+    gradient.addColorStop(0.5, colors[fixedIndx])
+    gradient.addColorStop(0.8, colors[fixedIndx])
+    gradient.addColorStop(1, colors[fixedIndx])
+  } else {
+    gradient.addColorStop(0, colors[indx + 1])
+    gradient.addColorStop(0.5, colors[indx + 6])
+    gradient.addColorStop(1, colors[indx + 8])
   }
 
-  return gradient;
+  return gradient
 }
 
 var multiply = {
-  beforeDatasetsDraw: function(chart, options, el) {
-    chart.ctx.globalCompositeOperation = 'multiply';
+  beforeDatasetsDraw: function (chart, options, el) {
+    chart.ctx.globalCompositeOperation = 'multiply'
   },
-  afterDatasetsDraw: function(chart, options) {
-    chart.ctx.globalCompositeOperation = 'source-over';
+  afterDatasetsDraw: function (chart, options) {
+    chart.ctx.globalCompositeOperation = 'source-over'
   },
-};
+}
 
 export default function NewBusinessLineChart({
   noPadding = false,
@@ -104,19 +103,19 @@ export default function NewBusinessLineChart({
   shadow = true,
   fullData = null,
   slice = false,
-  currentMonth = 0
+  currentMonth = 0,
 }) {
   const { isDark, type } = useTheme()
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState({
     datasets: [],
-  });
+  })
 
   useEffect(() => {
-    const chart = chartRef.current;
+    const chart = chartRef.current
 
     if (!chart) {
-      return;
+      return
     }
 
     const chartData = {
@@ -126,10 +125,10 @@ export default function NewBusinessLineChart({
         borderColor: createGradient(chart.ctx, chart.chartArea, indx),
         backgroundColor: createGradient(chart.ctx, chart.chartArea, indx, true),
       })),
-    };
+    }
 
-    setChartData(chartData);
-  }, [fullData]);
+    setChartData(chartData)
+  }, [fullData])
 
   const isVertical = () => {
     return vertical ? `flex-col` : `flex-row items-center`
@@ -148,13 +147,17 @@ export default function NewBusinessLineChart({
   const getDataset = () => {
     return [
       {
-        data: slice ? fullData?.totalPremByMonth.slice(0,currentMonth+1) : fullData?.totalPremByMonth,
-        label: 'Current Sales'
+        data: slice
+          ? fullData?.totalPremByMonth.slice(0, currentMonth + 1)
+          : fullData?.totalPremByMonth,
+        label: 'Current Sales',
       },
       {
-        data: slice ? fullData?.totalPremGoalByMonth.slice(0,currentMonth+1) : fullData?.totalPremGoalByMonth,
-        label: 'Sales Goal'
-      }
+        data: slice
+          ? fullData?.totalPremGoalByMonth.slice(0, currentMonth + 1)
+          : fullData?.totalPremGoalByMonth,
+        label: 'Sales Goal',
+      },
     ]
   }
 
@@ -172,10 +175,9 @@ export default function NewBusinessLineChart({
     'November',
     'December',
   ]
-  
 
   const data = {
-    labels: slice ? months.slice(0,currentMonth+1) : months,
+    labels: slice ? months.slice(0, currentMonth + 1) : months,
     datasets: [...getDataset()],
   }
 
@@ -184,17 +186,17 @@ export default function NewBusinessLineChart({
       legend: {
         display: true,
         labels: {
-          boxWidth:6,
-          boxHeight:6,
-          usePointStyle:true
-        }
+          boxWidth: 6,
+          boxHeight: 6,
+          usePointStyle: true,
+        },
       },
       title: {
-        display:true,
+        display: true,
         text: 'New Business Track',
         position: 'top',
-        align: 'start'
-      }
+        align: 'center',
+      },
     },
     elements: {
       line: {
@@ -211,7 +213,7 @@ export default function NewBusinessLineChart({
           '#ec008c',
           '#ff9966',
           '#17a8c9',
-          '#fbf530'
+          '#fbf530',
         ],
         fill: false,
         // backgroundColor: ['#1fb7f83b', '#7c1ff83b'],
@@ -220,11 +222,9 @@ export default function NewBusinessLineChart({
       },
       point: {
         radius: 4,
-        hitRadius: 5, 
+        hitRadius: 5,
         hoverRadius: 5,
-        backgroundColor: [
-          '#FF55B8'
-        ]
+        backgroundColor: ['#FF55B8'],
       },
     },
     scales: {
@@ -239,13 +239,29 @@ export default function NewBusinessLineChart({
     maintainAspectRatio: true,
   }
 
-  const baseClass = `relative z-20 flex items-center justify-center h-full ${noPadding ? `p-0` : `px-4 py-2`} ${
-    autoWidth ? `w-auto` : `w-full min-w-[240px]`
+  const baseClass = `relative z-20 flex items-center justify-center w-full ${
+    noPadding ? `p-0` : `px-4 py-2`
   } rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className={baseClass}>
-      <Line data={chartData} ref={chartRef} width={`100%`} height={22} plugins={[multiply]} options={options} />
+    <div className="flex h-full w-full">
+      <div className={`${baseClass} md:hidden lg:hidden`}>
+        <Line
+          data={chartData}
+          ref={chartRef}
+          plugins={[multiply]}
+          options={options}
+        />
+      </div>
+      <div className={`${baseClass} hidden md:flex`}>
+        <Line
+          data={chartData}
+          ref={chartRef}
+          height={80}
+          plugins={[multiply]}
+          options={options}
+        />
+      </div>
     </div>
   )
 }

@@ -203,7 +203,7 @@ export default function NewBusinessCurrentMonthBarChart({
         display: true,
         text: `${toMonthName(currentMonth)} ${year} New Business`,
         position: 'top',
-        align: 'start',
+        align: 'center',
       },
     },
     elements: {
@@ -253,8 +253,6 @@ export default function NewBusinessCurrentMonthBarChart({
   return (
     <div className={baseClass}>
       <Bar
-        width={`100%`}
-        height={40}
         options={options}
         data={chartData}
         ref={chartRef}

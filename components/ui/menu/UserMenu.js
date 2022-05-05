@@ -42,7 +42,7 @@ const UserMenu = () => {
                 size="xs"
                 onClick={() => signOut()}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center space-x-4">
                   <div>
                     <FiLogOut />
                   </div>

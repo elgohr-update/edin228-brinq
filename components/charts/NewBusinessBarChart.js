@@ -194,7 +194,7 @@ export default function NewBusinessBarChart({
         display: true,
         text: `${year} New Business Total`,
         position: 'top',
-        align: 'start',
+        align: 'center',
       },
     },
     elements: {
@@ -243,7 +243,7 @@ export default function NewBusinessBarChart({
 
   return (
     <div className={baseClass}>
-      <Bar width={`100%`} height={40} options={options} data={chartData} ref={chartRef} plugins={[multiply]} />
+      <Bar options={options} data={chartData} ref={chartRef} plugins={[multiply]} />
     </div>
   )
 }

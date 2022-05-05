@@ -232,11 +232,11 @@ const ActivityDrawer = () => {
       <div
         className={`fixed right-0 flex h-full w-full flex-col md:w-[500px] ${type}-shadow panel-theme-${type}`}
       >
-        <div className="flex h-full flex-1 flex-col gap-2 overflow-hidden py-4">
+        <div className="flex h-full flex-1 flex-col space-y-2 lg:gap-2 overflow-hidden py-4">
           <div className={`relative mb-2 flex w-full flex-col px-2`}>
-            <div className="relative flex w-full flex-col gap-2 md:flex-row md:justify-between md:pt-2">
+            <div className="relative flex w-full flex-col md:flex-row md:justify-between md:pt-2">
               <p>New Activity / Suspense</p>
-              <div className="flex items-center justify-end gap-2">
+              <div className="flex items-center justify-end space-x-2">
                 <Checkbox
                   color="primary"
                   checked={isActivity}
@@ -386,9 +386,9 @@ const ActivityDrawer = () => {
                     <div>
                       <PanelTitle title={`Attachments`} color="amber" />
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col space-y-2">
                       {sortedFiles().map((f) => (
-                        <div key={f.id} className="flex w-full flex-col gap-2">
+                        <div key={f.id} className="flex w-full flex-col space-y-2">
                           <div className="flex w-full items-center">
                             <h4 className="flex w-full">{f.data.name}</h4>
                             <div className="flex w-full items-center justify-end">

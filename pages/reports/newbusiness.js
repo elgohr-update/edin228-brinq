@@ -329,7 +329,7 @@ export default function ReportsNewBusiness() {
     return sumFromArrayOfObjects(tableData, 'premium')
   }
   return (
-    <main className="relative flex w-full flex-col">
+    <main className="relative flex w-full flex-col overflow-hidden">
       <PageHeader>
         <PageTitle icon={<BsStars />} text="New Business" />
         <div>
@@ -338,7 +338,7 @@ export default function ReportsNewBusiness() {
       </PageHeader>
       <div className="flex w-full flex-col">
         <div className="flex w-full flex-col lg:flex-row">
-          <div className="mb-2 flex w-full h-full items-center lg:justify-center space-x-4 overflow-x-auto px-4 pb-6 pt-4 md:mb-0 md:overflow-hidden">
+          <div className="flex h-full w-full items-center space-x-4 overflow-x-auto px-4 pb-6 pt-4 mb-4 lg:mb-0 lg:justify-center lg:overflow-hidden">
             <SummaryCard
               val={premSum()}
               color="teal"
@@ -361,7 +361,7 @@ export default function ReportsNewBusiness() {
               vertical={false}
             />
           </div>
-          <div className="flex gap-2 md:items-center justify-end pr-4">
+          <div className="flex justify-center space-x-2 mb-4 lg:mb-0 lg:pr-4 lg:items-center lg:justify-end">
             <div className="flex flex-col">
               <div>
                 <PanelTitle title={`New Business Month`} color="pink" />
@@ -398,17 +398,17 @@ export default function ReportsNewBusiness() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row">
-          <div className="flex flex-col md:items-center md:justify-evenly lg:flex-row">
-            <div className="flex flex-col">
+        <div className="flex flex-col overflow-hidden lg:flex-row">
+          <div className="flex flex-col w-auto lg:pl-4 lg:flex-row lg:justify-evenly">
+            <div className="flex flex-col mb-4 lg:mb-0">
               <div className="pl-4">
                 <PanelTitle
                   title={`${toMonthName(dataMonth)} ${dataYear} New Business`}
                   color="indigo"
                 />
               </div>
-              <div className="flex w-full flex-col md:flex-row">
-                <div className="flex h-full flex-row lg:flex-col items-center gap-4 overflow-x-auto p-4 pt-2 pl-2">
+              <div className="flex w-full flex-col overflow-hidden lg:flex-row">
+                <div className="flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 pr-2 lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4">
                   {chartData?.users.map((p) => (
                     <ChartSummaryCard
                       key={p.id}
@@ -427,13 +427,13 @@ export default function ReportsNewBusiness() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mb-4 lg:mb-0">
               <div className="pl-4">
                 <PanelTitle title={`Year to Date`} color="orange" />
               </div>
-              <div className="flex w-full flex-col md:flex-row">
+              <div className="flex w-full flex-col overflow-hidden lg:flex-row">
                 <div
-                  className={`flex h-full flex-row lg:flex-col items-center gap-4 overflow-x-auto p-4 pt-2 pl-2`}
+                  className={`flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 pl-2 lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4`}
                 >
                   {chartData?.users.map((p) => (
                     <ChartSummaryCard
@@ -454,31 +454,33 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="flex w-full flex-col gap-4 py-4 pr-4 md:w-full lg:w-9/12">
+          <div className="flex w-full flex-col space-y-4 py-4 px-4 lg:max-w-9/12 lg:pl-0 lg:pr-4">
             {chartData ? (
-              <div className="flex w-full flex-col gap-4 md:flex-row">
-                <div className="flex w-full md:w-1/2">
+              <div className="flex w-full flex-col space-y-4 lg:space-y-0 lg:space-x-4 lg:flex-row">
+                <div className="flex w-full lg:w-1/2">
                   <NewBusinessCurrentMonthBarChart
                     currentMonth={dataMonth}
                     year={dataYear}
                     fullData={chartData}
                   />
                 </div>
-                <div className={`flex w-full md:w-1/2`}>
+                <div className={`flex w-full lg:w-1/2`}>
                   <NewBusinessBarChart fullData={chartData} year={dataYear} />
                 </div>
               </div>
             ) : null}
             {chartData ? (
-              <NewBusinessLineChart
-                currentMonth={dataMonth}
-                slice
-                fullData={chartData}
-              />
+              <div className={`flex w-full h-full`}>
+                <NewBusinessLineChart
+                  currentMonth={dataMonth}
+                  slice
+                  fullData={chartData}
+                />
+              </div>
             ) : null}
           </div>
         </div>
-        <div className="px-4 pb-4">
+        <div className="flex overflow-hidden px-4 pb-4">
           <div
             className={`h-full w-full rounded-lg ${type}-shadow panel-theme-${type}`}
           >
