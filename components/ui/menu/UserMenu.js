@@ -11,6 +11,7 @@ import { RiFileUserFill } from 'react-icons/ri'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
 import UserAvatar from '../../user/Avatar'
 import LinkedMenuItem from './item/LinkedMenuItem'
+import { useSession, signIn, signOut, getProviders } from 'next-auth/react'
 
 const UserMenu = () => {
   const { setTheme } = useNextTheme()
@@ -44,14 +45,23 @@ const UserMenu = () => {
                 label="Settings"
               />
             </div>
-            <div className={`panel-flat-${type} rounded-b-lg p-1`}>
-              <LinkedMenuItem
-                href="/user/signout"
-                icon={<FiLogOut />}
-                label="Sign Out"
-                isColor
+            <div
+              className={`panel-flat-${type} flex w-full items-center justify-center rounded-b-lg p-1`}
+            >
+              <Button
+                auto
                 color="error"
-              />
+                light
+                size="xs"
+                onClick={() => signOut()}
+              >
+                <div className="flex items-center gap-4">
+                  <div>
+                    <FiLogOut />
+                  </div>
+                  <div>Sign Out</div>
+                </div>
+              </Button>
             </div>
           </div>
         </Popover.Content>
