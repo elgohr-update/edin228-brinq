@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import WebLayout from '../layouts/WebLayout'
 
-export default function Home() {
+export default function About() {
   return (
     <main className="flex h-full w-full">
       <div className="flex h-1/2 w-full flex-col items-center justify-center">
@@ -22,6 +22,6 @@ export default function Home() {
   )
 }
 
-Home.getLayout = function getLayout(page) {
+About.getLayout = function getLayout(page) {
   return <WebLayout>{page}</WebLayout>
 }
