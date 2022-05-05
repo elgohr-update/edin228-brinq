@@ -20,7 +20,7 @@ export default function SidebarDropdown({ children, icon, label, basePath, isOpe
   return (
     <div className="flex flex-col">
       <div
-        className={`flex cursor-pointer w-full items-center px-2 py-2 text-sm transition duration-75 ease-out hover:text-sky-500 ${isActive(
+        className={`flex cursor-pointer w-full items-center py-1 px-2 text-sm transition duration-75 ease-out hover:text-sky-500 ${isActive(
           basePath
         )} ${isActiveIcon(basePath)}`}
         onClick={() => setShow(!show)}

@@ -13,6 +13,8 @@ import {
   AiOutlineRight,
   AiOutlineUp,
   AiOutlineCalendar,
+  AiOutlineStar,
+  AiOutlineDelete
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -64,6 +66,10 @@ export const getConstantIcons = (item) => {
     <HiOutlineOfficeBuilding />
   ) : item == 'edit' ? (
     <AiOutlineEdit />
+  ) : item == 'trash' ? (
+    <AiOutlineDelete />
+  ) : item == 'star' ? (
+    <AiOutlineStar />
   ) : null
 }
 

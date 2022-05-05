@@ -42,8 +42,8 @@ export default function ClientTableCell({
   return (
     <div className="px-2 text-xs">
       <div className={checkTheme()} onClick={() => openSidebar()}>
-        <Link href={`/client/${clientId}`}>
-          <a className="transition duration-100 ease-in-out hover:text-sky-500">
+        <Link href={`/clients/${clientId}`}>
+          <a className="transition duration-100 ease-in-out">
             {cellValue}
           </a>
         </Link>

@@ -20,7 +20,7 @@ export default function SidebarItem({ href, isOpen, icon, label, basePath = href
     <div>
       <Link href={href}>
         <a
-          className={`flex w-full items-center px-2  text-sm transition duration-75 ease-out hover:text-sky-500 ${isActive(
+          className={`flex w-full items-center py-1 px-2 text-sm transition duration-75 ease-out hover:text-sky-500 ${isActive(
             href
           )} ${isActiveIcon(href)}`}
         >
