@@ -13,16 +13,14 @@ import React, { useEffect, useState } from 'react'
 import { FaFilter, FaSearch } from 'react-icons/fa'
 import { formatMoney, getSearch } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
-import Link from 'next/link'
-import { useAppContext, useClientDrawerContext } from '../../context/state'
+import { useAppContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
-import TagContainer from '../ui/tag/TagContainer'
+import ClientTableCell from './ClientTableCell'
 
 const ClientsTable = () => {
   const { type } = useTheme()
   const [search, setSearch] = useState('')
   const { state, setState } = useAppContext()
-  const { clientDrawer, setClientDrawer } = useClientDrawerContext()
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
@@ -126,10 +124,6 @@ const ClientsTable = () => {
     },
   ]
 
-  const openSidebar = (client) => {
-    setClientDrawer({...clientDrawer,nav:1,isOpen:true,clientId:client.id})
-  }
-
   const renderCell = (client, columnKey) => {
     const cellValue = client[columnKey]
     switch (columnKey) {
@@ -142,23 +136,7 @@ const ClientsTable = () => {
           </div>
         )
       case 'client_name':
-        const checkTheme = () => {
-          return type === 'dark'
-            ? `h-full w-full hover:bg-gray-600/10 p-4 rounded  transition duration-100 ease-out`
-            : `h-full w-full hover:bg-gray-500/10 p-4 rounded  transition duration-100 ease-out`
-        }
-        return (
-          <div className="px-2 text-xs">
-            <div className={checkTheme()} onClick={() => openSidebar(client)}>
-              <Link href={`/client/${client.id}`}>
-                <a className="transition duration-100 ease-in-out hover:text-sky-500">
-                  {cellValue}
-                </a>
-              </Link>
-              <TagContainer tags={client?.tags} />
-            </div>
-          </div>
-        )
+        return <ClientTableCell cellValue={cellValue} clientId={client.id} tags={client.tags} type={type}/>
       case 'policy_count':
         return (
           <div className="flex justify-center text-xs">

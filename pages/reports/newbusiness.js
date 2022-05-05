@@ -337,29 +337,31 @@ export default function ReportsNewBusiness() {
         </div>
       </PageHeader>
       <div className="flex w-full flex-col">
-        <div className="mb-2 flex h-full items-center justify-center space-x-4 overflow-x-auto px-4 pb-6 pt-4 md:mb-0 md:overflow-hidden">
-          <SummaryCard
-            val={premSum()}
-            color="teal"
-            gradientColor="green-to-blue-2"
-            panel
-            shadow
-            icon={<AiFillDollarCircle />}
-            title={`New Business Premium ${dataYear} Total`}
-            money
-            vertical={false}
-          />
-          <SummaryCard
-            val={tableData?.length}
-            color="fuchsia"
-            gradientColor="pink-to-blue"
-            panel
-            shadow
-            title="Policies"
-            icon={<BsBox />}
-            vertical={false}
-          />
-          <div className="flex items-center gap-2">
+        <div className="flex w-full flex-col lg:flex-row">
+          <div className="mb-2 flex w-full h-full items-center lg:justify-center space-x-4 overflow-x-auto px-4 pb-6 pt-4 md:mb-0 md:overflow-hidden">
+            <SummaryCard
+              val={premSum()}
+              color="teal"
+              gradientColor="green-to-blue-2"
+              panel
+              shadow
+              icon={<AiFillDollarCircle />}
+              title={`New Business Premium`}
+              money
+              vertical={false}
+            />
+            <SummaryCard
+              val={tableData?.length}
+              color="fuchsia"
+              gradientColor="pink-to-blue"
+              panel
+              shadow
+              title="Policies"
+              icon={<BsBox />}
+              vertical={false}
+            />
+          </div>
+          <div className="flex gap-2 md:items-center justify-end pr-4">
             <div className="flex flex-col">
               <div>
                 <PanelTitle title={`New Business Month`} color="pink" />
@@ -396,14 +398,17 @@ export default function ReportsNewBusiness() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row">
-          <div className="flex md:items-center md:justify-evenly">
+        <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col md:items-center md:justify-evenly lg:flex-row">
             <div className="flex flex-col">
               <div className="pl-4">
-                <PanelTitle title={`${toMonthName(dataMonth)} ${dataYear} New Business`} color="indigo" />
+                <PanelTitle
+                  title={`${toMonthName(dataMonth)} ${dataYear} New Business`}
+                  color="indigo"
+                />
               </div>
-              <div className="flex w-full flex-col items-center md:flex-row">
-                <div className="flex h-full flex-col items-center space-y-4 overflow-x-auto p-4 pt-2 pr-2 md:mb-0 md:overflow-hidden">
+              <div className="flex w-full flex-col md:flex-row">
+                <div className="flex h-full flex-row lg:flex-col items-center gap-4 overflow-x-auto p-4 pt-2 pl-2">
                   {chartData?.users.map((p) => (
                     <ChartSummaryCard
                       key={p.id}
@@ -423,12 +428,12 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
             <div className="flex flex-col">
-              <div >
+              <div className="pl-4">
                 <PanelTitle title={`Year to Date`} color="orange" />
               </div>
               <div className="flex w-full flex-col md:flex-row">
                 <div
-                  className={`flex h-full flex-col items-center space-y-4 overflow-x-auto p-4 pt-2 pl-2 md:mb-0 md:overflow-hidden`}
+                  className={`flex h-full flex-row lg:flex-col items-center gap-4 overflow-x-auto p-4 pt-2 pl-2`}
                 >
                   {chartData?.users.map((p) => (
                     <ChartSummaryCard
@@ -449,19 +454,17 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="flex w-full flex-col gap-4 py-4 pr-4 md:w-9/12">
+          <div className="flex w-full flex-col gap-4 py-4 pr-4 md:w-full lg:w-9/12">
             {chartData ? (
               <div className="flex w-full flex-col gap-4 md:flex-row">
                 <div className="flex w-full md:w-1/2">
-                    <NewBusinessCurrentMonthBarChart
-                      currentMonth={dataMonth}
-                      year={dataYear}
-                      fullData={chartData}
-                    />
-                  </div>
-                <div
-                  className={`flex w-full md:w-1/2`}
-                >
+                  <NewBusinessCurrentMonthBarChart
+                    currentMonth={dataMonth}
+                    year={dataYear}
+                    fullData={chartData}
+                  />
+                </div>
+                <div className={`flex w-full md:w-1/2`}>
                   <NewBusinessBarChart fullData={chartData} year={dataYear} />
                 </div>
               </div>

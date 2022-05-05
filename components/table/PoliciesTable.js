@@ -18,16 +18,14 @@ import {
   getFormattedDate,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
-import Link from 'next/link'
-import { useAppContext, useClientDrawerContext } from '../../context/state'
+import { useAppContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
-import TagContainer from '../ui/tag/TagContainer'
+import ClientTableCell from './ClientTableCell'
 
 const PoliciesTable = () => {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
-  const { clientDrawer, setClientDrawer } = useClientDrawerContext()
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
@@ -136,10 +134,6 @@ const PoliciesTable = () => {
     },
   ]
 
-  const openSidebar = (client) => {
-    setClientDrawer({...clientDrawer,nav:1,isOpen:true,clientId:client})
-  }
-
   const renderCell = (policy, columnKey) => {
     const cellValue = policy[columnKey]
     switch (columnKey) {
@@ -152,26 +146,7 @@ const PoliciesTable = () => {
           </div>
         )
       case 'client_name':
-        const checkTheme = () => {
-          return type === 'dark'
-            ? `h-full w-full hover:bg-gray-600/10 p-4 rounded  transition duration-100 ease-out`
-            : `h-full w-full hover:bg-gray-500/10 p-4 rounded  transition duration-100 ease-out`
-        }
-        return (
-          <div className="px-2 text-xs">
-            <div
-              className={checkTheme()}
-              onClick={() => openSidebar(policy.client_id)}
-            >
-              <Link href={`/clients/${policy.client_id}`}>
-                <a className="transition duration-100 ease-in-out hover:text-sky-500">
-                  {cellValue}
-                </a>
-              </Link>
-              <TagContainer tags={policy?.client?.tags} />
-            </div>
-          </div>
-        )
+          return <ClientTableCell cellValue={cellValue} clientId={policy.client.id} tags={policy.client.tags} type={type}/>
       case 'policy_number':
         return (
           <div className={`relative flex flex-col`}>

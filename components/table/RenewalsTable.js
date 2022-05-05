@@ -21,6 +21,7 @@ import Link from 'next/link'
 import { useAppContext, useClientDrawerContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import TagContainer from '../ui/tag/TagContainer'
+import ClientTableCell from './ClientTableCell'
 
 export default function RenewalsTable(data) {
   const router = useRouter()
@@ -101,7 +102,14 @@ export default function RenewalsTable(data) {
   ]
 
   const openSidebar = (client) => {
-    setClientDrawer({ ...clientDrawer, nav: 1, isOpen: true, clientId: client.id, renewalMonth: month, renewalYear: year })
+    setClientDrawer({
+      ...clientDrawer,
+      nav: 1,
+      isOpen: true,
+      clientId: client.id,
+      renewalMonth: month,
+      renewalYear: year,
+    })
   }
 
   const renderCell = (client, columnKey) => {
@@ -116,25 +124,16 @@ export default function RenewalsTable(data) {
           </div>
         )
       case 'client_name':
-        const checkTheme = () => {
-          return type === 'dark'
-            ? `h-full w-full hover:bg-gray-600/10 p-4 rounded  transition duration-100 ease-out`
-            : `h-full w-full hover:bg-gray-500/10 p-4 rounded  transition duration-100 ease-out`
-        }
         return (
-          <div className="px-2 text-xs">
-            <div
-              className={checkTheme()}
-              onClick={() => openSidebar(client, true)}
-            >
-              <Link href={`/clients/${client.id}`}>
-                <a className="transition duration-100 ease-in-out hover:text-sky-500">
-                  {cellValue}
-                </a>
-              </Link>
-              <TagContainer tags={client?.tags} />
-            </div>
-          </div>
+          <ClientTableCell
+            cellValue={cellValue}
+            clientId={client.id}
+            tags={client.tags}
+            type={type}
+            isRnwl={true}
+            month={month}
+            year={year}
+          />
         )
       case 'policy_count':
         return (

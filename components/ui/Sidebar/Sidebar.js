@@ -1,6 +1,6 @@
 import { Image, Switch, useTheme } from '@nextui-org/react'
 import React, { useState } from 'react'
-import { AiOutlineHome, AiOutlineCalendar } from 'react-icons/ai'
+import { AiOutlineHome,AiOutlineAlignLeft, AiOutlineCalendar } from 'react-icons/ai'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { BsFillMoonFill, BsFillSunFill, BsBox, BsStars } from 'react-icons/bs'
 import { BiBook } from 'react-icons/bi'
@@ -83,7 +83,7 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
-          <div className={`flex flex-col px-2 py-2`}>
+          <div className={`flex flex-col px-2 py-2 gap-4`}>
             <SidebarItem
               href={'/dashboard'}
               isOpen={isExpand()}

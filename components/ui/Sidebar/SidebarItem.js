@@ -6,13 +6,13 @@ export default function SidebarItem({ href, isOpen, icon, label, basePath = href
   const router = useRouter()
   const isActive = () => {
     if (router.pathname.includes(basePath)) {
-      return 'active-path-secondary'
+      return 'active-path'
     }
     return ''
   }
   const isActiveIcon = () => {
     if (router.pathname.includes(basePath)) {
-      return 'active-icon-secondary'
+      return 'active-icon'
     }
     return ''
   }

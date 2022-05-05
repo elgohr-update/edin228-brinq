@@ -48,7 +48,7 @@ const NewActionMenu = () => {
               label="New Activity/Suspense"
               onClick={() => openNewActivity()}
             />
-            <ActionMenuItem
+            {/* <ActionMenuItem
               icon={<BiCalendarPlus />}
               label="New Calendar Event"
             />
@@ -63,7 +63,7 @@ const NewActionMenu = () => {
             <ActionMenuItem
               icon={<BsClipboardPlus />}
               label="New Deal"
-            />
+            /> */}
           </div>
         </Popover.Content>
       </Popover>
