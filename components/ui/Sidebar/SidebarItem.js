@@ -1,33 +1,34 @@
+import { useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export default function SidebarItem({ href, isOpen, icon, label, basePath = href, isMobile=false }) {
+export default function SidebarItem({ href, isOpen, icon, label, basePath = href, isMobile=false, mainMenuItem=true }) {
   const router = useRouter()
-  const isActive = () => {
+  
+  
+  const isActiveIcon = () => {
     if (router.pathname.includes(basePath)) {
-      return 'active-path'
+      return 'active-icon-glow'
     }
     return ''
   }
-  const isActiveIcon = () => {
+  const isActiveText = () => {
     if (router.pathname.includes(basePath)) {
       return 'active-icon'
     }
     return ''
   }
   return (
-    <div>
+    <div className="sidebar-item relative">
       <Link href={href}>
         <a
-          className={`flex w-full items-center py-1 px-2 text-sm transition duration-75 ease-out hover:text-sky-500 ${isActive(
-            href
-          )} ${isActiveIcon(href)}`}
+          className={`flex w-full items-center rounded-lg py-1 px-2 text-xs hover:text-sky-500`}
         >
-          <div className={`flex h-[30px] w-[30px] text-xs items-center justify-center`}>
+          <div className={`${isActiveIcon()} flex h-[30px] w-[30px] text-xs items-center justify-center`}>
             {icon}
           </div>
-          <div className={`flex w-full items-center ${isMobile ? 'relative uppercase sidebar-text-size tracking-widest font-bold' : `sidebar-text-${isOpen}` } `}>
+          <div className={`flex w-full items-center ${isActiveText()} ${isMobile ? 'relative uppercase sidebar-text-size tracking-widest font-bold' : `sidebar-text-${isOpen}` } `}>
             {label}
           </div>
         </a>

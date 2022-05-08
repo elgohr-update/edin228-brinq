@@ -10,6 +10,8 @@ import { IoMdListBox } from 'react-icons/io'
 import { CgFileDocument, CgToolbox } from 'react-icons/cg'
 import SidebarItem from './SidebarItem'
 import SidebarDropdown from './SidebarDropdown'
+import SearchBar from '../../search/SearchBar'
+import SidebarSearchbar from '../../search/SidebarSearchbar'
 
 export default function SidebarItemContainer({ expand, isMobile=false }) {
   const { setTheme } = useNextTheme()
@@ -34,7 +36,7 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
 
   return (
     <>
-      <div className="flex w-full flex-col overflow-hidden">
+      <div className="flex w-full flex-col overflow-hidden h-full">
         <div
           className={`flex h-10 items-center justify-center py-8 ${
             expand ? `panel-theme-${type}` : ``
@@ -71,8 +73,11 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
             </div>
           </div>
         </div>
-        <div className="flex flex-col overflow-hidden">
-          <div className={`flex flex-col space-y-4 overflow-y-auto overflow-x-hidden px-2 py-4`}>
+        <div className="flex flex-col h-full overflow-hidden">
+          <div className={`flex flex-col h-full space-y-2  overflow-x-hidden px-2 py-4`}>
+            <div className={`border-b ${isDark ? 'border-white/40': 'border-black/40'} pb-6`}>
+              <SidebarSearchbar expand={expand} />
+            </div>
             <SidebarItem
               href={'/dashboard'}
               isOpen={isExpand()}
@@ -113,6 +118,7 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
                 label={'Clients'}
                 basePath="/clients"
                 isMobile={isMobile}
+                mainMenuItem={false}
               />
               <SidebarItem
                 href={`/reports/policies`}
@@ -121,6 +127,7 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
                 label={'Policies'}
                 basePath="/policies"
                 isMobile={isMobile}
+                mainMenuItem={false}
               />
               <SidebarItem
                 href={`/reports/newbusiness`}
@@ -129,6 +136,7 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
                 label={'New Business'}
                 basePath="/newbusiness"
                 isMobile={isMobile}
+                mainMenuItem={false}
               />
             </SidebarDropdown>
             <SidebarDropdown
@@ -145,6 +153,7 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
                 icon={<CgFileDocument />}
                 label={'Proposals'}
                 isMobile={isMobile}
+                mainMenuItem={false}
               />
               <SidebarItem
                 href={'/tools/costcomparison'}
@@ -152,11 +161,12 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
                 icon={<CgToolbox />}
                 label={'Cost Comparison'}
                 isMobile={isMobile}
+                mainMenuItem={false}
               />
             </SidebarDropdown>
             {session?.user?.admin ? (
               <div>
-                <div className="mt-6 mb-4 border-t opacity-30" />
+                <div className={`mt-6 mb-4 border-t ${isDark ? 'border-white/40': 'border-black/40'}`} />
                 <SidebarItem
                   href={'/admin'}
                   isOpen={isExpand()}

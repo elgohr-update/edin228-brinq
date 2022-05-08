@@ -70,7 +70,8 @@ const colors = [
   '#fbf530',
 ]
 function createGradient(ctx, area, indx) {
-  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
+  // const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
+  const gradient = ctx.createLinearGradient(area.left,0,area.right,0)
   gradient.addColorStop(0, colors[indx + 10])
   gradient.addColorStop(0.5, colors[indx + 1])
   gradient.addColorStop(1, colors[indx + 6])
@@ -206,6 +207,7 @@ export default function NewBusinessCurrentMonthBarChart({
         align: 'center',
       },
     },
+    indexAxis: 'y',
     elements: {
       bar: {
         barPercentage: 0.3,
@@ -217,7 +219,7 @@ export default function NewBusinessCurrentMonthBarChart({
           bottomRight: 100,
           bottomLeft: 0,
         },
-        barThickness: 10,
+        barThickness: 1,
       },
       point: {
         radius: 0,

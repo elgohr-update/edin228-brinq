@@ -14,7 +14,7 @@ import PanelTitle from '../title/PanelTitle'
 import SelectInput from '../select/SelectInput'
 import DrawerLoader from '../loaders/DrawerLoader'
 import FileUploaderContainer from '../../files/FileUploaderContainer'
-import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineClose } from 'react-icons/ai'
 
 const ActivityDrawer = () => {
   const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
@@ -232,7 +232,7 @@ const ActivityDrawer = () => {
       <div
         className={`fixed right-0 flex h-full w-full flex-col md:w-[500px] ${type}-shadow panel-theme-${type}`}
       >
-        <div className="flex h-full flex-1 flex-col space-y-2 lg:gap-2 overflow-hidden py-4">
+        <div className="flex h-full flex-1 flex-col space-y-2 overflow-hidden py-4 lg:gap-2">
           <div className={`relative mb-2 flex w-full flex-col px-2`}>
             <div className="relative flex w-full flex-col md:flex-row md:justify-between md:pt-2">
               <p>New Activity / Suspense</p>
@@ -259,7 +259,9 @@ const ActivityDrawer = () => {
               className="absolute top-0 right-5 flex md:hidden"
               onClick={() => closeDrawer()}
             >
-              <div className="text-color-error"><AiOutlineClose /></div>
+              <div className="text-color-error">
+                <AiOutlineClose />
+              </div>
             </div>
             <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
           </div>
@@ -360,12 +362,16 @@ const ActivityDrawer = () => {
                     <div>
                       <PanelTitle title={`Activity Description`} color="pink" />
                     </div>
-                    <Textarea
-                      bordered
-                      placeholder="Write your activity here"
-                      minRows={5}
-                      onChange={(e) => setActivityDescription(e.target.value)}
-                    />
+                    <div
+                      className={`flex w-full rounded-lg panel-flatter-${type}`}
+                    >
+                      <Textarea
+                        fullWidth
+                        placeholder="Write your activity here"
+                        minRows={5}
+                        onChange={(e) => setActivityDescription(e.target.value)}
+                      />
+                    </div>
                   </div>
                 ) : null}
                 {client && isSuspense && drawerTab == 2 ? (
@@ -373,12 +379,16 @@ const ActivityDrawer = () => {
                     <div>
                       <PanelTitle title={`Suspense Description`} color="pink" />
                     </div>
-                    <Textarea
-                      bordered
-                      placeholder="Write your suspense here"
-                      minRows={5}
-                      onChange={(e) => setSuspenseDescription(e.target.value)}
-                    />
+                    <div
+                      className={`flex w-full rounded-lg panel-flatter-${type}`}
+                    >
+                      <Textarea
+                        fullWidth
+                        placeholder="Write your suspense here"
+                        minRows={5}
+                        onChange={(e) => setSuspenseDescription(e.target.value)}
+                      />
+                    </div>
                   </div>
                 ) : null}
                 {client && drawerTab == 1 ? (
@@ -388,7 +398,10 @@ const ActivityDrawer = () => {
                     </div>
                     <div className="flex flex-col space-y-2">
                       {sortedFiles().map((f) => (
-                        <div key={f.id} className="flex w-full flex-col space-y-2">
+                        <div
+                          key={f.id}
+                          className="flex w-full flex-col space-y-2"
+                        >
                           <div className="flex w-full items-center">
                             <h4 className="flex w-full">{f.data.name}</h4>
                             <div className="flex w-full items-center justify-end">
@@ -408,7 +421,6 @@ const ActivityDrawer = () => {
                           </div>
                           <div className="flex w-full flex-col">
                             <Textarea
-                              underlined
                               value={f.description}
                               placeholder="Attachment Description"
                               minRows={1}

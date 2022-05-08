@@ -9,6 +9,7 @@ import ClientInfo from '../../components/client/ClientInfo'
 import {
   useActivityDrawerContext,
   useAppContext,
+  useAppHeaderContext,
   useReloadContext,
 } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
@@ -34,6 +35,7 @@ export default function Client({ data }) {
   const { state, setState } = useAppContext()
   const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
   const { reload, setReload } = useReloadContext()
+  const {appHeader, setAppHeader} = useAppHeaderContext();
   const [showActive, setShowActive] = useState(true)
   const [client, setClient] = useState(data)
   const [policies, setPolicies] = useState(data?.policies)
@@ -73,6 +75,10 @@ export default function Client({ data }) {
       }
     }
   }, [reload])
+
+  useEffect( () => {
+    setAppHeader({...appHeader,titleContent:<ClientHeader client={client} />})
+  },[])
 
   const fetchClient = async () => {
     const clientId = router.query.cid
@@ -115,7 +121,6 @@ export default function Client({ data }) {
           <div
             className={`relative flex w-full flex-col space-y-2 py-4 px-4 lg:w-[400px] lg:py-0 lg:pb-8`}
           >
-            <ClientHeader client={client} />
             <ClientInfo
               flat={true}
               shadow={true}

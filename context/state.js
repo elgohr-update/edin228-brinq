@@ -153,3 +153,19 @@ export function useActivityDrawerContext() {
   return useContext(ActivityDrawerContext)
 }
 
+const AppHeaderContext = createContext()
+
+export function AppHeaderWrapper({ children }) {
+  const [appHeader, setAppHeader] = useState({
+    titleContent:'',
+  })
+  return (
+    <AppHeaderContext.Provider value={{ appHeader, setAppHeader }}>
+      {children}
+    </AppHeaderContext.Provider>
+  )
+}
+
+export function useAppHeaderContext() {
+  return useContext(AppHeaderContext)
+}

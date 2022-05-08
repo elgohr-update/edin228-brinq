@@ -1,4 +1,4 @@
-import { Avatar, Tooltip, useTheme } from '@nextui-org/react'
+import { Avatar, Tooltip, User, useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import React from 'react'
 import { useSession } from 'next-auth/react'
@@ -12,15 +12,36 @@ const UserAvatar = ({
   isUser = false,
   passUser = {},
   isGrouped = false,
+  userWithName = false,
+  userSubContent = null,
+  userTitle = true,
 }) => {
   const { type } = useTheme()
   const { data: session } = useSession()
-  
+
   const user = isUser ? passUser : session?.user
+
+  const getPosition = () => {
+    return user?.owner
+      ? 'Owner'
+      : user?.producer
+      ? 'Producer'
+      : user?.account_manager
+      ? 'Account Manager'
+      : user?.support
+      ? 'Support'
+      : 'Admin'
+  }
 
   return (
     <div className="relative z-40 flex h-full w-full cursor-pointer">
-      {tooltip && isLink ? (
+      {userWithName ? (
+        <User
+          src={user?.image_file}
+          name={user?.name}
+          description={userTitle ? getPosition() : null}
+        />
+      ) : tooltip && isLink ? (
         <Link href={`/user/${user?.id}`}>
           <a>
             <Tooltip content={user?.name} placement={tooltipPlacement}>

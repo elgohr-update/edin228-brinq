@@ -1,6 +1,6 @@
 import { useTheme } from '@nextui-org/react'
-import React from 'react'
-import { useAppContext } from '../../context/state'
+import React, { useEffect } from 'react'
+import { useAppContext, useAppHeaderContext } from '../../context/state'
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import AdminLayout from '../../layouts/AdminLayout'
 import PageHeader from '../../components/ui/pageheaders/PageHeader'
@@ -14,16 +14,25 @@ import DealsSalesSettings from '../../components/admin/deals/DealsSalesSettings'
 export default function Admin() {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
+  const { appHeader, setAppHeader } = useAppHeaderContext()
+
+  useEffect(() => {
+    setAppHeader({
+      ...appHeader,
+      titleContent: (
+        <PageTitle icon={<MdOutlineAdminPanelSettings />} text="Admin" />
+      ),
+    })
+  }, [])
 
   return (
-    <main className="flex flex-col w-full">
+    <main className="flex w-full flex-col">
       <PageHeader>
-        <PageTitle icon={<MdOutlineAdminPanelSettings />} text="Admin" />
-        <div className={`ml-4 w-max panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}>
+        <div className={`w-max rounded-lg py-1`}>
           <AdminNavbar />
         </div>
       </PageHeader>
-      
+
       <div className="flex flex-col pl-4">
         <div className="flex">
           {state.admin.navBar == 1 ? (

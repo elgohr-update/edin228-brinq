@@ -18,6 +18,7 @@ import SummaryCard from '../../../components/ui/card/SummaryCard'
 import { RiFolderUserFill } from 'react-icons/ri'
 import PageHeader from '../../../components/ui/pageheaders/PageHeader'
 import PageTitle from '../../../components/ui/pageheaders/PageTitle'
+import { useAppHeaderContext } from '../../../context/state'
 
 export default function Renewals({ data }) {
   const router = useRouter()
@@ -26,7 +27,20 @@ export default function Renewals({ data }) {
   const monthName = date.toLocaleString('default', { month: 'long' })
   const { isDark, type } = useTheme()
   const [tableData, setTableData] = useState(data)
+  const { appHeader, setAppHeader } = useAppHeaderContext()
 
+  useEffect(() => {
+    setAppHeader({
+      ...appHeader,
+      titleContent: (
+        <PageTitle
+          icon={<BsFillCalendar3WeekFill />}
+          text={`${monthName} ${year} Renewals`}
+        />
+      ),
+    })
+  }, [])
+  
   useEffect(() => {
     setTableData(data)
   }, [data])
@@ -73,21 +87,26 @@ export default function Renewals({ data }) {
 
   return (
     <main className="flex min-h-0 w-full flex-col">
-      <PageHeader isBetween={false}>
-        <PageTitle icon={<BsFillCalendar3WeekFill />} text={`${monthName} ${year} Renewals`} />
-        <div>
-          <Button.Group color="primary" auto size="xs" flat>
-            <Button
-              onClick={() => goToMonth('prev')}
-              icon={<AiFillCaretLeft fill="currentColor" />}
-            />
-            <Button
-              onClick={() => goToMonth('next')}
-              icon={<AiFillCaretRight fill="currentColor" />}
-            />
-          </Button.Group>
-        </div>
-      </PageHeader>
+      <div className="pl-2">
+        <Button.Group color="primary" auto size="xs" flat>
+          <Button onClick={() => goToMonth('prev')}>
+            <div className="flex items-center space-x-2">
+              <div>
+                <AiFillCaretLeft fill="currentColor" />
+              </div>
+              <div>Previous Month</div>
+            </div>
+          </Button>
+          <Button onClick={() => goToMonth('next')}>
+            <div className="flex items-center space-x-2">
+              <div>Next Month</div>
+              <div>
+                <AiFillCaretRight fill="currentColor" />
+              </div>
+            </div>
+          </Button>
+        </Button.Group>
+      </div>
       <div className="flex w-full flex-col">
         <div className="mb-2 flex min-h-0 items-center space-x-4 overflow-x-auto px-4 py-2 md:justify-center md:overflow-hidden">
           <SummaryCard

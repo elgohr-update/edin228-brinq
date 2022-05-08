@@ -70,7 +70,8 @@ const colors = [
   '#fbf530',
 ]
 function createGradient(ctx, area, indx) {
-  const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
+  // const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
+  const gradient = ctx.createLinearGradient(area.left,0,area.right,0)
 
   gradient.addColorStop(0, colors[indx+0])
   gradient.addColorStop(0.5, colors[indx+11])
@@ -182,6 +183,7 @@ export default function NewBusinessBarChart({
   }
 
   const options = {
+    indexAxis: 'y',
     plugins: {
       legend: {
         display: false,

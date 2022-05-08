@@ -233,7 +233,7 @@ const ClientDrawer = () => {
           <div className="flex w-full justify-end px-2 pt-1 pb-4">
             <Link href={`/clients/${clientDrawer.clientId}`}>
               <a className="w-full">
-                <Button shadow color="gradient" className="w-full">
+                <Button color="gradient" className="w-full">
                   View More
                 </Button>
               </a>

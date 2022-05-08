@@ -2,7 +2,7 @@ import { useTheme } from '@nextui-org/react'
 import { useEffect } from 'react'
 import { BsBox } from 'react-icons/bs'
 import { AiFillDollarCircle } from 'react-icons/ai'
-import { useAppContext } from '../../context/state'
+import { useAppContext, useAppHeaderContext } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
 import { sumFromArrayOfObjects, timeout, useNextApi } from '../../utils/utils'
 import SummaryCard from '../../components/ui/card/SummaryCard'
@@ -16,33 +16,38 @@ import ReportNavbar from '../../components/ui/navbar/ReportNavbar'
 export default function ReportsClient() {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
+  const { appHeader, setAppHeader } = useAppHeaderContext()
 
   useEffect(() => {
-    let isCancelled = false;
+    setAppHeader({
+      ...appHeader,
+      titleContent: <PageTitle icon={<IoMdListBox />} text="Clients" />,
+    })
+    let isCancelled = false
     const handleChange = async () => {
-      await timeout(100);
-      if (!isCancelled){
-        if (state.reports.data.clients.raw.length < 1){
-          fetchData()  
+      await timeout(100)
+      if (!isCancelled) {
+        if (state.reports.data.clients.raw.length < 1) {
+          fetchData()
         }
       }
     }
     handleChange()
     return () => {
-      isCancelled = true;
+      isCancelled = true
     }
   }, [])
 
   const fetchData = async () => {
-    const res = await useNextApi(
-      'GET',
-      `/api/clients/list/all`
-    )
+    const res = await useNextApi('GET', `/api/clients/list/all`)
     setState({
       ...state,
       reports: {
         ...state.reports,
-        data: { ...state.reports.data, clients: { raw: res, filtered: res, loading:false } },
+        data: {
+          ...state.reports.data,
+          clients: { raw: res, filtered: res, loading: false },
+        },
       },
     })
   }
@@ -57,14 +62,9 @@ export default function ReportsClient() {
   }
   return (
     <main className="flex w-full flex-col">
-      <PageHeader>
-        <PageTitle icon={<IoMdListBox />} text="Clients" />
-        <div>
-          <ReportNavbar />
-        </div>
-      </PageHeader>
+      <ReportNavbar />
       <div className="flex w-full flex-col">
-        <div className="px-4 mb-2 flex h-full items-center space-x-4 overflow-x-auto py-4 md:mb-0 md:justify-center md:overflow-hidden">
+        <div className="mb-2 flex h-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:justify-center md:overflow-hidden">
           <SummaryCard
             vertical={false}
             val={premSum()}
@@ -99,7 +99,7 @@ export default function ReportsClient() {
         </div>
         <div className="px-4">
           <div
-            className={`h-full w-full  rounded-lg ${type}-shadow panel-theme-${type}`}
+            className={`h-full w-full  rounded-lg `}
           >
             {tableData ? <ClientsTable /> : null}
           </div>

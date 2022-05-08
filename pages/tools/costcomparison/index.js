@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import PageHeader from '../../../components/ui/pageheaders/PageHeader'
 import PageTitle from '../../../components/ui/pageheaders/PageTitle'
-import { useAppContext } from '../../../context/state'
+import { useAppContext, useAppHeaderContext } from '../../../context/state'
 import AppLayout from '../../../layouts/AppLayout'
 import { CgFileDocument } from 'react-icons/cg'
 import { AiFillPlusCircle } from 'react-icons/ai'
@@ -18,6 +18,14 @@ export default function CostComparison() {
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
   const [templates, setTemplates] = useState([])
+  const { appHeader, setAppHeader } = useAppHeaderContext()
+
+  useEffect(() => {
+    setAppHeader({
+      ...appHeader,
+      titleContent: <PageTitle icon={<CgFileDocument />} text="Cost Comparison Builder" />,
+    })
+  }, [])
 
   const dummyTemplate = {
     id: uuid(),
@@ -423,12 +431,7 @@ export default function CostComparison() {
 
   return (
     <main className="flex w-full flex-col">
-      <PageHeader>
-        <PageTitle icon={<CgFileDocument />} text="Cost Comparison Builder" />
-        <div className={`panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}>
-          <ProposalNavbar />
-        </div>
-      </PageHeader>
+      <ProposalNavbar />
       <div className="flex w-full flex-col pl-4 pr-2 md:flex-row md:space-x-2">
         <div
           className={`flex max-h-[60vh] flex-col overflow-hidden p-2 md:w-[300px] panel-flat-${type} ${type}-shadow rounded-lg`}

@@ -9,6 +9,7 @@ import {
 import {
   useAgencyContext,
   useAppContext,
+  useAppHeaderContext,
   useReloadContext,
 } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
@@ -54,8 +55,13 @@ export default function ReportsNewBusiness() {
     { id: 10, label: 'November', value: 10 },
     { id: 11, label: 'December', value: 11 },
   ])
+  const { appHeader, setAppHeader } = useAppHeaderContext()
 
   useEffect(() => {
+    setAppHeader({
+      ...appHeader,
+      titleContent: <PageTitle icon={<BsStars />} text="New Business" />,
+    })
     let isCancelled = false
     const handleYears = () => {
       const base = new Date()
@@ -330,12 +336,7 @@ export default function ReportsNewBusiness() {
   }
   return (
     <main className="relative flex w-full flex-col overflow-hidden">
-      <PageHeader>
-        <PageTitle icon={<BsStars />} text="New Business" />
-        <div>
-          <ReportNavbar />
-        </div>
-      </PageHeader>
+      <ReportNavbar />
       <div className="flex w-full flex-col">
         <div className="flex w-full flex-col lg:flex-row">
           <div className="flex h-full w-full items-center space-x-4 overflow-x-auto px-4 py-6 mb-4 lg:mb-0 lg:justify-center lg:overflow-hidden">
@@ -482,7 +483,7 @@ export default function ReportsNewBusiness() {
         </div>
         <div className="flex overflow-hidden px-4 pb-4">
           <div
-            className={`h-full w-full rounded-lg ${type}-shadow panel-theme-${type}`}
+            className={`h-full w-full rounded-lg`}
           >
             {tableData && chartData ? (
               <NewBusinessTable year={dataYear} />

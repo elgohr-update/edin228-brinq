@@ -1,4 +1,4 @@
-import { Button, Popover, useTheme } from '@nextui-org/react'
+import { Button, Popover, User, useTheme } from '@nextui-org/react'
 import React from 'react'
 import { FiLogOut } from 'react-icons/fi'
 import { FaCog } from 'react-icons/fa'
@@ -6,6 +6,7 @@ import { RiFileUserFill } from 'react-icons/ri'
 import UserAvatar from '../../user/Avatar'
 import LinkedMenuItem from './item/LinkedMenuItem'
 import { signOut } from 'next-auth/react'
+import { getConstantIcons } from '../../../utils/utils'
 
 const UserMenu = () => {
   const { type } = useTheme()
@@ -14,12 +15,20 @@ const UserMenu = () => {
     <div className="relative flex h-full w-full items-center justify-center">
       <Popover placement={`bottom-right`}>
         <Popover.Trigger>
-          <div>
-            <UserAvatar squared={false} tooltip={false} isLink={false} />
+          <div className="flex items-center cursor-pointer">
+            <div className="flex lg:hidden">
+              <UserAvatar squared={false} tooltip={false} isLink={false} />
+            </div>
+            <div className="hidden lg:flex">
+              <UserAvatar userWithName squared={false} tooltip={false} isLink={false} />
+            </div>
+            <div>
+              { getConstantIcons('down') }
+            </div>
           </div>
         </Popover.Trigger>
         <Popover.Content>
-          <div className="flex w-full flex-col space-y-1 p-1">
+          <div className="flex w-full flex-col space-y-1 p-1 lg:w-[180px]">
             <div className="flex w-full flex-col space-y-2 py-2 px-1">
               <LinkedMenuItem
                 href="/user/profile"

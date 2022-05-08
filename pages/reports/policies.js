@@ -2,7 +2,7 @@ import { useTheme } from '@nextui-org/react'
 import { useEffect } from 'react'
 import { BsBox } from 'react-icons/bs'
 import { AiFillDollarCircle } from 'react-icons/ai'
-import { useAppContext } from '../../context/state'
+import { useAppContext, useAppHeaderContext } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
 import { sumFromArrayOfObjects, timeout, useNextApi } from '../../utils/utils'
 import SummaryCard from '../../components/ui/card/SummaryCard'
@@ -14,8 +14,13 @@ import PageHeader from '../../components/ui/pageheaders/PageHeader'
 export default function ReportsPolicies() {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
+  const { appHeader, setAppHeader } = useAppHeaderContext()
 
   useEffect(() => {
+    setAppHeader({
+      ...appHeader,
+      titleContent: <PageTitle icon={<BsBox />} text="Policies" />,
+    })
     let isCancelled = false;
     const handleChange = async () => {
       await timeout(100);
@@ -52,12 +57,7 @@ export default function ReportsPolicies() {
   }
   return (
     <main className="flex w-full flex-col relative">
-      <PageHeader>
-        <PageTitle icon={<BsBox />} text="Policies" />
-        <div>
-          <ReportNavbar />
-        </div>
-      </PageHeader>
+      <ReportNavbar />
       <div className="flex w-full flex-col">
         <div className="mb-2 flex h-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
           <SummaryCard
@@ -84,7 +84,7 @@ export default function ReportsPolicies() {
         </div>
         <div className="px-4">
           <div
-            className={`h-full w-full rounded-lg ${type}-shadow panel-theme-${type}`}
+            className={`h-full w-full rounded-lg `}
           >
             {tableData ? <PoliciesTable /> : null}
           </div>

@@ -1,10 +1,10 @@
 import { useTheme } from '@nextui-org/react'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 import PageHeader from '../../../components/ui/pageheaders/PageHeader'
 import PageTitle from '../../../components/ui/pageheaders/PageTitle'
-import { useAppContext } from '../../../context/state'
+import { useAppContext, useAppHeaderContext } from '../../../context/state'
 import AppLayout from '../../../layouts/AppLayout'
 import { CgFileDocument } from 'react-icons/cg';
 import ProposalNavbar from '../../../components/ui/navbar/ProposalNavbar'
@@ -13,15 +13,18 @@ export default function Proposals() {
   const router = useRouter()
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
+  const { appHeader, setAppHeader } = useAppHeaderContext()
+
+  useEffect(() => {
+    setAppHeader({
+      ...appHeader,
+      titleContent: <PageTitle icon={<CgFileDocument />} text="Proposals" />,
+    })
+  }, [])
 
   return (
     <main className="flex w-full flex-col">
-      <PageHeader>
-        <PageTitle icon={<CgFileDocument />} text="Proposals" />
-        <div className={`panel-flat-${type} ${type}-shadow rounded-lg px-4 py-1`}>
-          <ProposalNavbar />
-        </div>
-      </PageHeader>
+      <ProposalNavbar />
     </main>
   )
 }

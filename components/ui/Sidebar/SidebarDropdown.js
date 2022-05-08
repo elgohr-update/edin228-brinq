@@ -1,46 +1,67 @@
+import { useTheme } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { getConstantIcons } from '../../../utils/utils'
 
-export default function SidebarDropdown({ children, icon, label, basePath, isOpen, isExpand, isMobile=false }) {
+export default function SidebarDropdown({
+  children,
+  icon,
+  label,
+  basePath,
+  isOpen,
+  isExpand,
+  isMobile = false,
+}) {
   const router = useRouter()
   const [show, setShow] = useState(false)
-  const isActive = () => {
+  const { type } = useTheme()
+  
+  const isActiveIcon = () => {
     if (router.pathname.includes(basePath)) {
-      return 'active-path'
+      return 'active-icon-glow'
     }
     return ''
   }
-  const isActiveIcon = () => {
+  const isActiveText = () => {
     if (router.pathname.includes(basePath)) {
       return 'active-icon'
     }
     return ''
   }
+
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${show? `rounded-lg panel-theme-${type}` : `` }`}>
       <div
-        className={`flex cursor-pointer w-full items-center py-1 px-2 text-sm transition duration-75 ease-out hover:text-sky-500 ${isActive(
-          basePath
-        )} ${isActiveIcon(basePath)}`}
+        className={`flex w-full cursor-pointer  items-center rounded-lg py-1 px-2 text-sm  hover:text-sky-500`}
         onClick={() => setShow(!show)}
       >
-        <div className={`flex h-[30px] w-[30px] items-center justify-center`}>
+        <div
+          className={`${isActiveIcon()}   flex h-[30px] w-[30px] items-center justify-center`}
+        >
           {icon}
         </div>
-        <div className={`flex w-full items-center  ${isMobile ? 'relative uppercase sidebar-text-size tracking-widest font-bold' : `sidebar-text-${isOpen}` }`}>
+        <div
+          className={`flex w-full items-center ${isActiveText()} ${
+            isMobile
+              ? 'sidebar-text-size relative font-bold uppercase tracking-widest'
+              : `sidebar-text-${isOpen}`
+          }`}
+        >
           {label}
-          <div className="pl-2">{ show ? getConstantIcons('down') : getConstantIcons('left')}</div>
+          <div className="pl-2">
+            {show ? getConstantIcons('down') : getConstantIcons('left')}
+          </div>
         </div>
       </div>
-      {
-          show ? 
-          <div className={`flex flex-col ${isExpand ? `pl-8 ` : ``} relative h-full transition duration-100 ease-out`}>
-            <div className={`${isExpand ? `opacity-1` : `opacity-0`} transition duration-100 ease-out left-[22px] top-[5px] absolute w-[1px] h-full bg-color-default rounded-lg`}></div>
-            {children}
-          </div>
-          :null
-      }
+      {show ? (
+        <div
+          className={`relative flex flex-col ${
+            isExpand ? `pl-4 ` : ``
+          } sidebar-dropdown relative h-full`}
+        >
+          {children}
+        </div>
+      ) : null}
     </div>
   )
 }
