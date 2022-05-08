@@ -39,10 +39,10 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,shadow=false
         return modifyStyle.b ? `${isDark?`border-slate-200`:`border-slate-200`} border` : ``
     }
     
-    const baseClass = `flex relative text-xs transition-all ${border?`${isDark?`border-slate-900`:`border-slate-200`} border`:null} ${shadow?`${type}-shadow`:null} duration-200 ease-out flex-col w-full p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+    const baseClass = `flex h-auto min-h-[64px] relative text-xs transition-all ${border?`${isDark?`border-slate-900`:`border-slate-200`} border`:null} ${shadow?`${type}-shadow`:null} duration-200 ease-out flex-col w-full p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
-            <div className={`flex flex-col md:flex-row w-full md:items-center`}>
+            <div className={`flex flex-col h-auto md:flex-row w-full md:items-center`}>
                 <div className="flex items-center w-full md:w-fit md:min-w-[240px]">
                     <div className="mr-4">
                         <LineIcon iconSize={18} size="sm" line={policy.line} />
@@ -110,7 +110,7 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,shadow=false
             </div>
             {
                 showMore? 
-                <div className="flex w-full pt-2">
+                <div className="flex h-auto w-full pt-2">
                     <div className={`top2-border-flair pink-to-blue-gradient-1`} />
                     <div className={`flex flex-col w-full py-2`}>
                         <div className="flex flex-col space-y-1">
