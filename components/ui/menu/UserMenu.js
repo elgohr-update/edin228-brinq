@@ -22,7 +22,7 @@ const UserMenu = () => {
             <div className="hidden lg:flex">
               <UserAvatar userWithName squared={false} tooltip={false} isLink={false} />
             </div>
-            <div>
+            <div className="hidden lg:flex">
               { getConstantIcons('down') }
             </div>
           </div>

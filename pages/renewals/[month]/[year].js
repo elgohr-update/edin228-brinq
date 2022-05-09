@@ -39,7 +39,7 @@ export default function Renewals({ data }) {
         />
       ),
     })
-  }, [])
+  }, [router])
   
   useEffect(() => {
     setTableData(data)
@@ -165,7 +165,7 @@ export default function Renewals({ data }) {
         </div>
         <div className="flex px-4">
           <div
-            className={`flex h-full w-full rounded-lg ${type}-shadow panel-theme-${type}`}
+            className={`flex h-full w-full rounded-lg `}
           >
             {data ? <RenewalsTable data={tableData} /> : null}
           </div>

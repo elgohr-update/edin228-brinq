@@ -2,6 +2,7 @@ import { useTheme } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { getConstantIcons } from '../../../utils/utils'
+import { motion } from 'framer-motion'
 
 export default function SidebarDropdown({
   children,
@@ -15,7 +16,7 @@ export default function SidebarDropdown({
   const router = useRouter()
   const [show, setShow] = useState(false)
   const { type } = useTheme()
-  
+
   const isActiveIcon = () => {
     if (router.pathname.includes(basePath)) {
       return 'active-icon-glow'
@@ -30,7 +31,11 @@ export default function SidebarDropdown({
   }
 
   return (
-    <div className={`flex flex-col ${show? `rounded-lg panel-theme-${type}` : `` }`}>
+    <div
+      className={`flex flex-col ${
+        show ? `rounded-lg panel-theme-${type}` : ``
+      }`}
+    >
       <div
         className={`flex w-full cursor-pointer  items-center rounded-lg py-1 px-2 text-sm  hover:text-sky-500`}
         onClick={() => setShow(!show)}
@@ -54,13 +59,23 @@ export default function SidebarDropdown({
         </div>
       </div>
       {show ? (
-        <div
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              opacity: 1,
+              y: 0,
+            },
+            hidden: { opacity: 0, y: -10 },
+          }}
+          transition={{ ease: 'easeInOut', duration: 0.25 }}
           className={`relative flex flex-col ${
             isExpand ? `pl-4 ` : ``
           } sidebar-dropdown relative h-full`}
         >
           {children}
-        </div>
+        </motion.div>
       ) : null}
     </div>
   )

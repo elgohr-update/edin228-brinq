@@ -16,15 +16,15 @@ const Header = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
 
     return (
-        <div className={`z-40 flex flex-col lg:flex-row lg:items-center justify-between w-full h-full relative py-2 ${state.scrollY > 0 ? `panel-flat-${type}`: null}`}>
+        <div className={`z-40 flex flex-col lg:flex-row lg:items-center justify-between w-full h-full relative md:py-2 ${state.scrollY > 0 ? `panel-flat-${type}`: null}`}>
             {/* <div className="hidden z-20 lg:flex w-full lg:w-1/4 pl-4">
                 <SearchBar />
             </div> */}
-            <div className="z-20 lg:flex w-full lg:w-1/4 pl-4">
-            {appHeader.titleContent}
+            <div className="hidden z-20 lg:flex w-full lg:w-1/4 pl-4">
+                {appHeader.titleContent}
             </div>
             <div className="z-40 flex items-center w-full justify-between lg:justify-end mt-2 lg:mt-0 px-4">
-                <div className="pl-4 lg:hidden z-30">
+                <div className="lg:hidden z-30">
                     <MobileSidebar />
                 </div>
                 <div className="z-20 flex items-center justify-end">

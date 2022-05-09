@@ -12,8 +12,9 @@ import SidebarItem from './SidebarItem'
 import SidebarDropdown from './SidebarDropdown'
 import SearchBar from '../../search/SearchBar'
 import SidebarSearchbar from '../../search/SidebarSearchbar'
+import { motion } from 'framer-motion'
 
-export default function SidebarItemContainer({ expand, isMobile=false }) {
+export default function SidebarItemContainer({ expand, isMobile = false }) {
   const { setTheme } = useNextTheme()
   const { isDark, type } = useTheme()
   const { data: session } = useSession()
@@ -36,7 +37,7 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
 
   return (
     <>
-      <div className="flex w-full flex-col overflow-hidden h-full">
+      <div className="flex h-full w-full flex-col overflow-hidden">
         <div
           className={`flex h-10 items-center justify-center py-8 ${
             expand ? `panel-theme-${type}` : ``
@@ -73,9 +74,15 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
             </div>
           </div>
         </div>
-        <div className="flex flex-col h-full overflow-hidden">
-          <div className={`flex flex-col h-full space-y-2  overflow-x-hidden px-2 py-4`}>
-            <div className={`border-b ${isDark ? 'border-white/40': 'border-black/40'} pb-6`}>
+        <div className="flex h-full flex-col overflow-hidden">
+          <div
+            className={`flex h-full flex-col space-y-2  overflow-x-hidden px-2 py-4`}
+          >
+            <div
+              className={`border-b ${
+                isDark ? 'border-white/40' : 'border-black/40'
+              } pb-6`}
+            >
               <SidebarSearchbar expand={expand} />
             </div>
             <SidebarItem
@@ -111,33 +118,84 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
               isExpand={expand}
               isMobile={isMobile}
             >
-              <SidebarItem
-                href={`/reports/clients`}
-                isOpen={isExpand()}
-                icon={<IoMdListBox />}
-                label={'Clients'}
-                basePath="/clients"
-                isMobile={isMobile}
-                mainMenuItem={false}
-              />
-              <SidebarItem
-                href={`/reports/policies`}
-                isOpen={isExpand()}
-                icon={<BsBox />}
-                label={'Policies'}
-                basePath="/policies"
-                isMobile={isMobile}
-                mainMenuItem={false}
-              />
-              <SidebarItem
-                href={`/reports/newbusiness`}
-                isOpen={isExpand()}
-                icon={<BsStars />}
-                label={'New Business'}
-                basePath="/newbusiness"
-                isMobile={isMobile}
-                mainMenuItem={false}
-              />
+              <motion.div
+                className="sidebar-item relative"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 0 * 0.05,
+                    },
+                  },
+                  hidden: { opacity: 0, y: -10 },
+                }}
+                transition={{ ease: 'easeInOut', duration: 0.25 }}
+              >
+                <SidebarItem
+                  href={`/reports/clients`}
+                  isOpen={isExpand()}
+                  icon={<IoMdListBox />}
+                  label={'Clients'}
+                  basePath="/clients"
+                  isMobile={isMobile}
+                  mainMenuItem={false}
+                />
+              </motion.div>
+              <motion.div
+                className="sidebar-item relative"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 1 * 0.05,
+                    },
+                  },
+                  hidden: { opacity: 0, y: -10 },
+                }}
+                transition={{ ease: 'easeInOut', duration: 0.25 }}
+              >
+                <SidebarItem
+                  href={`/reports/policies`}
+                  isOpen={isExpand()}
+                  icon={<BsBox />}
+                  label={'Policies'}
+                  basePath="/policies"
+                  isMobile={isMobile}
+                  mainMenuItem={false}
+                />
+              </motion.div>
+              <motion.div
+                className="sidebar-item relative"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 2 * 0.05,
+                    },
+                  },
+                  hidden: { opacity: 0, y: -10 },
+                }}
+                transition={{ ease: 'easeInOut', duration: 0.25 }}
+              >
+                <SidebarItem
+                  href={`/reports/newbusiness`}
+                  isOpen={isExpand()}
+                  icon={<BsStars />}
+                  label={'New Business'}
+                  basePath="/newbusiness"
+                  isMobile={isMobile}
+                  mainMenuItem={false}
+                />
+              </motion.div>
             </SidebarDropdown>
             <SidebarDropdown
               icon={<CgToolbox />}
@@ -147,26 +205,64 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
               isExpand={expand}
               isMobile={isMobile}
             >
-              <SidebarItem
-                href={'/tools/proposals'}
-                isOpen={isExpand()}
-                icon={<CgFileDocument />}
-                label={'Proposals'}
-                isMobile={isMobile}
-                mainMenuItem={false}
-              />
-              <SidebarItem
-                href={'/tools/costcomparison'}
-                isOpen={isExpand()}
-                icon={<CgToolbox />}
-                label={'Cost Comparison'}
-                isMobile={isMobile}
-                mainMenuItem={false}
-              />
+              <motion.div
+                className="sidebar-item relative"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 0 * 0.05,
+                    },
+                  },
+                  hidden: { opacity: 0, y: -10 },
+                }}
+                transition={{ ease: 'easeInOut', duration: 0.25 }}
+              >
+                <SidebarItem
+                  href={'/tools/proposals'}
+                  isOpen={isExpand()}
+                  icon={<CgFileDocument />}
+                  label={'Proposals'}
+                  isMobile={isMobile}
+                  mainMenuItem={false}
+                />
+              </motion.div>
+              <motion.div
+                className="sidebar-item relative"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 1 * 0.05,
+                    },
+                  },
+                  hidden: { opacity: 0, y: -10 },
+                }}
+                transition={{ ease: 'easeInOut', duration: 0.25 }}
+              >
+                <SidebarItem
+                  href={'/tools/costcomparison'}
+                  isOpen={isExpand()}
+                  icon={<CgToolbox />}
+                  label={'Cost Comparison'}
+                  isMobile={isMobile}
+                  mainMenuItem={false}
+                />
+              </motion.div>
             </SidebarDropdown>
             {session?.user?.admin ? (
               <div>
-                <div className={`mt-6 mb-4 border-t ${isDark ? 'border-white/40': 'border-black/40'}`} />
+                <div
+                  className={`mt-6 mb-4 border-t ${
+                    isDark ? 'border-white/40' : 'border-black/40'
+                  }`}
+                />
                 <SidebarItem
                   href={'/admin'}
                   isOpen={isExpand()}
@@ -184,15 +280,31 @@ export default function SidebarItemContainer({ expand, isMobile=false }) {
           expand ? 'opacity-1' : 'opacity-0'
         }`}
       >
-        <div className="flex flex-col w-full py-1">
-          <div className={`flex text-xs rounded-lg w-full items-center py-1 px-1 panel-theme-${type}`}>
-            <div onClick={() => setTheme('light')} className={`flex cursor-pointer rounded-lg items-center justify-center py-1 space-x-1 w-full ${!isDark ? `panel-flat-${type} ${type}-shadow` : ``}`}>
-                <div><BsFillSunFill /></div>
-                <div>Light</div>
+        <div className="flex w-full flex-col py-1">
+          <div
+            className={`flex w-full items-center rounded-lg py-1 px-1 text-xs panel-theme-${type}`}
+          >
+            <div
+              onClick={() => setTheme('light')}
+              className={`flex w-full cursor-pointer items-center justify-center space-x-1 rounded-lg py-1 ${
+                !isDark ? `panel-flat-${type} ${type}-shadow` : ``
+              }`}
+            >
+              <div>
+                <BsFillSunFill />
+              </div>
+              <div>Light</div>
             </div>
-            <div onClick={() => setTheme('dark')} className={`flex cursor-pointer rounded-lg items-center justify-center py-1 space-x-1 w-full ${isDark ? `panel-flat-${type} ${type}-shadow` : ``}`}>
-                <div><BsFillMoonFill /></div>
-                <div>Dark</div>
+            <div
+              onClick={() => setTheme('dark')}
+              className={`flex w-full cursor-pointer items-center justify-center space-x-1 rounded-lg py-1 ${
+                isDark ? `panel-flat-${type} ${type}-shadow` : ``
+              }`}
+            >
+              <div>
+                <BsFillMoonFill />
+              </div>
+              <div>Dark</div>
             </div>
           </div>
         </div>

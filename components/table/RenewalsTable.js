@@ -245,6 +245,7 @@ export default function RenewalsTable(data) {
       </div>
       <Table
         hoverable={true}
+        compact
         sticked
         bordered={false}
         animated="true"
@@ -297,13 +298,13 @@ export default function RenewalsTable(data) {
             </Table.Row>
           )}
         </Table.Body>
-        {tableData.length > 8 ? (
+        {tableData.length > 9 ? (
           <Table.Pagination
             shadow
             align="start"
             noMargin
-            total={Math.ceil(Number(tableData.length / 8))}
-            rowsPerPage={8}
+            total={Math.ceil(Number(tableData.length / 9))}
+            rowsPerPage={9}
           />
         ) : null}
       </Table>

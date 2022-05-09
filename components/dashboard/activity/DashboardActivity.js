@@ -5,6 +5,7 @@ import ActivityCard from '../../activity/ActivityCard'
 import { FaSearch } from 'react-icons/fa'
 import { Input, useTheme } from '@nextui-org/react'
 import PanelTitle from '../../ui/title/PanelTitle'
+import { motion } from 'framer-motion'
 
 export default function DashboardActivity() {
   const [data, setData] = useState(null)
@@ -21,7 +22,7 @@ export default function DashboardActivity() {
           fetchActivity()
           setReload({
             ...reload,
-            activities: false
+            activities: false,
           })
         }
       }
@@ -66,9 +67,7 @@ export default function DashboardActivity() {
       <div className="pl-4">
         <PanelTitle title={`Recent Activity`} color="indigo" />
       </div>
-      <div
-        className={`flex flex-col rounded-lg px-2`}
-      >
+      <div className={`flex flex-col rounded-lg px-2`}>
         {data?.length > 0 ? (
           <div className="w-full">
             <Input
@@ -84,9 +83,30 @@ export default function DashboardActivity() {
             />
           </div>
         ) : null}
-        <div className={`flex activity-card-container h-full w-full flex-col rounded max-h-[50vh] overflow-y-auto`}>
-          {data?.map((u) => (
-            <ActivityCard key={u.id} activity={u} />
+        <div
+          className={`activity-card-container flex h-full max-h-[50vh] w-full flex-col overflow-y-auto rounded`}
+        >
+          {data?.map((u, i) => (
+            <motion.div
+              key={u.id}
+              className="relative activity-card"
+              custom={i}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    delay: i * 0.05,
+                  },
+                  y: 0,
+                },
+                hidden: { opacity: 0, y: -10 },
+              }}
+              transition={{ ease: 'easeInOut', duration: 0.25 }}
+            >
+              <ActivityCard activity={u} />
+            </motion.div>
           ))}
         </div>
       </div>

@@ -6,6 +6,7 @@ import PageTitle from '../components/ui/pageheaders/PageTitle'
 import { MdOutlineDashboard } from 'react-icons/md'
 import DashboardActivity from '../components/dashboard/activity/DashboardActivity'
 import DashboardTodos from '../components/dashboard/todos/DashboardTodos'
+import DashboardTeam from '../components/dashboard/team/DashboardTeam'
 
 export default function Dashboard() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
@@ -31,11 +32,7 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-col md:flex-1 md:flex-row md:items-center">
             <div className="flex h-full w-full flex-col md:w-1/2 md:p-2">
-              <div
-                className="flex h-full w-full bg-gray-500/20 rounded-lg"
-              >
-                .
-              </div>
+              <DashboardTeam />
             </div>
             <div className="flex h-full w-full flex-col md:w-1/2 md:p-2">
               <DashboardActivity />

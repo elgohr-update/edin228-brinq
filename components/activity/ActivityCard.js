@@ -42,13 +42,13 @@ const ActivityCard = ({
         </div>
         <div className={`relative flex w-full flex-col`}>
           <div className={`flex w-full items-center justify-between`}>
-            <div className="flex items-center text-xs space-x-2">
-              <h4>By {activity.author}</h4>
-              <div className="flex items-center small-subtext">
+            <div className="flex items-center  text-xs space-x-2">
+              <h4 className="small-subtext">By {activity.author}</h4>
+              <h4 className="flex items-center small-subtext letter-spacing-1">
                 {getFormattedDateTime(activity.date)}
-              </div>
+              </h4>
             </div>
-            <h4 className="text-xs">{activity.activity_type}</h4>
+            <h4 className="small-subtext ">{activity.activity_type}</h4>
           </div>
           <div className="flex py-1">
             {activity.system_action ? (
