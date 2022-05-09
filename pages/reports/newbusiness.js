@@ -31,6 +31,7 @@ import NewBusinessLineChart from '../../components/charts/NewBusinessLineChart'
 import NewBusinessBarChart from '../../components/charts/NewBusinessBarChart'
 import NewBusinessCurrentMonthBarChart from '../../components/charts/NewBusinessCurrentMonthBarChart'
 import SelectInput from '../../components/ui/select/SelectInput'
+import { motion } from 'framer-motion'
 
 export default function ReportsNewBusiness() {
   const { type } = useTheme()
@@ -339,7 +340,7 @@ export default function ReportsNewBusiness() {
       <ReportNavbar />
       <div className="flex w-full flex-col">
         <div className="flex w-full flex-col lg:flex-row">
-          <div className="flex h-full w-full items-center space-x-4 overflow-x-auto px-4 py-6 mb-4 lg:mb-0 lg:justify-center lg:overflow-hidden">
+          <div className="mb-4 flex h-full w-full items-center space-x-4 overflow-x-auto px-4 py-6 lg:mb-0 lg:justify-center lg:overflow-hidden">
             <SummaryCard
               val={premSum()}
               color="teal"
@@ -362,7 +363,7 @@ export default function ReportsNewBusiness() {
               vertical={false}
             />
           </div>
-          <div className="flex justify-center space-x-2 mb-4 lg:mb-0 lg:pr-4 lg:items-center lg:justify-end">
+          <div className="mb-4 flex justify-center space-x-2 lg:mb-0 lg:items-center lg:justify-end lg:pr-4">
             <div className="flex flex-col">
               <div>
                 <PanelTitle title={`New Business Month`} color="pink" />
@@ -400,8 +401,8 @@ export default function ReportsNewBusiness() {
           </div>
         </div>
         <div className="flex flex-col overflow-hidden lg:flex-row">
-          <div className="flex flex-col w-auto lg:pl-4 lg:flex-row lg:justify-evenly">
-            <div className="flex flex-col mb-4 lg:mb-0">
+          <div className="flex w-auto flex-col lg:flex-row lg:justify-evenly lg:pl-4">
+            <div className="mb-4 flex flex-col lg:mb-0">
               <div className="pl-4">
                 <PanelTitle
                   title={`${toMonthName(dataMonth)} ${dataYear} New Business`}
@@ -409,55 +410,91 @@ export default function ReportsNewBusiness() {
                 />
               </div>
               <div className="flex w-full flex-col overflow-hidden lg:flex-row">
-                <div className="flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 lg:pr-2 lg:max-h-[70vh] lg:overflow-y-auto lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4">
-                  {chartData?.users.map((p) => (
-                    <ChartSummaryCard
+                <div className="flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 lg:max-h-[70vh] lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4 lg:overflow-y-auto lg:pr-2">
+                  {chartData?.users.map((p, i) => (
+                    <motion.div
                       key={p.id}
-                      label={p.name}
-                      fullData={p}
-                      panel
-                      shadow
-                      content={getMonthsData(p)}
-                      subContent={getMonthComparison(p)}
-                      currentMonth={dataMonth}
-                      direction={getDirection(p)}
-                      money
-                      slice
-                    />
+                      className="flex w-full"
+                      custom={i}
+                      initial="hidden"
+                      animate="visible"
+                      variants={{
+                        visible: {
+                          opacity: 1,
+                          transition: {
+                            delay: i * 0.1,
+                          },
+                          y: 0,
+                        },
+                        hidden: { opacity: 0, y: -10 },
+                      }}
+                      transition={{ ease: 'easeInOut', duration: 0.25 }}
+                    >
+                      <ChartSummaryCard
+                        label={p.name}
+                        fullData={p}
+                        panel
+                        shadow
+                        content={getMonthsData(p)}
+                        subContent={getMonthComparison(p)}
+                        currentMonth={dataMonth}
+                        direction={getDirection(p)}
+                        money
+                        slice
+                      />
+                    </motion.div>
                   ))}
                 </div>
               </div>
             </div>
-            <div className="flex flex-col mb-4 lg:mb-0">
+            <div className="mb-4 flex flex-col lg:mb-0">
               <div className="pl-4">
                 <PanelTitle title={`Year to Date`} color="orange" />
               </div>
               <div className="flex w-full flex-col overflow-hidden lg:flex-row">
                 <div
-                  className={`flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 lg:pl-2 lg:max-h-[70vh] lg:overflow-y-auto lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4`}
+                  className={`flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 lg:max-h-[70vh] lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4 lg:overflow-y-auto lg:pl-2`}
                 >
-                  {chartData?.users.map((p) => (
-                    <ChartSummaryCard
+                  {chartData?.users.map((p, i) => (
+                    <motion.div
                       key={p.id}
-                      label={p.name}
-                      fullData={p}
-                      panel
-                      shadow
-                      content={p.totalPrem}
-                      subContent={getTotalToLastMonthComparison(p)}
-                      currentMonth={dataMonth}
-                      direction={getTotalToLastMonthDirection(p)}
-                      money
-                      slice
-                    />
+                      className="flex w-full"
+                      custom={i}
+                      initial="hidden"
+                      animate="visible"
+                      variants={{
+                        visible: {
+                          opacity: 1,
+                          transition: {
+                            delay: i * 0.1,
+                          },
+                          y: 0,
+                        },
+                        hidden: { opacity: 0, y: -10 },
+                      }}
+                      transition={{ ease: 'easeInOut', duration: 0.25 }}
+                    >
+                      <ChartSummaryCard
+                        label={p.name}
+                        fullData={p}
+                        panel
+                        shadow
+                        content={p.totalPrem}
+                        subContent={getTotalToLastMonthComparison(p)}
+                        currentMonth={dataMonth}
+                        direction={getTotalToLastMonthDirection(p)}
+                        money
+                        slice
+                      />
+                    </motion.div>
                   ))}
                 </div>
               </div>
             </div>
           </div>
-          <div className="flex w-full flex-col space-y-4 py-4 px-4 lg:max-w-9/12 lg:pl-0 lg:pr-4">
+          <div className="lg:max-w-9/12 flex w-full flex-col space-y-4 py-4 px-4 lg:pl-0 lg:pr-4">
             {chartData ? (
-              <div className="flex w-full flex-col space-y-4 lg:space-y-0 lg:space-x-4 lg:flex-row">
+              <div className="flex w-full flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
                 <div className="flex w-full lg:w-1/2">
                   <NewBusinessCurrentMonthBarChart
                     currentMonth={dataMonth}
@@ -471,7 +508,7 @@ export default function ReportsNewBusiness() {
               </div>
             ) : null}
             {chartData ? (
-              <div className={`flex w-full h-full`}>
+              <div className={`flex h-full w-full`}>
                 <NewBusinessLineChart
                   currentMonth={dataMonth}
                   slice
@@ -482,9 +519,7 @@ export default function ReportsNewBusiness() {
           </div>
         </div>
         <div className="flex overflow-hidden px-4 pb-4">
-          <div
-            className={`h-full w-full rounded-lg`}
-          >
+          <div className={`h-full w-full rounded-lg`}>
             {tableData && chartData ? (
               <NewBusinessTable year={dataYear} />
             ) : null}

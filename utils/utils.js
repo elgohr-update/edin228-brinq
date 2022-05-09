@@ -21,7 +21,9 @@ import {
   BiCommentDetail,
   BiCommentAdd,
   BiCircle,
+  BiTask
 } from 'react-icons/bi'
+import { DateTime } from "luxon";
 
 export const getConstantIcons = (item) => {
   return item == 'policy' ? (
@@ -70,6 +72,8 @@ export const getConstantIcons = (item) => {
     <AiOutlineDelete />
   ) : item == 'star' ? (
     <AiOutlineStar />
+  ) : item == 'task' ? (
+    <BiTask />
   ) : null
 }
 
@@ -176,43 +180,24 @@ export const getSearch = (data, search = '') => {
 }
 
 export const getFormattedDate = (date) => {
-  const base = new Date(date)
-  const d = new Date(base.getTime() - base.getTimezoneOffset() * -60000)
-  let year = d.getFullYear()
-  let month = (1 + d.getMonth()).toString().padStart(2, '0')
-  let day = d.getDate().toString().padStart(2, '0')
-
-  return month + '.' + day + '.' + year
+  const reformat = DateTime.fromISO(date, { zone: 'utc'}).toUTC()
+  const base = DateTime.fromISO(reformat)
+  const d = base.toLocaleString(DateTime.DATE_SHORT)
+  return d
 }
 
 export const getFormattedDateTime = (date) => {
-  const d = new Date(date)
-  // const d = new Date( base.getTime() - base.getTimezoneOffset() * -60000 )
-  let year = d.getFullYear()
-  let month = (1 + d.getMonth()).toString().padStart(2, '0')
-  let day = d.getDate().toString().padStart(2, '0')
-  const dateStr = month + '.' + day + '.' + year
-  const timeStr = d.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  })
-  return `${timeStr}   ${dateStr}`
+  const reformat = DateTime.fromISO(date, { zone: 'utc'}).toUTC()
+  const base = DateTime.fromISO(reformat)
+  const d = base.toLocaleString(DateTime.DATETIME_MED)
+  return d
 }
 
 export const getFormattedUTCDateTime = (date) => {
-  const base = new Date(date)
-  const d = new Date( base.getTime() - base.getTimezoneOffset() * -60000 )
-  let year = d.getFullYear()
-  let month = (1 + d.getMonth()).toString().padStart(2, '0')
-  let day = d.getDate().toString().padStart(2, '0')
-  const dateStr = month + '.' + day + '.' + year
-  const timeStr = d.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  })
-  return `${timeStr}   ${dateStr}`
+  const reformat = DateTime.fromISO(date, { zone: 'utc'}).toUTC()
+  const base = DateTime.fromISO(reformat)
+  const d = base.toLocaleString(DateTime.DATETIME_MED)
+  return d
 }
 
 export const toMonthName = (monthNumber) => {

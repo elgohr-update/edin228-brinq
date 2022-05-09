@@ -19,7 +19,7 @@ export default function NavAction({onClick,icon,title, activeItem, itemId}) {
         return ''
     }
     return (
-        <div onClick={onClick} className={`flex cursor-pointer relative text-xs tracking-wider transition duration-100 ease-out items-center px-2 py-1 ${isActive()}`}>
+        <div onClick={onClick} className={`flex cursor-pointer relative text-xs tracking-wider transition duration-100 ease-out items-center px-1 py-1 ${isActive()}`}>
             <div className={`mr-0 md:mr-2 ${isActiveIcon()}`}>{icon}</div>
             <div className={`hidden md:flex mr-2`}>{title}</div>
             <div className={`${isActiveBorder()} navlink-border`} />

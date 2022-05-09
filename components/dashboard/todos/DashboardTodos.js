@@ -6,12 +6,16 @@ import { getSearch, timeout, useNextApi } from '../../../utils/utils'
 import { useReloadContext } from '../../../context/state'
 import TaskBundleContainer from '../../task/taskbundle/TaskBundleContainer'
 import uuid from 'react-uuid'
+import { DateTime } from 'luxon'
+import TodosNavBar from './TodosNavBar'
+import { motion } from 'framer-motion'
 
 export default function DashboardTodos() {
   const [data, setData] = useState(null)
   const [todaysTasks, setTodaysTasks] = useState(null)
   const [thisWeeksTasks, setThisWeeksTasks] = useState(null)
   const [overdueTasks, setOverdueTasks] = useState(null)
+  const [todoTab, setTodoTab] = useState(1)
   const [raw, setRaw] = useState(null)
   const { reload, setReload } = useReloadContext()
   const { type } = useTheme()
@@ -33,7 +37,7 @@ export default function DashboardTodos() {
       return () => {
         isCancelled = true
       }
-    } 
+    }
   }, [reload])
 
   useEffect(() => {
@@ -55,20 +59,43 @@ export default function DashboardTodos() {
     const format = bundleTasks(res)
     const overDue = formatOverdueTasks(res)
     const todays = formatTodayTasks(res)
-    // const weeks = formatThisWeeksTasks(res)
+    const weeks = formatThisWeeksTasks(res)
     setData(format)
     setRaw(format)
     setOverdueTasks(overDue)
-    // setThisWeeksTasks(weeks)
+    setThisWeeksTasks(weeks)
     setTodaysTasks(todays)
   }
 
   const searchData = (val) => {
-    if (val.length > 1) {
-      const filtered = getSearch(raw, val)
-      setData(filtered)
-    } else {
-      setData(raw)
+    if (todoTab == 1) {
+      if (val.length > 1) {
+        const filtered = getSearch(raw, val)
+        setData(filtered)
+      } else {
+        setData(raw)
+      }
+    } else if (todoTab == 2) {
+      if (val.length > 1) {
+        const filtered = getSearch(raw, val)
+        setData(filtered)
+      } else {
+        setData(raw)
+      }
+    } else if (todoTab == 3) {
+      if (val.length > 1) {
+        const filtered = getSearch(raw, val)
+        setData(filtered)
+      } else {
+        setData(raw)
+      }
+    } else if (todoTab == 4) {
+      if (val.length > 1) {
+        const filtered = getSearch(raw, val)
+        setData(filtered)
+      } else {
+        setData(raw)
+      }
     }
   }
 
@@ -191,9 +218,11 @@ export default function DashboardTodos() {
     return { groups: dateGroupArrays, tasks: tdt }
   }
   const formatThisWeeksTasks = (tasks) => {
-    const today = new Date()
+    const today = DateTime.local()
     const tdt = tasks.filter(
-      (b) => b.done === false && new Date(b.date).isSame(new Date(), 'week')
+      (b) =>
+        b.done === false &&
+        DateTime.fromISO(b.date, { zone: 'utc' }).hasSame(today, 'week')
     )
     const dateGroups = tdt.reduce((dateGroups, task) => {
       const date = task.date.split('T')[0]
@@ -231,33 +260,96 @@ export default function DashboardTodos() {
     return { groups: dateGroupArrays, tasks: tdt }
   }
 
+  const setTab = (e) => {
+    setTodoTab(e)
+  }
+
   return (
-    <div className={`flex h-full w-full flex-col rounded-lg ${type}-shadow panel-theme-${type}`}>
-      <div className="pl-4 py-2">
+    <div
+      className={`flex h-full w-full flex-col rounded-lg ${type}-shadow panel-theme-${type}`}
+    >
+      <div className="flex w-full flex-col py-2 pl-4 md:flex-row md:items-center md:justify-between">
         <PanelTitle title={`Todos`} color="sky" />
+        <TodosNavBar activeItem={todoTab} setTab={(e) => setTab(e)} />
       </div>
       <div className={`flex flex-col rounded-lg px-2`}>
-        {data?.length > 0 ? (
-          <div className="w-full">
-            <Input
-              className={`z-10`}
-              type="search"
-              aria-label="Todo Search Bar"
-              size="sm"
-              fullWidth
-              underlined
-              placeholder="Search"
-              labelLeft={<FaSearch />}
-              onChange={(e) => searchData(e.target.value)}
-            />
-          </div>
-        ) : null}
+        <div className="w-full">
+          <Input
+            className={`z-10`}
+            type="search"
+            aria-label="Todo Search Bar"
+            size="sm"
+            fullWidth
+            underlined
+            placeholder="Search"
+            labelLeft={<FaSearch />}
+            onChange={(e) => searchData(e.target.value)}
+          />
+        </div>
         <div
-          className={`tasks-container flex h-full w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[82vh]`}
+          className={`tasks-container flex h-full max-h-[82vh] w-full flex-col space-y-4 overflow-y-auto rounded p-2`}
         >
-          {data?.map((u) => (
-            <TaskBundleContainer key={u.uid} taskBundle={u} />
-          ))}
+          {todoTab == 1
+            ? data?.map((u) => (
+                <motion.div
+                  key={u.uid}
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: { opacity: 1 },
+                    hidden: { opacity: 0 },
+                  }}
+                  transition={{ ease: 'easeOut', duration: 1 }}
+                >
+                  <TaskBundleContainer taskBundle={u} />
+                </motion.div>
+              ))
+            : todoTab == 2
+            ? overdueTasks?.groups.map((u) => (
+                <motion.div
+                  key={u.uid}
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: { opacity: 1 },
+                    hidden: { opacity: 0 },
+                  }}
+                  transition={{ ease: 'easeOut', duration: 1 }}
+                >
+                  <TaskBundleContainer taskBundle={u} />
+                </motion.div>
+              ))
+            : todoTab == 3
+            ? todaysTasks?.groups.map((u) => (
+                <motion.div
+                  key={u.uid}
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: { opacity: 1 },
+                    hidden: { opacity: 0 },
+                  }}
+                  transition={{ ease: 'easeOut', duration: 1 }}
+                >
+                  <TaskBundleContainer taskBundle={u} />
+                </motion.div>
+              ))
+            : todoTab == 4
+            ? thisWeeksTasks?.groups.map((u) => (
+                <motion.div
+                  key={u.uid}
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: { opacity: 1 },
+                    hidden: { opacity: 0 },
+                  }}
+                  transition={{ ease: 'easeOut', duration: 1 }}
+                >
+                  <TaskBundleContainer taskBundle={u} />
+                </motion.div>
+              ))
+            : null}
         </div>
       </div>
     </div>

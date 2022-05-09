@@ -15,6 +15,7 @@ import SelectInput from '../select/SelectInput'
 import DrawerLoader from '../loaders/DrawerLoader'
 import FileUploaderContainer from '../../files/FileUploaderContainer'
 import { AiOutlineClose } from 'react-icons/ai'
+import { motion } from 'framer-motion'
 
 const ActivityDrawer = () => {
   const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
@@ -228,7 +229,19 @@ const ActivityDrawer = () => {
   }
 
   return (
-    <div className={`fixed top-0 left-0 z-[9999999] flex h-full w-full`}>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        visible: {
+          opacity: 1,
+          x: 0,
+        },
+        hidden: { opacity: 0, x: 50 },
+      }}
+      transition={{ ease: 'easeInOut', duration: 0.25 }}
+      className={`fixed top-0 left-0 z-[9999999] flex h-full w-full`}
+    >
       <div
         className={`fixed right-0 flex h-full w-full flex-col md:w-[500px] ${type}-shadow panel-theme-${type}`}
       >
@@ -490,7 +503,7 @@ const ActivityDrawer = () => {
       {activityDrawer.isOpen ? (
         <HiddenBackdrop onClick={() => closeDrawer()} />
       ) : null}
-    </div>
+    </motion.div>
   )
 }
 

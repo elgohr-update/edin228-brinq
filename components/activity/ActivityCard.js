@@ -57,7 +57,7 @@ const ActivityCard = ({
               <h6>{activity.description}</h6>
             )}
           </div>
-          <div className={`flex w-full items-center space-x-2`}>
+          <div className={`flex flex-col md:flex-row w-full md:items-center md:space-x-2`}>
             {hideClient ? null : (
               <div className="flex">
                 <Link href="/">

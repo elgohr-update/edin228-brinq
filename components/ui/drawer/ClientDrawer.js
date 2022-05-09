@@ -1,11 +1,18 @@
-import { Button,useTheme } from '@nextui-org/react'
+import { Button, useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
-import { useClientDrawerContext, useReloadContext } from '../../../context/state'
+import {
+  useClientDrawerContext,
+  useReloadContext,
+} from '../../../context/state'
 import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import PolicyCard from '../../policy/PolicyCard'
-import { sumFromArrayOfObjects, timeout, useNextApi } from '../../../utils/utils'
+import {
+  sumFromArrayOfObjects,
+  timeout,
+  useNextApi,
+} from '../../../utils/utils'
 import SummaryCard from '../card/SummaryCard'
 import { AiFillDollarCircle, AiOutlineClose } from 'react-icons/ai'
 import ClientHeader from '../../client/ClientTitle'
@@ -15,6 +22,7 @@ import ClientInfo from '../../client/ClientInfo'
 import { useRouter } from 'next/router'
 import ClientDrawerNavbar from '../../client/ClientDrawerNavbar'
 import DrawerLoader from '../loaders/DrawerLoader'
+import { motion } from 'framer-motion'
 
 const ClientDrawer = () => {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
@@ -27,39 +35,38 @@ const ClientDrawer = () => {
   const [showMore1, setShowMore1] = useState(false)
 
   useEffect(() => {
-    let isCancelled = false;
+    let isCancelled = false
     const handleChange = async () => {
-      await timeout(100);
-      if (!isCancelled){
+      await timeout(100)
+      if (!isCancelled) {
         fetchClient().then(() => fetchPolicies())
       }
     }
     handleChange()
     return () => {
-      isCancelled = true;
+      isCancelled = true
     }
   }, [])
 
-  useEffect( () => {
-    if (reload.policies){
-      let isCancelled = false;
+  useEffect(() => {
+    if (reload.policies) {
+      let isCancelled = false
       const handleChange = async () => {
-        await timeout(100);
-        if (!isCancelled){
+        await timeout(100)
+        if (!isCancelled) {
           fetchPolicies()
           setReload({
             ...reload,
-            policies: false
+            policies: false,
           })
         }
       }
       handleChange()
       return () => {
-        isCancelled = true;
-      }  
+        isCancelled = true
+      }
     }
-    
-  },[reload])
+  }, [reload])
 
   useEffect(() => {
     router.events.on('routeChangeStart', () => {
@@ -115,14 +122,26 @@ const ClientDrawer = () => {
   }
 
   return (
-    <div className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}>
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={{
+        visible: {
+          opacity: 1,
+          x: 0,
+        },
+        hidden: { opacity: 0, x: 200 },
+      }}
+      transition={{ ease: 'easeInOut', duration: 0.25 }}
+      className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}
+    >
       <div
-        className={`fixed right-0 flex h-full overflow-hidden w-full flex-col md:w-[800px] ${type}-shadow panel-theme-${type}`}
+        className={`fixed right-0 flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!client ? (
           <DrawerLoader />
         ) : (
-          <div className="flex h-full flex-1 py-4 overflow-hidden">
+          <div className="flex h-full flex-1 overflow-hidden py-4">
             <div className={`flex w-full flex-col `}>
               <div className={`relative mb-2 flex w-full px-2`}>
                 <div className="relative flex w-full flex-col md:flex-row md:pt-2">
@@ -159,9 +178,7 @@ const ClientDrawer = () => {
                   className={`bottom-border-flair pink-to-blue-gradient-1`}
                 />
               </div>
-              <div
-                className={`mt-2 flex w-full flex-col overflow-auto`}
-              >
+              <div className={`mt-2 flex w-full flex-col overflow-auto`}>
                 <ClientInfo client={client} horizontal />
                 <ClientContacts client={client} />
                 <div className={`flex w-full flex-col`}>
@@ -220,7 +237,7 @@ const ClientDrawer = () => {
                     </div>
                   ) : null}
                 </div>
-                {client? (
+                {client ? (
                   <div className="mt-4">
                     <ClientActivity clientId={clientDrawer.clientId} />
                   </div>
@@ -244,7 +261,7 @@ const ClientDrawer = () => {
       {clientDrawer.isOpen ? (
         <HiddenBackdrop onClick={() => closeDrawer()} />
       ) : null}
-    </div>
+    </motion.div>
   )
 }
 

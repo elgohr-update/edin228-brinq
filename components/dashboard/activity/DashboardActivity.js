@@ -63,11 +63,11 @@ export default function DashboardActivity() {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div>
+      <div className="pl-4">
         <PanelTitle title={`Recent Activity`} color="indigo" />
       </div>
       <div
-        className={`flex flex-col rounded-lg pr-2`}
+        className={`flex flex-col rounded-lg px-2`}
       >
         {data?.length > 0 ? (
           <div className="w-full">

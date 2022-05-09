@@ -2,6 +2,7 @@ import { useTheme } from '@nextui-org/react'
 import React, { useState } from 'react'
 import { getConstantIcons } from '../../../utils/utils'
 import TaskCard from '../TaskCard'
+import { motion } from 'framer-motion'
 
 export default function TaskClientGroup({ group }) {
   const { type } = useTheme()
@@ -27,7 +28,7 @@ export default function TaskClientGroup({ group }) {
           <div className="flex items-center space-x-2">
             <h4 className="flex items-center space-x-1">
               <div>{group.tasks.length}</div>
-              <div>Tasks</div>
+              <div>{getConstantIcons('task')}</div>
             </h4>
             <div>{getConstantIcons(open ? 'down' : 'left')}</div>
           </div>
@@ -35,10 +36,27 @@ export default function TaskClientGroup({ group }) {
       </div>
       {open ? (
         <div className="relative flex w-full flex-col space-y-2">
-          {group.tasks.map((task) => (
-            <div key={task.uid} className="flex w-full">
+          {group.tasks.map((task, i) => (
+            <motion.div
+              key={task.uid}
+              className="flex w-full"
+              custom={i}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    delay: i * 0.05,
+                  },
+                  y: 0,
+                },
+                hidden: { opacity: 0, y: -10 },
+              }}
+              transition={{ ease: 'easeInOut', duration: 0.25 }}
+            >
               <TaskCard task={task} showPolicy />
-            </div>
+            </motion.div>
           ))}
         </div>
       ) : null}
