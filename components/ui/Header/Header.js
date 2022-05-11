@@ -23,7 +23,7 @@ const Header = () => {
             <div className="hidden z-20 lg:flex w-full lg:w-1/4 pl-4">
                 {appHeader.titleContent}
             </div>
-            <div className="z-40 flex items-center w-full justify-between lg:justify-end mt-2 lg:mt-0 px-4">
+            <div className="z-40 flex items-center justify-between lg:justify-end mt-2 lg:mt-0 px-4">
                 <div className="lg:hidden z-30">
                     <MobileSidebar />
                 </div>
@@ -34,7 +34,7 @@ const Header = () => {
                     <div className="mr-2">
                         <NewActionMenu />
                     </div>
-                    <div className="mx-2">
+                    <div className="ml-2">
                         <NotificationBell />
                     </div>
                     <div className="ml-2">

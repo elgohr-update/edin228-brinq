@@ -21,7 +21,7 @@ const NotificationBell = () => {
 
     return (
         <div className="flex items-center justify-center w-full h-full relative cursor-pointer">
-            <div className="hover:text-sky-500 transition duration-100 ease-out">
+            <div className="flex items-center justify-center hover:text-sky-500 transition duration-100 ease-out">
                 <BiBell size={20} />
             </div>
             <div className={notifications.length > 0 ?`z-20 notif-bell-badge border-2 ${isDark ? `border-black`:`border-white`}` :'hidden'} />

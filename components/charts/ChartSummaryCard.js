@@ -240,7 +240,7 @@ export default function ChartSummaryCard({
     maintainAspectRatio: true,
   }
 
-  const baseClass = `relative z-20 flex ${noPadding ? `p-0` : `px-4 py-2`} ${
+  const baseClass = `relative h-[90px] z-20 flex ${noPadding ? `p-0` : `px-4 py-2`} ${
     autoWidth ? `w-auto` : `flex-1  min-w-[240px]`
   } rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 

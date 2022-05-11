@@ -27,8 +27,8 @@ export default function TaskClientGroup({ group }) {
           </div>
           <div className="flex items-center space-x-2">
             <h4 className="flex items-center space-x-1">
-              <div>{group.tasks.length}</div>
-              <div>{getConstantIcons('task')}</div>
+              <div className="flex items-center justify-center">{group.tasks.length}</div>
+              <div className="flex items-center justify-center">{getConstantIcons('task')}</div>
             </h4>
             <div>{getConstantIcons(open ? 'down' : 'left')}</div>
           </div>

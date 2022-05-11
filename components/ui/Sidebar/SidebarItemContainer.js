@@ -79,7 +79,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
             className={`flex h-full flex-col space-y-2  overflow-x-hidden px-2 py-4`}
           >
             <div
-              className={`border-b ${
+              className={`border-solid border-b 	 ${
                 isDark ? 'border-white/40' : 'border-black/40'
               } pb-6`}
             >

@@ -32,6 +32,7 @@ import NewBusinessBarChart from '../../components/charts/NewBusinessBarChart'
 import NewBusinessCurrentMonthBarChart from '../../components/charts/NewBusinessCurrentMonthBarChart'
 import SelectInput from '../../components/ui/select/SelectInput'
 import { motion } from 'framer-motion'
+import { DateTime } from 'luxon'
 
 export default function ReportsNewBusiness() {
   const { type } = useTheme()
@@ -65,9 +66,9 @@ export default function ReportsNewBusiness() {
     })
     let isCancelled = false
     const handleYears = () => {
-      const base = new Date()
-      const currentYear = base.getFullYear()
-      const currentMonth = base.getMonth()
+      const base = DateTime.local()
+      const currentYear = base.year
+      const currentMonth = base.month-1
       const years = []
       Array.from(Array(5).keys()).forEach((y) => {
         years.push({ id: currentYear - y, year: String(currentYear - y) })
@@ -164,9 +165,8 @@ export default function ReportsNewBusiness() {
   }
 
   const checkMonth = (month, date) => {
-    const base = new Date(date)
-    const d = new Date(base.getTime() - base.getTimezoneOffset() * -60000)
-    return d.getMonth() == month
+    const base = DateTime.fromISO(date)
+    return base.month-1 == month
   }
 
   const getProducers = () => {

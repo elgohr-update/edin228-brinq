@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTheme } from '@nextui-org/react'
 import { BsBox } from 'react-icons/bs'
-import { getFormattedDateTime } from '../../utils/utils'
+import { getFormattedDateTime, truncateString } from '../../utils/utils'
 import TagBasic from '../ui/tag/TagBasic'
 import UserAvatar from '../user/Avatar'
 import Link from 'next/link'
@@ -44,11 +44,13 @@ const ActivityCard = ({
           <div className={`flex w-full items-center justify-between`}>
             <div className="flex items-center  text-xs space-x-2">
               <h4 className="small-subtext">By {activity.author}</h4>
-              <h4 className="flex items-center small-subtext letter-spacing-1">
+              <div className="data-point-xs purple-to-green-gradient-1"></div>
+              <h4 className="flex items-center small-subtext">
                 {getFormattedDateTime(activity.date)}
               </h4>
+              <div className="data-point-xs pink-to-blue-gradient-1"></div>
+              <h4 className="small-subtext ">{activity.activity_type}</h4>
             </div>
-            <h4 className="small-subtext ">{activity.activity_type}</h4>
           </div>
           <div className="flex py-1">
             {activity.system_action ? (
@@ -62,7 +64,7 @@ const ActivityCard = ({
               <div className="flex">
                 <Link href="/">
                   <a>
-                    <h6 className="text-sky-500">{activity.client_name}</h6>
+                    <h6 className="text-sky-500">{truncateString(activity.client_name,15)}</h6>
                   </a>
                 </Link>
               </div>

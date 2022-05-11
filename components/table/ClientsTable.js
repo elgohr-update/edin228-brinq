@@ -308,7 +308,7 @@ const ClientsTable = () => {
             <Button
               color="warning"
               auto
-              flat
+              light
               icon={<FaFilter fill="currentColor" />}
               onClick={() => setShowFilter(!showFilter)}
             />
@@ -382,13 +382,13 @@ const ClientsTable = () => {
                 </Table.Row>
               )}
             </Table.Body>
-            {tableData.length > 10 ? (
+            {tableData.length > 9 ? (
               <Table.Pagination
                 shadow
                 align="start"
                 noMargin
-                rowsPerPage={10}
-                total={Math.ceil(Number(tableData.length / 10))}
+                rowsPerPage={9}
+                total={Math.ceil(Number(tableData.length / 9))}
               />
             ) : null}
           </Table>

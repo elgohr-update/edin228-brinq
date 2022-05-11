@@ -1,7 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { abbreviateMoney, getConstantIcons, sumFromArray, timeout, useNextApi } from '../../../utils/utils'
+import { AiOutlineDollarCircle } from 'react-icons/ai'
+import DashboardSummaryCard from '../../ui/card/DashboardSummaryCard'
 
-export default function DashboardCards() {
+export default function DashboardCards({
+  premium = 0,
+  clients,
+  renewals_summary,
+  tasks_summary,
+  charts,
+  loading,
+}) {
   return (
-    <div>DashboardCards</div>
+    <div className="flex h-full w-full rounded-lg space-x-2 overflow-x-auto px-4 lg:space-x-0 lg:px-0 lg:gap-4">
+      <DashboardSummaryCard
+        gradient={'green-gradient-2'}
+        label={'Premium'}
+        icon={<AiOutlineDollarCircle />}
+        chartData={charts?.premium_chart}
+        content={`$${abbreviateMoney(premium)}`}
+        animtationDelay={0}
+      />
+      <DashboardSummaryCard
+        gradient={'pink-to-blue-gradient-top-1'}
+        label={'New Business'}
+        slice={false}
+        toCurrentMonth
+        icon={getConstantIcons('deal')}
+        chartData={charts?.nb_premium_chart}
+        content={`$${abbreviateMoney(sumFromArray(charts?.nb_premium_chart))}`}
+        animtationDelay={1}
+      />
+      <DashboardSummaryCard
+        gradient={'peach-gradient-top-1'}
+        label={'Clients'}
+        icon={getConstantIcons('client')}
+        chartData={charts?.clients_chart}
+        content={clients}
+        slice={false}
+        animtationDelay={2}
+        colors={[
+          '#ff5e62',
+          '#ff5e62',
+          '#ff9966',
+          '#ff5e621f',
+          '#ff5e6269',
+          '#ff5e62',
+        ]}
+      />
+    </div>
   )
 }

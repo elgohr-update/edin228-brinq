@@ -25,6 +25,7 @@ import { useAgencyContext, useAppContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import ClientTableCell from './ClientTableCell'
+import { DateTime } from 'luxon'
 
 const NewBusinessTable = ({year=2022}) => {
   const { type } = useTheme()
@@ -75,9 +76,9 @@ const NewBusinessTable = ({year=2022}) => {
   }
 
   const startingEffective = () => {
-      const today = new Date()
-      if (today.getFullYear() == year){
-        const m = today.getMonth()
+      const today = DateTime.local()
+      if (today.year == year){
+        const m = today.month-1
         const months = Array.from(Array(m+1).keys()).map( x => x)
         return months
       }
@@ -308,9 +309,8 @@ const NewBusinessTable = ({year=2022}) => {
   }
 
   const checkMonth = (d) => {
-    const base = new Date(d)
-    const date = new Date(base.getTime() - base.getTimezoneOffset() * -60000)
-    const month = date.getMonth()
+    const base = DateTime.fromISO(d)
+    const month = base.month-1
     return effective.includes(month)
   }
 
@@ -450,7 +450,7 @@ const NewBusinessTable = ({year=2022}) => {
             <Button
               color="warning"
               auto
-              flat
+              light
               icon={<FaFilter fill="currentColor" />}
               onClick={() => setShowFilter(!showFilter)}
             />

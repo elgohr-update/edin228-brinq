@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { getConstantIcons } from '../../../utils/utils'
+import React from 'react'
 import NavAction from '../../ui/navbar/NavAction'
+import { BsListTask,BsCalendarX,BsCalendarEvent,BsCalendar2Week } from 'react-icons/bs';
 
 const TodosNavBar = ({activeItem=1, setTab}) => {
 
@@ -12,28 +12,28 @@ const TodosNavBar = ({activeItem=1, setTab}) => {
     <div className="flex items-center space-x-1 px-2">
       <NavAction
         onClick={() => setActive(1)}
-        icon={getConstantIcons('policy')}
+        icon={<BsListTask/>}
         title={'All'}
         activeItem={activeItem}
         itemId={1}
       />
       <NavAction
         onClick={() => setActive(2)}
-        icon={getConstantIcons('policy')}
+        icon={<BsCalendarX/>}
         title={'Overdue'}
         activeItem={activeItem}
         itemId={2}
       />
       <NavAction
         onClick={() => setActive(3)}
-        icon={getConstantIcons('policy')}
+        icon={<BsCalendarEvent/>}
         title={'Today'}
         activeItem={activeItem}
         itemId={3}
       />
       <NavAction
         onClick={() => setActive(4)}
-        icon={getConstantIcons('policy')}
+        icon={<BsCalendar2Week/>}
         title={'Week'}
         activeItem={activeItem}
         itemId={4}

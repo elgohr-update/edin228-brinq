@@ -323,7 +323,7 @@ const PoliciesTable = () => {
             <Button
               color="warning"
               auto
-              flat
+              light
               icon={<FaFilter fill="currentColor" />}
               onClick={() => setShowFilter(!showFilter)}
             />

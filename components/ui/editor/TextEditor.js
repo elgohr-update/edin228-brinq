@@ -66,7 +66,7 @@ export default function TextEditor({ getValue, isComment=true }) {
     >
       <EditorContent editor={editor} />
       <div
-        className={`menubar-${type} flex border-t border-gray-600/40 w-full items-center space-x-2 py-2`}
+        className={`menubar-${type} flex border-t border-gray-600/40 w-full items-center space-x-2 pt-4`}
       >
         <button
           className={`custom__button ${

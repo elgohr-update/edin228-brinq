@@ -180,8 +180,7 @@ export const getSearch = (data, search = '') => {
 }
 
 export const getFormattedDate = (date) => {
-  const reformat = DateTime.fromISO(date, { zone: 'utc'}).toUTC()
-  const base = DateTime.fromISO(reformat)
+  const base = DateTime.fromISO(date)
   const d = base.toLocaleString(DateTime.DATE_SHORT)
   return d
 }
