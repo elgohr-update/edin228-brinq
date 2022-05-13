@@ -12,9 +12,11 @@ export default function DashboardCards({
   loading,
 }) {
   return (
-    <div className="flex h-full w-full rounded-lg space-x-2 overflow-x-auto px-4 lg:space-x-0 lg:px-0 lg:gap-4">
+    <div className="flex h-full w-full rounded-lg space-x-2 lg:p-6 overflow-x-auto lg:space-x-0 lg:gap-4">
       <DashboardSummaryCard
         gradient={'green-gradient-2'}
+        shadow
+        shadowColor={'green'}
         label={'Premium'}
         icon={<AiOutlineDollarCircle />}
         chartData={charts?.premium_chart}
@@ -23,6 +25,8 @@ export default function DashboardCards({
       />
       <DashboardSummaryCard
         gradient={'pink-to-blue-gradient-top-1'}
+        shadow
+        shadowColor={'blue'}
         label={'New Business'}
         slice={false}
         toCurrentMonth
@@ -33,6 +37,8 @@ export default function DashboardCards({
       />
       <DashboardSummaryCard
         gradient={'peach-gradient-top-1'}
+        shadow
+        shadowColor={'orange'}
         label={'Clients'}
         icon={getConstantIcons('client')}
         chartData={charts?.clients_chart}

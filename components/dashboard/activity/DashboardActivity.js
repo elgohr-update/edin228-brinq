@@ -69,7 +69,7 @@ export default function DashboardActivity() {
       </div>
       <div className={`flex flex-col rounded-lg px-2`}>
         {data?.length > 0 ? (
-          <div className="w-full">
+          <div className="relative w-full">
             <Input
               className={`z-10`}
               type="search"
@@ -81,6 +81,7 @@ export default function DashboardActivity() {
               labelLeft={<FaSearch />}
               onChange={(e) => searchActivity(e.target.value)}
             />
+            <div className="flex search-border-flair pink-to-blue-gradient-1 z-30"/>
           </div>
         ) : null}
         <div

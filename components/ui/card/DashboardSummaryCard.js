@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 
 export default function DashboardSummaryCard({
   gradient,
+  shadow=false,
+  shadowColor='green',
   label,
   icon,
   chartData,
@@ -15,6 +17,22 @@ export default function DashboardSummaryCard({
   animtationDelay=0
 }) {
   const { type } = useTheme()
+
+  const getShadowColor = () => {
+    switch (shadowColor) {
+      case 'green':
+        return 'green-shadow'
+      case 'blue':
+        return 'blue-shadow'
+      case 'orange':
+        return 'orange-shadow'
+      case 'purple':
+        return 'purple-shadow'
+      case 'pink':
+        return 'pink-shadow'
+    }
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -29,7 +47,7 @@ export default function DashboardSummaryCard({
         hidden: { opacity: 0 },
       }}
       transition={{ ease: 'easeInOut', duration: 2 }}
-      className={`${gradient} content-dark relative flex h-full w-[150px] flex-col overflow-hidden rounded-lg ${type}-shadow`}
+      className={`${gradient} content-dark relative flex h-[200px] lg:h-full w-[150px] flex-col overflow-hidden rounded-lg ${shadow? getShadowColor():``}`}
     >
       <div className="relative z-20 flex h-full flex-col items-center justify-between pb-12 pt-4 lg:pt-8">
         <div className="flex flex-col z-40 items-center space-x-1 lg:space-x-2 text-sm justify-center text-center lg:text-lg font-semibold">

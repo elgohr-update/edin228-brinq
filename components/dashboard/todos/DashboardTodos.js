@@ -178,9 +178,14 @@ export default function DashboardTodos() {
     return { groups: dateGroupArrays, tasks: tdt }
   }
   const formatTodayTasks = (tasks) => {
-    const today = new Date()
+    const checkIfToday = (d) => {
+      const today = DateTime.local()
+      const date = DateTime.fromISO(d)
+      return date.day == today.day && date.month == today.month && date.year == today.year
+    }
+    
     const tdt = tasks.filter(
-      (b) => b.done === false && new Date(b.date) === today
+      (b) => b.done === false && checkIfToday(b.date)
     )
     const dateGroups = tdt.reduce((dateGroups, task) => {
       const date = task.date.split('T')[0]
@@ -273,7 +278,7 @@ export default function DashboardTodos() {
         <TodosNavBar activeItem={todoTab} setTab={(e) => setTab(e)} />
       </div>
       <div className={`flex flex-col rounded-lg px-2`}>
-        <div className="w-full">
+        <div className="relative w-full">
           <Input
             className={`z-10`}
             type="search"
@@ -285,6 +290,7 @@ export default function DashboardTodos() {
             labelLeft={<FaSearch />}
             onChange={(e) => searchData(e.target.value)}
           />
+          <div className="flex search-border-flair pink-to-blue-gradient-1 z-30"/>
         </div>
         <div
           className={`tasks-container flex h-full max-h-[82vh] w-full flex-col space-y-4 overflow-y-auto rounded p-2`}

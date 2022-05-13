@@ -21,7 +21,7 @@ const Sidebar = () => {
     <div className="relative z-50 flex h-full w-full flex-col">
       <div
         className={`absolute flex h-full w-full flex-col justify-between ${
-          expand ? `panel-theme-${type} ${type}-shadow` : ``
+          expand ? `sidebar-theme-${type} ${type}-shadow` : ``
         } sidebar-${isExpand()}`}
         onMouseOver={() => hoverSidebar('in')}
         onMouseOut={() => hoverSidebar('out')}

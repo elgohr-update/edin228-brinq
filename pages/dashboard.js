@@ -47,31 +47,36 @@ export default function Dashboard() {
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex h-full w-full flex-col lg:flex-row lg:pl-2">
+        <div className="flex h-full w-full flex-col lg:w-3/12 lg:p-2">
+          <DashboardTodos />
+        </div>
         <div className="flex h-full w-full flex-col lg:w-9/12">
-          <div className="flex h-full w-full flex-col lg:flex-1 lg:px-4 py-2">
-            <div>
-            <PanelTitle title={`Overview`} color="sky" />
+          <div className="flex h-full w-full flex-col py-2 lg:flex-1 lg:px-4">
+            <div className="pl-4 lg:pl-2">
+              <PanelTitle title={`Overview`} color="sky" />
             </div>
-            <DashboardCards
-              premium={data?.premium}
-              clients={data?.clients}
-              renewals_summary={data?.renewals_summary}
-              tasks_summary={data?.tasks_summary}
-              charts={data?.charts}
-              loading={loading}
-            />
+            <div className="flex h-full w-full flex-col px-4 lg:flex-row lg:px-0">
+              <DashboardCards
+                premium={data?.premium}
+                clients={data?.clients}
+                renewals_summary={data?.renewals_summary}
+                tasks_summary={data?.tasks_summary}
+                charts={data?.charts}
+                loading={loading}
+              />
+            </div>
           </div>
           <div className="flex flex-col lg:flex-1 lg:flex-row lg:items-center">
-            <div className="flex h-full w-full flex-col lg:w-8/12 lg:p-2">
+            <div className="flex h-full w-full flex-col lg:w-4/12 lg:p-2">
+              <DashboardTeam />
+            </div>
+            <div className="flex h-full w-full flex-col lg:w-4/12 lg:p-2">
               <DashboardTeam />
             </div>
             <div className="flex h-full w-full flex-col lg:w-4/12 lg:p-2">
               <DashboardActivity />
             </div>
           </div>
-        </div>
-        <div className="flex h-full w-full flex-col lg:w-3/12 lg:p-2">
-          <DashboardTodos />
         </div>
       </div>
     </div>
