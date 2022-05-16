@@ -1,15 +1,16 @@
 import React from 'react'
 import NavAction from '../../ui/navbar/NavAction'
 import { BsListTask,BsCalendarX,BsCalendarEvent,BsCalendar2Week } from 'react-icons/bs';
+import { useTheme } from '@nextui-org/react';
 
 const TodosNavBar = ({activeItem=1, setTab}) => {
-
+  const { type } = useTheme()
   const setActive = (key) => {
     setTab(key)
   }
 
   return (
-    <div className="flex items-center space-x-1 px-2">
+    <div className={`flex items-center space-x-1 rounded-lg px-2 py-1`}>
       <NavAction
         onClick={() => setActive(1)}
         icon={<BsListTask/>}

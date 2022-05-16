@@ -12,7 +12,7 @@ export default function DashboardCards({
   loading,
 }) {
   return (
-    <div className="flex h-full w-full rounded-lg space-x-2 lg:p-6 overflow-x-auto lg:space-x-0 lg:gap-4">
+    <div className="flex w-full rounded-lg space-x-2 lg:px-4 lg:py-2 overflow-x-auto lg:space-x-0 lg:gap-4">
       <DashboardSummaryCard
         gradient={'green-gradient-2'}
         shadow
@@ -24,19 +24,7 @@ export default function DashboardCards({
         animtationDelay={0}
       />
       <DashboardSummaryCard
-        gradient={'pink-to-blue-gradient-top-1'}
-        shadow
-        shadowColor={'blue'}
-        label={'New Business'}
-        slice={false}
-        toCurrentMonth
-        icon={getConstantIcons('deal')}
-        chartData={charts?.nb_premium_chart}
-        content={`$${abbreviateMoney(sumFromArray(charts?.nb_premium_chart))}`}
-        animtationDelay={1}
-      />
-      <DashboardSummaryCard
-        gradient={'peach-gradient-top-1'}
+        gradient={'orange-gradient-top-1 '}
         shadow
         shadowColor={'orange'}
         label={'Clients'}
@@ -53,6 +41,18 @@ export default function DashboardCards({
           '#ff5e6269',
           '#ff5e62',
         ]}
+      />
+      <DashboardSummaryCard
+        gradient={'pink-to-blue-gradient-top-1'}
+        shadow
+        shadowColor={'purple'}
+        label={'New Business'}
+        slice={false}
+        toCurrentMonth
+        icon={getConstantIcons('deal')}
+        chartData={charts?.nb_premium_chart}
+        content={`$${abbreviateMoney(sumFromArray(charts?.nb_premium_chart))}`}
+        animtationDelay={1}
       />
     </div>
   )

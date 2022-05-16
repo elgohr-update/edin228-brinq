@@ -492,7 +492,7 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="lg:max-w-9/12 flex w-full flex-col space-y-4 py-4 px-4 lg:pl-0 lg:pr-4">
+          <div className="lg:max-w-9/12 flex w-full flex-col space-y-4 px-4 lg:pl-0 lg:pr-4">
             {chartData ? (
               <div className="flex w-full flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
                 <div className="flex w-full lg:w-1/2">
@@ -518,7 +518,7 @@ export default function ReportsNewBusiness() {
             ) : null}
           </div>
         </div>
-        <div className="flex overflow-hidden px-4 pb-4">
+        <div className="flex overflow-hidden p-4">
           <div className={`h-full w-full rounded-lg`}>
             {tableData && chartData ? (
               <NewBusinessTable year={dataYear} />

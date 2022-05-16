@@ -168,7 +168,7 @@ export default function BackgroundFillSparkline({
     <div className="absolute bottom-0 z-10 w-full rounded-lg">
       <Line
         data={chartData}
-        height={300}
+        height={50}
         ref={chartRef}
         plugins={[multiply]}
         options={options}

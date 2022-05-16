@@ -31,6 +31,8 @@
   }
 }
 .dark-theme {
+  --scrollbar-color: #ffffff63;
+
   --color-select-input: #111111;
   --color-on-select-input: #bdc1c6;
   --color-select-input-placeholder: rgb(145, 145, 145);
@@ -58,6 +60,7 @@
   --color-on-select-menu-item-selected: #0070f3;
 }
 .light-theme {
+  --scrollbar-color: #1c174a78;
   --color-select-input: white;
   --color-on-select-input: rgb(51, 51, 51);
   --color-select-input-placeholder: rgb(145, 145, 145);
@@ -132,7 +135,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #e5e5e5;
+    background-color: var(--scrollbar-color);
     border-radius: 50px;
 }
 
@@ -429,25 +432,37 @@ p {
 .orange-gradient-1 {
   background-image: -webkit-linear-gradient(
     to right,
-    #f7b733,
-    #fc4a1a
+    #FFA93B,
+    #FF2525
   ); /* Chrome 10-25, Safari 5.1-6 */
   background-image: linear-gradient(
     to right,
-    #f7b733,
-    #fc4a1a
+    #FFA93B,
+    #FF2525
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.orange-gradient-top-1 {
+  background-image: -webkit-linear-gradient(
+    to bottom,
+    #FFA93B,
+    #FF2525
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background-image: linear-gradient(
+    to bottom,
+    #FFA93B,
+    #FF2525
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .orange-reverse-gradient-1 {
   background-image: -webkit-linear-gradient(
     to left,
-    #f7b733,
-    #fc4a1a
+    #FFA93B,
+    #FF2525
   ); /* Chrome 10-25, Safari 5.1-6 */
   background-image: linear-gradient(
     to left,
-    #f7b733,
-    #fc4a1a
+    #FFA93B,
+    #FF2525
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background-size: 100% 200%;
   
@@ -491,15 +506,15 @@ p {
 .green-gradient-2 {
   background-image: -webkit-linear-gradient(
     to bottom,
-    #11ede1 0%,
+    #2BD2FF 0%,
     #46c389 50%,
-    #24a290 80%
+    #2BFF88 80%
   );
   background-image: linear-gradient(
     to bottom,
-    #11ede1 0%,
+    #2BD2FF 0%,
     #46c389 50%,
-    #24a290 80%
+    #2BFF88 80%
   );
   background-size: 100% 200%;
   
@@ -538,17 +553,11 @@ p {
   background-size: 100% 200%;
 }
 .pink-to-blue-gradient-top-1 {
-  background-image: -webkit-linear-gradient(
-    to top,
-    #ec008c,
-    #16bffd
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background-image: linear-gradient(
-    to top,
-    #ec008c,
-    #16bffd
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background-size: 100% 200%;
+  background: rgb(92,5,181);
+  background: -moz-linear-gradient(3deg, rgba(92,5,181,1) 11%, rgba(22,140,240,1) 54%, rgba(10,238,209,1) 100%);
+  background: -webkit-linear-gradient(3deg, rgba(92,5,181,1) 11%, rgba(22,140,240,1) 54%, rgba(10,238,209,1) 100%);
+  background: linear-gradient(3deg, rgba(92,5,181,1) 11%, rgba(22,140,240,1) 54%, rgba(10,238,209,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5c05b5",endColorstr="#0aeed1",GradientType=1);
 }
 .blue-gradient-1 {
   background-image: -webkit-linear-gradient(
@@ -1123,9 +1132,9 @@ filter: drop-shadow(0px 0px 17px var(--nextui-colors-secondary));
   border-radius: 50px 50px 0 0;
 }
 
-.navlink-active {
+/* .navlink-active {
   background:linear-gradient(0deg, #d515b524, transparent);
-}
+} */
 /* Color Picker */
 .color-picker-container {
   height:14px;

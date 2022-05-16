@@ -62,7 +62,7 @@ const ActivityCard = ({
           <div className={`flex flex-col md:flex-row w-full md:items-center md:space-x-2`}>
             {hideClient ? null : (
               <div className="flex">
-                <Link href="/">
+                <Link href={`/clients/${activity.client_id}`}>
                   <a>
                     <h6 className="text-sky-500">{truncateString(activity.client_name,15)}</h6>
                   </a>

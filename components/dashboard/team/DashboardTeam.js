@@ -1,18 +1,51 @@
-import React from 'react'
+import { useTheme } from '@nextui-org/react'
+import React, { useEffect, useState } from 'react'
+import uuid from 'react-uuid'
 import PanelTitle from '../../ui/title/PanelTitle'
+import DashboardTeamCard from './DashboardTeamCard'
+import { motion } from 'framer-motion'
+import { sortByProperty } from '../../../utils/utils'
 
-export default function DashboardTeam() {
+
+export default function DashboardTeam({ base = [] }) {
+  const [data, setData] = useState([])
+  const { type } = useTheme()
+
+  useEffect(() => {
+    if (!base) {
+      return
+    }
+    const format = base.map((b) => {
+      return { ...b, id: uuid() }
+    })
+    const sorted = sortByProperty(format,'prem')
+    setData(sorted)
+  }, [base,setData])
+
   return (
-    <div className="flex w-full flex-col">
+    <div className="mt-2 lg:mt-0 flex w-full flex-col">
       <div className="pl-4">
         <PanelTitle title={`Team`} color="orange" />
       </div>
-      <div className="flex w-full rounded-lg relative">
-        <div className="flex p-2 w-full overflow-x-auto space-x-1 lg:space-x-0 lg:overflow-x-hidden lg:flex-wrap lg:gap-2 lg:max-h-[54vh] lg:overflow-y-auto">
-          {Array.from(Array(20).keys()).map((y,i) => (
-            <div key={y} className="flex h-[80px] w-full p-2 rounded-lg bg-gray-500/20">
-              <div>{i}</div>
-            </div>
+      <div
+        className={`relative flex w-full min-h-[87px] rounded-lg`}
+      >
+        <div className="flex flex-wrap w-full space-y-2 lg:space-y-0 overflow-y-auto h-[28vh] lg:gap-2 lg:space-x-0">
+          {data?.map((d,i) => (
+            <motion.div
+              key={d.id}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: { opacity: 1, transition: {
+                  delay: i * 0.1,
+                }, },
+                hidden: { opacity: 0 },
+              }}
+              transition={{ ease: 'easeOut', duration: 1 }}
+            >
+              <DashboardTeamCard  data={d} />
+            </motion.div>
           ))}
         </div>
       </div>

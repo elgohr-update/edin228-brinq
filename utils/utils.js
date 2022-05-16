@@ -179,6 +179,10 @@ export const getSearch = (data, search = '') => {
   })
 }
 
+export const getPercentage = (a, b) => {
+  return b > 0 ? Math.round((a / b) * 100) : 0
+}
+
 export const getFormattedDate = (date) => {
   const base = DateTime.fromISO(date)
   const d = base.toLocaleString(DateTime.DATE_SHORT)

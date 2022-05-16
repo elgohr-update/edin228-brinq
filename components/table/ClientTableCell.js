@@ -6,11 +6,12 @@ import TagContainer from '../ui/tag/TagContainer'
 export default function ClientTableCell({
   type,
   clientId,
-  tags,
+  tags = [],
   cellValue,
   isRnwl = false,
-  month=null,
-  year=null
+  subContent = null,
+  month = null,
+  year = null,
 }) {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
 
@@ -36,19 +37,22 @@ export default function ClientTableCell({
 
   const checkTheme = () => {
     return type === 'dark'
-      ? `page-link h-full w-full hover:bg-gray-600/10 p-4 rounded transition duration-100 ease-out`
-      : `page-link h-full w-full hover:bg-gray-500/10 p-4 rounded transition duration-100 ease-out`
+      ? `page-link h-full w-full px-2 pb-1`
+      : `page-link h-full w-full px-2 pb-1`
   }
   return (
-    <div className="px-2 text-xs">
+    <div className="flex flex-col py-1 rounded-lg text-xs hover:bg-gray-600/10 transition duration-200 ease-out">
       <div className={checkTheme()} onClick={() => openSidebar()}>
         <Link href={`/clients/${clientId}`}>
-          <a className="transition duration-100 ease-in-out">
+          <a className="flex transition duration-100 ease-in-out">
             {cellValue}
           </a>
         </Link>
+      </div>
+      <div>
         <TagContainer tags={tags} />
       </div>
+      {subContent ? <div className="flex w-full px-4">{subContent}</div> : null}
     </div>
   )
 }

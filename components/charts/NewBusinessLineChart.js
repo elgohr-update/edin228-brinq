@@ -240,7 +240,7 @@ export default function NewBusinessLineChart({
   }
 
   const baseClass = `relative z-20 flex items-center justify-center w-full ${
-    noPadding ? `p-0` : `px-4 py-2`
+    noPadding ? `p-0` : `px-4`
   } rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (

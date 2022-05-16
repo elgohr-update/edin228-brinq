@@ -47,17 +47,17 @@ export default function DashboardSummaryCard({
         hidden: { opacity: 0 },
       }}
       transition={{ ease: 'easeInOut', duration: 2 }}
-      className={`${gradient} content-dark relative flex h-[200px] lg:h-full w-[150px] flex-col overflow-hidden rounded-lg ${shadow? getShadowColor():``}`}
+      className={`${gradient} content-dark relative flex h-[100px] w-full flex-col overflow-hidden rounded-lg ${shadow? getShadowColor():``}`}
     >
-      <div className="relative z-20 flex h-full flex-col items-center justify-between pb-12 pt-4 lg:pt-8">
-        <div className="flex flex-col z-40 items-center space-x-1 lg:space-x-2 text-sm justify-center text-center lg:text-lg font-semibold">
-          <div>{icon}</div>
-          <div className="uppercase">{label}</div>
+      <div className="relative z-20 flex h-full flex-col">
+        <div className="flex h-full flex-col lg:items-end lg:flex-row z-40 items-center space-x-1 lg:space-x-2 text-sm justify-center text-center lg:text-lg font-semibold">
+          <div className="flex pb-1">{icon}</div>
+          <div className="flex items-center text-center justify-center uppercase">{label}</div>
         </div>
         <BackgroundFillSparkline toCurrentMonth={toCurrentMonth} slice={slice} passColors={colors} baseData={chartData} />
       </div>
       <div
-        className={`relative card-overlay-bg flex items-center justify-center rounded-b-lg py-2 lg:text-2xl font-bold `}
+        className={`relative card-overlay-bg flex items-center justify-center rounded-b-lg py-1 lg:text-xl font-bold `}
       >
         <div className="z-20">{content}</div>
       </div>

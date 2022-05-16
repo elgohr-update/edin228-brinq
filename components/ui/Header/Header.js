@@ -42,6 +42,9 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+            <div className="flex lg:hidden z-20 w-full pl-4 py-4">
+                {appHeader.titleContent}
+            </div>
             {
                 showSearchBar ? 
                     <div className={`z-20 lg:flex w-full panel-theme-${type} px-4 py-2`}>

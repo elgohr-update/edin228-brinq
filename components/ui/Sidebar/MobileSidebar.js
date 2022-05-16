@@ -1,13 +1,20 @@
 import { Button, useTheme } from '@nextui-org/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
 import SidebarItemContainer from './SidebarItemContainer'
 import { RiMenu4Line } from 'react-icons/ri'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 const MobileSidebar = () => {
   const [open, setOpen] = useState(false)
   const { type } = useTheme()
+  const router = useRouter()
+  useEffect(() => {
+    router.events.on('routeChangeStart', () => {
+      setOpen(false)
+    })
+  }, [router.events])
 
   return (
     <div className="relative z-50 flex h-full w-full flex-col">
