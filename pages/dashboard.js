@@ -71,10 +71,10 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col shrink-0 lg:flex-auto lg:flex-row">
-            <div className="flex w-full flex-col lg:p-2">
-              <div className="flex w-full flex-col lg:flex-row">
-                <div className="h-full w-full flex-col pb-2 flex lg:px-2 lg:pr-4">
+          <div className="flex flex-col h-full shrink-0 lg:flex-auto lg:flex-row">
+            <div className="flex w-full h-full flex-col lg:p-2">
+              <div className="flex w-full h-full flex-col lg:flex-row">
+                <div className="h-full w-full flex-col flex lg:px-2 lg:pr-4">
                   <DashboardTodos />
                 </div>
                 <div className="flex flex-col h-full lg:min-w-[450px] lg:max-w-[450px]">

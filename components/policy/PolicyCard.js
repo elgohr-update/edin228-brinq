@@ -52,7 +52,7 @@ const PolicyCard = ({
       : ``
   }
 
-  const baseClass = `flex h-full items-center flex-auto relative text-xs transition-all ${
+  const baseClass = `flex shrink-0 items-center flex-auto relative text-xs transition-all ${
     border ? `${isDark ? `border-slate-900` : `border-slate-200`} border` : null
   } ${
     shadow ? `${type}-shadow` : null

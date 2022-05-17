@@ -35,7 +35,7 @@ export default function Client({ data }) {
   const { state, setState } = useAppContext()
   const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
   const { reload, setReload } = useReloadContext()
-  const {appHeader, setAppHeader} = useAppHeaderContext();
+  const { appHeader, setAppHeader } = useAppHeaderContext()
   const [showActive, setShowActive] = useState(true)
   const [client, setClient] = useState(data)
   const [policies, setPolicies] = useState(data?.policies)
@@ -76,9 +76,12 @@ export default function Client({ data }) {
     }
   }, [reload])
 
-  useEffect( () => {
-    setAppHeader({...appHeader,titleContent:<ClientHeader client={client} />})
-  },[])
+  useEffect(() => {
+    setAppHeader({
+      ...appHeader,
+      titleContent: <ClientHeader client={client} />,
+    })
+  }, [])
 
   const fetchClient = async () => {
     const clientId = router.query.cid
@@ -97,7 +100,12 @@ export default function Client({ data }) {
       ? reverseList(
           sortByProperty(
             policies.filter(
-              (x) => !x.renewed && !x.canceled && !x.nottaken && !x.nonrenewed && !x.rewritten
+              (x) =>
+                !x.renewed &&
+                !x.canceled &&
+                !x.nottaken &&
+                !x.nonrenewed &&
+                !x.rewritten
             ),
             'premium'
           )
@@ -115,81 +123,65 @@ export default function Client({ data }) {
   }
 
   return (
-    <div className="relative flex h-full w-full shrink-0 flex-auto flex-col max-h-[82vh] lg:max-h-[90vh] overflow-y-auto lg:flex-row lg:overflow-hidden">
-      <div className="flex w-full flex-col ">
-        <div className="flex w-full flex-col lg:flex-row lg:overflow-hidden">
-          <div
-            className={`relative flex flex-auto w-full flex-col space-y-2 py-4 px-4 lg:w-[400px] lg:py-0 lg:pb-8`}
-          >
-            <ClientInfo
-              flat={true}
-              shadow={true}
-              noBg={false}
-              client={client}
-            />
-            <ClientContacts
-              flat={true}
-              shadow={true}
-              noBg={false}
-              client={client}
-            />
-          </div>
-          <div className="flex flex-auto h-full w-full flex-col lg:overflow-hidden">
-            <div className="flex items-center justify-between">
-              <ClientDataNavbar />
-              <div className="flex items-center space-x-2 py-2 lg:justify-end lg:py-0">
-                <Button.Group size="xs" flat>
-                  <Button>
-                    <BiPaperPlane />
-                  </Button>
-                  <Button>
-                    <BsChatLeftQuoteFill />
-                  </Button>
-                  <Button onClick={() => openActivity()}>
-                    <RiPlayListAddFill />
-                  </Button>
-                  <Button>
-                    <BiLinkExternal />
-                  </Button>
-                  <Button onClick={() => syncAms()}>
-                    <BiRefresh />
-                  </Button>
-                </Button.Group>
-              </div>
-            </div>
-            {state.client.dataNavbar === 1 ? (
-              <div className="flex w-full flex-col lg:overflow-hidden">
-                <div className="flex w-full items-center px-4">
-                  <ClientPolicyInfo
-                    client={client}
-                    policies={getPolicies(true)}
-                  />
-                  <div>
-                    <h4>Active</h4>
-                    <Switch
-                      checked={showActive}
-                      size="xs"
-                      onChange={(e) => setShowActive(e.target.checked)}
-                    />
-                  </div>
-                </div>
-                <div
-                  className={`flex h-full flex-auto flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
-                >
-                  {getPolicies(showActive).map((u) => (
-                    <Panel flat key={u.id} overflow={false} px={0} py={0}>
-                      <PolicyCard policy={u} truncate={60} />
-                    </Panel>
-                  ))}
-                </div>
-              </div>
-            ) : null}
+    <div className="relative flex h-full max-h-[82vh] w-full flex-auto shrink-0 flex-col overflow-y-auto lg:max-h-[90vh] lg:flex-row lg:overflow-hidden">
+      <div className={`relative flex flex-auto flex-col space-y-2 py-4 px-4 lg:w-2/12 lg:py-0 lg:pb-8`}>
+        <ClientInfo flat={true} shadow={true} noBg={false} client={client} />
+        <ClientContacts
+          flat={true}
+          shadow={true}
+          noBg={false}
+          client={client}
+        />
+      </div>
+      <div className="flex flex-auto shrink-0 flex-col lg:w-7/12 lg:overflow-hidden">
+        <div className="flex items-center justify-between">
+          <ClientDataNavbar />
+          <div className="flex items-center space-x-2 py-2 lg:justify-end lg:py-0">
+            <Button.Group size="xs" flat>
+              <Button>
+                <BiPaperPlane />
+              </Button>
+              <Button>
+                <BsChatLeftQuoteFill />
+              </Button>
+              <Button onClick={() => openActivity()}>
+                <RiPlayListAddFill />
+              </Button>
+              <Button>
+                <BiLinkExternal />
+              </Button>
+              <Button onClick={() => syncAms()}>
+                <BiRefresh />
+              </Button>
+            </Button.Group>
           </div>
         </div>
+        {state.client.dataNavbar === 1 ? (
+          <div className="flex w-full flex-auto shrink-0 flex-col lg:overflow-hidden">
+            <div className="flex w-full flex-auto shrink-0 items-center px-4">
+              <ClientPolicyInfo client={client} policies={getPolicies(true)} />
+              <div>
+                <h4>Active</h4>
+                <Switch
+                  checked={showActive}
+                  size="xs"
+                  onChange={(e) => setShowActive(e.target.checked)}
+                />
+              </div>
+            </div>
+            <div
+              className={`flex flex-auto shrink-0 h-auto flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
+            >
+              {getPolicies(showActive).map((u) => (
+                <Panel flat key={u.id} overflow={false} px={0} py={0}>
+                  <PolicyCard policy={u} truncate={60} />
+                </Panel>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
-      <div
-        className={`mt-4 flex  w-full flex-col h-full pb-2 lg:mt-0 lg:w-5/12 lg:overflow-hidden`}
-      >
+      <div className={`mt-4 flex flex-auto flex-col pb-2 lg:mt-0 lg:w-3/12 lg:overflow-hidden`}>
         <div className="lg:px-4">
           <ClientActionNavbar />
         </div>

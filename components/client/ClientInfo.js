@@ -8,9 +8,9 @@ import ClientReferences from './ClientReferences'
 const ClientInfo = ({client, flat=true, noBg=true, shadow=false, overflow=false, horizontal=false, editable=false}) => {
   return (
     <Panel horizontal={horizontal} flat={flat} noBg={noBg} shadow={shadow} overflow={overflow}>
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col flex-auto shrink-0">
             <PanelTitle title={`Reps`} color="indigo" />
-            <div className={`flex flex-wrap w-full space-y-2`}>
+            <div className={`flex flex-wrap flex-auto shrink-0 space-y-2`}>
                 {client?.users?.map( u => (
                     <div className="flex" key={u.id}>
                         <User 
