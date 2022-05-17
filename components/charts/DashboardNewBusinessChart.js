@@ -13,6 +13,8 @@ import {
   Filler,
 } from 'chart.js'
 import { Chart, Bar, Line, Scatter, Bubble } from 'react-chartjs-2'
+import { getCurrentMonth } from '../../utils/utils'
+import PanelTitle from '../ui/title/PanelTitle'
 
 ChartJS.register(
   CategoryScale,
@@ -82,9 +84,9 @@ function createGradient(ctx, area, indx, fill = false, fixedIndx = 1) {
 function createBorderGradient(ctx, area, indx) {
   const gradient = ctx.createLinearGradient(area.left, 0, area.right, 0)
 
-  gradient.addColorStop(0, colors[indx][0])
-  gradient.addColorStop(0.5, colors[indx][1])
-  gradient.addColorStop(1, colors[indx][2])
+  gradient.addColorStop(0, colors[indx + 3][0])
+  gradient.addColorStop(0.5, colors[indx + 3][1])
+  gradient.addColorStop(1, colors[indx + 3][2])
 
   return gradient
 }
@@ -98,7 +100,7 @@ var multiply = {
   },
 }
 
-export default function DashboardSummaryChart({
+export default function DashboardNewBusinessChart({
   border = false,
   vertical = true,
   panel = false,
@@ -148,35 +150,17 @@ export default function DashboardSummaryChart({
   const getDataset = () => {
     return [
       {
-        data: fullData?.premium_chart,
-        label: 'Premium',
+        data: fullData?.nb_chart,
+        label: 'New Business',
         type: 'line',
         yAxisID: 'y',
       },
       {
-        data: fullData?.clients_chart,
-        label: 'Clients',
-        type: 'bar',
+        data: fullData?.nb_premium_chart,
+        label: 'New Business Premium',
+        type: 'line',
         yAxisID: 'y1',
       },
-      {
-        data: fullData?.policies_chart,
-        label: 'Policies',
-        type: 'bar',
-        yAxisID: 'y2',
-      },
-      // {
-      //   data: fullData?.nb_chart,
-      //   label: 'New Business',
-      //   type: 'line',
-      //   yAxisID: 'y3',
-      // },
-      // {
-      //   data: fullData?.nb_premium_chart,
-      //   label: 'New Business Premium',
-      //   type: 'line',
-      //   yAxisID: 'y4',
-      // },
     ]
   }
 
@@ -196,7 +180,7 @@ export default function DashboardSummaryChart({
   ]
 
   const data = {
-    labels: months,
+    labels: months.slice(0, getCurrentMonth() + 1),
     datasets: [...getDataset()],
   }
 
@@ -295,14 +279,17 @@ export default function DashboardSummaryChart({
     maintainAspectRatio: true,
   }
 
-  const baseClass = `relative z-20 w-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+  const baseClass = `flex relative z-20 w-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className="flex w-full lg:justify-center">
-      <div className={`${baseClass} flex`}>
+    <div className="flex w-full flex-col lg:justify-center">
+      <div className="pl-4">
+        <PanelTitle title={`New Business`} color="lime" />
+      </div>
+      <div className={`${baseClass} panel-theme-${type} ${type}-shadow flex py-2 px-4`}>
         <Chart
           data={chartData}
-          height={`50px`}
+          height={`80px`}
           ref={chartRef}
           //   plugins={[multiply]}
           options={options}

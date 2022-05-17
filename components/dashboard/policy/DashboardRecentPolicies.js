@@ -29,13 +29,13 @@ export default function DashboardRecentPolicies() {
   }
 
   return (
-    <div className={`mt-2 flex h-full w-full flex-col rounded-lg lg:mt-0`}>
+    <div className={`mt-2 flex h-full w-full flex-col rounded-lg `}>
       <div className="pl-4">
         <PanelTitle title={`Recently Added Policies`} color="pink" />
       </div>
-      <div className={`flex flex-col rounded-lg px-2 lg:px-0`}>
+      <div className={`flex flex-col rounded-lg px-2 lg:px-0 panel-theme-${type} ${type}-shadow`}>
         <div
-          className={`policy-card-container flex h-full max-h-[40vh] w-full flex-col overflow-x-hidden overflow-y-auto rounded lg:max-h-[40vh]`}
+          className={`policy-card-container flex h-full max-h-[40vh] w-full flex-col overflow-x-hidden overflow-y-auto rounded lg:max-h-[40.5vh]`}
         >
           {data?.map((u, i) => (
             <motion.div

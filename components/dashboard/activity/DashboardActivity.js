@@ -63,11 +63,11 @@ export default function DashboardActivity() {
   }
 
   return (
-    <div className={`mt-2 lg:mt-0 flex h-full rounded-lg w-full flex-col`}>
+    <div className={`mt-2 flex h-full rounded-lg w-full flex-col`}>
       <div className="pl-4">
         <PanelTitle title={`Recent Activity`} color="indigo" />
       </div>
-      <div className={`flex flex-col rounded-lg px-2 lg:px-0`}>
+      <div className={`flex flex-col rounded-lg px-2 lg:px-0 panel-theme-${type} ${type}-shadow`}>
         {data?.length > 0 ? (
           <div className="relative w-full">
             <Input
@@ -85,7 +85,7 @@ export default function DashboardActivity() {
           </div>
         ) : null}
         <div
-          className={`activity-card-container flex h-full max-h-[40vh] lg:max-h-[37vh] w-full flex-col overflow-y-auto rounded`}
+          className={`activity-card-container flex h-full max-h-[40vh] lg:max-h-[38vh] w-full flex-col overflow-y-auto rounded`}
         >
           {data?.map((u, i) => (
             <motion.div

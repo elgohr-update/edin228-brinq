@@ -14,16 +14,16 @@ import {
   AiOutlineUp,
   AiOutlineCalendar,
   AiOutlineStar,
-  AiOutlineDelete
+  AiOutlineDelete,
 } from 'react-icons/ai'
 import {
   BiNotepad,
   BiCommentDetail,
   BiCommentAdd,
   BiCircle,
-  BiTask
+  BiTask,
 } from 'react-icons/bi'
-import { DateTime } from "luxon";
+import { DateTime } from 'luxon'
 
 export const getConstantIcons = (item) => {
   return item == 'policy' ? (
@@ -190,14 +190,14 @@ export const getFormattedDate = (date) => {
 }
 
 export const getFormattedDateTime = (date) => {
-  const reformat = DateTime.fromISO(date, { zone: 'utc'}).toUTC()
+  const reformat = DateTime.fromISO(date, { zone: 'utc' }).toUTC()
   const base = DateTime.fromISO(reformat)
   const d = base.toLocaleString(DateTime.DATETIME_MED)
   return d
 }
 
 export const getFormattedUTCDateTime = (date) => {
-  const reformat = DateTime.fromISO(date, { zone: 'utc'}).toUTC()
+  const reformat = DateTime.fromISO(date, { zone: 'utc' }).toUTC()
   const base = DateTime.fromISO(reformat)
   const d = base.toLocaleString(DateTime.DATETIME_MED)
   return d
@@ -294,6 +294,18 @@ export const getMonths = () => {
       m: 11,
     },
   ]
+}
+
+export const getCurrentMonth = () => {
+  const base = DateTime.local()
+  const currentMonth = base.month - 1
+  return currentMonth
+}
+
+export const getCurrentYear = () => {
+  const base = DateTime.local()
+  const currentYear = base.year
+  return currentYear
 }
 
 export const abbreviateMoney = (num, fixed) => {

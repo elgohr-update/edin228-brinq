@@ -11,6 +11,7 @@ import { timeout, useNextApi } from '../utils/utils'
 import PanelTitle from '../components/ui/title/PanelTitle'
 import DashboardSummaryChart from '../components/charts/DashboardSummaryChart'
 import DashboardRecentPolicies from '../components/dashboard/policy/DashboardRecentPolicies'
+import DashboardNewBusinessChart from '../components/charts/DashboardNewBusinessChart'
 
 export default function Dashboard() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
@@ -76,21 +77,25 @@ export default function Dashboard() {
                 <DashboardTodos />
               </div> */}
               <div className="flex w-full flex-col lg:flex-row">
-                <div className="h-full w-full flex-col md:flex lg:w-3/12 lg:px-2 pb-2 lg:pr-4">
+                <div className="h-full w-full flex-col pb-2 md:flex lg:w-3/12 lg:px-2 lg:pr-4">
                   <DashboardTodos />
                 </div>
                 <div className="flex flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                  <div className="mb-2 flex flex-col w-full">
+                  <div className="mb-2 flex w-full flex-col">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
                   <div className="flex h-full flex-col lg:w-full">
                     <DashboardRecentPolicies />
                   </div>
                 </div>
-                <div className="flex flex-col w-full">
-                  <div className="flex h-full flex-col lg:w-full">
+                <div className="flex w-full flex-col px-4">
+                  <div className="hidden md:flex flex-col lg:w-full">
+                    <DashboardNewBusinessChart
+                      fullData={data?.charts}
+                      loading={loading}
+                    />
                   </div>
-                  <div className="flex h-full flex-col lg:w-full px-4">
+                  <div className="flex h-full flex-col lg:w-full">
                     <DashboardActivity />
                   </div>
                 </div>

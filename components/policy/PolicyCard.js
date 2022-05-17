@@ -47,7 +47,7 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,shadow=false
                     <div className="mr-4">
                         <LineIcon iconSize={18} size="sm" line={policy.line} />
                     </div>
-                    <div className={`relative flex space-x-1 md:space-x-0 md:flex-col md:space-y-1 md:items-end mr-4`}>
+                    <div className={`relative flex space-x-1 md:space-x-0 flex-col space-y-1 items-end mr-4`}>
                         <TagBasic text={policy.policy_type} />
                         {   
                             policy.nonrenewed ? <TagBasic text={`NRNWD`} color="red" /> :
