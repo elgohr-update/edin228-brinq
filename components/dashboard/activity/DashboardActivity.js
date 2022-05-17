@@ -67,7 +67,7 @@ export default function DashboardActivity() {
       <div className="pl-4">
         <PanelTitle title={`Recent Activity`} color="indigo" />
       </div>
-      <div className={`flex flex-col rounded-lg px-2 lg:px-0 panel-theme-${type} ${type}-shadow`}>
+      <div className={`flex flex-col h-full rounded-lg lg:px-0 panel-theme-${type} ${type}-shadow`}>
         {data?.length > 0 ? (
           <div className="relative w-full">
             <Input

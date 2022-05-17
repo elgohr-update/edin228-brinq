@@ -279,10 +279,10 @@ export default function DashboardNewBusinessChart({
     maintainAspectRatio: true,
   }
 
-  const baseClass = `flex relative z-20 w-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+  const baseClass = `flex relative z-20 w-full h-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className="flex w-full flex-col lg:justify-center">
+    <div className="flex w-full h-full flex-col lg:justify-center">
       <div className="pl-4">
         <PanelTitle title={`New Business`} color="lime" />
       </div>

@@ -50,10 +50,10 @@ export default function Dashboard() {
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex h-full w-full flex-col lg:flex-row lg:pl-2">
-        <div className="flex w-full flex-col">
-          <div className="flex w-full flex-col">
-            <div className="flex flex-col px-4 lg:flex-row lg:items-center lg:px-0">
-              <div className="flex w-full ">
+        <div className="flex w-full h-full flex-col">
+          <div className="flex w-full h-full flex-col">
+            <div className="flex flex-col h-full px-4 lg:flex-row lg:items-center lg:px-0">
+              <div className="flex w-full h-full lg:items-center">
                 <DashboardCards
                   premium={data?.premium}
                   clients={data?.clients}
@@ -77,10 +77,10 @@ export default function Dashboard() {
                 <DashboardTodos />
               </div> */}
               <div className="flex w-full flex-col lg:flex-row">
-                <div className="h-full w-full flex-col pb-2 md:flex lg:w-3/12 lg:px-2 lg:pr-4">
+                <div className="h-full w-full flex-col pb-2 flex lg:w-3/12 lg:px-2 lg:pr-4">
                   <DashboardTodos />
                 </div>
-                <div className="flex flex-col lg:min-w-[450px] lg:max-w-[450px]">
+                <div className="flex flex-col h-full lg:min-w-[450px] lg:max-w-[450px]">
                   <div className="mb-2 flex w-full flex-col">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
@@ -88,14 +88,14 @@ export default function Dashboard() {
                     <DashboardRecentPolicies />
                   </div>
                 </div>
-                <div className="flex w-full flex-col px-4">
+                <div className="flex w-full flex-col lg:px-4">
                   <div className="hidden md:flex flex-col lg:w-full">
                     <DashboardNewBusinessChart
                       fullData={data?.charts}
                       loading={loading}
                     />
                   </div>
-                  <div className="flex h-full flex-col lg:w-full">
+                  <div className="flex h-full flex-col lg:w-full lg:mt-1">
                     <DashboardActivity />
                   </div>
                 </div>
