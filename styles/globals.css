@@ -129,6 +129,9 @@ a {
   box-sizing: border-box;
 }
 
+.scrollbar {
+  scrollbar-width: thin;
+}
 ::-webkit-scrollbar {
     width: 0.2em;
     height: 0.2em;
@@ -1218,7 +1221,9 @@ filter: drop-shadow(0px 0px 17px var(--nextui-colors-secondary));
   background-color:transparent;
 }
 /* Links */
-
+.bg-overlay-home {
+  background-image:radial-gradient(#c336dd3b, #040205);
+}
 .page-link a {
   text-decoration: none;
   display: inline-block;

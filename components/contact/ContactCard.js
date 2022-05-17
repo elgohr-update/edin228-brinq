@@ -27,7 +27,7 @@ const ContactCard = ({
       ? `${isDark ? `border-slate-900` : `border-slate-200`} border`
       : ``
   }
-  const baseClass = `flex min-w-[240px] p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+  const baseClass = `flex flex-auto w-full min-w-[240px] p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
   return (
     <div className={baseClass}>
       <div className="flex w-full items-center">

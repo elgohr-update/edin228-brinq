@@ -115,11 +115,11 @@ export default function Client({ data }) {
   }
 
   return (
-    <div className="relative flex h-full w-full flex-auto flex-col max-h-[82vh] lg:max-h-[90vh] overflow-y-auto lg:flex-row lg:overflow-hidden">
-      <div className="flex w-full flex-col">
+    <div className="relative flex h-full w-full shrink-0 flex-auto flex-col max-h-[82vh] lg:max-h-[90vh] overflow-y-auto lg:flex-row lg:overflow-hidden">
+      <div className="flex w-full flex-col ">
         <div className="flex w-full flex-col lg:flex-row lg:overflow-hidden">
           <div
-            className={`relative flex w-full flex-col space-y-2 py-4 px-4 lg:w-[400px] lg:py-0 lg:pb-8`}
+            className={`relative flex flex-auto w-full flex-col space-y-2 py-4 px-4 lg:w-[400px] lg:py-0 lg:pb-8`}
           >
             <ClientInfo
               flat={true}
@@ -134,7 +134,7 @@ export default function Client({ data }) {
               client={client}
             />
           </div>
-          <div className="flex h-full w-full flex-col lg:overflow-hidden">
+          <div className="flex flex-auto h-full w-full flex-col lg:overflow-hidden">
             <div className="flex items-center justify-between">
               <ClientDataNavbar />
               <div className="flex items-center space-x-2 py-2 lg:justify-end lg:py-0">
@@ -188,7 +188,7 @@ export default function Client({ data }) {
         </div>
       </div>
       <div
-        className={`mt-4 flex w-full flex-col h-full pb-2 lg:mt-0 lg:w-5/12 lg:overflow-hidden`}
+        className={`mt-4 flex  w-full flex-col h-full pb-2 lg:mt-0 lg:w-5/12 lg:overflow-hidden`}
       >
         <div className="lg:px-4">
           <ClientActionNavbar />
