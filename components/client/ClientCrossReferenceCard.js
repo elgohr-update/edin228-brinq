@@ -19,7 +19,7 @@ const ClientCrossReferenceCard = ({cref, border=false,vertical=false,panel=false
     const isBorder = () =>{
         return border ? `${isDark?`border-slate-900`:`border-slate-200`} border` : ``
     }
-    const baseClass = `relative flex items-center justify-between px-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
+    const baseClass = `relative flex flex-auto shrink-0 items-center justify-between px-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
     return (
         <div className={baseClass}>
             <div className={`relative flex flex-col z-20 w-full`}>

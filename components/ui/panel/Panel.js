@@ -14,7 +14,7 @@ function Panel({
   const { type } = useTheme()
   return (
     <div
-      className={`flex ${horizontal ? 'flex-col md:flex-row' : 'flex-col'} ${
+      className={`flex shrink-0 ${horizontal ? 'flex-col md:flex-row' : 'flex-col'} ${
         overflow ? `overflow-y-auto` : null
       } rounded-lg px-${px} py-${py} w-full ${
         noBg ? null : `panel-${flat ? 'flat' : 'theme'}-${type}`

@@ -134,7 +134,7 @@ export default function Client({ data }) {
         />
       </div>
       <div className="flex flex-auto shrink-0 flex-col lg:w-7/12 lg:overflow-hidden">
-        <div className="flex items-center justify-between">
+        <div className="flex shrink-0 items-center justify-between">
           <ClientDataNavbar />
           <div className="flex items-center space-x-2 py-2 lg:justify-end lg:py-0">
             <Button.Group size="xs" flat>
