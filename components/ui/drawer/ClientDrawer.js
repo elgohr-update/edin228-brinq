@@ -141,7 +141,7 @@ const ClientDrawer = () => {
         {!client ? (
           <DrawerLoader />
         ) : (
-          <div className="flex h-full flex-auto overflow-hidden py-4">
+          <div className="flex flex-auto overflow-hidden py-4">
             <div className={`flex w-full flex-col `}>
               <div className={`relative mb-2 flex w-full px-2`}>
                 <div className="relative flex w-full flex-col md:flex-row md:pt-2">
@@ -178,18 +178,18 @@ const ClientDrawer = () => {
                   className={`bottom-border-flair pink-to-blue-gradient-1`}
                 />
               </div>
-              <div className={`mt-2 flex w-full flex-col overflow-auto`}>
+              <div className={`mt-2 flex flex-auto w-full flex-col overflow-auto`}>
                 <ClientInfo client={client} horizontal />
                 <ClientContacts client={client} />
-                <div className={`flex w-full flex-col`}>
+                <div className={`flex flex-auto shrink-0 flex-col`}>
                   <ClientDrawerNavbar />
                   {clientDrawer.nav === 1 ? (
                     policies ? (
                       <div
-                        className={`relative z-10 flex w-full flex-col rounded`}
+                        className={`relative z-10 flex flex-auto shrink-0  flex-col rounded`}
                       >
                         <div
-                          className={`flex h-full w-full flex-col space-y-1 overflow-hidden px-4 py-1 transition-all duration-100 ease-out`}
+                          className={`flex flex-auto shrink-0  flex-col space-y-1 overflow-hidden px-4 py-1 transition-all duration-100 ease-out`}
                         >
                           {getPolicies().map((u) => (
                             <PolicyCard key={u.id} policy={u} />
@@ -238,7 +238,7 @@ const ClientDrawer = () => {
                   ) : null}
                 </div>
                 {client ? (
-                  <div className="mt-4">
+                  <div className="flex flex-auto shrink-0 mt-4">
                     <ClientActivity clientId={clientDrawer.clientId} />
                   </div>
                 ) : null}

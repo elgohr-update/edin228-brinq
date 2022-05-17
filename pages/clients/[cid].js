@@ -124,14 +124,18 @@ export default function Client({ data }) {
 
   return (
     <div className="relative flex h-full max-h-[82vh] w-full flex-auto shrink-0 flex-col overflow-y-auto lg:max-h-[90vh] lg:flex-row lg:overflow-hidden">
-      <div className={`relative flex flex-auto flex-col space-y-2 py-4 px-4 lg:w-2/12 lg:py-0 lg:pb-8`}>
-        <ClientInfo flat={true} shadow={true} noBg={false} client={client} />
-        <ClientContacts
-          flat={true}
-          shadow={true}
-          noBg={false}
-          client={client}
-        />
+      <div className="flex flex-auto shrink-0 lg:w-2/12 lg:py-0 lg:pb-8">
+        <div
+          className={`relative flex flex-auto  flex-col space-y-2 py-4 px-4`}
+        >
+          <ClientInfo flat={true} shadow={true} noBg={false} client={client} />
+          <ClientContacts
+            flat={true}
+            shadow={true}
+            noBg={false}
+            client={client}
+          />
+        </div>
       </div>
       <div className="flex flex-auto shrink-0 flex-col lg:w-7/12 lg:overflow-hidden">
         <div className="flex shrink-0 items-center justify-between">
@@ -170,7 +174,7 @@ export default function Client({ data }) {
               </div>
             </div>
             <div
-              className={`flex flex-auto shrink-0 h-auto flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
+              className={`flex h-auto flex-auto shrink-0 flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
             >
               {getPolicies(showActive).map((u) => (
                 <Panel flat key={u.id} overflow={false} px={0} py={0}>
@@ -181,7 +185,9 @@ export default function Client({ data }) {
           </div>
         ) : null}
       </div>
-      <div className={`mt-4 flex flex-auto flex-col pb-2 lg:mt-0 lg:w-3/12 lg:overflow-hidden`}>
+      <div
+        className={`mt-4 flex flex-auto flex-col pb-2 lg:mt-0 lg:w-3/12 lg:overflow-hidden`}
+      >
         <div className="lg:px-4">
           <ClientActionNavbar />
         </div>
