@@ -14,7 +14,7 @@ export default function DashboardSummaryCard({
   colors = null,
   slice=true,
   toCurrentMonth=false,
-  animtationDelay=0
+  animationDelay=0
 }) {
   const { type } = useTheme()
 
@@ -40,11 +40,12 @@ export default function DashboardSummaryCard({
       variants={{
         visible: {
           opacity: 1,
+          x:0,
           transition: {
-            delay: animtationDelay * 0.05,
+            delay: animationDelay * 0.25,
           },
         },
-        hidden: { opacity: 0 },
+        hidden: { opacity: 0, x:-10},
       }}
       transition={{ ease: 'easeInOut', duration: 2 }}
       className={`${gradient} content-dark relative flex h-[100px] w-full flex-col overflow-hidden rounded-lg ${shadow? getShadowColor():``}`}

@@ -68,15 +68,15 @@ function createGradient(ctx, area, indx, fill = false, fixedIndx = 1) {
   const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top)
 
   if (fill) {
-    gradient.addColorStop(0, colors[indx][0])
-    gradient.addColorStop(0.1, colors[indx][1])
-    gradient.addColorStop(0.5, colors[indx][2])
-    gradient.addColorStop(0.8, colors[indx][2])
-    gradient.addColorStop(1, colors[indx][2])
+    gradient.addColorStop(0, colors[indx + 2][0])
+    gradient.addColorStop(0.1, colors[indx + 2][1])
+    gradient.addColorStop(0.5, colors[indx + 2][2])
+    gradient.addColorStop(0.8, colors[indx + 2][2])
+    gradient.addColorStop(1, colors[indx + 2][2])
   } else {
-    gradient.addColorStop(0, colors[indx][0])
-    gradient.addColorStop(0.5, colors[indx][1])
-    gradient.addColorStop(1, colors[indx][2])
+    gradient.addColorStop(0, colors[indx + 2][0])
+    gradient.addColorStop(0.5, colors[indx + 2][1])
+    gradient.addColorStop(1, colors[indx + 2][2])
   }
 
   return gradient
@@ -84,9 +84,9 @@ function createGradient(ctx, area, indx, fill = false, fixedIndx = 1) {
 function createBorderGradient(ctx, area, indx) {
   const gradient = ctx.createLinearGradient(area.left, 0, area.right, 0)
 
-  gradient.addColorStop(0, colors[indx + 3][0])
-  gradient.addColorStop(0.5, colors[indx + 3][1])
-  gradient.addColorStop(1, colors[indx + 3][2])
+  gradient.addColorStop(0, colors[indx + 2][0])
+  gradient.addColorStop(0.5, colors[indx + 2][1])
+  gradient.addColorStop(1, colors[indx + 2][2])
 
   return gradient
 }
@@ -282,7 +282,7 @@ export default function DashboardNewBusinessChart({
   const baseClass = `flex relative z-20 w-full h-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className="flex w-full h-full flex-col lg:justify-center">
+    <div className="mt-2 lg:mt-0 flex w-full h-full flex-col lg:justify-center">
       <div className="pl-4">
         <PanelTitle title={`New Business`} color="lime" />
       </div>

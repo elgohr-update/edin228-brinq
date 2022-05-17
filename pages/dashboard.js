@@ -51,8 +51,8 @@ export default function Dashboard() {
     <div className="flex h-full w-full flex-col">
       <div className="flex h-full w-full flex-col lg:flex-row lg:pl-2">
         <div className="flex w-full h-full flex-col">
-          <div className="flex w-full h-full flex-col">
-            <div className="flex flex-col h-full px-4 lg:flex-row lg:items-center lg:px-0">
+          <div className="flex w-full flex-col">
+            <div className="flex flex-col h-full px-4 lg:flex-row  lg:px-0">
               <div className="flex w-full h-full lg:items-center">
                 <DashboardCards
                   premium={data?.premium}
@@ -73,29 +73,26 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-col lg:flex-1 lg:flex-row">
             <div className="flex w-full flex-col lg:p-2">
-              {/* <div className="h-full w-full flex-col md:flex lg:hidden lg:w-3/12 lg:p-2">
-                <DashboardTodos />
-              </div> */}
               <div className="flex w-full flex-col lg:flex-row">
-                <div className="h-full w-full flex-col pb-2 flex lg:w-3/12 lg:px-2 lg:pr-4">
+                <div className="flex-1 h-full w-full flex-col pb-2 flex lg:px-2 lg:pr-4">
                   <DashboardTodos />
                 </div>
-                <div className="flex flex-col h-full lg:min-w-[450px] lg:max-w-[450px]">
-                  <div className="mb-2 flex w-full flex-col">
+                <div className="flex flex-1 flex-col h-full lg:min-w-[450px] lg:max-w-[450px]">
+                  <div className="mb-2 flex flex-1 w-full flex-col">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex h-full flex-col lg:w-full">
+                  <div className="flex flex-1 h-full flex-col lg:w-full">
                     <DashboardRecentPolicies />
                   </div>
                 </div>
-                <div className="flex w-full flex-col lg:px-4">
-                  <div className="hidden md:flex flex-col lg:w-full">
+                <div className="flex flex-1 w-full flex-col lg:px-4 lg:pr-2">
+                  <div className="hidden md:flex flex-1 flex-col lg:w-full">
                     <DashboardNewBusinessChart
                       fullData={data?.charts}
                       loading={loading}
                     />
                   </div>
-                  <div className="flex h-full flex-col lg:w-full lg:mt-1">
+                  <div className="flex flex-1 h-full flex-col lg:w-full lg:mt-1">
                     <DashboardActivity />
                   </div>
                 </div>

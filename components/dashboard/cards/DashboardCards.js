@@ -12,7 +12,7 @@ export default function DashboardCards({
   loading,
 }) {
   return (
-    <div className="flex w-full rounded-lg space-x-2 lg:px-4 lg:py-2 overflow-x-auto lg:space-x-0 lg:gap-4">
+    <div className="flex w-full h-full rounded-lg space-x-2 lg:px-4 lg:py-2 overflow-x-hidden lg:space-x-0 lg:gap-4">
       <DashboardSummaryCard
         gradient={'green-gradient-2'}
         shadow
@@ -21,7 +21,7 @@ export default function DashboardCards({
         icon={<AiOutlineDollarCircle />}
         chartData={charts?.premium_chart}
         content={`$${abbreviateMoney(premium)}`}
-        animtationDelay={0}
+        animationDelay={0}
       />
       <DashboardSummaryCard
         gradient={'orange-gradient-top-1 '}
@@ -32,7 +32,7 @@ export default function DashboardCards({
         chartData={charts?.clients_chart}
         content={clients}
         slice={false}
-        animtationDelay={2}
+        animationDelay={1}
         colors={[
           '#ff5e62',
           '#ff5e62',
@@ -52,7 +52,7 @@ export default function DashboardCards({
         icon={getConstantIcons('deal')}
         chartData={charts?.nb_premium_chart}
         content={`$${abbreviateMoney(sumFromArray(charts?.nb_premium_chart))}`}
-        animtationDelay={1}
+        animationDelay={2}
       />
     </div>
   )
