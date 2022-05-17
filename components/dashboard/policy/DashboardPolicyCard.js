@@ -47,10 +47,10 @@ export default function DashboardPolicyCard({ policy }) {
           </Link>
         </div>
         <div className="flex w-full items-center justify-end space-x-2">
-          <h6 className="flex w-[40px] flex-1 text-teal-500 lg:justify-end">
+          <h6 className="flex w-[40px] flex-auto text-teal-500 lg:justify-end">
             ${abbreviateMoney(policy.premium)}
           </h6>
-          <h4 className="flex flex-1 items-center space-x-1">
+          <h4 className="flex flex-auto items-center space-x-1">
             <div className="text-color-warning">
               <AiOutlineClockCircle />
             </div>
@@ -58,7 +58,7 @@ export default function DashboardPolicyCard({ policy }) {
               {getFormattedDate(policy.expiration_date)}
             </div>
           </h4>
-          <h4 className="flex flex-1 items-center space-x-1">
+          <h4 className="flex flex-auto items-center space-x-1">
             <div className="text-color-warning">
               <AiOutlineCloudDownload />
             </div>

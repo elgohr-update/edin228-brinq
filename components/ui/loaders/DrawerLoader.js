@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function DrawerLoader() {
   return (
-    <div className="flex h-full w-full flex-1 items-center justify-center">
+    <div className="flex h-full w-full flex-auto items-center justify-center">
       <Loading type="points" size="xl" color="secondary" textColor="primary" />
     </div>
   )

@@ -158,7 +158,7 @@ const PoliciesTable = () => {
         )
       case 'carrier':
         return (
-          <div className={`relative flex flex-1 flex-col`}>
+          <div className={`relative flex flex-auto flex-col`}>
             <h6 className={`font-semibold`}>
               {truncateString(policy.carrier, 20)}
             </h6>
@@ -167,7 +167,7 @@ const PoliciesTable = () => {
         )
       case 'effective_date':
         return (
-          <div className={`relative flex flex-1 flex-col items-end`}>
+          <div className={`relative flex flex-auto flex-col items-end`}>
             <h4 className={`letter-spacing-1`}>
               {getFormattedDate(policy.effective_date)}
             </h4>

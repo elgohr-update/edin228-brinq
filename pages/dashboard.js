@@ -71,28 +71,28 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-1 lg:flex-row">
+          <div className="flex flex-col lg:flex-auto lg:flex-row">
             <div className="flex w-full flex-col lg:p-2">
               <div className="flex w-full flex-col lg:flex-row">
-                <div className="flex-1 h-full w-full flex-col pb-2 flex lg:px-2 lg:pr-4">
+                <div className="flex-auto h-full w-full flex-col pb-2 flex lg:px-2 lg:pr-4">
                   <DashboardTodos />
                 </div>
-                <div className="flex flex-1 flex-col h-full lg:min-w-[450px] lg:max-w-[450px]">
-                  <div className="mb-2 flex flex-1 w-full flex-col">
+                <div className="flex flex-auto flex-col h-full lg:min-w-[450px] lg:max-w-[450px]">
+                  <div className="mb-2 flex flex-auto w-full flex-col">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex flex-1 h-full flex-col lg:w-full">
+                  <div className="flex flex-auto h-full flex-col lg:w-full">
                     <DashboardRecentPolicies />
                   </div>
                 </div>
-                <div className="flex flex-1 w-full flex-col lg:px-4 lg:pr-2">
-                  <div className="hidden md:flex flex-1 flex-col lg:w-full">
+                <div className="flex flex-auto w-full flex-col lg:px-4 lg:pr-2">
+                  <div className="hidden md:flex flex-auto flex-col lg:w-full">
                     <DashboardNewBusinessChart
                       fullData={data?.charts}
                       loading={loading}
                     />
                   </div>
-                  <div className="flex flex-1 h-full flex-col lg:w-full lg:mt-1">
+                  <div className="flex flex-auto h-full flex-col lg:w-full lg:mt-1 overflow-hidden">
                     <DashboardActivity />
                   </div>
                 </div>

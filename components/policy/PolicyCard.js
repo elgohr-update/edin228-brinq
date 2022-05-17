@@ -59,32 +59,32 @@ const PolicyCard = ({policy,border=false,truncate=20,vertical=false,shadow=false
                             <TagBasic text={`ACTV`} color="green" />
                         }   
                     </div>
-                    <div className={`relative flex flex-col w-full md:min-w-[150px] md:max-w-[150px] md:mr-2`}>
-                        <h6 className={`font-semibold`}>{truncateString(String(policy.policy_number),16)}</h6>
-                        <h4 className={``}>{truncateString(policy.policy_type_full,truncate)}</h4>
+                    <div className={`relative flex flex-wrap flex-col w-full md:w-[150px] md:mr-2`}>
+                        <h6 className={`flex w-full font-semibold`}>{truncateString(String(policy.policy_number),16)}</h6>
+                        <h4 className={`flex w-full h-full flex-wrap`}>{truncateString(policy.policy_type_full,truncate)}</h4>
                     </div>
                     <div onClick={() => toggleShowMore()} className={`md:hidden relative flex items-center justify-end ml-4 px-1 h-full hover:text-sky-500 cursor-pointer transition duration-100 ease-out`}>
                         <BsListTask />{showMore ? <AiOutlineDown /> : <AiOutlineLeft />}
                     </div>
                 </div>
-                <div className={`relative flex md:hidden flex-col flex-1 py-2`}>
+                <div className={`relative flex md:hidden flex-col py-2 w-full`}>
                     <h6 className={`font-semibold`}>{truncateString(policy.carrier,truncate)}</h6>
                     <h4 className={``}>{truncateString(policy.writing,truncate)}</h4>
                 </div>
-                <div className="flex items-center md:pt-0 flex-1">
-                    <div className={`hidden relative md:flex flex-col flex-1`}>
+                <div className="flex items-center md:pt-0 w-full">
+                    <div className={`hidden relative md:flex flex-col w-full`}>
                         <h6 className={`font-semibold`}>{truncateString(policy.carrier,truncate)}</h6>
                         <h4 className={``}>{truncateString(policy.writing,truncate)}</h4>
                     </div>
-                    <div className={`relative flex flex-col items-end md:flex-1`}>
+                    <div className={`relative flex flex-col items-end w-full`}>
                         <h4 className={`letter-spacing-1`}>{getFormattedDate(policy.effective_date)}</h4>
                         <h6 className={`letter-spacing-1`}>{getFormattedDate(policy.expiration_date)}</h6>
                     </div>
-                    <div className={`relative flex justify-end w-full md:flex-1 pr-6 md:pr-4`}>
+                    <div className={`relative flex justify-end w-full pr-6 md:pr-4`}>
                         <h6 className={`text-teal-500 font-bold`}>$ {formatMoney(policy.premium)}</h6>
                     </div>
-                    <div className="flex items-center w-full flex-1">
-                        <div className={`relative flex justify-end flex-1`}>
+                    <div className="flex items-center w-full">
+                        <div className={`relative flex justify-end w-full`}>
                             <Avatar.Group count={policy.users.length > 3? client.users.length : null}>
                                 {policy.users.filter(x => !x.producer).map( u => (
                                     <UserAvatar

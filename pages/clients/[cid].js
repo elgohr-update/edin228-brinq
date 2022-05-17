@@ -115,7 +115,7 @@ export default function Client({ data }) {
   }
 
   return (
-    <div className="relative flex h-full w-full flex-1 flex-col max-h-[82vh] lg:max-h-[90vh] overflow-y-auto lg:flex-row lg:overflow-hidden">
+    <div className="relative flex h-full w-full flex-auto flex-col max-h-[82vh] lg:max-h-[90vh] overflow-y-auto lg:flex-row lg:overflow-hidden">
       <div className="flex w-full flex-col">
         <div className="flex w-full flex-col lg:flex-row lg:overflow-hidden">
           <div
@@ -174,7 +174,7 @@ export default function Client({ data }) {
                   </div>
                 </div>
                 <div
-                  className={`flex h-full flex-1 flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
+                  className={`flex h-full flex-auto flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
                 >
                   {getPolicies(showActive).map((u) => (
                     <Panel flat key={u.id} overflow={false} px={0} py={0}>

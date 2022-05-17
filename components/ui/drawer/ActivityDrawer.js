@@ -245,7 +245,7 @@ const ActivityDrawer = () => {
       <div
         className={`fixed right-0 flex h-full w-full flex-col md:w-[500px] ${type}-shadow panel-theme-${type}`}
       >
-        <div className="flex h-full flex-1 flex-col space-y-2 overflow-hidden py-4 lg:gap-2">
+        <div className="flex h-full flex-auto flex-col space-y-2 overflow-hidden py-4 lg:gap-2">
           <div className={`relative mb-2 flex w-full flex-col px-2`}>
             <div className="relative flex w-full flex-col md:flex-row md:justify-between md:pt-2">
               <p>New Activity / Suspense</p>

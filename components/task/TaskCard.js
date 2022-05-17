@@ -50,7 +50,7 @@ const TaskCard = ({
           className="flex w-full space-x-4"
           onClick={() => setSelected(!selected)}
         >
-          <div className={`relative flex flex-1 flex-col space-y-1`}>
+          <div className={`relative flex flex-auto flex-col space-y-1`}>
             {showPolicy ? (
               <div className="flex items-center space-x-1 text-xs">
                 <TagBasic text={task?.policy_type} />

@@ -8,7 +8,7 @@ export default function PolicySettings() {
       <div className="flex flex-col md:w-3/12">
         <PolicyTypeSettings />
       </div>
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-auto">
         <RenewalTimelines />
       </div>
     </div>

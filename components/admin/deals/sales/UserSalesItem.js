@@ -20,7 +20,7 @@ export default function UserSalesItem({ user }) {
       <div className="min-w-[200px]">
         <User src={user.image_file} name={user.name} description={user.email} />
       </div>
-      <div className="flex flex-1 flex-col space-x-4 md:flex-row">
+      <div className="flex flex-auto flex-col space-x-4 md:flex-row">
         <div>
           <Input
             type="number"

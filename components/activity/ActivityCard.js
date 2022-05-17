@@ -70,7 +70,7 @@ const ActivityCard = ({
               </div>
             )}
             {hidePolicy || activity.system_action ? null : (
-              <div className="flex flex-1 items-center space-x-2">
+              <div className="flex flex-auto items-center space-x-2">
                 <TagBasic text={activity.policy_type} />
                 <Link href="/">
                   <a className="transition duration-100 hover:text-sky-500">

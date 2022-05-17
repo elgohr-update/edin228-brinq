@@ -241,7 +241,7 @@ export default function ChartSummaryCard({
   }
 
   const baseClass = `relative h-[90px] z-20 flex ${noPadding ? `p-0` : `px-4 py-2`} ${
-    autoWidth ? `w-auto` : `flex-1  min-w-[240px]`
+    autoWidth ? `w-auto` : `flex-auto  min-w-[240px]`
   } rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (

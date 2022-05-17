@@ -141,7 +141,7 @@ const ClientDrawer = () => {
         {!client ? (
           <DrawerLoader />
         ) : (
-          <div className="flex h-full flex-1 overflow-hidden py-4">
+          <div className="flex h-full flex-auto overflow-hidden py-4">
             <div className={`flex w-full flex-col `}>
               <div className={`relative mb-2 flex w-full px-2`}>
                 <div className="relative flex w-full flex-col md:flex-row md:pt-2">
