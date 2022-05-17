@@ -71,28 +71,28 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col h-full shrink-0 lg:flex-auto lg:flex-row">
-            <div className="flex w-full h-full flex-col lg:p-2">
-              <div className="flex w-full h-full flex-col lg:flex-row">
-                <div className="h-full w-full flex-col flex lg:px-2 lg:pr-4">
+          <div className="flex flex-col shrink-0 flex-auto lg:flex-row">
+            <div className="flex shrink-0 flex-auto flex-col lg:p-2">
+              <div className="flex shrink-0 flex-auto flex-col lg:flex-row">
+                <div className="flex flex-col shrink-0 flex-auto lg:w-[600px] lg:px-2 lg:pr-4">
                   <DashboardTodos />
                 </div>
-                <div className="flex flex-col h-full lg:min-w-[450px] lg:max-w-[450px]">
-                  <div className="mb-2 flex w-full flex-col">
+                <div className="flex shrink-0 flex-auto flex-col lg:min-w-[450px] lg:max-w-[450px]">
+                  <div className="mb-2 flex flex-auto shrink-0 flex-col">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex h-full flex-col lg:w-full">
+                  <div className="flex flex-auto shrink-0 flex-col">
                     <DashboardRecentPolicies />
                   </div>
                 </div>
-                <div className="flex w-full flex-col lg:px-4 lg:pr-2">
-                  <div className="hidden md:flex flex-col lg:w-full">
+                <div className="flex flex-auto shrink-0 flex-col lg:px-4 lg:pr-2">
+                  <div className="hidden md:flex flex-col">
                     <DashboardNewBusinessChart
                       fullData={data?.charts}
                       loading={loading}
                     />
                   </div>
-                  <div className="flex h-full flex-col lg:w-full lg:mt-1 overflow-hidden">
+                  <div className="flex flex-auto shrink-0 flex-col lg:mt-1 overflow-hidden">
                     <DashboardActivity />
                   </div>
                 </div>
