@@ -115,7 +115,7 @@ export default function Client({ data }) {
   }
 
   return (
-    <div className="relative flex h-full w-full flex-1 flex-col overflow-y-auto lg:flex-row lg:overflow-hidden">
+    <div className="relative flex h-full w-full flex-1 flex-col max-h-[82vh] lg:max-h-[90vh] overflow-y-auto lg:flex-row lg:overflow-hidden">
       <div className="flex w-full flex-col">
         <div className="flex w-full flex-col lg:flex-row lg:overflow-hidden">
           <div

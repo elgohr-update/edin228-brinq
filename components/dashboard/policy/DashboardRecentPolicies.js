@@ -31,7 +31,7 @@ export default function DashboardRecentPolicies() {
   return (
     <div className={`mt-2 flex h-full w-full flex-col rounded-lg lg:mt-0`}>
       <div className="pl-4">
-        <PanelTitle title={`Recent Policies`} color="pink" />
+        <PanelTitle title={`Recently Added Policies`} color="pink" />
       </div>
       <div className={`flex flex-col rounded-lg px-2 lg:px-0`}>
         <div

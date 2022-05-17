@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { getConstantIcons } from '../../../utils/utils'
 import TaskCard from '../TaskCard'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 export default function TaskClientGroup({ group }) {
   const { type } = useTheme()
@@ -23,12 +24,23 @@ export default function TaskClientGroup({ group }) {
         <div className="flex w-full items-center justify-between">
           <div className="flex w-full items-center space-x-1">
             <div className={`data-point-xs ${getLine(group.line)}`}></div>
-            <h6>{group.client_name}</h6>
+            <h6 className="flex space-x-1 w-full">
+              <span>{group.client_name}</span>
+              <Link href={`/clients/${group.client_id}`}>
+                <a className="flex text-xs hover:text-sky-500 transition duration-200 ease-out">
+                  {getConstantIcons('link')}
+                </a>
+              </Link>
+            </h6>
           </div>
           <div className="flex items-center space-x-2">
-            <h4 className="flex items-center space-x-1 ml-4">
-              <div className="flex items-center justify-center">{group.tasks.length}</div>
-              <div className="flex items-center justify-center">{getConstantIcons('task')}</div>
+            <h4 className="ml-4 flex items-center space-x-1">
+              <div className="flex items-center justify-center">
+                {group.tasks.length}
+              </div>
+              <div className="flex items-center justify-center">
+                {getConstantIcons('task')}
+              </div>
             </h4>
             <div>{getConstantIcons(open ? 'down' : 'left')}</div>
           </div>
