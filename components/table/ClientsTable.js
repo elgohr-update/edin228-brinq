@@ -382,13 +382,13 @@ const ClientsTable = () => {
                 </Table.Row>
               )}
             </Table.Body>
-            {tableData.length > 9 ? (
+            {tableData.length > 13 ? (
               <Table.Pagination
                 shadow
                 align="start"
                 noMargin
-                rowsPerPage={9}
-                total={Math.ceil(Number(tableData.length / 9))}
+                rowsPerPage={13}
+                total={Math.ceil(Number(tableData.length / 13))}
               />
             ) : null}
           </Table>

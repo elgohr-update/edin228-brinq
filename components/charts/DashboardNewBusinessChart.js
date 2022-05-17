@@ -84,9 +84,9 @@ function createGradient(ctx, area, indx, fill = false, fixedIndx = 1) {
 function createBorderGradient(ctx, area, indx) {
   const gradient = ctx.createLinearGradient(area.left, 0, area.right, 0)
 
-  gradient.addColorStop(0, colors[indx + 2][0])
-  gradient.addColorStop(0.5, colors[indx + 2][1])
-  gradient.addColorStop(1, colors[indx + 2][2])
+  gradient.addColorStop(0, colors[indx + 3][0])
+  gradient.addColorStop(0.5, colors[indx + 3][1])
+  gradient.addColorStop(1, colors[indx + 3][2])
 
   return gradient
 }

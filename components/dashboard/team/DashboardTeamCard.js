@@ -6,7 +6,7 @@ import UserAvatar from '../../user/Avatar'
 export default function DashboardTeamCard({ data = null }) {
   const { type } = useTheme()
   return (
-    <div className={`relative flex h-full w-[190px] lg:w-[210px] rounded-lg p-2`}>
+    <div className={`relative flex flex-auto shrink-0 w-[190px] lg:w-[210px] rounded-lg p-2`}>
       <div className="flex flex-col items-center">
         <UserAvatar size="md" isUser squared={false} passUser={data?.user} />
         <h6 className="flex py-1 justify-end text-teal-500">${abbreviateMoney(data?.prem)}</h6>

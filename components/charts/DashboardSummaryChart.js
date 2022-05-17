@@ -29,6 +29,9 @@ ChartJS.register(
 const colors = [
   ['#09ffa445', '#09ffa4', '#09f4ff'],
   ['#FFA93B', '#ff5e62', '#FF2525'],
+  ['#5c05b5', '#168cf0', '#0aeed1'],
+  ['#FF3CAC', '#784BA0', '#2B86C5'],
+  ['#FFA93B', '#ff5e62', '#FF2525'],
   ['#FF3CAC', '#784BA0', '#2B86C5'],
   ['#5c05b5', '#168cf0', '#0aeed1'],
   ['#FA8BFF', '#2BD2FF', '#2BFF88'],

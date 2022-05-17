@@ -22,6 +22,7 @@ export default function ClientTableCell({
         nav: 1,
         isOpen: true,
         clientId: clientId,
+        isRenewal: isRnwl,
         renewalMonth: month,
         renewalYear: year,
       })
@@ -49,7 +50,7 @@ export default function ClientTableCell({
           </a>
         </Link>
       </div>
-      <div>
+      <div className="pl-3">
         <TagContainer tags={tags} />
       </div>
       {subContent ? <div className="flex w-full px-4">{subContent}</div> : null}

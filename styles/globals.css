@@ -191,6 +191,7 @@ h6 {
 p {
   margin: 0;
 }
+
 .small-subtext {
   font-size: 0.7rem !important;
 }
@@ -205,6 +206,145 @@ p {
   top: 0;
   left:0;
   transition: 200ms ease-out;
+}
+/* Styling */
+
+.text-color-primary {
+  color: var(--nextui-colors-primary);
+}
+.text-color-secondary {
+  color: var(--nextui-colors-secondary);
+}
+.text-color-warning {
+  color: var(--nextui-colors-warning);
+}
+.text-color-success {
+  color: var(--nextui-colors-success);
+}
+.text-color-error {
+  color: var(--nextui-colors-error) !important;
+}
+.bg-color-primary {
+  background: var(--nextui-colors-primary);
+}
+.bg-color-secondary {
+  background: var(--nextui-colors-secondary);
+}
+.bg-color-warning {
+  background: var(--nextui-colors-warning);
+}
+.bg-color-success {
+  background: var(--nextui-colors-success);
+}
+.bg-color-error {
+  background: var(--nextui-colors-error);
+}
+
+.table-column-header {
+  text-transform: uppercase;
+  letter-spacing:2px;
+  font-weight: 400;
+  font-size:0.65rem;
+}
+.sidebar-theme-dark {
+  background-image: linear-gradient(to bottom, #0f1018ba, #8383830f);
+  backdrop-filter: blur(28px);
+}
+.sidebar-theme-light {
+  background-image: linear-gradient(to bottom, rgb(255, 255, 255), #ffffff9e);
+  backdrop-filter: blur(20px);
+}
+.panel-theme-dark {
+    background-image: linear-gradient(to bottom, #3837400d, #8383830f);
+    backdrop-filter: blur(28px);
+}
+.panel-theme-light {
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255), #ffffff9e);
+    backdrop-filter: blur(20px);
+}
+.panel-flat-dark {
+  background: #8383830f;
+  backdrop-filter: blur(14px);
+}
+.panel-flat-light {
+  background: #ffffff;
+  backdrop-filter: blur(14px);
+}
+.panel-flatter-dark {
+  background: #110f14;
+}
+.panel-flatter-light {
+  background: #ffffff;
+  backdrop-filter: blur(14px);
+}
+.card-overlay-bg {
+  background: #ffffff30;
+}
+.dark-shadow {
+  box-shadow: 1px 1px 15px 4px #00000045,
+      0 4px 6px -2px rgba(19, 15, 22, 0.26);
+}
+.light-shadow {
+  box-shadow: 0px 3px 6px -3px #97a3c59f, 0px 4px 14px 1px #abb9d662, 0px 0px 18px 1px #adbcd675;
+}
+
+.texture-bg {
+  background-image: url('/curved15.jpeg');
+}
+.text-clip-gradient {
+  /* Fallback: Set a background color. */
+  background-color: rgb(0, 0, 0);
+  /* Create the gradient. */
+  /* Set the background size and repeat properties. */
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+}
+
+@supports (-moz-appearance:none) {
+  .main-bg {
+    background-image: none;
+    background-size: cover;
+    position:fixed;
+    display:block;
+    top: 0;
+    left:0;
+    transition: 200ms ease-out;
+  }
+  .sidebar-theme-dark {
+    background-image: linear-gradient(to bottom, #0f1018, #040404);
+    backdrop-filter: blur(28px);
+  }
+  .sidebar-theme-light {
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255), #fff);
+    backdrop-filter: blur(20px);
+  }
+  .panel-theme-dark {
+      background-image: linear-gradient(to bottom, #3837400d, #8383830f);
+      backdrop-filter: blur(28px);
+  }
+  .panel-theme-light {
+      background-image: linear-gradient(to bottom, rgb(255, 255, 255), #fff);
+      backdrop-filter: blur(20px);
+  }
+  .panel-flat-dark {
+    background: #8383830f;
+    backdrop-filter: blur(14px);
+  }
+  .panel-flat-light {
+    background: #ffffff;
+    backdrop-filter: blur(14px);
+  }
+  .panel-flatter-dark {
+    background: #110f14;
+  }
+  .panel-flatter-light {
+    background: #ffffff;
+    backdrop-filter: blur(14px);
+  }
 }
 .main-bg-dark{
   background-color:black;
@@ -287,102 +427,7 @@ p {
   z-index: 1;
 }
 
-/* Styling */
 
-.text-color-primary {
-  color: var(--nextui-colors-primary);
-}
-.text-color-secondary {
-  color: var(--nextui-colors-secondary);
-}
-.text-color-warning {
-  color: var(--nextui-colors-warning);
-}
-.text-color-success {
-  color: var(--nextui-colors-success);
-}
-.text-color-error {
-  color: var(--nextui-colors-error) !important;
-}
-.bg-color-primary {
-  background: var(--nextui-colors-primary);
-}
-.bg-color-secondary {
-  background: var(--nextui-colors-secondary);
-}
-.bg-color-warning {
-  background: var(--nextui-colors-warning);
-}
-.bg-color-success {
-  background: var(--nextui-colors-success);
-}
-.bg-color-error {
-  background: var(--nextui-colors-error);
-}
-
-.table-column-header {
-  text-transform: uppercase;
-  letter-spacing:2px;
-  font-weight: 400;
-  font-size:0.65rem;
-}
-.sidebar-theme-dark {
-  background-image: linear-gradient(to bottom, #0f1018ba, #8383830f);
-  backdrop-filter: blur(28px);
-}
-.sidebar-theme-light {
-  background-image: linear-gradient(to bottom, rgb(255, 255, 255), #ffffff9e);
-  backdrop-filter: blur(20px);
-}
-.panel-theme-dark {
-    background-image: linear-gradient(to bottom, #3837400d, #8383830f);
-    backdrop-filter: blur(28px);
-}
-.panel-theme-light {
-    background-image: linear-gradient(to bottom, rgb(255, 255, 255), #ffffff9e);
-    backdrop-filter: blur(20px);
-}
-.panel-flat-dark {
-  background: #8383830f;
-  backdrop-filter: blur(14px);
-}
-.panel-flat-light {
-  background: #ffffff;
-  backdrop-filter: blur(14px);
-}
-.panel-flatter-dark {
-  background: #110f14;
-}
-.panel-flatter-light {
-  background: #ffffff;
-  backdrop-filter: blur(14px);
-}
-.card-overlay-bg {
-  background: #ffffff30;
-}
-.dark-shadow {
-    box-shadow: 1px 1px 15px 4px #00000045,
-        0 4px 6px -2px rgba(19, 15, 22, 0.26);
-}
-.light-shadow {
-  box-shadow: 0px 3px 6px -3px #97a3c59f, 0px 4px 14px 1px #abb9d662, 0px 0px 18px 1px #adbcd675;
-}
-
-.texture-bg {
-  background-image: url('/curved15.jpeg');
-}
-.text-clip-gradient {
-  /* Fallback: Set a background color. */
-  background-color: rgb(0, 0, 0);
-  /* Create the gradient. */
-  /* Set the background size and repeat properties. */
-  background-size: 100%;
-  background-repeat: repeat;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-background-clip: text;
-  -moz-text-fill-color: transparent;
-}
 
 /* Gradients */
 .top-border-flair {

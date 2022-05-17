@@ -162,7 +162,7 @@ export default function Client({ data }) {
         </div>
         {state.client.dataNavbar === 1 ? (
           <div className="flex w-full flex-auto shrink-0 flex-col lg:overflow-hidden">
-            <div className="flex w-full flex-auto shrink-0 items-center px-4">
+            <div className="flex w-full shrink-0 items-center px-4">
               <ClientPolicyInfo client={client} policies={getPolicies(true)} />
               <div>
                 <h4>Active</h4>

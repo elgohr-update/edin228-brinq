@@ -72,20 +72,20 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="flex flex-col shrink-0 flex-auto lg:flex-row">
-            <div className="flex shrink-0 flex-auto flex-col lg:p-2">
+            <div className="flex shrink-0 flex-auto flex-col p-2 lg:p-2">
               <div className="flex shrink-0 flex-auto flex-col lg:flex-row">
-                <div className="flex flex-col shrink-0 flex-auto lg:w-[600px] lg:px-2 lg:pr-4">
+                <div className="flex flex-col shrink-0 flex-auto lg:w-[400px] lg:px-2 lg:pr-4">
                   <DashboardTodos />
                 </div>
                 <div className="flex shrink-0 flex-auto flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                  <div className="mb-2 flex flex-auto shrink-0 flex-col">
+                  <div className="mb-2 lg:mb-0 flex shrink-0 flex-col">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex flex-auto shrink-0 flex-col">
+                  <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
                     <DashboardRecentPolicies />
                   </div>
                 </div>
-                <div className="flex flex-auto shrink-0 flex-col lg:px-4 lg:pr-2">
+                <div className="flex flex-auto shrink-0 flex-col w-auto lg:px-4 lg:pr-2 xl:h-[30vh] xl:w-[30vw]">
                   <div className="hidden md:flex flex-col">
                     <DashboardNewBusinessChart
                       fullData={data?.charts}

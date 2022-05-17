@@ -83,6 +83,7 @@ const ClientDrawer = () => {
     setClient(res)
   }
   const fetchPolicies = async () => {
+    console.log(clientDrawer)
     const clientId = clientDrawer.clientId
     const queryUrl = clientDrawer.isRenewal
       ? `?month=${month}&year=${year}`
@@ -144,9 +145,9 @@ const ClientDrawer = () => {
           <div className="flex flex-auto overflow-hidden py-4">
             <div className={`flex w-full flex-col `}>
               <div className={`relative mb-2 flex w-full px-2`}>
-                <div className="relative flex w-full flex-col md:flex-row md:pt-2">
+                <div className="relative flex flex-auto shrink-0 flex-col md:flex-row md:pt-2">
                   <ClientHeader client={client} />
-                  <div className="flex w-full items-center justify-center pl-4 pr-8 md:justify-end">
+                  <div className="flex flex-auto shrink-0 items-center justify-center pl-4 pr-8 md:justify-end">
                     <SummaryCard
                       isIcon={false}
                       autoWidth

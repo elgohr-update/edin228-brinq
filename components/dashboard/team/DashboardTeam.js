@@ -28,9 +28,9 @@ export default function DashboardTeam({ base = [] }) {
         <PanelTitle title={`Team`} color="orange" />
       </div>
       <div
-        className={`relative flex w-full min-h-[87px] rounded-lg  panel-theme-${type} ${type}-shadow`}
+        className={`relative flex flex-auto shrink-0 min-h-[100px] rounded-lg panel-theme-${type} ${type}-shadow`}
       >
-        <div className="flex flex-wrap w-full space-y-2 lg:space-y-0 overflow-y-auto h-[32vh] lg:h-[26.8vh] lg:gap-2 lg:space-x-0">
+        <div className="flex justify-start flex-wrap space-y-2 lg:space-y-0 overflow-y-auto lg:max-h-[19vh] lg:gap-2 lg:space-x-0">
           {data?.map((d,i) => (
             <motion.div
               key={d.id}
@@ -43,6 +43,7 @@ export default function DashboardTeam({ base = [] }) {
                 hidden: { opacity: 0 },
               }}
               transition={{ ease: 'easeOut', duration: 1 }}
+              className="flex flex-auto shrink-0 h-[90px]"
             >
               <DashboardTeamCard  data={d} />
             </motion.div>

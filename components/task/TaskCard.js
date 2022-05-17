@@ -50,38 +50,42 @@ const TaskCard = ({
           className="flex w-full space-x-4"
           onClick={() => setSelected(!selected)}
         >
-          <div className={`relative flex flex-auto flex-col space-y-1`}>
-            {showPolicy ? (
-              <div className="flex items-center space-x-1 text-xs">
-                <TagBasic text={task?.policy_type} />
-                <h4>{task?.policy_number}</h4>
-              </div>
-            ) : null}
-            <div className="text-xs">{task?.title}</div>
-            <div className="flex items-center">
-              <div className="flex items-center space-x-1 text-xs">
-                <h4>{getConstantIcons('comment')}</h4>
-                <h4>{task.comments.length}</h4>
+          <div className="flex flex-col space-y-1 md:space-y-0 md:flex-row md:items-center flex-auto shrink-0">
+            <div className={`relative flex flex-auto flex-col space-y-1`}>
+              {showPolicy ? (
+                <div className="flex items-center space-x-1 text-xs">
+                  <TagBasic text={task?.policy_type} />
+                  <h4>{task?.policy_number}</h4>
+                </div>
+              ) : null}
+              <div className="text-xs">{task?.title}</div>
+            </div>
+            <div className="flex items-center space-x-2">
+              {task.done ? (
+                <div
+                  className={`text-color-success w-[90px] relative flex flex-row space-x-1`}
+                >
+                  <h6>{getConstantIcons('circleCheck')}</h6>
+                  <h6 className={`letter-spacing-1 flex flex-auto justify-end`}>
+                    {getFormattedDate(task?.completed_date)}
+                  </h6>
+                </div>
+              ) : null}
+              <div
+                className={`w-[90px] relative flex flex-row space-x-1`}
+              >
+                <h4>{getConstantIcons('clock')}</h4>
+                <h4
+                  className={`letter-spacing-1 flex flex-auto justify-end ${
+                    task.done
+                      ? `line-through`
+                      : `${isLate(task.date)} opacity-100`
+                  }`}
+                >
+                  {getFormattedDate(task?.date)}
+                </h4>
               </div>
             </div>
-          </div>
-          {task.done ? (
-            <div className={`w-50 relative flex flex-col items-end space-y-1`}>
-              <h4>Completed</h4>
-              <h6 className={`letter-spacing-1 text-color-success`}>
-                {getFormattedDate(task?.completed_date)}
-              </h6>
-            </div>
-          ) : null}
-          <div className={`w-50 relative flex flex-col items-end space-y-1`}>
-            <h4>Due</h4>
-            <h4
-              className={`letter-spacing-1 ${
-                task.done ? `line-through` : `${isLate(task.date)} opacity-100`
-              }`}
-            >
-              {getFormattedDate(task?.date)}
-            </h4>
           </div>
           <div className={`w-50 relative flex flex-col  space-y-1`}>
             <UserAvatar
@@ -90,6 +94,12 @@ const TaskCard = ({
               squared={false}
               passUser={task.users.find((x) => x.id == task.assigned_id)}
             />
+          </div>
+          <div className="flex items-center">
+            <div className="flex items-center space-x-1 text-xs">
+              <h4>{getConstantIcons('comment')}</h4>
+              <h4>{task.comments.length}</h4>
+            </div>
           </div>
         </div>
       </div>
