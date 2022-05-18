@@ -238,8 +238,8 @@ export const sumFromArray = (data = []) => {
   return total
 }
 
-export const sortByProperty = (data = [], prop = '') => {
-  const sorted = data.sort((a, b) => (a[prop] < b[prop] ? 1 : -1))
+export const sortByProperty = (data = [], prop = '', asc=true) => {
+  const sorted = asc ? data.sort((a, b) => (a[prop] < b[prop] ? 1 : -1)) : data.sort((a, b) => (a[prop] > b[prop] ? 1 : -1))
   return sorted
 }
 

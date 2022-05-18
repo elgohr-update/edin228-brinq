@@ -5,7 +5,6 @@ import UserMenu from './../menu/UserMenu';
 import NotificationBell from './../../notifications/NotificationBell';
 import NewActionMenu from './../menu/NewActionMenu';
 import { useAppContext, useAppHeaderContext } from '../../../context/state';
-import { BiSearch } from 'react-icons/bi'
 import MobileSidebar from '../Sidebar/MobileSidebar';
 
 
@@ -16,11 +15,8 @@ const Header = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
 
     return (
-        <div className={`z-40 flex flex-col lg:flex-row lg:items-center justify-between w-full h-full relative md:py-2 ${state.scrollY > 0 ? `panel-flat-${type}`: null}`}>
-            {/* <div className="hidden z-20 lg:flex w-full lg:w-1/4 pl-4">
-                <SearchBar />
-            </div> */}
-            <div className="hidden z-20 lg:flex w-full lg:w-1/4 pl-4">
+        <div className={`z-40 flex flex-col shrink-0 lg:flex-row lg:items-center justify-between w-full h-[100px] lg:h-full relative md:py-2 ${state.scrollY > 0 ? `panel-flat-noblur-${type}`: null}`}>
+            <div className="hidden z-20 lg:flex w-full lg:w-1/4 lg:pl-4">
                 {appHeader.titleContent}
             </div>
             <div className="z-40 flex items-center justify-between lg:justify-end mt-2 lg:mt-0 px-4">
@@ -28,9 +24,6 @@ const Header = () => {
                     <MobileSidebar />
                 </div>
                 <div className="z-20 flex items-center justify-end">
-                    {/* <div className="flex lg:hidden mr-4 cursor-pointer" onClick={() => setShowSearchBar(!showSearchBar)}>
-                        <BiSearch />
-                    </div> */}
                     <div className="mr-2">
                         <NewActionMenu />
                     </div>

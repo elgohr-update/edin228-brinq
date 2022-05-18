@@ -34,7 +34,7 @@ export default function ClientPolicyInfo({ policies, client }) {
           icon={<BsBox />}
         />
       </div>
-      <div className="flex w-full justify-end">
+      <div className="flex flex-auto justify-end">
         <PolicyTypeStarred
           policies={policies}
           line={client?.line}

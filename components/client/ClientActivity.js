@@ -5,6 +5,7 @@ import Panel from '../ui/panel/Panel'
 import { FaSearch } from 'react-icons/fa'
 import { getSearch, timeout, useNextApi } from '../../utils/utils'
 import { useReloadContext } from '../../context/state'
+import { useRouter } from 'next/router'
 
 const ClientActivity = ({
   flat = true,
@@ -15,6 +16,7 @@ const ClientActivity = ({
   clientId,
   limit = 8,
 }) => {
+  const router = useRouter()
   const [data, setData] = useState(null)
   const [raw, setRaw] = useState(null)
   const { reload, setReload } = useReloadContext()

@@ -53,10 +53,11 @@ export default function PolicyTypeStarred({ policies, line }) {
   }
 
   return (
-    <div className="flex p-1">
-      <div className="space-1 flex w-full flex-wrap">
+    <div className="flex flex-col shrink-0 p-1 w-[325px]">
+      <h4 className="flex flex-auto">Preferred Policies</h4>
+      <div className="flex flex-wrap lg:gap-1">
         {filteredAll.map((pt) => (
-          <div key={pt.id} className="m-1">
+          <div key={pt.id} >
             <TagBasic text={pt.tag} tooltip tooltipContent={pt.name} color={isPurchased(pt.id)} />
           </div>
         ))}

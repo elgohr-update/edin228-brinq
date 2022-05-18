@@ -181,7 +181,7 @@ const ClientDrawer = () => {
               <div className={`mt-2 flex flex-auto w-full flex-col overflow-auto`}>
                 <ClientInfo client={client} horizontal />
                 <ClientContacts client={client} />
-                <div className={`flex flex-auto shrink-0 flex-col`}>
+                <div className={`flex flex-auto shrink-0 flex-col panel-theme-${type}`}>
                   <ClientDrawerNavbar />
                   {clientDrawer.nav === 1 ? (
                     policies ? (

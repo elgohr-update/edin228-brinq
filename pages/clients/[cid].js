@@ -37,8 +37,27 @@ export default function Client({ data }) {
   const { reload, setReload } = useReloadContext()
   const { appHeader, setAppHeader } = useAppHeaderContext()
   const [showActive, setShowActive] = useState(true)
-  const [client, setClient] = useState(data)
-  const [policies, setPolicies] = useState(data?.policies)
+  const [client, setClient] = useState(null)
+  const [policies, setPolicies] = useState([])
+
+  useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(100)
+      if (!isCancelled && data) {
+        setClient(data)
+        setPolicies(data?.policies)
+        setAppHeader({
+          ...appHeader,
+          titleContent: <ClientHeader client={data} />,
+        })
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [data])
 
   useEffect(() => {
     if (reload.policies) {
@@ -83,6 +102,20 @@ export default function Client({ data }) {
     })
   }, [])
 
+  // useEffect(() => {
+  //   let isCancelled = false
+  //   const handleChange = async () => {
+  //     await timeout(100)
+  //     if (!isCancelled && router.query.cid != data.id) {
+  //       router.replace(`/clients/${data.id}`)
+  //     }
+  //   }
+  //   handleChange()
+  //   return () => {
+  //     isCancelled = true
+  //   }
+  // }, [data])
+
   const fetchClient = async () => {
     const clientId = router.query.cid
     const res = await useNextApi('GET', `/api/clients/${clientId}`)
@@ -107,10 +140,10 @@ export default function Client({ data }) {
                 !x.nonrenewed &&
                 !x.rewritten
             ),
-            'premium'
+            'expiration_date',false
           )
         )
-      : reverseList(sortByProperty(policies, 'premium'))
+      : reverseList(sortByProperty(policies, 'expiration_date',false))
   }
 
   const syncAms = async () => {
@@ -123,7 +156,7 @@ export default function Client({ data }) {
   }
 
   return (
-    <div className="relative flex h-full max-h-[82vh] w-full flex-auto shrink-0 flex-col overflow-y-auto lg:max-h-[90vh] lg:flex-row lg:overflow-hidden">
+    <div className="relative flex h-full w-full flex-auto shrink-0 flex-col overflow-y-auto overflow-x-hidden lg:max-h-[92vh] lg:flex-row lg:overflow-hidden">
       <div className="flex flex-auto shrink-0 lg:w-2/12 lg:py-0 lg:pb-8">
         <div
           className={`relative flex flex-auto  flex-col space-y-2 py-4 px-4`}
@@ -176,8 +209,8 @@ export default function Client({ data }) {
             <div
               className={`flex h-auto flex-auto shrink-0 flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
             >
-              {getPolicies(showActive).map((u) => (
-                <Panel flat key={u.id} overflow={false} px={0} py={0}>
+              {getPolicies(showActive).map((u,indx) => (
+                <Panel animationDelay={indx} flat key={u.id} overflow={false} px={0} py={0}>
                   <PolicyCard policy={u} truncate={60} />
                 </Panel>
               ))}
@@ -192,7 +225,7 @@ export default function Client({ data }) {
           <ClientActionNavbar />
         </div>
         <div className="lg:overflow-y-auto lg:px-4">
-          {state.client.actionNavbar === 1 ? (
+          {state.client.actionNavbar === 1 && client? (
             <ClientActivity clientId={client?.id} limit={50} />
           ) : null}
         </div>

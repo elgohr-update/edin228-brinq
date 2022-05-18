@@ -117,7 +117,7 @@ const PolicyCard = ({
             </h6>
             <h4 className={``}>{truncateString(policy.writing, truncate)}</h4>
           </div>
-          <div className={`relative flex w-full flex-col items-end`}>
+          <div className={`relative flex w-full flex-col pl-1 lg:pl-0 lg:items-end`}>
             <h4 className={`letter-spacing-1`}>
               {getFormattedDate(policy.effective_date)}
             </h4>

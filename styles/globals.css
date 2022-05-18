@@ -266,9 +266,15 @@ p {
   background: #8383830f;
   backdrop-filter: blur(14px);
 }
+.panel-flat-noblur-dark{
+  background: #8383830f;
+}
 .panel-flat-light {
   background: #ffffff;
   backdrop-filter: blur(14px);
+}
+.panel-flat-noblur-light{
+  background: #ffffff;
 }
 .panel-flatter-dark {
   background: #110f14;
@@ -427,13 +433,11 @@ p {
   z-index: 1;
 }
 
-
-
 /* Gradients */
 .top-border-flair {
   position:absolute;
   top:30px;
-  width:80px;
+  width:65px;
   border-radius:6px;
   height:4px;
   z-index:20;
