@@ -168,7 +168,6 @@ const ActivityDrawer = () => {
   }
 
   const setFileDescription = (fid, text) => {
-    console.log(files)
     const fil = files.find((x) => x.id == fid)
     fil.description = text
     const fils = files.filter((x) => x.id != fid)
@@ -177,7 +176,6 @@ const ActivityDrawer = () => {
   }
 
   const setFileDoctype = (fid, action) => {
-    console.log(files)
     const fil = files.find((x) => x.id == fid)
     fil.action = action
     const fils = files.filter((x) => x.id != fid)

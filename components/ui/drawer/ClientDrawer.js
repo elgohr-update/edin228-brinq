@@ -83,7 +83,6 @@ const ClientDrawer = () => {
     setClient(res)
   }
   const fetchPolicies = async () => {
-    console.log(clientDrawer)
     const clientId = clientDrawer.clientId
     const queryUrl = clientDrawer.isRenewal
       ? `?month=${month}&year=${year}`
@@ -143,8 +142,8 @@ const ClientDrawer = () => {
           <DrawerLoader />
         ) : (
           <div className="flex flex-auto overflow-hidden py-4">
-            <div className={`flex w-full flex-col `}>
-              <div className={`relative mb-2 flex w-full px-2`}>
+            <div className={`flex w-full flex-col shrink-0`}>
+              <div className={`relative mb-2 flex w-fullshrink-0 px-2`}>
                 <div className="relative flex flex-auto shrink-0 flex-col md:flex-row md:pt-2">
                   <ClientHeader client={client} />
                   <div className="flex flex-auto shrink-0 items-center justify-center pl-4 pr-8 md:justify-end">
@@ -248,7 +247,7 @@ const ClientDrawer = () => {
           </div>
         )}
         {!client ? null : (
-          <div className="flex w-full justify-end px-2 pt-1 pb-4">
+          <div className="flex flex-auto shrink-0 justify-end px-2 pt-1 pb-4">
             <Link href={`/clients/${clientDrawer.clientId}`}>
               <a className="w-full">
                 <Button color="gradient" className="w-full">
