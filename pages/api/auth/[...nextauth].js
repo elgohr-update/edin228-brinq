@@ -38,8 +38,8 @@ export default NextAuth({
     ], 
     pages: {
         signIn: '/login',
-        signOut: '/login',
-        error: '/login',
+        signOut: '/',
+        error: '/',
         verifyRequest: '/login',
         newUser: null,
     },

@@ -10,8 +10,6 @@ export default function Home() {
         <div className="flex flex-col items-center z-30">
           <div className={`flex`}>
             <Image
-              showSkeleton
-              maxDelay={10000}
               width={180}
               height={80}
               src="/brinq-logo-full-color.png"

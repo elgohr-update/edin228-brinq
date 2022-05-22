@@ -12,11 +12,15 @@ import PanelTitle from '../components/ui/title/PanelTitle'
 import DashboardSummaryChart from '../components/charts/DashboardSummaryChart'
 import DashboardRecentPolicies from '../components/dashboard/policy/DashboardRecentPolicies'
 import DashboardNewBusinessChart from '../components/charts/DashboardNewBusinessChart'
+import { useRouter } from 'next/router'
 
 export default function Dashboard() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  const router = useRouter()
+
 
   useEffect(() => {
     setAppHeader({

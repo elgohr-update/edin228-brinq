@@ -8,28 +8,22 @@ import { useRouter } from 'next/router'
 
 export default function Login() {
   const { type } = useTheme()
-  const { data: session, status } = useSession({
-    required: true,
-  })
+  const { data: session } = useSession()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if (session && status === "authenticated") {
-  //     router.push('/dashboard')
-  //   }
-  // }, [session,status])
+  useEffect(() => {
+    const checkDate = new Date() < new Date(session?.exp * 1000)
+    if (session && checkDate) {
+      router.push('/dashboard')
+    }
+  }, [session])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const signin = await signIn('username-login', { username, password })
-    if (signin) {
-      if (session && status === 'authenticated') {
-        router.push('/dashboard')
-      }
-    }
   }
 
   return (
@@ -41,7 +35,7 @@ export default function Login() {
           </div>
           <h2 className="py-6 font-bold uppercase">Login</h2>
           <form
-            onSubmit={handleSubmit}
+            onSubmit={(e) => handleSubmit(e)}
             className="flex h-full w-full flex-col items-center px-8 py-4"
           >
             <div className="mb-4 flex w-full justify-center">
