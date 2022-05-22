@@ -9,7 +9,11 @@ import { useRouter } from 'next/router'
 export default function Login() {
   const { type } = useTheme()
   const { data: session, status } = useSession({
-    required: true
+    required: true,
+    onUnauthenticated() {
+      router.push("/login")
+      setIsAuth(false)
+    },
   })
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
