@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 export default function Login() {
   const { type } = useTheme()
   const { data: session, status } = useSession({
-    required: true
+    required: true,
   })
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -22,20 +22,21 @@ export default function Login() {
   //   }
   // }, [session,status])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    signIn('username-login', { username, password })
+    const signin = await signIn('username-login', { username, password })
+    if (signin) {
+      if (session && status === 'authenticated') {
+        router.push('/dashboard')
+      }
+    }
   }
 
   return (
     <main className="flex h-full w-full items-center justify-center overflow-hidden px-4 py-40 md:px-28 md:py-0 lg:px-4 lg:py-64">
-      <div
-        className={`flex h-full w-full flex-col rounded-lg lg:w-3/12`}
-      >
+      <div className={`flex h-full w-full flex-col rounded-lg lg:w-3/12`}>
         <div className="flex h-full flex-col items-center">
-          <div
-            className={`w-full rounded-t px-24 py-4 md:px-40`}
-          >
+          <div className={`w-full rounded-t px-24 py-4 md:px-40`}>
             <img src="/brinq-logo-full-color.png" alt="brinq" />
           </div>
           <h2 className="py-6 font-bold uppercase">Login</h2>
@@ -64,7 +65,7 @@ export default function Login() {
                 placeholder="Password"
                 className={`${type}-shadow w-full`}
               />
-              <h4 className="mt-2 flex w-full justify-end text-xs pr-4">
+              <h4 className="mt-2 flex w-full justify-end pr-4 text-xs">
                 Forgot Password?
               </h4>
             </div>
