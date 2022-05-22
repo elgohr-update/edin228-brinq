@@ -12,7 +12,6 @@ export default function Login() {
     required: true,
     onUnauthenticated() {
       router.push("/login")
-      setIsAuth(false)
     },
   })
   const [username, setUsername] = useState('')
