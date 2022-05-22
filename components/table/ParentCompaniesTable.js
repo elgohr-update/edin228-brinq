@@ -225,7 +225,7 @@ const ParentCompaniesTable = () => {
     <div className="flex h-full w-full flex-col md:flex-row">
       {showFilter ? (
         <div
-          className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 md:w-[400px] panel-flat-${type} ${type}-shadow`}
+          className={`flex flex-col space-y-4 rounded-lg py-4 px-4 md:w-[400px] panel-flat-${type} ${type}-shadow`}
         >
           <h4>Filter Premium</h4>
           <div className="flex items-center space-x-2">

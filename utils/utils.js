@@ -244,7 +244,7 @@ export const sortByProperty = (data = [], prop = '', asc=true) => {
 }
 
 export const basicSort = (data = []) => {
-  const sorted = data.sort((a, b) => (a < b ? 1 : -1))
+  const sorted = data?.sort((a, b) => (a < b ? 1 : -1))
   return sorted
 }
 

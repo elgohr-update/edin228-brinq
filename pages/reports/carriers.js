@@ -6,15 +6,14 @@ import { useAppContext, useAppHeaderContext } from '../../context/state'
 import AppLayout from '../../layouts/AppLayout'
 import { sumFromArrayOfObjects, timeout, useNextApi } from '../../utils/utils'
 import SummaryCard from '../../components/ui/card/SummaryCard'
-import PoliciesTable from '../../components/table/PoliciesTable'
 import ReportNavbar from './../../components/ui/navbar/ReportNavbar'
 import PageTitle from '../../components/ui/pageheaders/PageTitle'
-import PageHeader from '../../components/ui/pageheaders/PageHeader'
 import { RiBuildingFill } from 'react-icons/ri'
 import { DateTime } from 'luxon'
 import ParentCompaniesTable from '../../components/table/ParentCompaniesTable'
 import PanelTitle from '../../components/ui/title/PanelTitle'
 import SelectInput from '../../components/ui/select/SelectInput'
+import CompanyChartContainer from '../../components/table/CompanyChartContainer'
 
 export default function ReportsCarriers() {
   const { type } = useTheme()
@@ -61,7 +60,9 @@ export default function ReportsCarriers() {
       }
     }
     handleChange()
-    return () => {}
+    return () => {
+      isCancelled = true
+    }
   }, [dataYear])
 
   const fetchData = async () => {
@@ -97,63 +98,65 @@ export default function ReportsCarriers() {
   return (
     <main className="relative flex w-full flex-col">
       <ReportNavbar />
-      <div className="flex w-full flex-col">
-        <div className="mb-2 flex h-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
-          <SummaryCard
-            val={allPremSum()}
-            color="teal"
-            gradientColor="pink-to-blue"
-            panel
-            shadow
-            icon={<AiFillDollarCircle />}
-            title="Total Premium"
-            money
-            vertical={false}
-          />
-          <SummaryCard
-            val={clPremSum()}
-            color="teal"
-            gradientColor="green-to-blue-2"
-            panel
-            shadow
-            icon={<AiFillDollarCircle />}
-            title="Commercial Lines Premium"
-            money
-            vertical={false}
-          />
-          <SummaryCard
-            val={plPremSum()}
-            color="teal"
-            gradientColor="pink"
-            panel
-            shadow
-            icon={<AiFillDollarCircle />}
-            title="Personal Lines Premium"
-            money
-            vertical={false}
-          />
-          <SummaryCard
-            val={bPremSum()}
-            color="teal"
-            gradientColor="green-to-orange"
-            panel
-            shadow
-            icon={<AiFillDollarCircle />}
-            title="Benefits Premium"
-            money
-            vertical={false}
-          />
-          <SummaryCard
-            val={tableData?.length}
-            color="fuchsia"
-            gradientColor="peach"
-            panel
-            shadow
-            title="Carriers"
-            icon={<BsBox />}
-            vertical={false}
-          />
-          <div className="mb-4 flex justify-center space-x-2 lg:mb-0 lg:items-center lg:justify-end lg:pr-4">
+      <div className="flex flex-auto flex-col">
+        <div className="flex flex-auto flex-col lg:flex-row">
+          <div className="flex flex-auto w-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+            <SummaryCard
+              val={allPremSum()}
+              color="teal"
+              gradientColor="pink-to-blue"
+              panel
+              shadow
+              icon={<AiFillDollarCircle />}
+              title="Total Premium"
+              money
+              vertical={false}
+            />
+            <SummaryCard
+              val={clPremSum()}
+              color="teal"
+              gradientColor="green-to-blue-2"
+              panel
+              shadow
+              icon={<AiFillDollarCircle />}
+              title="Commercial Lines Premium"
+              money
+              vertical={false}
+            />
+            <SummaryCard
+              val={plPremSum()}
+              color="teal"
+              gradientColor="pink"
+              panel
+              shadow
+              icon={<AiFillDollarCircle />}
+              title="Personal Lines Premium"
+              money
+              vertical={false}
+            />
+            <SummaryCard
+              val={bPremSum()}
+              color="teal"
+              gradientColor="green-to-orange"
+              panel
+              shadow
+              icon={<AiFillDollarCircle />}
+              title="Benefits Premium"
+              money
+              vertical={false}
+            />
+            <SummaryCard
+              val={tableData?.length}
+              color="fuchsia"
+              gradientColor="peach"
+              panel
+              shadow
+              title="Carriers"
+              icon={<BsBox />}
+              vertical={false}
+            />
+          </div>
+          <div className="flex flex-auto p-4 lg:p-0 lg:mb-0 lg:items-center lg:justify-end lg:pr-4">
             <div className="flex flex-col">
               <div>
                 <PanelTitle title={`Year`} color="pink" />
@@ -173,6 +176,7 @@ export default function ReportsCarriers() {
             </div>
           </div>
         </div>
+        <CompanyChartContainer dataYear={dataYear} />
         <div className="px-4">
           <div className={`h-full w-full rounded-lg `}>
             {tableData ? <ParentCompaniesTable /> : null}
