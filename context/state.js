@@ -70,6 +70,27 @@ export function useAppContext() {
   return useContext(AppContext)
 }
 
+// const ReportsContext = createContext()
+
+// export function ReloadWrapper({ children }) {
+//   const [reports, setReports] = useState({
+//     activities: false,
+//     policies: false,
+//     client: false,
+//     agency: false,
+//     comment: false,
+//   })
+//   return (
+//     <ReportsContext.Provider value={{ reports, setReports }}>
+//       {children}
+//     </ReportsContext.Provider>
+//   )
+// }
+
+// export function useReportsContext() {
+//   return useContext(ReportsContext)
+// }
+
 const ReloadContext = createContext()
 
 export function ReloadWrapper({ children }) {

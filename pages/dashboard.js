@@ -50,10 +50,10 @@ export default function Dashboard() {
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex h-full w-full flex-col lg:flex-row lg:pl-2">
-        <div className="flex w-full h-full flex-col">
-          <div className="flex shrink-0 w-full flex-col">
-            <div className="flex flex-col h-full px-4 lg:flex-row  lg:px-0">
-              <div className="flex w-full h-full lg:items-center">
+        <div className="flex h-full w-full flex-col">
+          <div className="flex w-full shrink-0 flex-col">
+            <div className="flex h-full flex-col px-4 lg:flex-row  lg:px-0">
+              <div className="flex h-full w-full lg:items-center">
                 <DashboardCards
                   premium={data?.premium}
                   clients={data?.clients}
@@ -71,28 +71,31 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col shrink-0 flex-auto lg:flex-row">
-            <div className="flex shrink-0 flex-auto flex-col p-2 lg:p-2">
-              <div className="flex shrink-0 flex-auto flex-col lg:flex-row">
-                <div className="flex flex-col shrink-0 flex-auto lg:w-[400px] lg:px-2 lg:pr-4">
+          <div className="flex flex-auto shrink-0 flex-col lg:flex-row">
+            <div className="flex flex-auto shrink-0 flex-col p-2 lg:p-2">
+              <div className="flex flex-auto shrink-0 flex-col lg:flex-row">
+                <div className="flex flex-auto shrink-0 flex-col lg:w-[120px] lg:px-2 lg:pr-4">
                   <DashboardTodos />
                 </div>
-                <div className="flex shrink-0 flex-auto flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                  <div className="mb-2 lg:mb-0 flex shrink-0 flex-col">
+                <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
+                  <div className="mb-2 flex shrink-0 flex-col lg:mb-0">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
                   <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
-                    <DashboardRecentPolicies />
-                  </div>
+                      <DashboardRecentPolicies />
+                    </div>
                 </div>
-                <div className="flex flex-auto shrink-0 flex-col w-auto lg:px-4 lg:pr-2 xl:h-[30vh] xl:w-[30vw]">
-                  <div className="hidden md:flex flex-col">
+                <div className="flex w-auto flex-auto shrink-0 flex-col lg:px-4 lg:pr-2 xl:h-[30vh] xl:w-[30vw]">
+                  <div className="hidden flex-col md:flex">
                     <DashboardNewBusinessChart
                       fullData={data?.charts}
                       loading={loading}
                     />
                   </div>
-                  <div className="flex flex-auto shrink-0 flex-col lg:mt-1 overflow-hidden">
+                  <div className="flex flex-auto shrink-0 flex-col overflow-hidden lg:mt-1">
+                    {/* <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
+                      <DashboardRecentPolicies />
+                    </div> */}
                     <DashboardActivity />
                   </div>
                 </div>

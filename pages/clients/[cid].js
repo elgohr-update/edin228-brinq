@@ -102,20 +102,6 @@ export default function Client({ data }) {
     })
   }, [])
 
-  // useEffect(() => {
-  //   let isCancelled = false
-  //   const handleChange = async () => {
-  //     await timeout(100)
-  //     if (!isCancelled && router.query.cid != data.id) {
-  //       router.replace(`/clients/${data.id}`)
-  //     }
-  //   }
-  //   handleChange()
-  //   return () => {
-  //     isCancelled = true
-  //   }
-  // }, [data])
-
   const fetchClient = async () => {
     const clientId = router.query.cid
     const res = await useNextApi('GET', `/api/clients/${clientId}`)
@@ -156,7 +142,7 @@ export default function Client({ data }) {
   }
 
   return (
-    <div className="relative flex h-full w-full flex-auto shrink-0 flex-col overflow-y-auto overflow-x-hidden lg:max-h-[92vh] lg:flex-row lg:overflow-hidden">
+    <div className="relative flex h-full w-full flex-auto shrink-0 flex-col overflow-y-auto overflow-x-hidden lg:max-h-[92.6vh] lg:flex-row lg:overflow-hidden">
       <div className="flex flex-auto shrink-0 lg:w-2/12 lg:py-0 lg:pb-8">
         <div
           className={`relative flex flex-auto  flex-col space-y-2 py-4 px-4`}

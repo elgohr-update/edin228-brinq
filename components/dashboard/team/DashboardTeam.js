@@ -12,15 +12,15 @@ export default function DashboardTeam({ base = [] }) {
   const { type } = useTheme()
 
   useEffect(() => {
-    if (!base) {
-      return
+    if (base.length > 1){
+      const format = base.map((b) => {
+        return { ...b, id: uuid() }
+      })
+      const sorted = sortByProperty(format,'prem')
+      setData(sorted)  
     }
-    const format = base.map((b) => {
-      return { ...b, id: uuid() }
-    })
-    const sorted = sortByProperty(format,'prem')
-    setData(sorted)
-  }, [base,setData])
+    
+  }, [base])
 
   return (
     <div className={`mt-2 lg:mt-0 flex w-full rounded-lg flex-col`}>

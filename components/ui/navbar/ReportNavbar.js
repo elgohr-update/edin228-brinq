@@ -10,7 +10,7 @@ const ReportNavbar = () => {
             <NavLink url={"/reports/newbusiness"} slug={"/newbusiness"} icon={<RiFolderUserFill />} title={"New Business"} />
             <NavLink url={"/reports/clients"} slug={"/clients"} icon={<RiFolderUserFill />} title={"Clients"} />
             <NavLink url={"/reports/policies"} slug={"/policies"} icon={<BsBox />} title={"Policies"} />
-            {/* <NavLink url={"/reports/carriers"} slug={"/carriers"} icon={<RiBuildingFill />} title={"Carriers"} /> */}
+            <NavLink url={"/reports/carriers"} slug={"/carriers"} icon={<RiBuildingFill />} title={"Carriers"} />
         </div>
     )
 }

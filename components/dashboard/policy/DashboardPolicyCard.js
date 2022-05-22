@@ -33,18 +33,16 @@ export default function DashboardPolicyCard({ policy }) {
             </Avatar.Group>
           </div>
           <TagBasic text={policy.policy_type} />
-          <Link href="/">
-            <a className="transition duration-100 hover:text-sky-500">
-              <h4 className="flex items-center space-x-2">
-                <div className="text-color-primary">
-                  <BsBox />
-                </div>
-                <h6 className="flex w-[65px]">
-                  {truncateString(policy.policy_number,10)}
-                </h6>
-              </h4>
-            </a>
-          </Link>
+          <div className="text-color-primary transition duration-100 hover:text-sky-500">
+            <div className="flex items-center space-x-2">
+              <div className="text-color-primary">
+                <BsBox />
+              </div>
+              <h6 className="flex w-[65px]">
+                {truncateString(policy.policy_number, 10)}
+              </h6>
+            </div>
+          </div>
         </div>
         <div className="flex w-full items-center justify-end space-x-2">
           <h6 className="flex w-[40px] flex-auto text-teal-500 lg:justify-end">

@@ -12,6 +12,7 @@ import SidebarItem from './SidebarItem'
 import SidebarDropdown from './SidebarDropdown'
 import SearchBar from '../../search/SearchBar'
 import SidebarSearchbar from '../../search/SidebarSearchbar'
+import { RiBuildingFill } from 'react-icons/ri';
 import { motion } from 'framer-motion'
 
 export default function SidebarItemContainer({ expand, isMobile = false }) {
@@ -166,6 +167,32 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                   icon={<BsBox />}
                   label={'Policies'}
                   basePath="/policies"
+                  isMobile={isMobile}
+                  mainMenuItem={false}
+                />
+              </motion.div>
+              <motion.div
+                className="sidebar-item relative"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: 1 * 0.05,
+                    },
+                  },
+                  hidden: { opacity: 0, y: -10 },
+                }}
+                transition={{ ease: 'easeInOut', duration: 0.25 }}
+              >
+                <SidebarItem
+                  href={`/reports/carriers`}
+                  isOpen={isExpand()}
+                  icon={<RiBuildingFill />}
+                  label={'Carriers'}
+                  basePath="/carriers"
                   isMobile={isMobile}
                   mainMenuItem={false}
                 />
