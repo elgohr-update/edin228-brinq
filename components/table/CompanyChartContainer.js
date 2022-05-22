@@ -19,7 +19,6 @@ export default function CompanyChartContainer({ dataYear }) {
   }, [dataYear])
 
   const fetchData = async () => {
-      console.log(dataYear)
     if (dataYear) {
       const res = await useNextApi(
         'GET',

@@ -8,17 +8,19 @@ import { useRouter } from 'next/router'
 
 export default function Login() {
   const { type } = useTheme()
-  const { data: session } = useSession()
+  const { data: session, status } = useSession({
+    required: true
+  })
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const router = useRouter()
 
   useEffect(() => {
-    if (session) {
+    if (session && status === "authenticated") {
       router.push('/dashboard')
     }
-  }, [session])
+  }, [session,status])
 
   const handleSubmit = (e) => {
     e.preventDefault()
