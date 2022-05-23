@@ -1,37 +1,56 @@
 import { useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { useNotificationContext } from '../../../context/state'
+import {
+  useNotificationContext,
+  useNotificationUpdateContext,
+} from '../../../context/state'
 import { timeout } from '../../../utils/utils'
 import { motion } from 'framer-motion'
 
 export default function AppNotification() {
-  const { notification, setNotification } = useNotificationContext()
-  const [show, setShow] = useState(false)
+  const { notification } = useNotificationContext()
+  const { setNotification } = useNotificationUpdateContext()
+  const [show, setShow] = useState(true)
+  const [notificationLength, setNotificationLength] = useState(
+    notification.length
+  )
   const { type } = useTheme()
 
+  //   useEffect(() => {
+  //     let isCancelled = false
+  //     console.log(notification)
+  //   }, [notification])
   useEffect(() => {
     let isCancelled = false
     const handleChange = async () => {
-      await timeout(100)
-      if (!isCancelled && notification.text) {
-        setShow(true)
-        await timeout(3000)
-        setShow(false)
-        setNotification({
-          icon: null,
-          text: null,
-          position: 'bottom-right',
-          color: 'white',
-          background: 'blue',
-        })
+      await timeout(3000)
+      if (!isCancelled) {
+        if (notification.length > 10) {
+          const updated = notification.slice(10).map((item) => {
+            item.seen = true
+            return item
+          })
+          setNotification([...updated])
+        } else {
+          const updated = notification.map((item) => {
+            item.seen = true
+            return item
+          })
+          setNotification([...updated])
+        }
       }
     }
-    handleChange()
-    return () => {}
+    if (notification.length != notificationLength) {
+      handleChange()
+      setNotificationLength(notification.length)
+    }
+    return () => {
+      isCancelled = true
+    }
   }, [notification])
 
-  const getBackground = () => {
-    switch (notification.background) {
+  const getBackground = (bg) => {
+    switch (bg) {
       case 'orange':
         return 'orange-gradient-1'
       case 'orange-reverse':
@@ -82,17 +101,36 @@ export default function AppNotification() {
       variants={{
         visible: {
           opacity: 1,
-          x: show? 0 : 500,
+          x: show ? 0 : 500,
         },
         hidden: { opacity: 0, x: 500 },
       }}
       transition={{ ease: 'easeInOut', duration: 0.25 }}
-      className={`flex flex-auto ${type}-shadow ${getBackground()} fixed bottom-5 min-h-[80px] right-5 z-40 flex rounded-lg bg-red-500 text-white`}
+      className={`absolute bottom-5 right-5 z-40 flex min-h-[80px] flex-auto flex-col space-y-1 lg:gap-2 lg:space-y-0`}
     >
-      <div className="flex flex-auto items-center justify-between p-4">
-        <div className="text-3xl mr-4">{notification.icon}</div>
-        <div>{notification.text}</div>
-      </div>
+      {notification?.map((n) => (
+        <motion.div
+          key={n.id}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              opacity: 1,
+              x: !n.seen ? 0 : 500,
+            },
+            hidden: { opacity: 0, x: 500 },
+          }}
+          transition={{ ease: 'easeInOut', duration: 0.25 }}
+          className={`flex flex-auto ${type}-shadow ${getBackground(
+            n.background
+          )} z-40 min-h-[80px] rounded-lg text-white`}
+        >
+          <div className="flex flex-auto items-center justify-between p-4">
+            <div className="mr-4 text-3xl">{n.icon}</div>
+            <div>{n.text}</div>
+          </div>
+        </motion.div>
+      ))}
     </motion.div>
   )
 }

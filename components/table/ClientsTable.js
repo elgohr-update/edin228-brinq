@@ -290,7 +290,7 @@ const ClientsTable = () => {
               initialChecked
               color="primary"
               labelColor="primary"
-              size="sm"
+              size="xs"
               value="Commercial Lines"
               onChange={(e) => setLineFilter(e, 'Commercial Lines')}
             >
@@ -300,7 +300,7 @@ const ClientsTable = () => {
               initialChecked
               color="error"
               labelColor="error"
-              size="sm"
+              size="xs"
               value="Personal Lines"
               onChange={(e) => setLineFilter(e, 'Personal Lines')}
             >
@@ -310,7 +310,7 @@ const ClientsTable = () => {
               initialChecked
               color="success"
               labelColor="success"
-              size="sm"
+              size="xs"
               value="Benefits"
               onChange={(e) => setLineFilter(e, 'Benefits')}
             >

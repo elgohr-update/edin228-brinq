@@ -113,24 +113,24 @@ export function useReloadContext() {
 }
 
 const NotificationContext = createContext()
+const NotificationUpdateContext = createContext()
 
 export function NotificationWrapper({ children }) {
-  const [notification, setNotification] = useState({
-    icon:null,
-    text:null,
-    position:'bottom-right',
-    color:'white',
-    background:'blue'
-  })
+  const [notification, setNotification] = useState([])
   return (
-    <NotificationContext.Provider value={{ notification, setNotification }}>
-      {children}
+    <NotificationContext.Provider value={{notification}}>
+      <NotificationUpdateContext.Provider value={{setNotification}}>
+        {children}
+      </NotificationUpdateContext.Provider>
     </NotificationContext.Provider>
   )
 }
 
 export function useNotificationContext() {
   return useContext(NotificationContext)
+}
+export function useNotificationUpdateContext() {
+  return useContext(NotificationUpdateContext)
 }
 
 const AgencyContext = createContext()
