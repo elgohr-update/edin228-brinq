@@ -6,6 +6,7 @@ import {
   Avatar,
   Tooltip,
   useCollator,
+  Popover,
   Checkbox,
   Loading,
 } from '@nextui-org/react'
@@ -101,9 +102,9 @@ const WritingCompaniesTable = () => {
         entry.premium >= mnPrem && entry.premium <= mxPrem && lineCheck(entry)
     )
     let newData = filtered
-    if (sortDescriptor){
+    if (sortDescriptor) {
       newData = forceSort(newData)
-    } 
+    }
     setState({
       ...state,
       reports: {
@@ -119,7 +120,7 @@ const WritingCompaniesTable = () => {
   const columns = [
     {
       key: 'b',
-      label: 'Brokerage',
+      label: 'With Brokerage',
     },
     {
       key: 'parent_id',
@@ -159,16 +160,49 @@ const WritingCompaniesTable = () => {
     const cellValue = policy[columnKey]
     switch (columnKey) {
       case 'b':
-        const parentCo = policy?.parent_companies[0]
-        return (
-            parentCo?.parent.brokerage ?
-            <div className="text-sky-500 text-xs flex justify-center">{getConstantIcons('circleCheck')}</div>
-            :
-            <div className="text-red-500 text-xs flex justify-center">{getConstantIcons('circleX')}</div>
+        const isWithBrokerage = () => {
+          const parents = policy?.parent_companies.filter(
+            (x) => x.parent.brokerage == true
+          )
+          return parents.length > 0 ? true : false
+        }
+        return isWithBrokerage() ? (
+          <div className="flex justify-center text-xs text-sky-500">
+            {getConstantIcons('circleCheck')}
+          </div>
+        ) : (
+          <div className="flex justify-center text-xs text-red-500">
+            {getConstantIcons('circleX')}
+          </div>
         )
       case 'parent_id':
-        const parent = policy?.parent_companies[0]
-        return <div className="text-xs">{parent?.parent.name}</div>
+        const parentCheck = () => {
+          const parent = policy?.parent_companies[0]?.parent
+          const otherParents = policy?.parent_companies.filter(
+            (x) => x.parent_id != parent.id
+          )
+          return { parent: parent, extra: otherParents }
+        }
+        const parentData = parentCheck()
+        return (
+          <div className="flex items-center space-x-1">
+            <div className="text-xs">{parentData?.parent?.name}</div>
+            {parentData?.extra.length > 0 ? (
+              <Popover placement={`top`}>
+                <Popover.Trigger>
+                  <h4 className="cursor-pointer">+{parentData?.extra?.length} Others</h4>
+                </Popover.Trigger>
+                <Popover.Content>
+                  <div className="flex flex-col p-4">
+                    {parentData?.extra?.map( x => (
+                      <h6 key={x.parent.id}>{x.parent.name}</h6>
+                    ))}
+                  </div>
+                </Popover.Content>
+              </Popover>
+            ) : null}
+          </div>
+        )
       case 'policy_count':
         return (
           <div className="flex justify-center text-xs">
