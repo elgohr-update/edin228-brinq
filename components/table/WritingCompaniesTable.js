@@ -20,7 +20,11 @@ import {
   getConstantIcons,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
-import { useAppContext } from '../../context/state'
+import {
+  useAppContext,
+  useParentCompanyDrawerContext,
+  useWritingCompanyDrawerContext,
+} from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import ClientTableCell from './ClientTableCell'
@@ -37,9 +41,28 @@ const WritingCompaniesTable = () => {
     'Benefits',
   ])
   const [sortDescriptor, setSortDescriptor] = useState('ascending')
+  const { writingCompanyDrawer, setWritingCompanyDrawer } =
+    useWritingCompanyDrawerContext()
+
+  const { parentCompanyDrawer, setParentCompanyDrawer } =
+    useParentCompanyDrawerContext()
 
   const rows = state.reports.data.carriers.raw
   const tableData = state.reports.data.carriers.filtered
+
+  const openSidebar = (cid) => {
+    setWritingCompanyDrawer({
+      isOpen: true,
+      companyId: cid,
+    })
+  }
+
+  const openParentSidebar = (cid) => {
+    setParentCompanyDrawer({
+      isOpen: true,
+      companyId: cid,
+    })
+  }
 
   const searchTable = (val) => {
     if (val.length > 1) {
@@ -186,21 +209,43 @@ const WritingCompaniesTable = () => {
         const parentData = parentCheck()
         return (
           <div className="flex items-center space-x-1">
-            <div className="text-xs">{parentData?.parent?.name}</div>
+            <div
+              onClick={() => openParentSidebar(parentData?.parent?.id)}
+              className="cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500"
+            >
+              {parentData?.parent?.name}
+            </div>
             {parentData?.extra.length > 0 ? (
               <Popover placement={`top`}>
                 <Popover.Trigger>
-                  <h4 className="cursor-pointer">+{parentData?.extra?.length} Others</h4>
+                  <h4 className="cursor-pointer">
+                    +{parentData?.extra?.length} Others
+                  </h4>
                 </Popover.Trigger>
                 <Popover.Content>
                   <div className="flex flex-col p-4">
-                    {parentData?.extra?.map( x => (
-                      <h6 key={x.parent.id}>{x.parent.name}</h6>
+                    {parentData?.extra?.map((x) => (
+                      <h6
+                        key={x.parent.id}
+                        onClick={() => openParentSidebar(x.parent.id)}
+                        className="cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500"
+                      >
+                        {x.parent.name}
+                      </h6>
                     ))}
                   </div>
                 </Popover.Content>
               </Popover>
             ) : null}
+          </div>
+        )
+      case 'name':
+        return (
+          <div
+            onClick={() => openSidebar(policy?.id)}
+            className="cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500"
+          >
+            {cellValue}
           </div>
         )
       case 'policy_count':

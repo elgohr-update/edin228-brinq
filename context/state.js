@@ -164,7 +164,9 @@ export function ActivityDrawerWrapper({ children }) {
     clientId: null,
   })
   return (
-    <ActivityDrawerContext.Provider value={{ activityDrawer, setActivityDrawer }}>
+    <ActivityDrawerContext.Provider
+      value={{ activityDrawer, setActivityDrawer }}
+    >
       {children}
     </ActivityDrawerContext.Provider>
   )
@@ -174,11 +176,51 @@ export function useActivityDrawerContext() {
   return useContext(ActivityDrawerContext)
 }
 
+const ParentCompanyDrawerContext = createContext()
+
+export function ParentCompanyDrawerWrapper({ children }) {
+  const [parentCompanyDrawer, setParentCompanyDrawer] = useState({
+    isOpen: false,
+    companyId: null,
+  })
+  return (
+    <ParentCompanyDrawerContext.Provider
+      value={{ parentCompanyDrawer, setParentCompanyDrawer }}
+    >
+      {children}
+    </ParentCompanyDrawerContext.Provider>
+  )
+}
+
+export function useParentCompanyDrawerContext() {
+  return useContext(ParentCompanyDrawerContext)
+}
+
+const WritingCompanyDrawerContext = createContext()
+
+export function WritingCompanyDrawerWrapper({ children }) {
+  const [writingCompanyDrawer, setWritingCompanyDrawer] = useState({
+    isOpen: false,
+    companyId: null,
+  })
+  return (
+    <WritingCompanyDrawerContext.Provider
+      value={{ writingCompanyDrawer, setWritingCompanyDrawer }}
+    >
+      {children}
+    </WritingCompanyDrawerContext.Provider>
+  )
+}
+
+export function useWritingCompanyDrawerContext() {
+  return useContext(WritingCompanyDrawerContext)
+}
+
 const AppHeaderContext = createContext()
 
 export function AppHeaderWrapper({ children }) {
   const [appHeader, setAppHeader] = useState({
-    titleContent:'',
+    titleContent: '',
   })
   return (
     <AppHeaderContext.Provider value={{ appHeader, setAppHeader }}>

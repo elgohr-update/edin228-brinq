@@ -10,6 +10,8 @@ import {
   ClientDrawerWrapper,
   ActivityDrawerWrapper,
   AppHeaderWrapper,
+  ParentCompanyDrawerWrapper,
+  WritingCompanyDrawerWrapper,
 } from '../context/state'
 import ProgressBar from '@badrap/bar-of-progress'
 import Router from 'next/router'
@@ -77,18 +79,22 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             <AppHeaderWrapper>
               <ClientDrawerWrapper>
                 <ActivityDrawerWrapper>
-                  <NextThemesProvider
-                    defaultTheme="system"
-                    attribute="class"
-                    value={{
-                      light: lightTheme.className,
-                      dark: darkTheme.className,
-                    }}
-                  >
-                    <NextUIProvider>
-                      {getLayout(<Component {...pageProps} />)}
-                    </NextUIProvider>
-                  </NextThemesProvider>
+                  <ParentCompanyDrawerWrapper>
+                    <WritingCompanyDrawerWrapper>
+                      <NextThemesProvider
+                        defaultTheme="system"
+                        attribute="class"
+                        value={{
+                          light: lightTheme.className,
+                          dark: darkTheme.className,
+                        }}
+                      >
+                        <NextUIProvider>
+                          {getLayout(<Component {...pageProps} />)}
+                        </NextUIProvider>
+                      </NextThemesProvider>
+                    </WritingCompanyDrawerWrapper>
+                  </ParentCompanyDrawerWrapper>
                 </ActivityDrawerWrapper>
               </ClientDrawerWrapper>
             </AppHeaderWrapper>

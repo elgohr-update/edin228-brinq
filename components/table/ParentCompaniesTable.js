@@ -19,7 +19,10 @@ import {
   getConstantIcons,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
-import { useAppContext } from '../../context/state'
+import {
+  useAppContext,
+  useParentCompanyDrawerContext,
+} from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import ClientTableCell from './ClientTableCell'
@@ -36,7 +39,15 @@ const ParentCompaniesTable = () => {
     'Benefits',
   ])
   const [sortDescriptor, setSortDescriptor] = useState(null)
+  const { parentCompanyDrawer, setParentCompanyDrawer } =
+    useParentCompanyDrawerContext()
 
+  const openParentSidebar = (cid) => {
+    setParentCompanyDrawer({
+      isOpen: true,
+      companyId: cid,
+    })
+  }
   const rows = state.reports.data.carriers.raw
   const tableData = state.reports.data.carriers.filtered
 
@@ -101,9 +112,9 @@ const ParentCompaniesTable = () => {
         entry.premium >= mnPrem && entry.premium <= mxPrem && lineCheck(entry)
     )
     let newData = filtered
-    if (sortDescriptor){
+    if (sortDescriptor) {
       newData = forceSort(newData)
-    } 
+    }
     setState({
       ...state,
       reports: {
@@ -114,7 +125,6 @@ const ParentCompaniesTable = () => {
         },
       },
     })
-    
   }, [minPrem, maxPrem, rows, lineList])
 
   const columns = [
@@ -155,13 +165,22 @@ const ParentCompaniesTable = () => {
   const renderCell = (policy, columnKey) => {
     const cellValue = policy[columnKey]
     switch (columnKey) {
+      case 'name':
+        return (
+          <div
+          onClick={() => openParentSidebar(policy?.id)}
+          className="cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500"
+          >
+            {cellValue}
+          </div>
+        )
       case 'brokerage':
         return cellValue ? (
-          <div className="text-xs text-sky-500 flex justify-center">
+          <div className="flex justify-center text-xs text-sky-500">
             {getConstantIcons('circleCheck')}
           </div>
         ) : (
-          <div className="text-xs text-red-500 flex justify-center">
+          <div className="flex justify-center text-xs text-red-500">
             {getConstantIcons('circleX')}
           </div>
         )
