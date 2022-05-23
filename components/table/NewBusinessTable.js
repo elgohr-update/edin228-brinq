@@ -26,6 +26,7 @@ import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import ClientTableCell from './ClientTableCell'
 import { DateTime } from 'luxon'
+import CopyTextToClipboard from '../ui/CopyTextToClipboard'
 
 const NewBusinessTable = ({year=2022, month=1}) => {
   const { type } = useTheme()

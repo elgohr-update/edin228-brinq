@@ -28,6 +28,7 @@ import {
 import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import ClientTableCell from './ClientTableCell'
+import CopyTextToClipboard from '../ui/CopyTextToClipboard'
 
 const WritingCompaniesTable = () => {
   const { type } = useTheme()
@@ -182,10 +183,6 @@ const WritingCompaniesTable = () => {
       key: 'policy_count',
       label: 'POLICIES',
     },
-    {
-      key: 'naic_code',
-      label: 'NAIC',
-    },
   ]
 
   const renderCell = (policy, columnKey) => {
@@ -250,53 +247,68 @@ const WritingCompaniesTable = () => {
         )
       case 'name':
         return (
-          <div
-            onClick={() => openSidebar(policy?.id)}
-            className="cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500"
-          >
-            {cellValue}
+          <div>
+            <div
+              className="cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500"
+              onClick={() => openSidebar(policy?.id)}
+            >
+              {cellValue}
+            </div>
           </div>
         )
       case 'policy_count':
         return (
-          <div className="flex justify-center text-xs">
-            <div className="flex w-[90px] justify-end">{cellValue}</div>
-          </div>
+          <CopyTextToClipboard val={cellValue}>
+            <div className="flex justify-center text-xs">
+              <div className="flex w-[90px] justify-end">{cellValue}</div>
+            </div>
+          </CopyTextToClipboard>
         )
       case 'premium':
         return (
-          <div className="flex justify-center text-xs">
-            <div className="flex w-[90px] justify-end text-teal-500">
-              {`$ ${formatMoney(cellValue)}`}
+          <CopyTextToClipboard val={cellValue}>
+            <div className="flex justify-center text-xs">
+              <div className="flex w-[90px] justify-end text-teal-500">
+                {`$ ${formatMoney(cellValue)}`}
+              </div>
             </div>
-          </div>
+          </CopyTextToClipboard>
         )
       case 'premium_cl':
         return (
-          <div className="flex justify-center text-xs">
-            <div className="flex w-[90px] justify-end text-sky-500">
-              {`$ ${formatMoney(cellValue)}`}
+          <CopyTextToClipboard val={cellValue}>
+            <div className="flex justify-center text-xs">
+              <div className="flex w-[90px] justify-end text-sky-500">
+                {`$ ${formatMoney(cellValue)}`}
+              </div>
             </div>
-          </div>
+          </CopyTextToClipboard>
         )
       case 'premium_pl':
         return (
-          <div className="flex justify-center text-xs">
-            <div className="flex w-[90px] justify-end text-red-500">
-              {`$ ${formatMoney(cellValue)}`}
+          <CopyTextToClipboard val={cellValue}>
+            <div className="flex justify-center text-xs">
+              <div className="flex w-[90px] justify-end text-red-500">
+                {`$ ${formatMoney(cellValue)}`}
+              </div>
             </div>
-          </div>
+          </CopyTextToClipboard>
         )
       case 'premium_b':
         return (
-          <div className="flex justify-center text-xs">
-            <div className="flex w-[90px] justify-end text-green-500">
-              {`$ ${formatMoney(cellValue)}`}
+          <CopyTextToClipboard val={cellValue}>
+            <div className="flex justify-center text-xs">
+              <div className="flex w-[90px] justify-end text-green-500">
+                {`$ ${formatMoney(cellValue)}`}
+              </div>
             </div>
-          </div>
+          </CopyTextToClipboard>
         )
       default:
-        return <div className="text-xs">{cellValue}</div>
+        return
+        <CopyTextToClipboard val={cellValue}>
+          <div className="text-xs">{cellValue}</div>
+        </CopyTextToClipboard>
     }
   }
   const collator = useCollator({ numeric: true })

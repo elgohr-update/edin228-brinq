@@ -12,6 +12,7 @@ import { timeout, useNextApi } from "../utils/utils";
 import ActivityDrawer from "../components/ui/drawer/ActivityDrawer";
 import ParentCompanyDrawer from "../components/ui/drawer/ParentCompanyDrawer";
 import WritingCompanyDrawer from "../components/ui/drawer/WritingCompanyDrawer";
+import AppNotification from "../components/ui/Notifications/AppNotification";
 
 export default function AppLayout({ children }) {
     const { isDark, type } = useTheme();
@@ -95,7 +96,8 @@ export default function AppLayout({ children }) {
             {clientDrawer.isOpen ? <ClientDrawer /> : null}   
             {activityDrawer.isOpen ? <ActivityDrawer /> : null}   
             {parentCompanyDrawer.isOpen ? <ParentCompanyDrawer /> : null}   
-            {writingCompanyDrawer.isOpen ? <WritingCompanyDrawer /> : null}   
+            {writingCompanyDrawer.isOpen ? <WritingCompanyDrawer /> : null}
+            <AppNotification />   
             <Row fluid className={`overflow-hidden z-3`}>
               {isAuth ? <SidebarContainer /> : null}
               <Col className="h-screen">

@@ -12,6 +12,7 @@ import {
   AppHeaderWrapper,
   ParentCompanyDrawerWrapper,
   WritingCompanyDrawerWrapper,
+  NotificationWrapper,
 } from '../context/state'
 import ProgressBar from '@badrap/bar-of-progress'
 import Router from 'next/router'
@@ -81,18 +82,20 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 <ActivityDrawerWrapper>
                   <ParentCompanyDrawerWrapper>
                     <WritingCompanyDrawerWrapper>
-                      <NextThemesProvider
-                        defaultTheme="system"
-                        attribute="class"
-                        value={{
-                          light: lightTheme.className,
-                          dark: darkTheme.className,
-                        }}
-                      >
-                        <NextUIProvider>
-                          {getLayout(<Component {...pageProps} />)}
-                        </NextUIProvider>
-                      </NextThemesProvider>
+                      <NotificationWrapper>
+                        <NextThemesProvider
+                          defaultTheme="system"
+                          attribute="class"
+                          value={{
+                            light: lightTheme.className,
+                            dark: darkTheme.className,
+                          }}
+                        >
+                          <NextUIProvider>
+                            {getLayout(<Component {...pageProps} />)}
+                          </NextUIProvider>
+                        </NextThemesProvider>
+                      </NotificationWrapper>
                     </WritingCompanyDrawerWrapper>
                   </ParentCompanyDrawerWrapper>
                 </ActivityDrawerWrapper>
