@@ -33,6 +33,8 @@ const ParentCompaniesTable = () => {
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
+  const [minPolicies, setMinPolicies] = useState(null)
+  const [maxPolicies, setMaxPolicies] = useState(null)
   const [lineList, setLineList] = useState([
     'Commercial Lines',
     'Personal Lines',
@@ -82,6 +84,9 @@ const ParentCompaniesTable = () => {
   useEffect(() => {
     const mnPrem = minPrem && minPrem != 0 ? Number(minPrem) : 0
     const mxPrem = maxPrem && maxPrem != 0 ? Number(maxPrem) : 9999999
+    const mnPol = minPolicies && minPolicies != 0 ? Number(minPolicies) : 0
+    const mxPol =
+      maxPolicies && maxPolicies != 0 ? Number(maxPolicies) : 9999999
 
     function lineCheck(entry) {
       if (!lineList) {
@@ -109,7 +114,11 @@ const ParentCompaniesTable = () => {
 
     const filtered = rows.filter(
       (entry) =>
-        entry.premium >= mnPrem && entry.premium <= mxPrem && lineCheck(entry)
+        entry.premium >= mnPrem &&
+        entry.premium <= mxPrem &&
+        entry.policy_count >= mnPol &&
+        entry.policy_count <= mxPol &&
+        lineCheck(entry)
     )
     let newData = filtered
     if (sortDescriptor) {
@@ -125,7 +134,7 @@ const ParentCompaniesTable = () => {
         },
       },
     })
-  }, [minPrem, maxPrem, rows, lineList])
+  }, [minPrem, maxPrem, minPolicies, maxPolicies, rows, lineList])
 
   const columns = [
     {
@@ -168,8 +177,8 @@ const ParentCompaniesTable = () => {
       case 'name':
         return (
           <div
-          onClick={() => openParentSidebar(policy?.id)}
-          className="cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500"
+            onClick={() => openParentSidebar(policy?.id)}
+            className="cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500"
           >
             {cellValue}
           </div>
@@ -302,6 +311,31 @@ const ParentCompaniesTable = () => {
               label="Max Premium"
               type="number"
               onChange={(e) => setMaxPrem(e.target.value)}
+            />
+          </div>
+          <h4>Filter Policies</h4>
+          <div className="flex items-center space-x-2">
+            <Input
+              className={`z-10`}
+              aria-label="Min Policies"
+              size="sm"
+              fullWidth
+              underlined
+              placeholder="0"
+              label="Min Policies"
+              type="number"
+              onChange={(e) => setMinPolicies(e.target.value)}
+            />
+            <Input
+              className={`z-10`}
+              aria-label="Max Policies"
+              size="sm"
+              fullWidth
+              underlined
+              placeholder="0"
+              label="Max Policies"
+              type="number"
+              onChange={(e) => setMaxPolicies(e.target.value)}
             />
           </div>
           <div className="spacy-y-4 flex flex-col">

@@ -33,7 +33,7 @@ export default function Login() {
           <div className={`w-full rounded-t px-24 py-4 md:px-40`}>
             <img src="/brinq-logo-full-color.png" alt="brinq" />
           </div>
-          <h2 className="py-6 font-bold uppercase">Login</h2>
+          <h3 className="py-6 font-bold uppercase">Login</h3>
           <form
             onSubmit={(e) => handleSubmit(e)}
             className="flex h-full w-full flex-col items-center px-8 py-4"

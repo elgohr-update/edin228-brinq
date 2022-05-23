@@ -48,14 +48,14 @@ export default function DashboardExpiringCard({ policy }) {
           <h6 className="flex w-[40px] flex-auto text-teal-500 lg:justify-end">
             ${abbreviateMoney(policy.premium)}
           </h6>
-          <h4 className="flex flex-auto items-center space-x-1">
+          <h6 className="flex flex-auto items-center space-x-1">
             <div className="text-color-error">
               <AiOutlineClockCircle />
             </div>
             <div className="flex w-[55px] justify-end">
               {getFormattedDate(policy.expiration_date)}
             </div>
-          </h4>
+          </h6>
         </div>
       </div>
     )

@@ -35,6 +35,8 @@ const WritingCompaniesTable = () => {
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
+  const [minPolicies, setMinPolicies] = useState(null)
+  const [maxPolicies, setMaxPolicies] = useState(null)
   const [lineList, setLineList] = useState([
     'Commercial Lines',
     'Personal Lines',
@@ -95,6 +97,9 @@ const WritingCompaniesTable = () => {
   useEffect(() => {
     const mnPrem = minPrem && minPrem != 0 ? Number(minPrem) : 0
     const mxPrem = maxPrem && maxPrem != 0 ? Number(maxPrem) : 9999999
+    const mnPol = minPolicies && minPolicies != 0 ? Number(minPolicies) : 0
+    const mxPol =
+      maxPolicies && maxPolicies != 0 ? Number(maxPolicies) : 9999999
 
     function lineCheck(entry) {
       if (!lineList) {
@@ -122,7 +127,11 @@ const WritingCompaniesTable = () => {
 
     const filtered = rows.filter(
       (entry) =>
-        entry.premium >= mnPrem && entry.premium <= mxPrem && lineCheck(entry)
+        entry.premium >= mnPrem &&
+        entry.premium <= mxPrem &&
+        entry.policy_count >= mnPol &&
+        entry.policy_count <= mxPol &&
+        lineCheck(entry)
     )
     let newData = filtered
     if (sortDescriptor) {
@@ -138,7 +147,7 @@ const WritingCompaniesTable = () => {
         },
       },
     })
-  }, [minPrem, maxPrem, rows, lineList])
+  }, [minPrem, maxPrem, minPolicies, maxPolicies, rows, lineList])
 
   const columns = [
     {
@@ -219,7 +228,7 @@ const WritingCompaniesTable = () => {
               <Popover placement={`top`}>
                 <Popover.Trigger>
                   <h4 className="cursor-pointer">
-                    +{parentData?.extra?.length} Others
+                    +{parentData?.extra?.length} More
                   </h4>
                 </Popover.Trigger>
                 <Popover.Content>
@@ -369,12 +378,37 @@ const WritingCompaniesTable = () => {
               onChange={(e) => setMaxPrem(e.target.value)}
             />
           </div>
+          <h4>Filter Policies</h4>
+          <div className="flex items-center space-x-2">
+            <Input
+              className={`z-10`}
+              aria-label="Min Policies"
+              size="sm"
+              fullWidth
+              underlined
+              placeholder="0"
+              label="Min Policies"
+              type="number"
+              onChange={(e) => setMinPolicies(e.target.value)}
+            />
+            <Input
+              className={`z-10`}
+              aria-label="Max Policies"
+              size="sm"
+              fullWidth
+              underlined
+              placeholder="0"
+              label="Max Policies"
+              type="number"
+              onChange={(e) => setMaxPolicies(e.target.value)}
+            />
+          </div>
           <div className="spacy-y-4 flex flex-col">
             <h4>Filter Lines</h4>
             <Checkbox
               color="primary"
               labelColor="primary"
-              size="sm"
+              size="xs"
               initialChecked={true}
               value="Commercial Lines"
               onChange={(e) => setLineFilter(e, 'Commercial Lines')}
@@ -384,7 +418,7 @@ const WritingCompaniesTable = () => {
             <Checkbox
               color="error"
               labelColor="error"
-              size="sm"
+              size="xs"
               initialChecked={true}
               value="Personal Lines"
               onChange={(e) => setLineFilter(e, 'Personal Lines')}
@@ -394,7 +428,7 @@ const WritingCompaniesTable = () => {
             <Checkbox
               color="success"
               labelColor="success"
-              size="sm"
+              size="xs"
               initialChecked={true}
               value="Benefits"
               onChange={(e) => setLineFilter(e, 'Benefits')}
