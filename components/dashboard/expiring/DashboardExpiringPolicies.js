@@ -3,9 +3,9 @@ import PanelTitle from '../../ui/title/PanelTitle'
 import { motion } from 'framer-motion'
 import { timeout, useNextApi } from '../../../utils/utils'
 import { useTheme } from '@nextui-org/react'
-import DashboardPolicyCard from './DashboardPolicyCard'
+import DashboardExpiringCard from './DashboardExpiringCard'
 
-export default function DashboardRecentPolicies() {
+export default function DashboardExpiringPolicies() {
   const [data, setData] = useState([])
   const { type } = useTheme()
 
@@ -24,14 +24,14 @@ export default function DashboardRecentPolicies() {
   }, [])
 
   const fetchData = async () => {
-    const res = await useNextApi('GET', `/api/policy/recent`)
+    const res = await useNextApi('GET', `/api/policy/expiring`)
     setData(res)
   }
 
   return (
     <div className={`mt-2 flex flex-auto shrink-0 h-full relative flex-col rounded-lg overflow-hidden`}>
       <div className="pl-4">
-        <PanelTitle title={`Recently Added Policies`} color="pink" />
+        <PanelTitle title={`Expiring Soon`} color="red" />
       </div>
       <div className={`flex flex-col rounded-lg max-h-[43vh] panel-theme-${type} ${type}-shadow overflow-hidden`}>
         <div
@@ -56,7 +56,7 @@ export default function DashboardRecentPolicies() {
               }}
               transition={{ ease: 'easeInOut', duration: 0.25 }}
             >
-              <DashboardPolicyCard policy={u} />
+              <DashboardExpiringCard policy={u} />
             </motion.div>
           ))}
         </div>

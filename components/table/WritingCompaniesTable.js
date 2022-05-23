@@ -24,7 +24,7 @@ import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import ClientTableCell from './ClientTableCell'
 
-const ParentCompaniesTable = () => {
+const WritingCompaniesTable = () => {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
   const [showFilter, setShowFilter] = useState(true)
@@ -35,7 +35,7 @@ const ParentCompaniesTable = () => {
     'Personal Lines',
     'Benefits',
   ])
-  const [sortDescriptor, setSortDescriptor] = useState(null)
+  const [sortDescriptor, setSortDescriptor] = useState('ascending')
 
   const rows = state.reports.data.carriers.raw
   const tableData = state.reports.data.carriers.filtered
@@ -114,13 +114,16 @@ const ParentCompaniesTable = () => {
         },
       },
     })
-    
   }, [minPrem, maxPrem, rows, lineList])
 
   const columns = [
     {
-      key: 'brokerage',
-      label: 'BROKERAGE',
+      key: 'b',
+      label: 'Brokerage',
+    },
+    {
+      key: 'parent_id',
+      label: 'Parent',
     },
     {
       key: 'name',
@@ -155,16 +158,17 @@ const ParentCompaniesTable = () => {
   const renderCell = (policy, columnKey) => {
     const cellValue = policy[columnKey]
     switch (columnKey) {
-      case 'brokerage':
-        return cellValue ? (
-          <div className="text-xs text-sky-500 flex justify-center">
-            {getConstantIcons('circleCheck')}
-          </div>
-        ) : (
-          <div className="text-xs text-red-500 flex justify-center">
-            {getConstantIcons('circleX')}
-          </div>
+      case 'b':
+        const parentCo = policy?.parent_companies[0]
+        return (
+            parentCo?.parent.brokerage ?
+            <div className="text-sky-500 text-xs flex justify-center">{getConstantIcons('circleCheck')}</div>
+            :
+            <div className="text-red-500 text-xs flex justify-center">{getConstantIcons('circleX')}</div>
         )
+      case 'parent_id':
+        const parent = policy?.parent_companies[0]
+        return <div className="text-xs">{parent?.parent.name}</div>
       case 'policy_count':
         return (
           <div className="flex justify-center text-xs">
@@ -231,6 +235,7 @@ const ParentCompaniesTable = () => {
       },
     })
   }
+
   const forceSort = (data) => {
     const sorted = data.sort((a, b) => {
       let first = a[sortDescriptor.column]
@@ -419,4 +424,4 @@ const ParentCompaniesTable = () => {
   )
 }
 
-export default ParentCompaniesTable
+export default WritingCompaniesTable

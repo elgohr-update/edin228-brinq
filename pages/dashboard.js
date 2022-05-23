@@ -13,6 +13,7 @@ import DashboardSummaryChart from '../components/charts/DashboardSummaryChart'
 import DashboardRecentPolicies from '../components/dashboard/policy/DashboardRecentPolicies'
 import DashboardNewBusinessChart from '../components/charts/DashboardNewBusinessChart'
 import { useRouter } from 'next/router'
+import DashboardExpiringPolicies from '../components/dashboard/expiring/DashboardExpiringPolicies'
 
 export default function Dashboard() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
@@ -20,7 +21,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
 
   const router = useRouter()
-
 
   useEffect(() => {
     setAppHeader({
@@ -86,8 +86,8 @@ export default function Dashboard() {
                     <DashboardTeam base={data?.relation_list} />
                   </div>
                   <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
-                      <DashboardRecentPolicies />
-                    </div>
+                    <DashboardActivity />
+                  </div>
                 </div>
                 <div className="flex w-auto flex-auto shrink-0 flex-col lg:px-4 lg:pr-2 xl:h-[30vh] xl:w-[30vw]">
                   <div className="hidden flex-col md:flex">
@@ -96,11 +96,13 @@ export default function Dashboard() {
                       loading={loading}
                     />
                   </div>
-                  <div className="flex flex-auto shrink-0 flex-col overflow-hidden lg:mt-1">
-                    {/* <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
+                  <div className="flex flex-auto shrink-0 flex-col lg:flex-row lg:gap-4 overflow-hidden lg:mt-1">
+                    <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
+                      <DashboardExpiringPolicies />
+                    </div>
+                    <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
                       <DashboardRecentPolicies />
-                    </div> */}
-                    <DashboardActivity />
+                    </div>
                   </div>
                 </div>
               </div>

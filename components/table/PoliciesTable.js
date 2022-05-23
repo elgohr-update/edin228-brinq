@@ -87,13 +87,17 @@ const PoliciesTable = () => {
         lineCheck(entry.line)
       // && this.usersCheck(entry.users)
     )
+    let newData = filtered
+    if (sortDescriptor){
+      newData = forceSort(newData)
+    } 
     setState({
       ...state,
       reports: {
         ...state.reports,
         data: {
           ...state.reports.data,
-          policies: { ...state.reports.data.policies, filtered: filtered },
+          policies: { ...state.reports.data.policies, filtered: newData },
         },
       },
     })
@@ -133,6 +137,19 @@ const PoliciesTable = () => {
       label: 'REPS',
     },
   ]
+
+  const forceSort = (data) => {
+    const sorted = data.sort((a, b) => {
+      let first = a[sortDescriptor.column]
+      let second = b[sortDescriptor.column]
+      let cmp = collator.compare(first, second)
+      if (sortDescriptor.direction === 'descending') {
+        cmp *= -1
+      }
+      return cmp
+    })
+    return sorted
+  }
 
   const renderCell = (policy, columnKey) => {
     const cellValue = policy[columnKey]

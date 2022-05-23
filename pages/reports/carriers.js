@@ -14,6 +14,7 @@ import ParentCompaniesTable from '../../components/table/ParentCompaniesTable'
 import PanelTitle from '../../components/ui/title/PanelTitle'
 import SelectInput from '../../components/ui/select/SelectInput'
 import CompanyChartContainer from '../../components/table/CompanyChartContainer'
+import WritingCompaniesTable from '../../components/table/WritingCompaniesTable'
 
 export default function ReportsCarriers() {
   const { type } = useTheme()
@@ -21,6 +22,11 @@ export default function ReportsCarriers() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
   const [dataYear, setDataYear] = useState(null)
   const [dataYearOptions, setDataYearOptions] = useState(null)
+  const [dataSelection, setDataSelection] = useState(2)
+  const [dataSelectionOptions, setDataSelectionOptions] = useState([
+    { id: 1, label: 'Parent Companies' },
+    { id: 2, label: 'Writing Companies' },
+  ])
 
   useEffect(() => {
     setAppHeader({
@@ -63,11 +69,11 @@ export default function ReportsCarriers() {
     return () => {
       isCancelled = true
     }
-  }, [dataYear])
+  }, [dataYear,dataSelection])
 
   const fetchData = async () => {
     if (dataYear) {
-      const res = await useNextApi('GET', `/api/company/table?year=${dataYear}`)
+      const res = await useNextApi('GET', `/api/company/table?year=${dataYear}&parent=${dataSelection == 1 ? true : false}&writing=${dataSelection == 2 ? true : false}`)
       setState({
         ...state,
         reports: {
@@ -100,7 +106,7 @@ export default function ReportsCarriers() {
       <ReportNavbar />
       <div className="flex flex-auto flex-col">
         <div className="flex flex-auto flex-col lg:flex-row">
-          <div className="flex flex-auto w-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+          <div className="flex w-full flex-auto items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
             <SummaryCard
               val={allPremSum()}
               color="teal"
@@ -156,7 +162,24 @@ export default function ReportsCarriers() {
               vertical={false}
             />
           </div>
-          <div className="flex flex-auto p-4 lg:p-0 lg:mb-0 lg:items-center lg:justify-end lg:pr-4">
+          <div className="flex flex-auto p-4 space-x-1 lg:space-x-0 lg:gap-2 lg:mb-0 lg:items-center lg:justify-end lg:p-0 lg:pr-4">
+            <div className="flex flex-col">
+              <div>
+                <PanelTitle title={`Carrier Type`} color="purple" />
+              </div>
+              <SelectInput
+                styling={`flex w-full min-w-[150px]`}
+                clearable={false}
+                value={dataSelection}
+                opts={dataSelectionOptions}
+                labelField={`label`}
+                keyField={`id`}
+                valueField={`id`}
+                placeholder={'Carrier Type'}
+                filterable={false}
+                onChange={(v) => setDataSelection(v)}
+              />
+            </div>
             <div className="flex flex-col">
               <div>
                 <PanelTitle title={`Year`} color="pink" />
@@ -176,10 +199,11 @@ export default function ReportsCarriers() {
             </div>
           </div>
         </div>
-        <CompanyChartContainer dataYear={dataYear} />
+        <CompanyChartContainer dataYear={dataYear} dataSelection={dataSelection} />
         <div className="px-4">
           <div className={`h-full w-full rounded-lg `}>
-            {tableData ? <ParentCompaniesTable /> : null}
+            {tableData && dataSelection == 1 ? <ParentCompaniesTable /> : null}
+            {tableData && dataSelection == 2 ? <WritingCompaniesTable /> : null}
           </div>
         </div>
       </div>

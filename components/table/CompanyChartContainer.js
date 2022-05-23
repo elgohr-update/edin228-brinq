@@ -3,7 +3,7 @@ import { timeout, useNextApi } from '../../utils/utils'
 import CompanyAnnualChart from '../charts/CompanyAnnualChart'
 import CompanySummaryChart from '../charts/CompanySummaryChart'
 
-export default function CompanyChartContainer({ dataYear }) {
+export default function CompanyChartContainer({ dataYear,dataSelection = 1 }) {
   const [chartData, setChartData] = useState(null)
 
   useEffect(() => {
@@ -16,13 +16,13 @@ export default function CompanyChartContainer({ dataYear }) {
     }
     handleChange()
     return () => {}
-  }, [dataYear])
+  }, [dataYear,dataSelection])
 
   const fetchData = async () => {
     if (dataYear) {
       const res = await useNextApi(
         'GET',
-        `/api/charts/company/summary?year=${dataYear}`
+        `/api/charts/company/summary?year=${dataYear}&parent=${dataSelection == 1 ? true : false}&writing=${dataSelection == 2 ? true : false}`
       )
       setChartData(res)
     }

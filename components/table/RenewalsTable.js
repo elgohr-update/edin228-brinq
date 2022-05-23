@@ -223,6 +223,19 @@ export default function RenewalsTable(data) {
     })
   }
 
+  const forceSort = (data) => {
+    const sorted = data.sort((a, b) => {
+      let first = a[sortDescriptor.column]
+      let second = b[sortDescriptor.column]
+      let cmp = collator.compare(first, second)
+      if (sortDescriptor.direction === 'descending') {
+        cmp *= -1
+      }
+      return cmp
+    })
+    return sorted
+  }
+
   return (
     <div className="flex h-full w-full flex-col md:px-2">
       <div className="flex h-16 w-full items-center justify-between py-4">

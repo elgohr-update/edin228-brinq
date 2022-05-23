@@ -521,7 +521,7 @@ export default function ReportsNewBusiness() {
         <div className="flex overflow-hidden p-4">
           <div className={`h-full w-full rounded-lg`}>
             {tableData && chartData ? (
-              <NewBusinessTable year={dataYear} />
+              <NewBusinessTable year={dataYear} month={dataMonth} />
             ) : null}
           </div>
         </div>

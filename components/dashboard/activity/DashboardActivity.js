@@ -85,7 +85,7 @@ export default function DashboardActivity() {
           </div>
         ) : null}
         <div
-          className={`activity-card-container flex h-full w-full flex-col overflow-y-auto relative max-h-[40vh] lg:max-h-[40vh] rounded`}
+          className={`activity-card-container flex h-full w-full flex-col overflow-y-auto relative max-h-[40vh] lg:max-h-[46.4vh] rounded`}
         >
           {data?.map((u, i) => (
             <motion.div

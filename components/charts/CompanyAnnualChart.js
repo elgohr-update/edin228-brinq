@@ -285,7 +285,7 @@ export default function CompanyAnnualChart({
         <PanelTitle title={`Annual Performance`} color="orange" />
         <div className="flex items-center space-x-1 px-4">
           <h6 className={`text-xs cursor-pointer hover:text-sky-500 transition duration-100 ease-out ${equalScale ? '!opacity-100': 'opacity-50'}`} onClick={()=> setEqualScale(true)}>Equal Scale</h6>
-          <h6 className={`text-xs cursor-pointer hover:text-sky-500 transition duration-100 ease-out ${!equalScale ? '!opacity-100': 'opacity-50'}`} onClick={()=> setEqualScale(false)}>Perspective Scale</h6>
+          <h6 className={`text-xs cursor-pointer hover:text-sky-500 transition duration-100 ease-out ${!equalScale ? '!opacity-100': 'opacity-50'}`} onClick={()=> setEqualScale(false)}>Relative Scale</h6>
         </div>
       </div>
       <div

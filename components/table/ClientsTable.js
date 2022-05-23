@@ -89,13 +89,17 @@ const ClientsTable = () => {
         lineCheck(entry.line)
       // && this.usersCheck(entry.users)
     )
+    let newData = filtered
+    if (sortDescriptor){
+      newData = forceSort(newData)
+    } 
     setState({
       ...state,
       reports: {
         ...state.reports,
         data: {
           ...state.reports.data,
-          clients: { ...state.reports.data.clients, filtered: filtered },
+          clients: { ...state.reports.data.clients, filtered: newData },
         },
       },
     })
@@ -123,6 +127,19 @@ const ClientsTable = () => {
       label: 'REPS',
     },
   ]
+
+  const forceSort = (data) => {
+    const sorted = data.sort((a, b) => {
+      let first = a[sortDescriptor.column]
+      let second = b[sortDescriptor.column]
+      let cmp = collator.compare(first, second)
+      if (sortDescriptor.direction === 'descending') {
+        cmp *= -1
+      }
+      return cmp
+    })
+    return sorted
+  }
 
   const renderCell = (client, columnKey) => {
     const cellValue = client[columnKey]

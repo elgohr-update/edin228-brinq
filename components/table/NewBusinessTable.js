@@ -27,7 +27,7 @@ import TagBasic from '../ui/tag/TagBasic'
 import ClientTableCell from './ClientTableCell'
 import { DateTime } from 'luxon'
 
-const NewBusinessTable = ({year=2022}) => {
+const NewBusinessTable = ({year=2022, month=1}) => {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
   const { agency, setAgency } = useAgencyContext()
@@ -78,7 +78,7 @@ const NewBusinessTable = ({year=2022}) => {
   const startingEffective = () => {
       const today = DateTime.local()
       if (today.year == year){
-        const m = today.month-1
+        const m = month
         const months = Array.from(Array(m+1).keys()).map( x => x)
         return months
       }
@@ -102,7 +102,7 @@ const NewBusinessTable = ({year=2022}) => {
 
   useEffect( () => {
     setEffective(startingEffective())
-  },[year])
+  },[year, month])
 
   useEffect(() => {
     const mnPrem = minPrem && minPrem != 0 ? Number(minPrem) : 0
@@ -123,13 +123,17 @@ const NewBusinessTable = ({year=2022}) => {
         checkMonth(entry.effective_date) &&
         checkRep(entry.users)
     )
+    let newData = filtered
+    if (sortDescriptor){
+      newData = forceSort(newData)
+    } 
     setState({
       ...state,
       reports: {
         ...state.reports,
         data: {
           ...state.reports.data,
-          nb: { ...state.reports.data.nb, filtered: filtered },
+          nb: { ...state.reports.data.nb, filtered: newData },
         },
       },
     })
@@ -291,6 +295,19 @@ const NewBusinessTable = ({year=2022}) => {
     })
   }
 
+  const forceSort = (data) => {
+    const sorted = data.sort((a, b) => {
+      let first = a[sortDescriptor.column]
+      let second = b[sortDescriptor.column]
+      let cmp = collator.compare(first, second)
+      if (sortDescriptor.direction === 'descending') {
+        cmp *= -1
+      }
+      return cmp
+    })
+    return sorted
+  }
+
   function setLineFilter(checked, line) {
     if (checked) {
       const filtered = [...lineList, line]
@@ -300,7 +317,7 @@ const NewBusinessTable = ({year=2022}) => {
       setLineList(filtered)
     }
   }
-
+  
   const isTagActive = (m) => {
     return effective.includes(m)
   }

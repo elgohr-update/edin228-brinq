@@ -15,7 +15,8 @@ import {
   AiOutlineCalendar,
   AiOutlineStar,
   AiOutlineDelete,
-  AiOutlineClockCircle, AiOutlineCloudDownload 
+  AiOutlineClockCircle, AiOutlineCloudDownload ,
+  AiOutlineCloseCircle
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -59,6 +60,8 @@ export const getConstantIcons = (item) => {
     <BiCommentAdd />
   ) : item == 'circleCheck' ? (
     <BsCheckCircleFill />
+  ) : item == 'circleX' ? (
+    <AiOutlineCloseCircle />
   ) : item == 'circle' ? (
     <BiCircle />
   ) : item == 'file' ? (
