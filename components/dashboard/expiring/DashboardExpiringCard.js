@@ -2,6 +2,7 @@ import React from 'react'
 import { Avatar, Link, useTheme } from '@nextui-org/react'
 import {
   abbreviateMoney,
+  getConstantIcons,
   getFormattedDate,
   truncateString,
 } from '../../../utils/utils'
@@ -35,7 +36,7 @@ export default function DashboardExpiringCard({ policy }) {
           <TagBasic text={policy.policy_type} />
           <div className="text-color-primary transition duration-100 hover:text-sky-500">
             <div className="flex items-center space-x-2">
-              <div className="text-color-primary">
+              <div className="text-color-primary flex items-center">
                 <BsBox />
               </div>
               <h6 className="flex w-[65px]">
@@ -44,18 +45,25 @@ export default function DashboardExpiringCard({ policy }) {
             </div>
           </div>
         </div>
-        <div className="flex w-full items-center justify-end space-x-2">
-          <h6 className="flex w-[40px] flex-auto text-teal-500 lg:justify-end">
-            ${abbreviateMoney(policy.premium)}
-          </h6>
-          <h6 className="flex flex-auto items-center space-x-1">
-            <div className="text-color-error">
-              <AiOutlineClockCircle />
+        <div>
+          <div className="flex w-full items-center justify-end space-x-2">
+            <div className="flex flex-auto items-center space-x-1 text-teal-500 ">
+              <h6 className="flex items-center">
+                {getConstantIcons('dollarSign')}
+              </h6>
+              <h6 className="flex flex-auto lg:justify-end">
+                ${abbreviateMoney(policy.premium)}
+              </h6>
             </div>
-            <div className="flex w-[55px] justify-end">
-              {getFormattedDate(policy.expiration_date)}
-            </div>
-          </h6>
+            <h6 className="flex flex-auto items-center space-x-1">
+              <div className="text-color-error flex items-center">
+                <AiOutlineClockCircle />
+              </div>
+              <div className="flex w-[55px] justify-end">
+                {getFormattedDate(policy.expiration_date)}
+              </div>
+            </h6>
+          </div>
         </div>
       </div>
     )

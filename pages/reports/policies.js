@@ -84,7 +84,7 @@ export default function ReportsPolicies() {
         </div>
         <div className="px-4">
           <div
-            className={`h-full w-full rounded-lg `}
+            className={`h-full w-full rounded-lg panel-theme-${type} ${type}-shadow`}
           >
             {tableData ? <PoliciesTable /> : null}
           </div>

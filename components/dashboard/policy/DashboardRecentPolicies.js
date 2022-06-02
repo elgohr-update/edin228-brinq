@@ -29,11 +29,11 @@ export default function DashboardRecentPolicies() {
   }
 
   return (
-    <div className={`mt-2 flex flex-auto shrink-0 h-full relative flex-col rounded-lg overflow-hidden`}>
+    <div className={`flex flex-auto shrink-0 h-full relative flex-col rounded-lg`}>
       <div className="pl-4">
         <PanelTitle title={`Recently Added Policies`} color="pink" />
       </div>
-      <div className={`flex flex-col rounded-lg max-h-[43vh] panel-theme-${type} ${type}-shadow overflow-hidden`}>
+      <div className={`flex flex-col rounded-lg max-h-[40vh] lg:max-h-[34vh] panel-theme-${type} ${type}-shadow overflow-hidden`}>
         <div
           className={`policy-card-container flex flex-col overflow-x-hidden overflow-y-auto rounded-lg`}
         >

@@ -2,6 +2,7 @@ import React from 'react'
 import { Avatar, Link, useTheme } from '@nextui-org/react'
 import {
   abbreviateMoney,
+  getConstantIcons,
   getFormattedDate,
   truncateString,
 } from '../../../utils/utils'
@@ -32,10 +33,13 @@ export default function DashboardPolicyCard({ policy }) {
               ))}
             </Avatar.Group>
           </div>
+          {policy.new_business ? (
+            <TagBasic autoWidth color="green" text={`NB`} />
+          ) : null}
           <TagBasic text={policy.policy_type} />
           <div className="text-color-primary transition duration-100 hover:text-sky-500">
             <div className="flex items-center space-x-2">
-              <div className="text-color-primary">
+              <div className="flex items-center text-color-primary">
                 <BsBox />
               </div>
               <h6 className="flex w-[65px]">
@@ -44,26 +48,33 @@ export default function DashboardPolicyCard({ policy }) {
             </div>
           </div>
         </div>
-        <div className="flex w-full items-center justify-end space-x-2">
-          <h6 className="flex w-[40px] flex-auto text-teal-500 lg:justify-end">
-            ${abbreviateMoney(policy.premium)}
-          </h6>
-          <h4 className="flex flex-auto items-center space-x-1">
-            <div className="text-color-warning">
-              <AiOutlineClockCircle />
+        <div>
+          <div className="flex w-full items-center justify-end space-x-2">
+            <div className="flex flex-auto items-center space-x-1 text-teal-500 ">
+              <h6 className="flex items-center">
+                {getConstantIcons('dollarSign')}
+              </h6>
+              <h6 className="flex flex-auto lg:justify-end">
+                ${abbreviateMoney(policy.premium)}
+              </h6>
             </div>
-            <div className="flex w-[55px] justify-end">
-              {getFormattedDate(policy.expiration_date)}
+            <div className="flex flex-auto items-center">
+              <h6 className="flex items-center font-bold text-color-warning">
+                <AiOutlineClockCircle />
+              </h6>
+              <h4 className="flex w-[60px] justify-end">
+                {getFormattedDate(policy.expiration_date)}
+              </h4>
             </div>
-          </h4>
-          <h4 className="flex flex-auto items-center space-x-1">
-            <div className="text-color-warning">
-              <AiOutlineCloudDownload />
+            <div className="flex flex-auto items-center">
+              <h6 className="flex items-center font-bold text-color-warning">
+                <AiOutlineCloudDownload />
+              </h6>
+              <h4 className="flex w-[60px] justify-end">
+                {policy.added_date ? getFormattedDate(policy.added_date) : null}
+              </h4>
             </div>
-            <div className="flex w-[55px] justify-end">
-              {policy.added_date ? getFormattedDate(policy.added_date) : null}
-            </div>
-          </h4>
+          </div>
         </div>
       </div>
     )

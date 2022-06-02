@@ -132,7 +132,7 @@ export default function CompanyAnnualChart({
     }
 
     setChartData(chartData)
-  }, [fullData,equalScale])
+  }, [fullData, equalScale])
 
   const isVertical = () => {
     return vertical ? `flex-col` : `flex-row items-center`
@@ -276,16 +276,30 @@ export default function CompanyAnnualChart({
     responsive: true,
     maintainAspectRatio: true,
   }
-
-  const baseClass = `flex relative z-20 w-full h-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+  
+  const baseClass = `relative z-20 w-full h-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
     <div className="mt-2 flex h-full w-full flex-auto shrink-0 flex-col lg:mt-0 lg:justify-center">
-      <div className="flex items-center justify-between w-full pl-4">
+      <div className="flex w-full items-center justify-between pl-4">
         <PanelTitle title={`Annual Performance`} color="orange" />
         <div className="flex items-center space-x-1 px-4">
-          <h6 className={`text-xs cursor-pointer hover:text-sky-500 transition duration-100 ease-out ${equalScale ? '!opacity-100': 'opacity-50'}`} onClick={()=> setEqualScale(true)}>Equal Scale</h6>
-          <h6 className={`text-xs cursor-pointer hover:text-sky-500 transition duration-100 ease-out ${!equalScale ? '!opacity-100': 'opacity-50'}`} onClick={()=> setEqualScale(false)}>Relative Scale</h6>
+          <h6
+            className={`cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500 ${
+              equalScale ? '!opacity-100' : 'opacity-50'
+            }`}
+            onClick={() => setEqualScale(true)}
+          >
+            Equal Scale
+          </h6>
+          <h6
+            className={`cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500 ${
+              !equalScale ? '!opacity-100' : 'opacity-50'
+            }`}
+            onClick={() => setEqualScale(false)}
+          >
+            Relative Scale
+          </h6>
         </div>
       </div>
       <div
@@ -293,8 +307,8 @@ export default function CompanyAnnualChart({
       >
         <Chart
           data={chartData}
-          height={`70px`}
           ref={chartRef}
+          height={'80px'}
           //   plugins={[multiply]}
           options={options}
         />

@@ -400,7 +400,7 @@ export default function ReportsNewBusiness() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col overflow-hidden lg:flex-row">
+        <div className="flex flex-col overflow-hidden lg:gap-2 lg:flex-row">
           <div className="flex w-auto flex-col lg:flex-row lg:justify-evenly lg:pl-4">
             <div className="mb-4 flex flex-col lg:mb-0">
               <div className="pl-4">
@@ -409,8 +409,8 @@ export default function ReportsNewBusiness() {
                   color="indigo"
                 />
               </div>
-              <div className="flex w-full flex-col overflow-hidden lg:flex-row">
-                <div className="flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 lg:max-h-[70vh] lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4 lg:overflow-y-auto lg:pr-2">
+              <div className="flex flex-auto flex-col overflow-hidden lg:flex-row">
+                <div className="flex p-2 h-full flex-row space-x-4 overflow-x-auto lg:max-h-[70vh] lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4 lg:overflow-y-auto">
                   {chartData?.users.map((p, i) => (
                     <motion.div
                       key={p.id}
@@ -451,9 +451,9 @@ export default function ReportsNewBusiness() {
               <div className="pl-4">
                 <PanelTitle title={`Year to Date`} color="orange" />
               </div>
-              <div className="flex w-full flex-col overflow-hidden lg:flex-row">
+              <div className="flex flex-auto flex-col overflow-hidden lg:flex-row">
                 <div
-                  className={`flex h-full flex-row space-x-4 overflow-x-auto p-4 pt-2 lg:max-h-[70vh] lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4 lg:overflow-y-auto lg:pl-2`}
+                  className={`flex p-2 h-full flex-row space-x-4 overflow-x-auto lg:max-h-[70vh] lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4 lg:overflow-y-auto `}
                 >
                   {chartData?.users.map((p, i) => (
                     <motion.div
@@ -492,7 +492,7 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="lg:max-w-9/12 flex w-full flex-col space-y-4 px-4 lg:pl-0 lg:pr-4">
+          <div className="lg:max-w-9/12 flex w-full flex-col space-y-4 px-4 lg:py-4 lg:pl-0 lg:pr-4">
             {chartData ? (
               <div className="flex w-full flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
                 <div className="flex w-full lg:w-1/2">
@@ -519,7 +519,7 @@ export default function ReportsNewBusiness() {
           </div>
         </div>
         <div className="flex overflow-hidden p-4">
-          <div className={`h-full w-full rounded-lg`}>
+          <div className={`h-full w-full rounded-lg panel-theme-${type} ${type}-shadow`}>
             {tableData && chartData ? (
               <NewBusinessTable year={dataYear} month={dataMonth} />
             ) : null}

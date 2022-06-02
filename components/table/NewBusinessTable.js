@@ -433,7 +433,7 @@ const NewBusinessTable = ({year=2022, month=1}) => {
                 <div
                   key={x.m}
                   onClick={() => setMonthFilter(x.m)}
-                  className={`tag-basic mr-2 mb-2 lg:mr-0 lg:mb-0 cursor-pointer ${
+                  className={`tag-basic min-w-[40px] mr-2 mb-2 lg:mr-0 lg:mb-0 cursor-pointer ${
                     isTagActive(x.m)
                       ? `deal-tag-blue`
                       : `tag-gray-bg tag-inactive`

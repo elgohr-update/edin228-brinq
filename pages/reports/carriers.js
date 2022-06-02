@@ -201,7 +201,7 @@ export default function ReportsCarriers() {
         </div>
         <CompanyChartContainer dataYear={dataYear} dataSelection={dataSelection} />
         <div className="px-4">
-          <div className={`h-full w-full rounded-lg `}>
+          <div className={`h-full w-full rounded-lg panel-theme-${type} ${type}-shadow`}>
             {tableData && dataSelection == 1 ? <ParentCompaniesTable /> : null}
             {tableData && dataSelection == 2 ? <WritingCompaniesTable /> : null}
           </div>

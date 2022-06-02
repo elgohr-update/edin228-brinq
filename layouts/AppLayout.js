@@ -13,6 +13,7 @@ import ActivityDrawer from "../components/ui/drawer/ActivityDrawer";
 import ParentCompanyDrawer from "../components/ui/drawer/ParentCompanyDrawer";
 import WritingCompanyDrawer from "../components/ui/drawer/WritingCompanyDrawer";
 import AppNotification from "../components/ui/Notifications/AppNotification";
+import { signOut } from 'next-auth/react'
 
 export default function AppLayout({ children }) {
     const { isDark, type } = useTheme();
@@ -32,17 +33,17 @@ export default function AppLayout({ children }) {
     const { writingCompanyDrawer } = useWritingCompanyDrawerContext()
     const [isAuth, setIsAuth] = useState(true)
 
-    useEffect(() => {      
-      if (status === "authenticated") {
-        setIsAuth(true)
-      }
-      else if (status === 'loading') {
-        setIsAuth(false)
-      }else{
-        setIsAuth(false)
-        router.push("/login")
-      }
-    }, [session,status,router]);
+    // useEffect(() => {      
+    //   if (status === "authenticated") {
+    //     setIsAuth(true)
+    //   }
+    //   else if (status === 'loading') {
+    //     setIsAuth(false)
+    //   }else{
+    //     setIsAuth(false)
+    //     router.push("/login")
+    //   }
+    // }, [session,status,router]);
     
     useEffect(() => {
       let isCancelled = false
@@ -80,7 +81,13 @@ export default function AppLayout({ children }) {
   
     const fetchData = async () => {
       const res = await useNextApi('GET', `/api/agency/`)
-      setAgency(res)
+      if (res){
+        setAgency(res)
+        setIsAuth(true) 
+      }
+      else {
+        signOut()
+      }
     }
 
     return (

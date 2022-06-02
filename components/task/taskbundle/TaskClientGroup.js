@@ -24,13 +24,13 @@ export default function TaskClientGroup({ group }) {
         <div className="flex w-full items-center justify-between">
           <div className="flex w-full items-center space-x-1">
             <div className={`data-point-xs ${getLine(group.line)}`}></div>
-            <h6 className="flex space-x-1 w-full">
-              <span>{group.client_name}</span>
+            <h6 className="flex w-full space-x-1">
               <Link href={`/clients/${group.client_id}`}>
-                <a className="flex text-xs hover:text-sky-500 transition duration-200 ease-out">
+                <a className="flex text-xs transition duration-200 ease-out hover:text-sky-500">
                   {getConstantIcons('link')}
                 </a>
               </Link>
+              <span>{group.client_name}</span>
             </h6>
           </div>
           <div className="flex items-center space-x-2">

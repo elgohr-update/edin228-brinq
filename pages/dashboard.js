@@ -77,34 +77,27 @@ export default function Dashboard() {
           </div>
           <div className="flex flex-auto shrink-0 flex-col lg:flex-row">
             <div className="flex flex-auto shrink-0 flex-col p-2 lg:p-2">
-              <div className="flex flex-auto shrink-0 flex-col lg:flex-row">
-                <div className="flex flex-auto shrink-0 flex-col lg:w-[120px] lg:px-2 lg:pr-4">
+              <div className="flex flex-auto shrink-0 flex-col lg:flex-row lg:gap-4">
+                <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
                   <DashboardTodos />
                 </div>
                 <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                  <div className="mb-2 flex shrink-0 flex-col lg:mb-0">
+                  <div className="flex shrink-0 flex-col lg:mb-0">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
+                  <div className="flex flex-auto shrink-0 flex-col">
                     <DashboardActivity />
                   </div>
                 </div>
-                <div className="flex w-auto flex-auto shrink-0 flex-col lg:px-4 lg:pr-2 xl:h-[30vh] xl:w-[30vw]">
-                  <div className="hidden flex-col md:flex">
-                    <DashboardNewBusinessChart
-                      fullData={data?.charts}
-                      loading={loading}
-                    />
+                <div className="flex w-auto flex-auto shrink-0 flex-col lg:min-w-[500px] lg:max-w-[500px]">
+                  <div className="flex flex-auto shrink-0 flex-col">
+                    <DashboardExpiringPolicies />
                   </div>
-                  <div className="flex flex-auto shrink-0 flex-col lg:flex-row lg:gap-4 overflow-hidden lg:mt-1">
-                    <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
-                      <DashboardExpiringPolicies />
-                    </div>
-                    <div className="flex flex-auto shrink-0 flex-col overflow-hidden">
-                      <DashboardRecentPolicies />
-                    </div>
+                  <div className="flex flex-auto shrink-0 flex-col">
+                    <DashboardRecentPolicies />
                   </div>
                 </div>
+                <div className="flex flex-auto shrink-0 flex-col lg:pr-2"></div>
               </div>
             </div>
           </div>

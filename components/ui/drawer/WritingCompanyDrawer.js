@@ -72,7 +72,7 @@ const WritingCompanyDrawer = () => {
       className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}
     >
       <div
-        className={`fixed right-0 flex h-full w-full flex-col overflow-hidden md:w-[1200px] ${type}-shadow panel-theme-${type}`}
+        className={`fixed right-0 flex h-full w-full flex-col overflow-hidden md:w-[1100px] ${type}-shadow panel-theme-${type}`}
       >
         {!company ? (
           <DrawerLoader />

@@ -16,7 +16,8 @@ import {
   AiOutlineStar,
   AiOutlineDelete,
   AiOutlineClockCircle, AiOutlineCloudDownload ,
-  AiOutlineCloseCircle
+  AiOutlineCloseCircle,
+  AiOutlineDollarCircle
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -82,6 +83,8 @@ export const getConstantIcons = (item) => {
     <AiOutlineClockCircle />
   ) : item == 'cloudDownload' ? (
     <AiOutlineCloudDownload />
+  ) : item == 'dollarSign' ? (
+    <AiOutlineDollarCircle />
   ) : null
 }
 

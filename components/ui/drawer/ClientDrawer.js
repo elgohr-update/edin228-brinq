@@ -181,7 +181,7 @@ const ClientDrawer = () => {
               <div className={`mt-2 flex flex-auto w-full flex-col overflow-auto`}>
                 <ClientInfo client={client} horizontal />
                 <ClientContacts client={client} />
-                <div className={`flex flex-auto shrink-0 flex-col panel-theme-${type}`}>
+                <div className={`flex flex-auto shrink-0 flex-col`}>
                   <ClientDrawerNavbar />
                   {clientDrawer.nav === 1 ? (
                     policies ? (
@@ -247,7 +247,7 @@ const ClientDrawer = () => {
           </div>
         )}
         {!client ? null : (
-          <div className="flex flex-auto shrink-0 justify-end px-2 pt-1 pb-4">
+          <div className="flex shrink-0 justify-end px-2 pt-1 pb-4">
             <Link href={`/clients/${clientDrawer.clientId}`}>
               <a className="w-full">
                 <Button color="gradient" className="w-full">

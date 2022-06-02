@@ -42,20 +42,21 @@ const UserMenu = () => {
               />
             </div>
             <div
-              className={`panel-flat-${type} flex w-full items-center justify-center rounded-b-lg p-1`}
+              className={`panel-flat-${type} flex w-full items-center rounded-b-lg p-1`}
             >
               <Button
                 auto
                 color="error"
-                light
+                flat
                 size="xs"
                 onClick={() => signOut()}
+                className="w-full"
               >
-                <div className="flex items-center space-x-4">
-                  <div>
+                <div className="flex flex-auto items-center justify-between">
+                  <div className="flex w-full">
                     <FiLogOut />
                   </div>
-                  <div>Sign Out</div>
+                  <div className="flex w-full">Sign Out</div>
                 </div>
               </Button>
             </div>

@@ -63,7 +63,7 @@ export default function DashboardActivity() {
   }
 
   return (
-    <div className={`mt-2 flex flex-auto shrink-0 h-full rounded-lg w-full flex-col overflow-hidden relative`}>
+    <div className={`flex flex-auto shrink-0 h-full rounded-lg w-full flex-col relative`}>
       <div className="pl-4">
         <PanelTitle title={`Recent Activity`} color="indigo" />
       </div>

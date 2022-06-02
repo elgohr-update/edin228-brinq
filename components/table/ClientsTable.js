@@ -123,6 +123,10 @@ const ClientsTable = () => {
       label: 'PREMIUM',
     },
     {
+      key: 'naics_code',
+      label: 'naic',
+    },
+    {
       key: 'reps',
       label: 'REPS',
     },
@@ -190,7 +194,7 @@ const ClientsTable = () => {
           </div>
         )
       default:
-        return ''
+        return <div>{cellValue}</div>
     }
   }
   const collator = useCollator({ numeric: true })

@@ -159,7 +159,7 @@ export default function Client({ data }) {
       <div className="flex flex-auto shrink-0 flex-col lg:w-7/12 lg:overflow-hidden">
         <div className="flex shrink-0 items-center justify-between">
           <ClientDataNavbar />
-          <div className="flex items-center space-x-2 py-2 lg:justify-end lg:py-0">
+          <div className="flex items-center space-x-2 py-2 pr-2 lg:justify-end lg:py-0">
             <Button.Group size="xs" flat>
               <Button>
                 <BiPaperPlane />
@@ -193,7 +193,7 @@ export default function Client({ data }) {
               </div>
             </div>
             <div
-              className={`flex h-auto flex-auto shrink-0 flex-col space-y-2 px-4 py-2 lg:max-h-[89vh] lg:overflow-y-auto lg:pb-8`}
+              className={`flex h-auto flex-auto shrink-0 flex-col space-y-2 px-4 py-2 lg:max-h-[82vh] lg:overflow-y-auto lg:pb-8`}
             >
               {getPolicies(showActive).map((u,indx) => (
                 <Panel animationDelay={indx} flat key={u.id} overflow={false} px={0} py={0}>
