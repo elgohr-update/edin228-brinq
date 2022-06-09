@@ -1,4 +1,4 @@
-import { Button, Popover, User, useTheme } from '@nextui-org/react'
+import { Button, Dropdown, Popover, User, useTheme } from '@nextui-org/react'
 import React from 'react'
 import { FiLogOut } from 'react-icons/fi'
 import { FaCog } from 'react-icons/fa'
@@ -12,57 +12,58 @@ const UserMenu = () => {
   const { type } = useTheme()
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
-      <Popover placement={`bottom-right`}>
-        <Popover.Trigger>
-          <div className="flex items-center cursor-pointer">
+    <div className="relative flex h-full w-full items-center justify-center menu-container">
+      <Dropdown>
+        <Dropdown.Trigger>
+          <div className="flex cursor-pointer items-center">
             <div className="flex lg:hidden">
               <UserAvatar squared={false} tooltip={false} isLink={false} />
             </div>
             <div className="hidden lg:flex">
-              <UserAvatar userWithName squared={false} tooltip={false} isLink={false} />
+              <UserAvatar
+                userWithName
+                squared={false}
+                tooltip={false}
+                isLink={false}
+              />
             </div>
-            <div className="hidden lg:flex">
-              { getConstantIcons('down') }
-            </div>
+            <div className="hidden lg:flex">{getConstantIcons('down')}</div>
           </div>
-        </Popover.Trigger>
-        <Popover.Content>
-          <div className="flex w-full flex-col space-y-1 p-1 lg:w-[180px]">
-            <div className="flex w-full flex-col space-y-2 py-2 px-1">
-              <LinkedMenuItem
-                href="/user/profile"
-                icon={<RiFileUserFill />}
-                label="Profile"
-              />
-              <LinkedMenuItem
-                href="/user/settings"
-                icon={<FaCog />}
-                label="Settings"
-              />
-            </div>
-            <div
-              className={`panel-flat-${type} flex w-full items-center rounded-b-lg p-1`}
+        </Dropdown.Trigger>
+        <Dropdown.Menu aria-label="Static Actions">
+          <Dropdown.Item key="new">
+            <LinkedMenuItem
+              href="/user/profile"
+              icon={<RiFileUserFill />}
+              label="Profile"
+            />
+          </Dropdown.Item>
+          <Dropdown.Item key="copy">
+            <LinkedMenuItem
+              href="/user/settings"
+              icon={<FaCog />}
+              label="Settings"
+            />
+          </Dropdown.Item>
+          <Dropdown.Item key="delete" color="error" withDivider>
+            <Button
+              auto
+              color="error"
+              light
+              size="xs"
+              onClick={() => signOut()}
+              className="w-full"
             >
-              <Button
-                auto
-                color="error"
-                flat
-                size="xs"
-                onClick={() => signOut()}
-                className="w-full"
-              >
-                <div className="flex flex-auto items-center justify-between">
-                  <div className="flex w-full">
-                    <FiLogOut />
-                  </div>
-                  <div className="flex w-full">Sign Out</div>
+              <div className="flex flex-auto items-center justify-between">
+                <div className="flex w-full">
+                  <FiLogOut />
                 </div>
-              </Button>
-            </div>
-          </div>
-        </Popover.Content>
-      </Popover>
+                <div className="flex w-full">Sign Out</div>
+              </div>
+            </Button>
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
     </div>
   )
 }

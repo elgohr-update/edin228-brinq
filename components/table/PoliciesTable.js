@@ -305,7 +305,7 @@ const PoliciesTable = () => {
               color="primary"
               labelColor="primary"
               size="xs"
-              initialChecked={true}
+              defaultSelected={true}
               value="Commercial Lines"
               onChange={(e) => setLineFilter(e, 'Commercial Lines')}
             >
@@ -315,7 +315,7 @@ const PoliciesTable = () => {
               color="error"
               labelColor="error"
               size="xs"
-              initialChecked={true}
+              defaultSelected={true}
               value="Personal Lines"
               onChange={(e) => setLineFilter(e, 'Personal Lines')}
             >
@@ -325,7 +325,7 @@ const PoliciesTable = () => {
               color="success"
               labelColor="success"
               size="xs"
-              initialChecked={true}
+              defaultSelected={true}
               value="Benefits"
               onChange={(e) => setLineFilter(e, 'Benefits')}
             >

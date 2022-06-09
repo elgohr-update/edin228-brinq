@@ -291,7 +291,7 @@ const ClientsTable = () => {
           <div className="spacy-y-4 flex flex-col">
             <h4>Filter Lines</h4>
             <Checkbox
-              initialChecked
+              defaultSelected
               color="primary"
               labelColor="primary"
               size="xs"
@@ -301,7 +301,7 @@ const ClientsTable = () => {
               Commercial Lines
             </Checkbox>
             <Checkbox
-              initialChecked
+              defaultSelected
               color="error"
               labelColor="error"
               size="xs"
@@ -311,7 +311,7 @@ const ClientsTable = () => {
               Personal Lines
             </Checkbox>
             <Checkbox
-              initialChecked
+              defaultSelected
               color="success"
               labelColor="success"
               size="xs"

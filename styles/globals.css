@@ -2,6 +2,8 @@
 @tailwind utilities;
 
 :root {
+  --nextui--popoverBorderWeight: 0px;
+  --nextui-borderWeights-light: 1px;
   --nextui-borderWeights-normal: 2px;
   --tw-translate-x: 0;
   --tw-translate-y: 0;
@@ -61,6 +63,7 @@
 }
 .light-theme {
   --nextui-colors-accents1:#f0f3f9;
+  --nextui-colors-gray50:#ffffff;
   --nextui-colors-gray100: #dfe1e7;
   --scrollbar-color: #1c174a78;
   --color-select-input: white;
@@ -109,11 +112,16 @@
 .nextui-c-cqpNQI-ihOkgrg-css {
   right: 0;
 }
-
+.nextui-c-PJLV {
+  border-width: 0px !important;
+}
 .nextui-c-hWZRae-bVtBym-bordered-false {
   border-width: 0px !important;
 }
-.nextui-c-iPvdXb-krOtXB-borderWeight-normal .nextui-avatar-img {
+.nextui-c-kltynt-bVtBym-bordered-false {
+  border-width: 0px !important;
+}
+.nextui-c-fFabR-krOtXB-borderWeight-normal .nextui-avatar-img {
   border-width: 0px !important;
 }
 

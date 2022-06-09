@@ -28,7 +28,7 @@ import ClientTableCell from './ClientTableCell'
 import { DateTime } from 'luxon'
 import CopyTextToClipboard from '../ui/CopyTextToClipboard'
 
-const NewBusinessTable = ({year=2022, month=1}) => {
+const NewBusinessTable = ({ year = 2022, month = 1 }) => {
   const { type } = useTheme()
   const { state, setState } = useAppContext()
   const { agency, setAgency } = useAgencyContext()
@@ -77,33 +77,33 @@ const NewBusinessTable = ({year=2022, month=1}) => {
   }
 
   const startingEffective = () => {
-      const today = DateTime.local()
-      if (today.year == year){
-        const m = month
-        const months = Array.from(Array(m+1).keys()).map( x => x)
-        return months
-      }
-      const months = Array.from(Array(12).keys()).map( x => x)
+    const today = DateTime.local()
+    if (today.year == year) {
+      const m = month
+      const months = Array.from(Array(m + 1).keys()).map((x) => x)
       return months
+    }
+    const months = Array.from(Array(12).keys()).map((x) => x)
+    return months
   }
 
-  useEffect( () => {
+  useEffect(() => {
     const getProds = () => {
-        const pIds = prods?.map(x => x.id)
-        setVisibleReps(pIds)
+      const pIds = prods?.map((x) => x.id)
+      setVisibleReps(pIds)
     }
     getProds()
-  },[producers])
-  
-  useEffect( () => {
+  }, [producers])
+
+  useEffect(() => {
     const prods = getProducers()
     setProducers(prods)
     setEffective(startingEffective())
-  },[])
+  }, [])
 
-  useEffect( () => {
+  useEffect(() => {
     setEffective(startingEffective())
-  },[year, month])
+  }, [year, month])
 
   useEffect(() => {
     const mnPrem = minPrem && minPrem != 0 ? Number(minPrem) : 0
@@ -125,9 +125,9 @@ const NewBusinessTable = ({year=2022, month=1}) => {
         checkRep(entry.users)
     )
     let newData = filtered
-    if (sortDescriptor){
+    if (sortDescriptor) {
       newData = forceSort(newData)
-    } 
+    }
     setState({
       ...state,
       reports: {
@@ -191,15 +191,26 @@ const NewBusinessTable = ({year=2022, month=1}) => {
           </div>
         )
       case 'client_name':
-          return <ClientTableCell cellValue={cellValue} clientId={policy.client.id} tags={policy.client.tags} type={type}/>
+        return (
+          <CopyTextToClipboard val={cellValue}>
+            <ClientTableCell
+              cellValue={cellValue}
+              clientId={policy.client.id}
+              tags={policy.client.tags}
+              type={type}
+            />
+          </CopyTextToClipboard>
+        )
       case 'policy_number':
         return (
-          <div className={`relative flex flex-col`}>
-            <h6 className={`font-semibold`}>
-              {truncateString(String(policy.policy_number), 16)}
-            </h6>
-            <h4 className={``}>{policy.policy_type_full}</h4>
-          </div>
+          <CopyTextToClipboard val={policy.policy_number}>
+            <div className={`relative flex flex-col`}>
+              <h6 className={`font-semibold`}>
+                {truncateString(String(policy.policy_number), 16)}
+              </h6>
+              <h4 className={``}>{policy.policy_type_full}</h4>
+            </div>
+          </CopyTextToClipboard>
         )
       case 'carrier':
         return (
@@ -225,24 +236,32 @@ const NewBusinessTable = ({year=2022, month=1}) => {
         return (
           <div className={`relative mr-4 flex flex-col items-end space-y-1`}>
             <TagBasic text={policy.policy_type} />
-            {   
-                policy.nonrenewed ? <TagBasic text={`NRNWD`} color="red" /> :
-                policy.nottaken ? <TagBasic text={`NTTKN`} color="red" /> :
-                policy.rewritten ? <TagBasic text={`RWRTN`} color="purple" /> :
-                policy.canceled ? <TagBasic text={`CNCLD`} color="red" /> :
-                policy.ams360quote ? <TagBasic text={`QTE`} color="orange" /> :
-                policy.renewed ? <TagBasic text={`RNWD`} color="blue" /> :
-                <TagBasic text={`ACTV`} color="green" />
-            }   
+            {policy.nonrenewed ? (
+              <TagBasic text={`NRNWD`} color="red" />
+            ) : policy.nottaken ? (
+              <TagBasic text={`NTTKN`} color="red" />
+            ) : policy.rewritten ? (
+              <TagBasic text={`RWRTN`} color="purple" />
+            ) : policy.canceled ? (
+              <TagBasic text={`CNCLD`} color="red" />
+            ) : policy.ams360quote ? (
+              <TagBasic text={`QTE`} color="orange" />
+            ) : policy.renewed ? (
+              <TagBasic text={`RNWD`} color="blue" />
+            ) : (
+              <TagBasic text={`ACTV`} color="green" />
+            )}
           </div>
         )
       case 'premium':
         return (
-          <div className="flex justify-center text-xs">
-            <div className="flex w-[90px] justify-end text-teal-500">
-              {`$ ${formatMoney(cellValue)}`}
+          <CopyTextToClipboard val={cellValue}>
+            <div className="flex justify-center text-xs">
+              <div className="flex w-[90px] justify-end text-teal-500">
+                {`$ ${formatMoney(cellValue)}`}
+              </div>
             </div>
-          </div>
+          </CopyTextToClipboard>
         )
       case 'reps':
         return (
@@ -250,20 +269,18 @@ const NewBusinessTable = ({year=2022, month=1}) => {
             <Avatar.Group
               count={policy.users.length > 3 ? policy.users.length : null}
             >
-              {policy.users
-                .filter((p) => p.producer == true)
-                .map((u) => (
-                  <UserAvatar
-                    tooltip={true}
-                    tooltipPlacement="topEnd"
-                    isUser={true}
-                    passUser={u}
-                    key={u.id}
-                    isGrouped={true}
-                    squared={false}
-                    size={`sm`}
-                  />
-                ))}
+              {policy.users.map((u) => (
+                <UserAvatar
+                  tooltip={true}
+                  tooltipPlacement="topEnd"
+                  isUser={true}
+                  passUser={u}
+                  key={u.id}
+                  isGrouped={true}
+                  squared={false}
+                  size={`sm`}
+                />
+              ))}
             </Avatar.Group>
           </div>
         )
@@ -318,7 +335,7 @@ const NewBusinessTable = ({year=2022, month=1}) => {
       setLineList(filtered)
     }
   }
-  
+
   const isTagActive = (m) => {
     return effective.includes(m)
   }
@@ -328,15 +345,17 @@ const NewBusinessTable = ({year=2022, month=1}) => {
 
   const checkMonth = (d) => {
     const base = DateTime.fromISO(d)
-    const month = base.month-1
+    const month = base.month - 1
     return effective.includes(month)
   }
 
   const checkRep = (users) => {
     let isInc
-    users.filter(x => x.producer == true).forEach((u) => {
-      isInc = visibleReps?.includes(u.id)
-    })
+    users
+      .filter((x) => x.producer == true)
+      .forEach((u) => {
+        isInc = visibleReps?.includes(u.id)
+      })
     return isInc
   }
 
@@ -399,7 +418,7 @@ const NewBusinessTable = ({year=2022, month=1}) => {
               color="primary"
               labelColor="primary"
               size="xs"
-              initialChecked={true}
+              defaultSelected={true}
               value="Commercial Lines"
               onChange={(e) => setLineFilter(e, 'Commercial Lines')}
             >
@@ -409,7 +428,7 @@ const NewBusinessTable = ({year=2022, month=1}) => {
               color="error"
               labelColor="error"
               size="xs"
-              initialChecked={true}
+              defaultSelected={true}
               value="Personal Lines"
               onChange={(e) => setLineFilter(e, 'Personal Lines')}
             >
@@ -419,7 +438,7 @@ const NewBusinessTable = ({year=2022, month=1}) => {
               color="success"
               labelColor="success"
               size="xs"
-              initialChecked={false}
+              defaultSelected={false}
               value="Benefits"
               onChange={(e) => setLineFilter(e, 'Benefits')}
             >
@@ -433,7 +452,7 @@ const NewBusinessTable = ({year=2022, month=1}) => {
                 <div
                   key={x.m}
                   onClick={() => setMonthFilter(x.m)}
-                  className={`tag-basic min-w-[40px] mr-2 mb-2 lg:mr-0 lg:mb-0 cursor-pointer ${
+                  className={`tag-basic mr-2 mb-2 min-w-[40px] cursor-pointer lg:mr-0 lg:mb-0 ${
                     isTagActive(x.m)
                       ? `deal-tag-blue`
                       : `tag-gray-bg tag-inactive`

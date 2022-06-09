@@ -7,6 +7,7 @@ import {
   useReloadContext,
 } from '../../../context/state'
 import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
+import { BiRefresh } from 'react-icons/bi'
 import PolicyCard from '../../policy/PolicyCard'
 import {
   sumFromArrayOfObjects,
@@ -36,17 +37,19 @@ const ClientDrawer = () => {
 
   useEffect(() => {
     let isCancelled = false
-    const handleChange = async () => {
-      await timeout(100)
-      if (!isCancelled) {
-        fetchClient().then(() => fetchPolicies())
-      }
-    }
-    handleChange()
+    handleChange(isCancelled)
     return () => {
       isCancelled = true
     }
   }, [])
+
+  const handleChange = async (isCancelled) => {
+    await timeout(100)
+    if (!isCancelled) {
+      fetchClient().then(() => fetchPolicies())
+    }
+  }
+  
 
   useEffect(() => {
     if (reload.policies) {
@@ -121,6 +124,13 @@ const ClientDrawer = () => {
     setClientDrawer(setDefault)
   }
 
+  const syncAms = async () => {
+    const clientId = clientDrawer.clientId
+    const res = await useNextApi('GET', `/api/clients/${clientId}/ams360/sync`)
+    await timeout(10000)
+    handleChange(false)
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -142,8 +152,8 @@ const ClientDrawer = () => {
           <DrawerLoader />
         ) : (
           <div className="flex flex-auto overflow-hidden py-4">
-            <div className={`flex w-full flex-col shrink-0`}>
-              <div className={`relative mb-2 flex w-fullshrink-0 px-2`}>
+            <div className={`flex w-full shrink-0 flex-col`}>
+              <div className={`w-fullshrink-0 relative mb-2 flex px-2`}>
                 <div className="relative flex flex-auto shrink-0 flex-col md:flex-row md:pt-2">
                   <ClientHeader client={client} />
                   <div className="flex flex-auto shrink-0 items-center justify-center pl-4 pr-8 md:justify-end">
@@ -166,6 +176,11 @@ const ClientDrawer = () => {
                       title="Policies"
                       icon={<BsBox />}
                     />
+                    <div className="flex ml-4">
+                      <Button flat auto size="sm" onClick={() => syncAms()}>
+                        <BiRefresh />
+                      </Button>
+                    </div>
                   </div>
                   <div
                     className="absolute top-0 right-0 flex md:hidden"
@@ -178,7 +193,9 @@ const ClientDrawer = () => {
                   className={`bottom-border-flair pink-to-blue-gradient-1`}
                 />
               </div>
-              <div className={`mt-2 flex flex-auto w-full flex-col overflow-auto`}>
+              <div
+                className={`mt-2 flex w-full flex-auto flex-col overflow-auto`}
+              >
                 <ClientInfo client={client} horizontal />
                 <ClientContacts client={client} />
                 <div className={`flex flex-auto shrink-0 flex-col`}>
@@ -238,7 +255,7 @@ const ClientDrawer = () => {
                   ) : null}
                 </div>
                 {client ? (
-                  <div className="flex flex-auto shrink-0 mt-4">
+                  <div className="mt-4 flex flex-auto shrink-0">
                     <ClientActivity clientId={clientDrawer.clientId} />
                   </div>
                 ) : null}

@@ -135,6 +135,11 @@ export default function Client({ data }) {
   const syncAms = async () => {
     const clientId = router.query.cid
     const res = await useNextApi('GET', `/api/clients/${clientId}/ams360/sync`)
+    await timeout(10000)
+    setReload({
+      ...reload,
+      policies: true,
+    })
   }
 
   const openActivity = () => {

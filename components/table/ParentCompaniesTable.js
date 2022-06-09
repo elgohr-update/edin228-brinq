@@ -359,7 +359,7 @@ const ParentCompaniesTable = () => {
               color="primary"
               labelColor="primary"
               size="sm"
-              initialChecked={true}
+              defaultSelected={true}
               value="Commercial Lines"
               onChange={(e) => setLineFilter(e, 'Commercial Lines')}
             >
@@ -369,7 +369,7 @@ const ParentCompaniesTable = () => {
               color="error"
               labelColor="error"
               size="sm"
-              initialChecked={true}
+              defaultSelected={true}
               value="Personal Lines"
               onChange={(e) => setLineFilter(e, 'Personal Lines')}
             >
@@ -379,7 +379,7 @@ const ParentCompaniesTable = () => {
               color="success"
               labelColor="success"
               size="sm"
-              initialChecked={true}
+              defaultSelected={true}
               value="Benefits"
               onChange={(e) => setLineFilter(e, 'Benefits')}
             >
