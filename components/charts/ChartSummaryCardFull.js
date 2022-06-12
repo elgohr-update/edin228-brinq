@@ -1,6 +1,6 @@
 import { User, useTheme } from '@nextui-org/react'
 import React, { useEffect, useRef, useState } from 'react'
-import { abbreviateMoney } from '../../utils/utils'
+import { abbreviateMoney, toMonthName } from '../../utils/utils'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -98,11 +98,15 @@ var multiply = {
   },
 }
 
-export default function ChartSummaryCard({
+export default function ChartSummaryCardFull({
   noPadding = false,
   autoWidth = false,
-  content = null,
-  subContent = null,
+  monthContent = null,
+  ytdContent = null,
+  monthSubContent = null,
+  ytdSubContent = null,
+  monthDirection = 'up',
+  ytdDirection = 'up',
   border = false,
   percent = false,
   money = false,
@@ -112,7 +116,7 @@ export default function ChartSummaryCard({
   fullData = null,
   slice = false,
   currentMonth = null,
-  direction = 'up',
+  setYear = null
 }) {
   const { isDark, type } = useTheme()
   const chartRef = useRef(null)
@@ -152,12 +156,12 @@ export default function ChartSummaryCard({
         ]
   }
 
-  const contentValue = () => {
+  const contentValue = (value) => {
     return money
-      ? `$${abbreviateMoney(parseFloat(content))}`
+      ? `$${abbreviateMoney(parseFloat(value))}`
       : percent
-      ? `${Number(content) ? content : 0}%`
-      : content
+      ? `${Number(value) ? value : 0}%`
+      : value
   }
   const isVertical = () => {
     return vertical ? `flex-col` : `flex-row items-center`
@@ -175,7 +179,7 @@ export default function ChartSummaryCard({
   }
 
   const getChartColor = () => {
-    if (direction == 'up') {
+    if (ytdDirection == 'up') {
       const set = {
         color: '#31ff8a',
         fill: '#31f5ff38',
@@ -240,8 +244,8 @@ export default function ChartSummaryCard({
     maintainAspectRatio: true,
   }
 
-  const baseClass = `relative h-[90px] z-20 flex ${noPadding ? `p-0` : `px-4 py-2`} ${
-    autoWidth ? `w-auto` : `flex-auto  min-w-[270px]`
+  const baseClass = `relative h-[110px] z-20 flex ${noPadding ? `p-0` : `px-4 py-2`} ${
+    autoWidth ? `w-auto` : `flex-auto  min-w-[340px]`
   } rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
@@ -254,9 +258,19 @@ export default function ChartSummaryCard({
           size="xs"
         />
       </div>
-      <div>{contentValue()}</div>
-      <div>{subContent}</div>
-      <div className="absolute right-0 bottom-5 z-10 rounded-lg opacity-40">
+      <div className="flex items-center w-full">
+          <div className="flex flex-col w-1/2">
+            <h4>{toMonthName(currentMonth)} {setYear}</h4>
+            <div>{contentValue(monthContent)}</div>
+            <div>{monthSubContent}</div>
+          </div>
+          <div className="flex flex-col w-1/2">
+            <h4>YTD</h4>
+            <div>{contentValue(ytdContent)}</div>
+            <div>{ytdSubContent}</div>
+          </div>
+      </div>
+      <div className="absolute right-[10px] top-[5px] z-10 rounded-lg opacity-40">
         <Line data={chartData} ref={chartRef} width={100} height={40} plugins={[multiply]} options={options} />
       </div>
     </div>

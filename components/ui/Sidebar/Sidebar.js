@@ -18,7 +18,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="relative z-50 flex h-full w-full flex-col">
+    <div className="relative z-50 flex h-full min-w-[55px] w-full flex-col">
       <div
         className={`absolute flex h-full w-full flex-col justify-between ${
           expand ? `sidebar-theme-${type} ${type}-shadow` : ``
