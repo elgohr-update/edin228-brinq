@@ -87,7 +87,7 @@ export default function Renewals({ data }) {
 
   return (
     <main className="flex min-h-0 w-full flex-col">
-      <div className="pl-2">
+      <div className="pl-4">
         <Button.Group color="primary" auto size="xs" flat>
           <Button onClick={() => goToMonth('prev')}>
             <div className="flex items-center space-x-2">
@@ -108,7 +108,7 @@ export default function Renewals({ data }) {
         </Button.Group>
       </div>
       <div className="flex w-full flex-col">
-        <div className="mb-2 flex min-h-0 items-center space-x-4 overflow-x-auto px-4 py-2 md:justify-center md:overflow-hidden">
+        <div className="mb-2 flex min-h-0 items-center space-x-4 overflow-x-auto px-4 py-2">
           <SummaryCard
             vertical={false}
             val={premSum()}

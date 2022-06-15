@@ -89,7 +89,7 @@ export default function Dashboard() {
                     <DashboardActivity />
                   </div>
                 </div>
-                <div className="flex w-auto flex-auto shrink-0 flex-col lg:min-w-[500px] lg:max-w-[500px]">
+                <div className="flex w-auto flex-auto shrink-0 flex-col lg:min-w-[500px]">
                   <div className="flex flex-auto shrink-0 flex-col">
                     <DashboardExpiringPolicies />
                   </div>
@@ -97,7 +97,6 @@ export default function Dashboard() {
                     <DashboardRecentPolicies />
                   </div>
                 </div>
-                <div className="flex flex-auto shrink-0 flex-col lg:pr-2"></div>
               </div>
             </div>
           </div>

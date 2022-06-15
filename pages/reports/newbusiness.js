@@ -340,8 +340,8 @@ export default function ReportsNewBusiness() {
     <main className="relative flex w-full flex-col overflow-hidden">
       <ReportNavbar />
       <div className="flex w-full flex-col">
-        <div className="flex w-full flex-col lg:flex-row">
-          <div className="mb-4 flex h-full w-full items-center space-x-4 overflow-x-auto px-4 py-6 lg:mb-0 lg:justify-center lg:overflow-hidden">
+        <div className="flex w-full flex-col lg:flex-row md:pr-6">
+          <div className="mb-4 flex h-full w-full items-center space-x-4 overflow-x-auto px-4 py-6 lg:mb-0 lg:justify-center">
             <SummaryCard
               val={premSum()}
               color="teal"
@@ -401,7 +401,7 @@ export default function ReportsNewBusiness() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col overflow-hidden lg:flex-row lg:gap-2 lg:pl-2">
+        <div className="flex flex-col lg:flex-row lg:gap-2 lg:pl-2">
           <div className="flex w-auto flex-col lg:flex-row lg:justify-evenly">
             <div className="mb-4 flex flex-col lg:mb-0">
               <div className="pl-4">
@@ -479,7 +479,7 @@ export default function ReportsNewBusiness() {
             ) : null}
           </div>
         </div>
-        <div className="flex overflow-hidden p-4">
+        <div className="flex p-4">
           <div
             className={`h-full w-full rounded-lg panel-theme-${type} ${type}-shadow`}
           >

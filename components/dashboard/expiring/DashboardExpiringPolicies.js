@@ -33,7 +33,7 @@ export default function DashboardExpiringPolicies() {
       <div className="pl-4">
         <PanelTitle title={`Expiring Soon`} color="red" />
       </div>
-      <div className={`flex flex-col rounded-lg max-h-[40vh] lg:max-h-[34vh] panel-theme-${type} ${type}-shadow overflow-hidden`}>
+      <div className={`flex flex-col rounded-lg max-h-[40vh] lg:max-h-[29vh] panel-theme-${type} ${type}-shadow overflow-y-auto`}>
         <div
           className={`policy-card-container flex flex-col overflow-x-hidden overflow-y-auto rounded-lg`}
         >
