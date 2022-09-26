@@ -150,10 +150,16 @@ export default function CompanyPerformanceChart({
   const getDataset = () => {
     return [
       {
-        data: fullData?.data,
-        label: 'All',
+        data: fullData?.data.premium,
+        label: 'Premium',
         type: 'line',
         yAxisID: 'y',
+      },
+      {
+        data: fullData?.data.policies,
+        label: 'Policies',
+        type: 'line',
+        yAxisID: 'y1',
       },
     ]
   }
@@ -171,7 +177,7 @@ export default function CompanyPerformanceChart({
     stacked: false,
     plugins: {
       legend: {
-        display: false,
+        display: true,
         labels: {
           boxWidth: 6,
           boxHeight: 6,
