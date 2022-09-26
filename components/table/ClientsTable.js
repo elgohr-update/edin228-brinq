@@ -90,9 +90,9 @@ const ClientsTable = () => {
       // && this.usersCheck(entry.users)
     )
     let newData = filtered
-    if (sortDescriptor){
+    if (sortDescriptor) {
       newData = forceSort(newData)
-    } 
+    }
     setState({
       ...state,
       reports: {
@@ -157,7 +157,14 @@ const ClientsTable = () => {
           </div>
         )
       case 'client_name':
-        return <ClientTableCell cellValue={cellValue} clientId={client.id} tags={client.tags} type={type}/>
+        return (
+          <ClientTableCell
+            cellValue={cellValue}
+            clientId={client.id}
+            tags={client.tags}
+            type={type}
+          />
+        )
       case 'policy_count':
         return (
           <div className="flex justify-center text-xs">
@@ -194,7 +201,11 @@ const ClientsTable = () => {
           </div>
         )
       default:
-        return <div>{cellValue}</div>
+        return (
+          <div className="flex justify-center text-xs">
+            <div className="flex w-[50px] justify-end">{cellValue}</div>
+          </div>
+        )
     }
   }
   const collator = useCollator({ numeric: true })
@@ -324,17 +335,8 @@ const ClientsTable = () => {
         </div>
       ) : null}
       <div className="flex h-full w-full flex-col px-2 pb-2">
-        <div className="flex h-16 w-full items-center justify-between py-4">
-          <div className="flex items-center justify-end">
-            <Button
-              color="warning"
-              auto
-              light
-              icon={<FaFilter fill="currentColor" />}
-              onClick={() => setShowFilter(!showFilter)}
-            />
-          </div>
-          <div className="flex w-full items-center pr-2">
+        <div className="flex h-16 flex-auto items-center py-4">
+          <div className="flex w-full flex-auto items-center px-2">
             <Input
               className={`z-10`}
               type="search"
@@ -346,6 +348,19 @@ const ClientsTable = () => {
               labelLeft={<FaSearch />}
               onChange={(e) => searchTable(e.target.value)}
             />
+          </div>
+          <div className="px-4">
+            <Button
+              color="warning"
+              auto
+              flat
+              size="xs"
+              icon={<FaFilter fill="currentColor" />}
+              onClick={() => setShowFilter(!showFilter)}
+            >
+              {' '}
+              Filter
+            </Button>
           </div>
         </div>
         {!state.reports.data.clients.loading ? (
@@ -414,7 +429,7 @@ const ClientsTable = () => {
             ) : null}
           </Table>
         ) : (
-          <div className="flex w-full h-full items-center justify-center py-48">
+          <div className="flex h-full w-full items-center justify-center py-48">
             <Loading
               type="points"
               size="lg"

@@ -29,6 +29,9 @@ ChartJS.register(
 )
 
 const colors = [
+  ['#FF3CAC', '#784BA0', '#2B86C5'],
+  ['#FFA93B', '#ff5e62', '#FF2525'],
+  ['#5c05b5', '#168cf0', '#0aeed1'],
   ['#FFA93B', '#ff5e62', '#FF2525'],
   ['#5c05b5', '#168cf0', '#0aeed1'],
   ['#FF3CAC', '#784BA0', '#2B86C5'],
@@ -100,7 +103,7 @@ var multiply = {
   },
 }
 
-export default function CompanyAnnualChart({
+export default function CompanyPremAndVolumeChart({
   border = false,
   vertical = true,
   panel = false,
@@ -152,28 +155,16 @@ export default function CompanyAnnualChart({
   const getDataset = () => {
     return [
       {
-        data: fullData?.data.all,
-        label: 'All',
-        type: 'line',
+        data: fullData?.data.premium,
+        label: 'Premium',
+        type: 'bar',
         yAxisID: 'y',
       },
       {
-        data: fullData?.data.cl,
-        label: 'Commercial Lines',
-        type: 'line',
-        yAxisID: equalScale ? 'y' : 'y1',
-      },
-      {
-        data: fullData?.data.pl,
-        label: 'Personal Lines',
-        type: 'line',
-        yAxisID: equalScale ? 'y' : 'y2',
-      },
-      {
-        data: fullData?.data.b,
-        label: 'Benefits',
-        type: 'line',
-        yAxisID: equalScale ? 'y' : 'y3',
+        data: fullData?.data.policies,
+        label: 'Policies',
+        type: 'bar',
+        yAxisID: 'y1',
       },
     ]
   }
@@ -184,11 +175,6 @@ export default function CompanyAnnualChart({
   }
 
   const options = {
-    interaction: {
-      mode: 'index',
-      intersect: false,
-    },
-    stacked: false,
     plugins: {
       legend: {
         display: true,
@@ -214,16 +200,16 @@ export default function CompanyAnnualChart({
         capBezierPoints: true,
       },
       bar: {
-        barPercentage: 0.3,
-        categoryPercentage: 1,
+        barPercentage: [ 1, 0.1],
+        categoryPercentage: [ 1, 0.1],
         borderSkipped: false,
         borderRadius: {
-          topLeft: 100,
-          topRight: 0,
-          bottomRight: 100,
+          topLeft: 10,
+          topRight: 10,
+          bottomRight: 0,
           bottomLeft: 0,
         },
-        barThickness: 10,
+        barThickness: 3,
       },
       point: {
         radius: 4,
@@ -282,47 +268,17 @@ export default function CompanyAnnualChart({
 
   return (
     <div className="mt-2 flex h-full w-full flex-auto shrink-0 flex-col lg:mt-0 lg:justify-center">
-      <div className="flex w-full items-center justify-between pl-4">
-        <div className="flex">
-          <PanelTitle title={`Annual Performance`} color="orange" />
-          <div className="cursor-pointer text-xs flex items-center px-2" onClick={() => setShow(!show)}>
-            {show ? getConstantIcons('up') : getConstantIcons('down')}
-          </div>
-        </div>
-        {show ? (
-          <div className="flex items-center space-x-1 px-4">
-            <h6
-              className={`cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500 ${
-                equalScale ? '!opacity-100' : 'opacity-50'
-              }`}
-              onClick={() => setEqualScale(true)}
-            >
-              Equal Scale
-            </h6>
-            <h6
-              className={`cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500 ${
-                !equalScale ? '!opacity-100' : 'opacity-50'
-              }`}
-              onClick={() => setEqualScale(false)}
-            >
-              Relative Scale
-            </h6>
-          </div>
-        ) : null}
+      <div
+        className={`${baseClass} panel-theme-${type} ${type}-shadow flex py-2 px-4`}
+      >
+        <Chart
+          data={chartData}
+          ref={chartRef}
+          // height={'80px'}
+          //   plugins={[multiply]}
+          options={options}
+        />
       </div>
-      {show ? (
-        <div
-          className={`${baseClass} panel-theme-${type} ${type}-shadow flex py-2 px-4`}
-        >
-          <Chart
-            data={chartData}
-            ref={chartRef}
-            // height={'80px'}
-            //   plugins={[multiply]}
-            options={options}
-          />
-        </div>
-      ) : null}
     </div>
   )
 }

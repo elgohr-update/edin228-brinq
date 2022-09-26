@@ -10,6 +10,7 @@ import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import { BiRefresh } from 'react-icons/bi'
 import PolicyCard from '../../policy/PolicyCard'
 import {
+  getConstantIcons,
   sumFromArrayOfObjects,
   timeout,
   useNextApi,
@@ -120,6 +121,7 @@ const ClientDrawer = () => {
       renewalMonth: null,
       renewalYear: null,
       nav: 1,
+      style: 1,
     }
     setClientDrawer(setDefault)
   }
@@ -146,7 +148,7 @@ const ClientDrawer = () => {
       className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}
     >
       <div
-        className={`fixed right-0 flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
+        className={`fixed ${clientDrawer.style == 1 ? 'right-0' : 'left-[120px]'}  flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!client ? (
           <DrawerLoader />
@@ -183,10 +185,10 @@ const ClientDrawer = () => {
                     </div>
                   </div>
                   <div
-                    className="absolute top-0 right-0 flex md:hidden"
+                    className="absolute top-0 right-0 flex md:hidden font-bold text-3xl"
                     onClick={() => closeDrawer()}
                   >
-                    <AiOutlineClose />
+                    {getConstantIcons('circleX')}
                   </div>
                 </div>
                 <div

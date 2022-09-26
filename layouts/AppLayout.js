@@ -14,6 +14,7 @@ import ParentCompanyDrawer from "../components/ui/drawer/ParentCompanyDrawer";
 import WritingCompanyDrawer from "../components/ui/drawer/WritingCompanyDrawer";
 import AppNotification from "../components/ui/Notifications/AppNotification";
 import { signOut } from 'next-auth/react'
+import BubbleBackground from "../components/ui/BubbleBackground";
 
 export default function AppLayout({ children }) {
     const { isDark, type } = useTheme();
@@ -98,8 +99,7 @@ export default function AppLayout({ children }) {
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </Head>
         <div className={`overflow-hidden container-main`}>
-            <div className={`fixed h-screen w-full main-bg main-bg-${type} z-1`}/>
-            <div className={`fixed h-screen w-full blur-screen blur-screen-${type} z-2`} />
+            <BubbleBackground />
             {clientDrawer.isOpen ? <ClientDrawer /> : null}   
             {activityDrawer.isOpen ? <ActivityDrawer /> : null}   
             {parentCompanyDrawer.isOpen ? <ParentCompanyDrawer /> : null}   

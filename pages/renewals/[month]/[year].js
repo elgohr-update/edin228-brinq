@@ -108,7 +108,7 @@ export default function Renewals({ data }) {
         </Button.Group>
       </div>
       <div className="flex w-full flex-col">
-        <div className="mb-2 flex min-h-0 items-center space-x-4 overflow-x-auto px-4 py-2">
+        <div className="mb-2 flex min-h-0 items-center space-x-4 overflow-x-auto px-4 py-4 lg:py-2">
           <SummaryCard
             vertical={false}
             val={premSum()}

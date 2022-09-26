@@ -35,7 +35,7 @@ export default function DashboardExpiringPolicies() {
       </div>
       <div className={`flex flex-col rounded-lg max-h-[40vh] lg:max-h-[29vh] panel-theme-${type} ${type}-shadow overflow-y-auto`}>
         <div
-          className={`policy-card-container flex flex-col overflow-x-hidden overflow-y-auto rounded-lg`}
+          className={`policy-card-container py-2 flex flex-col overflow-x-hidden overflow-y-auto rounded-lg`}
         >
           {data?.map((u, i) => (
             <motion.div

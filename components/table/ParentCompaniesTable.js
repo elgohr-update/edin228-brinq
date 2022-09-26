@@ -390,16 +390,7 @@ const ParentCompaniesTable = () => {
       ) : null}
       <div className="flex h-full w-full flex-col px-2 pb-2">
         <div className="flex h-16 w-full items-center justify-between py-4">
-          <div className="flex items-center justify-end">
-            <Button
-              color="warning"
-              auto
-              light
-              icon={<FaFilter fill="currentColor" />}
-              onClick={() => setShowFilter(!showFilter)}
-            />
-          </div>
-          <div className="flex w-full items-center pr-2">
+          <div className="flex w-full items-center px-2">
             <Input
               className={`z-10`}
               type="search"
@@ -411,6 +402,18 @@ const ParentCompaniesTable = () => {
               labelLeft={<FaSearch />}
               onChange={(e) => searchTable(e.target.value)}
             />
+          </div>
+          <div className="px-4">
+            <Button
+              color="warning"
+              auto
+              flat
+              size="xs"
+              icon={<FaFilter fill="currentColor" />}
+              onClick={() => setShowFilter(!showFilter)}
+            >
+              Filter
+            </Button>
           </div>
         </div>
         {!state.reports.data.carriers.loading ? (

@@ -13,8 +13,6 @@ import {
   Filler,
 } from 'chart.js'
 import { Chart, Bar, Line, Scatter, Bubble } from 'react-chartjs-2'
-import { getConstantIcons, getCurrentMonth } from '../../utils/utils'
-import PanelTitle from '../ui/title/PanelTitle'
 
 ChartJS.register(
   CategoryScale,
@@ -29,10 +27,10 @@ ChartJS.register(
 )
 
 const colors = [
+  ['#09ffa445', '#09ffa4', '#09f4ff'],
   ['#FFA93B', '#ff5e62', '#FF2525'],
   ['#5c05b5', '#168cf0', '#0aeed1'],
   ['#FF3CAC', '#784BA0', '#2B86C5'],
-  ['#09ffa445', '#09ffa4', '#09f4ff'],
   ['#FA8BFF', '#2BD2FF', '#2BFF88'],
   ['#5c05b5', '#168cf0', '#0aeed1'],
   '#ff5e621f',
@@ -100,7 +98,7 @@ var multiply = {
   },
 }
 
-export default function CompanyAnnualChart({
+export default function CompanyPerformanceChart({
   border = false,
   vertical = true,
   panel = false,
@@ -152,28 +150,10 @@ export default function CompanyAnnualChart({
   const getDataset = () => {
     return [
       {
-        data: fullData?.data.all,
+        data: fullData?.data,
         label: 'All',
         type: 'line',
         yAxisID: 'y',
-      },
-      {
-        data: fullData?.data.cl,
-        label: 'Commercial Lines',
-        type: 'line',
-        yAxisID: equalScale ? 'y' : 'y1',
-      },
-      {
-        data: fullData?.data.pl,
-        label: 'Personal Lines',
-        type: 'line',
-        yAxisID: equalScale ? 'y' : 'y2',
-      },
-      {
-        data: fullData?.data.b,
-        label: 'Benefits',
-        type: 'line',
-        yAxisID: equalScale ? 'y' : 'y3',
       },
     ]
   }
@@ -191,7 +171,7 @@ export default function CompanyAnnualChart({
     stacked: false,
     plugins: {
       legend: {
-        display: true,
+        display: false,
         labels: {
           boxWidth: 6,
           boxHeight: 6,
@@ -278,51 +258,19 @@ export default function CompanyAnnualChart({
     maintainAspectRatio: false,
   }
 
-  const baseClass = `relative z-20 w-full h-[400px] rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+  const baseClass = `relative z-20 w-full h-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
     <div className="mt-2 flex h-full w-full flex-auto shrink-0 flex-col lg:mt-0 lg:justify-center">
-      <div className="flex w-full items-center justify-between pl-4">
-        <div className="flex">
-          <PanelTitle title={`Annual Performance`} color="orange" />
-          <div className="cursor-pointer text-xs flex items-center px-2" onClick={() => setShow(!show)}>
-            {show ? getConstantIcons('up') : getConstantIcons('down')}
-          </div>
-        </div>
-        {show ? (
-          <div className="flex items-center space-x-1 px-4">
-            <h6
-              className={`cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500 ${
-                equalScale ? '!opacity-100' : 'opacity-50'
-              }`}
-              onClick={() => setEqualScale(true)}
-            >
-              Equal Scale
-            </h6>
-            <h6
-              className={`cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500 ${
-                !equalScale ? '!opacity-100' : 'opacity-50'
-              }`}
-              onClick={() => setEqualScale(false)}
-            >
-              Relative Scale
-            </h6>
-          </div>
-        ) : null}
+      <div
+        className={`${baseClass} panel-theme-${type} ${type}-shadow flex py-2 px-4`}
+      >
+        <Chart
+          data={chartData}
+          ref={chartRef}
+          options={options}
+        />
       </div>
-      {show ? (
-        <div
-          className={`${baseClass} panel-theme-${type} ${type}-shadow flex py-2 px-4`}
-        >
-          <Chart
-            data={chartData}
-            ref={chartRef}
-            // height={'80px'}
-            //   plugins={[multiply]}
-            options={options}
-          />
-        </div>
-      ) : null}
     </div>
   )
 }

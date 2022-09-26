@@ -6,10 +6,12 @@ import {
   Tooltip,
   Progress,
   useCollator,
+  Button,
 } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { FaSearch } from 'react-icons/fa'
+import { BiRefresh } from 'react-icons/bi'
 import {
   truncateString,
   formatMoney,
@@ -252,9 +254,16 @@ export default function RenewalsTable(data) {
             onChange={(e) => searchTable(e.target.value)}
           />
         </div>
-        {/* <div className="flex items-center justify-end">
-                    <Button color="warning" auto flat icon={<FaFilter fill="currentColor" />} />
-                </div> */}
+        <div className="flex items-center justify-end">
+          <Tooltip content={'Refresh Clients'}>
+            <Button
+              color="primary"
+              auto
+              light
+              icon={<BiRefresh fill="currentColor" />}
+            />
+          </Tooltip>
+        </div>
       </div>
       <Table
         hoverable={true}

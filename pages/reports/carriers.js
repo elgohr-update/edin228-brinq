@@ -69,11 +69,16 @@ export default function ReportsCarriers() {
     return () => {
       isCancelled = true
     }
-  }, [dataYear,dataSelection])
+  }, [dataYear, dataSelection])
 
   const fetchData = async () => {
     if (dataYear) {
-      const res = await useNextApi('GET', `/api/company/table?year=${dataYear}&parent=${dataSelection == 1 ? true : false}&writing=${dataSelection == 2 ? true : false}`)
+      const res = await useNextApi(
+        'GET',
+        `/api/company/table?year=${dataYear}&parent=${
+          dataSelection == 1 ? true : false
+        }&writing=${dataSelection == 2 ? true : false}`
+      )
       setState({
         ...state,
         reports: {
@@ -162,46 +167,57 @@ export default function ReportsCarriers() {
               vertical={false}
             />
           </div>
-          <div className="flex flex-auto p-4 space-x-1 lg:space-x-0 lg:gap-2 lg:mb-0 lg:items-center lg:justify-end lg:p-0 lg:pr-4">
-            <div className="flex flex-col">
-              <div>
-                <PanelTitle title={`Carrier Type`} color="purple" />
-              </div>
-              <SelectInput
-                styling={`flex w-full min-w-[150px]`}
-                clearable={false}
-                value={dataSelection}
-                opts={dataSelectionOptions}
-                labelField={`label`}
-                keyField={`id`}
-                valueField={`id`}
-                placeholder={'Carrier Type'}
-                filterable={false}
-                onChange={(v) => setDataSelection(v)}
-              />
+        </div>
+        <CompanyChartContainer
+          dataYear={dataYear}
+          dataSelection={dataSelection}
+        />
+        <div className="flex flex-col px-4 pb-4">
+          <div className="flex flex-col xl:flex-row w-full xl:items-center xl:justify-between">
+            <div className="pl-4">
+              <PanelTitle title={`Carriers`} color="teal" />
             </div>
-            <div className="flex flex-col">
-              <div>
-                <PanelTitle title={`Year`} color="pink" />
+            <div className="flex flex-auto space-x-1 p-4 lg:mb-4 lg:items-center lg:justify-end lg:gap-2 lg:space-x-0 lg:p-0 lg:pr-4">
+              <div className="flex flex-col">
+                <div>
+                  <PanelTitle title={`Carrier Type`} color="purple" />
+                </div>
+                <SelectInput
+                  styling={`flex w-full min-w-[150px]`}
+                  clearable={false}
+                  value={dataSelection}
+                  opts={dataSelectionOptions}
+                  labelField={`label`}
+                  keyField={`id`}
+                  valueField={`id`}
+                  placeholder={'Carrier Type'}
+                  filterable={false}
+                  onChange={(v) => setDataSelection(v)}
+                />
               </div>
-              <SelectInput
-                styling={`flex w-full min-w-[150px]`}
-                clearable={false}
-                value={dataYear}
-                opts={dataYearOptions}
-                labelField={`year`}
-                keyField={`id`}
-                valueField={`id`}
-                placeholder={'Year'}
-                filterable={false}
-                onChange={(v) => setDataYear(v)}
-              />
+              <div className="flex flex-col">
+                <div>
+                  <PanelTitle title={`Year`} color="pink" />
+                </div>
+                <SelectInput
+                  styling={`flex w-full min-w-[150px]`}
+                  clearable={false}
+                  value={dataYear}
+                  opts={dataYearOptions}
+                  labelField={`year`}
+                  keyField={`id`}
+                  valueField={`id`}
+                  placeholder={'Year'}
+                  filterable={false}
+                  onChange={(v) => setDataYear(v)}
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <CompanyChartContainer dataYear={dataYear} dataSelection={dataSelection} />
-        <div className="px-4">
-          <div className={`h-full w-full rounded-lg panel-theme-${type} ${type}-shadow`}>
+
+          <div
+            className={`h-full w-full rounded-lg panel-theme-${type} ${type}-shadow`}
+          >
             {tableData && dataSelection == 1 ? <ParentCompaniesTable /> : null}
             {tableData && dataSelection == 2 ? <WritingCompaniesTable /> : null}
           </div>

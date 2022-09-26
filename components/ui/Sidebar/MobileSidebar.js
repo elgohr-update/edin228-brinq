@@ -41,7 +41,7 @@ const MobileSidebar = () => {
             hidden: { opacity: 0, x: -200 },
           }}
           transition={{ ease: 'easeInOut', duration: 0.15 }}
-          className={`fixed left-0 top-0 z-50 flex h-full w-full flex-col justify-between panel-theme-${type} ${type}-shadow sidebar-open`}
+          className={`fixed left-0 top-0 z-50 flex h-full w-full flex-col justify-between panel-theme-sidebar-${type} ${type}-shadow sidebar-open`}
         >
           <SidebarItemContainer isMobile expand={true} />
         </motion.div>

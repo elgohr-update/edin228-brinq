@@ -234,7 +234,7 @@ export default function NewBusinessBarChart({
       },
     },
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
   }
 
   const baseClass = `relative z-20 flex items-center justify-center h-full ${
