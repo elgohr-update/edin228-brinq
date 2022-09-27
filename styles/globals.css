@@ -126,6 +126,9 @@
 .nextui-c-fFabR-krOtXB-borderWeight-normal .nextui-avatar-img {
   border-width: 0px !important;
 }
+.nextui-c-cVVQUL.nextui-popover-content-enter {
+  z-index:9999999999999 !important;
+}
 
 html,
 body {

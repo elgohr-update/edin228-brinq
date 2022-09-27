@@ -166,6 +166,9 @@ export function ClientDrawerWrapper({ children }) {
     renewalYear: null,
     nav: 1,
     style: 1,
+    companyId:null,
+    parent:false,
+    writing:false
   })
   return (
     <ClientDrawerContext.Provider value={{ clientDrawer, setClientDrawer }}>

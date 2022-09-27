@@ -12,6 +12,10 @@ export default function ClientTableCell({
   subContent = null,
   month = null,
   year = null,
+  style = 1,
+  companyId = null,
+  parent = false,
+  writing = false,
 }) {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
 
@@ -25,6 +29,10 @@ export default function ClientTableCell({
         isRenewal: isRnwl,
         renewalMonth: month,
         renewalYear: year,
+        style: style,
+        companyId:companyId,
+        parent:parent,
+        writing:writing,
       })
     } else {
       setClientDrawer({
@@ -32,6 +40,10 @@ export default function ClientTableCell({
         nav: 1,
         isOpen: true,
         clientId: clientId,
+        style: style,
+        companyId:companyId,
+        parent:parent,
+        writing:writing,
       })
     }
   }
@@ -42,7 +54,7 @@ export default function ClientTableCell({
       : `page-link h-full w-full px-2 pb-1`
   }
   return (
-    <div className="flex flex-col py-1 rounded-lg text-xs hover:bg-gray-600/10 transition duration-200 ease-out">
+    <div className="flex flex-col rounded-lg py-1 text-xs transition duration-200 ease-out hover:bg-gray-600/10">
       <div className={checkTheme()} onClick={() => openSidebar()}>
         <Link href={`/clients/${clientId}`}>
           <a className="flex transition duration-100 ease-in-out">

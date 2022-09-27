@@ -12,9 +12,7 @@ import {
   Legend,
   Filler,
 } from 'chart.js'
-import { Chart, Bar, Line, Scatter, Bubble } from 'react-chartjs-2'
-import { getConstantIcons, getCurrentMonth } from '../../utils/utils'
-import PanelTitle from '../ui/title/PanelTitle'
+import { Chart } from 'react-chartjs-2'
 
 ChartJS.register(
   CategoryScale,
@@ -117,7 +115,6 @@ export default function CompanyPremAndVolumeChart({
     datasets: [],
   })
   const [equalScale, setEqualScale] = useState(false)
-  const [show, setShow] = useState(true)
 
   useEffect(() => {
     const chart = chartRef.current
@@ -165,6 +162,7 @@ export default function CompanyPremAndVolumeChart({
         label: 'Policies',
         type: 'bar',
         yAxisID: 'y1',
+        barThickness: 16,
       },
     ]
   }
@@ -200,16 +198,13 @@ export default function CompanyPremAndVolumeChart({
         capBezierPoints: true,
       },
       bar: {
-        barPercentage: [ 1, 0.1],
-        categoryPercentage: [ 1, 0.1],
         borderSkipped: false,
         borderRadius: {
-          topLeft: 10,
-          topRight: 10,
+          topLeft: 5,
+          topRight: 5,
           bottomRight: 0,
           bottomLeft: 0,
         },
-        barThickness: 3,
       },
       point: {
         radius: 4,
@@ -268,9 +263,7 @@ export default function CompanyPremAndVolumeChart({
 
   return (
     <div className="mt-2 flex h-full w-full flex-auto shrink-0 flex-col lg:mt-0 lg:justify-center">
-      <div
-        className={`${baseClass} panel-theme-${type} ${type}-shadow flex py-2 px-4`}
-      >
+      <div className={`${baseClass} flex py-2 px-4`}>
         <Chart
           data={chartData}
           ref={chartRef}

@@ -34,7 +34,7 @@ const ClientDrawer = () => {
   const { type } = useTheme()
   const [client, setClient] = useState(null)
   const [policies, setPolicies] = useState([])
-  const [showMore1, setShowMore1] = useState(false)
+  const [showMore1, setShowMore1] = useState(true)
 
   useEffect(() => {
     let isCancelled = false
@@ -50,7 +50,6 @@ const ClientDrawer = () => {
       fetchClient().then(() => fetchPolicies())
     }
   }
-  
 
   useEffect(() => {
     if (reload.policies) {
@@ -95,7 +94,20 @@ const ClientDrawer = () => {
       'GET',
       `/api/clients/${clientId}/policies${queryUrl}`
     )
-    setPolicies(res)
+    if (clientDrawer.companyId){
+      if (clientDrawer.parent){
+        let formatted = res?.filter(x => x.carrier_id === clientDrawer.companyId)
+        setPolicies(formatted)
+      }
+      else {
+        let formatted = res?.filter(x => x.writing_id === clientDrawer.companyId)
+        setPolicies(formatted)
+      }
+    }
+    else {
+      setPolicies(res)
+    }
+    
   }
 
   const premSum = () => {
@@ -122,6 +134,9 @@ const ClientDrawer = () => {
       renewalYear: null,
       nav: 1,
       style: 1,
+      company_id: null,
+      parent: false,
+      writing: false,
     }
     setClientDrawer(setDefault)
   }
@@ -148,7 +163,9 @@ const ClientDrawer = () => {
       className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}
     >
       <div
-        className={`fixed ${clientDrawer.style == 1 ? 'right-0' : 'left-[120px]'}  flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
+        className={`fixed ${
+          clientDrawer.style == 1 ? 'right-0' : 'xl:right-[800px]'
+        }  flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!client ? (
           <DrawerLoader />
@@ -178,14 +195,14 @@ const ClientDrawer = () => {
                       title="Policies"
                       icon={<BsBox />}
                     />
-                    <div className="flex ml-4">
+                    <div className="ml-4 flex">
                       <Button flat auto size="sm" onClick={() => syncAms()}>
                         <BiRefresh />
                       </Button>
                     </div>
                   </div>
                   <div
-                    className="absolute top-0 right-0 flex md:hidden font-bold text-3xl"
+                    className="absolute top-0 right-0 flex text-3xl font-bold md:hidden"
                     onClick={() => closeDrawer()}
                   >
                     {getConstantIcons('circleX')}
@@ -200,15 +217,15 @@ const ClientDrawer = () => {
               >
                 <ClientInfo client={client} horizontal />
                 <ClientContacts client={client} />
-                <div className={`flex flex-auto shrink-0 flex-col`}>
+                <div className={`flex shrink-0 flex-col`}>
                   <ClientDrawerNavbar />
                   {clientDrawer.nav === 1 ? (
                     policies ? (
                       <div
-                        className={`relative z-10 flex flex-auto shrink-0  flex-col rounded`}
+                        className={`relative z-10 flex shrink-0  flex-col rounded`}
                       >
                         <div
-                          className={`flex flex-auto shrink-0  flex-col space-y-1 overflow-hidden px-4 py-1 transition-all duration-100 ease-out`}
+                          className={`flex shrink-0  flex-col space-y-1 overflow-hidden px-4 py-1 transition-all duration-100 ease-out`}
                         >
                           {getPolicies().map((u) => (
                             <PolicyCard key={u.id} policy={u} />

@@ -24,6 +24,7 @@ import CompanyPerformanceChart from '../../charts/CompanyPerformanceChart'
 import { AiOutlineClose } from 'react-icons/ai'
 import CompanyPremAndVolumeChart from '../../charts/CompanyPremAndVolumeChart'
 import ClientDrawer from './ClientDrawer'
+import CompanyClientsTable from '../../table/CompanyClientsTable'
 
 const WritingCompanyDrawer = () => {
   const { writingCompanyDrawer, setWritingCompanyDrawer } =
@@ -127,10 +128,10 @@ const WritingCompanyDrawer = () => {
         hidden: { opacity: 0, x: 200 },
       }}
       transition={{ ease: 'easeInOut', duration: 0.25 }}
-      className={`fixed top-0 left-0 z-[999999]`}
+      className={`fixed top-0 left-0 z-[999998] xl:z-[999999]`}
     >
       <div
-        className={`fixed right-0 flex h-full w-full flex-col overflow-hidden xl:w-[1000px] ${type}-shadow panel-theme-${type}`}
+        className={`fixed right-0 flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!company ? (
           <DrawerLoader />
@@ -180,7 +181,7 @@ const WritingCompanyDrawer = () => {
               </div>
               <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
             </div>
-            <div className="flex h-[90vh] w-full flex-col overflow-y-auto xl:h-[94vh]">
+            <div className="flex h-[90vh] w-full flex-col overflow-y-auto xl:h-[94vh] xl:mt-2">
               <div className="flex shrink-0 items-center space-x-2 overflow-x-auto p-4">
                 <SummaryCard
                   vertical={false}
@@ -251,7 +252,7 @@ const WritingCompanyDrawer = () => {
                     </div>
                     {showParentData ? (
                       <div
-                        className={`flex h-auto xl:h-[375px] min-w-[200px] flex-col space-y-2 overflow-y-auto rounded-lg py-2 panel-theme-${type} ${type}-shadow `}
+                        className={`flex h-auto min-w-[200px] flex-col space-y-2 overflow-y-auto rounded-lg py-2 xl:h-[375px] `}
                       >
                         {parents?.map((p, i) => (
                           <motion.div
@@ -294,7 +295,11 @@ const WritingCompanyDrawer = () => {
                 <div className="flex pl-4">
                   <PanelTitle title={`Clients`} color="orange" />
                 </div>
-                <div>table</div>
+                <div>
+                  {clients ? (
+                    <CompanyClientsTable data={clients?.clients} companyId={company?.id} writing={true} />
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
