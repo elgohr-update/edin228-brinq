@@ -1,4 +1,4 @@
-import { Button, Switch, useTheme } from '@nextui-org/react'
+import { Button, Switch, Tooltip, useTheme } from '@nextui-org/react'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -126,10 +126,11 @@ export default function Client({ data }) {
                 !x.nonrenewed &&
                 !x.rewritten
             ),
-            'expiration_date',false
+            'expiration_date',
+            false
           )
         )
-      : reverseList(sortByProperty(policies, 'expiration_date',false))
+      : reverseList(sortByProperty(policies, 'expiration_date', false))
   }
 
   const syncAms = async () => {
@@ -144,6 +145,11 @@ export default function Client({ data }) {
 
   const openActivity = () => {
     setActivityDrawer({ isOpen: true, clientId: router.query.cid })
+  }
+
+  const openAMS360Page = () => {
+    const URL = `https://www.ams360.com/v2212631/nextgen/Customer/Detail/${data.ams360_customer_id}`
+    window.open(URL, '_blank')
   }
 
   return (
@@ -165,23 +171,29 @@ export default function Client({ data }) {
         <div className="flex items-center justify-between shrink-0">
           <ClientDataNavbar />
           <div className="flex items-center py-2 pr-2 space-x-2 xl:justify-end xl:py-0">
-            <Button.Group size="xs" flat>
-              <Button>
+            <div className="flex items-center space-x-1">
+              {/* <Button size="xs" flat auto>
                 <BiPaperPlane />
               </Button>
-              <Button>
+              <Button size="xs" flat auto>
                 <BsChatLeftQuoteFill />
-              </Button>
-              <Button onClick={() => openActivity()}>
-                <RiPlayListAddFill />
-              </Button>
-              <Button>
-                <BiLinkExternal />
-              </Button>
-              <Button onClick={() => syncAms()}>
-                <BiRefresh />
-              </Button>
-            </Button.Group>
+              </Button> */}
+              <Tooltip content="Create Activity / Suspense">
+                <Button size="xs" flat auto onClick={() => openActivity()}>
+                  <RiPlayListAddFill />
+                </Button>
+              </Tooltip>
+              <Tooltip content="Open in AMS360">
+                <Button size="xs" flat auto onClick={() => openAMS360Page()}>
+                  <BiLinkExternal />
+                </Button>
+              </Tooltip>
+              <Tooltip content="Re-Synce with AMS360">
+                <Button size="xs" flat auto onClick={() => syncAms()}>
+                  <BiRefresh />
+                </Button>
+              </Tooltip>
+            </div>
           </div>
         </div>
         {state.client.dataNavbar === 1 ? (
@@ -200,8 +212,15 @@ export default function Client({ data }) {
             <div
               className={`flex h-auto flex-auto shrink-0 flex-col space-y-2 px-4 py-2 xl:max-h-[82vh] xl:overflow-y-auto xl:pb-8`}
             >
-              {getPolicies(showActive).map((u,indx) => (
-                <Panel animationDelay={indx} flat key={u.id} overflow={false} px={0} py={0}>
+              {getPolicies(showActive).map((u, indx) => (
+                <Panel
+                  animationDelay={indx}
+                  flat
+                  key={u.id}
+                  overflow={false}
+                  px={0}
+                  py={0}
+                >
                   <PolicyCard policy={u} truncate={60} />
                 </Panel>
               ))}
@@ -216,7 +235,7 @@ export default function Client({ data }) {
           <ClientActionNavbar />
         </div>
         <div className="xl:overflow-y-auto xl:px-4">
-          {state.client.actionNavbar === 1 && client? (
+          {state.client.actionNavbar === 1 && client ? (
             <ClientActivity clientId={client?.id} limit={50} />
           ) : null}
         </div>

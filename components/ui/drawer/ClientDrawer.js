@@ -1,4 +1,4 @@
-import { Button, useTheme } from '@nextui-org/react'
+import { Button, Tooltip, useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
@@ -7,7 +7,7 @@ import {
   useReloadContext,
 } from '../../../context/state'
 import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
-import { BiRefresh } from 'react-icons/bi'
+import { BiRefresh, BiLinkExternal } from 'react-icons/bi'
 import PolicyCard from '../../policy/PolicyCard'
 import {
   getIcon,
@@ -94,20 +94,21 @@ const ClientDrawer = () => {
       'GET',
       `/api/clients/${clientId}/policies${queryUrl}`
     )
-    if (clientDrawer.companyId){
-      if (clientDrawer.parent){
-        let formatted = res?.filter(x => x.carrier_id === clientDrawer.companyId)
+    if (clientDrawer.companyId) {
+      if (clientDrawer.parent) {
+        let formatted = res?.filter(
+          (x) => x.carrier_id === clientDrawer.companyId
+        )
+        setPolicies(formatted)
+      } else {
+        let formatted = res?.filter(
+          (x) => x.writing_id === clientDrawer.companyId
+        )
         setPolicies(formatted)
       }
-      else {
-        let formatted = res?.filter(x => x.writing_id === clientDrawer.companyId)
-        setPolicies(formatted)
-      }
-    }
-    else {
+    } else {
       setPolicies(res)
     }
-    
   }
 
   const premSum = () => {
@@ -147,6 +148,10 @@ const ClientDrawer = () => {
     await timeout(10000)
     handleChange(false)
   }
+  const openAMS360Page = () => {
+    const URL = `https://www.ams360.com/v2212631/nextgen/Customer/Detail/${client.ams360_customer_id}`
+    window.open(URL, '_blank')
+  }
 
   return (
     <motion.div
@@ -160,7 +165,7 @@ const ClientDrawer = () => {
         hidden: { opacity: 0, x: 200 },
       }}
       transition={{ ease: 'easeInOut', duration: 0.25 }}
-      className={`fixed top-0 left-0 z-[999999] flex h-full w-full`}
+      className={`fixed top-0 left-0 z-[999998] flex h-full w-full`}
     >
       <div
         className={`fixed ${
@@ -170,12 +175,12 @@ const ClientDrawer = () => {
         {!client ? (
           <DrawerLoader />
         ) : (
-          <div className="flex flex-auto overflow-hidden py-4">
+          <div className="flex flex-auto py-4 overflow-hidden">
             <div className={`flex w-full shrink-0 flex-col`}>
               <div className={`w-fullshrink-0 relative mb-2 flex px-2`}>
-                <div className="relative flex flex-auto shrink-0 flex-col md:flex-row md:pt-2">
+                <div className="relative flex flex-col flex-auto shrink-0 md:flex-row md:pt-2">
                   <ClientHeader client={client} />
-                  <div className="flex flex-auto shrink-0 items-center justify-center pl-4 pr-8 md:justify-end">
+                  <div className="flex items-center justify-center flex-auto pl-4 pr-8 shrink-0 md:justify-end">
                     <SummaryCard
                       isIcon={false}
                       autoWidth
@@ -195,10 +200,22 @@ const ClientDrawer = () => {
                       title="Policies"
                       icon={<BsBox />}
                     />
-                    <div className="ml-4 flex">
-                      <Button flat auto size="sm" onClick={() => syncAms()}>
-                        <BiRefresh />
-                      </Button>
+                    <div className="z-10 flex ml-4 space-x-1">
+                      <Tooltip content="Open in AMS360">
+                        <Button
+                          size="xs"
+                          flat
+                          auto
+                          onClick={() => openAMS360Page()}
+                        >
+                          <BiLinkExternal />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip content="Re-Synce with AMS360">
+                        <Button size="xs" flat auto onClick={() => syncAms()}>
+                          <BiRefresh />
+                        </Button>
+                      </Tooltip>
                     </div>
                   </div>
                   <div
@@ -274,7 +291,7 @@ const ClientDrawer = () => {
                   ) : null}
                 </div>
                 {client ? (
-                  <div className="mt-4 flex flex-auto shrink-0">
+                  <div className="flex flex-auto mt-4 shrink-0">
                     <ClientActivity clientId={clientDrawer.clientId} />
                   </div>
                 ) : null}
@@ -283,7 +300,7 @@ const ClientDrawer = () => {
           </div>
         )}
         {!client ? null : (
-          <div className="flex shrink-0 justify-end px-2 pt-1 pb-4">
+          <div className="flex justify-end px-2 pt-1 pb-4 shrink-0">
             <Link href={`/clients/${clientDrawer.clientId}`}>
               <a className="w-full">
                 <Button color="gradient" className="w-full">
