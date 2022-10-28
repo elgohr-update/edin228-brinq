@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BsCheckCircleFill, BsFillXCircleFill } from 'react-icons/bs'
 import { BiCircle } from 'react-icons/bi'
 import { Popover } from '@nextui-org/react'
@@ -7,6 +7,7 @@ import { useReloadContext } from '../../context/state'
 
 export default function TaskCompletion({ task }) {
   const { reload, setReload } = useReloadContext()
+  const [isOpen, setIsOpen] = useState(false);
 
   const setCompleted = async () => {
     const res = await useNextApi(
@@ -18,6 +19,7 @@ export default function TaskCompletion({ task }) {
       policies: true,
       activities: true,
     })
+    setIsOpen(false)
   }
   const setNa = async () => {
     const res = await useNextApi(
@@ -29,6 +31,7 @@ export default function TaskCompletion({ task }) {
       policies: true,
       activities: true,
     })
+    setIsOpen(false)
   }
   const setNone = async () => {
     const res = await useNextApi(
@@ -40,11 +43,12 @@ export default function TaskCompletion({ task }) {
       policies: true,
       activities: true,
     })
+    setIsOpen(false)
   }
 
   return (
     <div className="flex w-[40px] items-center justify-center">
-      <Popover placement="top">
+      <Popover placement="top" isOpen={isOpen} onOpenChange={setIsOpen}>
         <Popover.Trigger>
           {task?.done ? (
             task?.completed ? (

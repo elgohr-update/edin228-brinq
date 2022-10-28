@@ -1,6 +1,6 @@
 import { useTheme } from '@nextui-org/react'
 import React, { useState } from 'react'
-import { getConstantIcons } from '../../../utils/utils'
+import { getIcon } from '../../../utils/utils'
 import TaskCard from '../TaskCard'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -27,7 +27,7 @@ export default function TaskClientGroup({ group }) {
             <h6 className="flex w-full space-x-1">
               <Link href={`/clients/${group.client_id}`}>
                 <a className="flex text-xs transition duration-200 ease-out hover:text-sky-500">
-                  {getConstantIcons('link')}
+                  {getIcon('link')}
                 </a>
               </Link>
               <span>{group.client_name}</span>
@@ -39,10 +39,10 @@ export default function TaskClientGroup({ group }) {
                 {group.tasks.length}
               </div>
               <div className="flex items-center justify-center">
-                {getConstantIcons('task')}
+                {getIcon('task')}
               </div>
             </h4>
-            <div>{getConstantIcons(open ? 'down' : 'left')}</div>
+            <div>{getIcon(open ? 'down' : 'left')}</div>
           </div>
         </div>
       </div>

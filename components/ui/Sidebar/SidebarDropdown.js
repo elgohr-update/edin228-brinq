@@ -1,7 +1,7 @@
 import { useTheme } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import { getConstantIcons } from '../../../utils/utils'
+import { getIcon } from '../../../utils/utils'
 import { motion } from 'framer-motion'
 
 export default function SidebarDropdown({
@@ -54,7 +54,7 @@ export default function SidebarDropdown({
         >
           {label}
           <div className="pl-2">
-            {show ? getConstantIcons('down') : getConstantIcons('left')}
+            {show ? getIcon('down') : getIcon('left')}
           </div>
         </div>
       </div>

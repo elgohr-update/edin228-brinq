@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { abbreviateMoney, getConstantIcons, sumFromArray, timeout, useNextApi } from '../../../utils/utils'
+import { abbreviateMoney, getIcon, sumFromArray, timeout, useNextApi } from '../../../utils/utils'
 import { AiOutlineDollarCircle } from 'react-icons/ai'
 import DashboardSummaryCard from '../../ui/card/DashboardSummaryCard'
 
@@ -28,7 +28,7 @@ export default function DashboardCards({
         shadow
         shadowColor={'orange'}
         label={'Clients'}
-        icon={getConstantIcons('client')}
+        icon={getIcon('client')}
         chartData={charts?.clients_chart}
         content={clients}
         slice={false}
@@ -49,7 +49,7 @@ export default function DashboardCards({
         label={'New Business'}
         slice={false}
         toCurrentMonth
-        icon={getConstantIcons('deal')}
+        icon={getIcon('deal')}
         chartData={charts?.nb_premium_chart}
         content={`$${abbreviateMoney(sumFromArray(charts?.nb_premium_chart))}`}
         animationDelay={2}

@@ -2,7 +2,7 @@ import React from 'react'
 import { Avatar, Link, useTheme } from '@nextui-org/react'
 import {
   abbreviateMoney,
-  getConstantIcons,
+  getIcon,
   getFormattedDate,
   truncateString,
 } from '../../../utils/utils'
@@ -49,7 +49,7 @@ export default function DashboardExpiringCard({ policy }) {
           <div className="flex w-full items-center justify-end space-x-2">
             <div className="flex flex-auto items-center space-x-1 text-teal-500 ">
               <h6 className="flex items-center">
-                {getConstantIcons('dollarSign')}
+                {getIcon('dollarSign')}
               </h6>
               <h6 className="flex flex-auto lg:justify-end">
                 ${abbreviateMoney(policy.premium)}

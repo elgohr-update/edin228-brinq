@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NavAction from '../ui/navbar/NavAction'
-import { getConstantIcons } from '../../utils/utils'
+import { getIcon } from '../../utils/utils'
 import { useClientDrawerContext } from '../../context/state'
 
 const ClientDrawerNavbar = () => {
@@ -16,28 +16,28 @@ const ClientDrawerNavbar = () => {
     <div className="flex items-center space-x-2 px-4 mb-1">
       <NavAction
         onClick={() => setActive(1)}
-        icon={getConstantIcons('policy')}
+        icon={getIcon('policy')}
         title={'Policies'}
         activeItem={activeItem}
         itemId={1}
       />
       {/* <NavAction
         onClick={() => setActive(2)}
-        icon={getConstantIcons('deal')}
+        icon={getIcon('deal')}
         title={'Deals'}
         activeItem={activeItem}
         itemId={2}
       /> */}
       {/* <NavAction
         onClick={() => setActive(3)}
-        icon={getConstantIcons('email')}
+        icon={getIcon('email')}
         title={'Emails'}
         activeItem={activeItem}
         itemId={3}
       />
       <NavAction
         onClick={() => setActive(4)}
-        icon={getConstantIcons('activity')}
+        icon={getIcon('activity')}
         title={'Suspenses'}
         activeItem={activeItem}
         itemId={4}

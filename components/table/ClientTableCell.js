@@ -19,32 +19,52 @@ export default function ClientTableCell({
 }) {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
 
-  const openSidebar = () => {
-    if (isRnwl) {
-      setClientDrawer({
-        ...clientDrawer,
-        nav: 1,
-        isOpen: true,
-        clientId: clientId,
-        isRenewal: isRnwl,
-        renewalMonth: month,
-        renewalYear: year,
-        style: style,
-        companyId:companyId,
-        parent:parent,
-        writing:writing,
-      })
-    } else {
-      setClientDrawer({
-        ...clientDrawer,
-        nav: 1,
-        isOpen: true,
-        clientId: clientId,
-        style: style,
-        companyId:companyId,
-        parent:parent,
-        writing:writing,
-      })
+  const closeDrawer = () => {
+    const setDefault = {
+      isOpen: false,
+      clientId: null,
+      isRenewal: false,
+      renewalMonth: null,
+      renewalYear: null,
+      nav: 1,
+      style: 1,
+      company_id: null,
+      parent: false,
+      writing: false,
+    }
+    setClientDrawer(setDefault)
+    return true
+  }
+
+  const openSidebar = async () => {
+    const cd = await closeDrawer()
+    if (cd) {
+      if (isRnwl) {
+        setClientDrawer({
+          ...clientDrawer,
+          nav: 1,
+          isOpen: true,
+          clientId: clientId,
+          isRenewal: isRnwl,
+          renewalMonth: month,
+          renewalYear: year,
+          style: style,
+          companyId: companyId,
+          parent: parent,
+          writing: writing,
+        })
+      } else {
+        setClientDrawer({
+          ...clientDrawer,
+          nav: 1,
+          isOpen: true,
+          clientId: clientId,
+          style: style,
+          companyId: companyId,
+          parent: parent,
+          writing: writing,
+        })
+      }
     }
   }
 

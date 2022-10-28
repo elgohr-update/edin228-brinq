@@ -6,7 +6,7 @@ import { RiFileUserFill } from 'react-icons/ri'
 import UserAvatar from '../../user/Avatar'
 import LinkedMenuItem from './item/LinkedMenuItem'
 import { signOut } from 'next-auth/react'
-import { getConstantIcons } from '../../../utils/utils'
+import { getIcon } from '../../../utils/utils'
 
 const UserMenu = () => {
   const { type } = useTheme()
@@ -27,7 +27,7 @@ const UserMenu = () => {
                 isLink={false}
               />
             </div>
-            <div className="hidden lg:flex">{getConstantIcons('down')}</div>
+            <div className="hidden lg:flex">{getIcon('down')}</div>
           </div>
         </Dropdown.Trigger>
         <Dropdown.Menu aria-label="Static Actions">

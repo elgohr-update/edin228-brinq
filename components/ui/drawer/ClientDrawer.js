@@ -10,7 +10,7 @@ import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import { BiRefresh } from 'react-icons/bi'
 import PolicyCard from '../../policy/PolicyCard'
 import {
-  getConstantIcons,
+  getIcon,
   sumFromArrayOfObjects,
   timeout,
   useNextApi,
@@ -205,7 +205,7 @@ const ClientDrawer = () => {
                     className="absolute top-0 right-0 flex text-3xl font-bold md:hidden"
                     onClick={() => closeDrawer()}
                   >
-                    {getConstantIcons('circleX')}
+                    {getIcon('circleX')}
                   </div>
                 </div>
                 <div

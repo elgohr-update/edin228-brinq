@@ -33,31 +33,22 @@ export default function AppLayout({ children }) {
     const { parentCompanyDrawer } = useParentCompanyDrawerContext()
     const { writingCompanyDrawer } = useWritingCompanyDrawerContext()
     const [isAuth, setIsAuth] = useState(true)
-
-    // useEffect(() => {      
-    //   if (status === "authenticated") {
-    //     setIsAuth(true)
-    //   }
-    //   else if (status === 'loading') {
-    //     setIsAuth(false)
-    //   }else{
-    //     setIsAuth(false)
-    //     router.push("/login")
-    //   }
-    // }, [session,status,router]);
     
+    // useEffect(() => {
+    //   let isCancelled = false
+    //   const handleChange = async () => {
+    //     await timeout(1000)
+    //     if (!isCancelled && !agency.id) {
+    //       fetchData()
+    //     }
+    //   }
+    //   handleChange()
+    //   return () => {
+    //     isCancelled = true
+    //   }
+    // }, [])
     useEffect(() => {
-      let isCancelled = false
-      const handleChange = async () => {
-        await timeout(1000)
-        if (!isCancelled && !agency.id) {
-          fetchData()
-        }
-      }
-      handleChange()
-      return () => {
-        isCancelled = true
-      }
+      fetchData()
     }, [])
   
     useEffect(() => {

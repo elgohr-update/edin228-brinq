@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NavAction from '../ui/navbar/NavAction'
-import { getConstantIcons } from '../../utils/utils'
+import { getIcon } from '../../utils/utils'
 import { useAppContext } from '../../context/state'
 
 const ClientActionNavbar = () => {
@@ -16,28 +16,28 @@ const ClientActionNavbar = () => {
     <div className="flex items-center space-x-2 px-4 mb-1">
       <NavAction
         onClick={() => setActive(1)}
-        icon={getConstantIcons('activity')}
+        icon={getIcon('activity')}
         title={'Recent Activity'}
         activeItem={activeItem}
         itemId={1}
       />
       <NavAction
         onClick={() => setActive(2)}
-        icon={getConstantIcons('note')}
+        icon={getIcon('note')}
         title={'Notes'}
         activeItem={activeItem}
         itemId={2}
       />
       <NavAction
         onClick={() => setActive(3)}
-        icon={getConstantIcons('file')}
+        icon={getIcon('file')}
         title={'Files'}
         activeItem={activeItem}
         itemId={3}
       />
       <NavAction
         onClick={() => setActive(4)}
-        icon={getConstantIcons('calendar')}
+        icon={getIcon('calendar')}
         title={'Events'}
         activeItem={activeItem}
         itemId={4}

@@ -10,12 +10,13 @@ import {
   Loading,
 } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { FaFilter, FaSearch } from 'react-icons/fa'
+import { AiOutlineFilter} from 'react-icons/ai'
 import {
   truncateString,
   formatMoney,
   getSearch,
   getFormattedDate,
+  sortByProperty,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import { useAppContext } from '../../context/state'
@@ -216,12 +217,13 @@ const PoliciesTable = () => {
           </div>
         )
       case 'reps':
+        const ordered = sortByProperty(policy.users, 'producer')
         return (
           <div className="w-[85px] pl-10">
             <Avatar.Group
               count={policy.users.length > 3 ? policy.users.length : null}
             >
-              {policy.users.map((u) => (
+              {ordered.map((u) => (
                 <UserAvatar
                   tooltip={true}
                   tooltipPlacement="topEnd"
@@ -276,7 +278,7 @@ const PoliciesTable = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col md:flex-row">
+    <div className="flex flex-col w-full h-full md:flex-row">
       {showFilter ? (
         <div
           className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 md:w-[400px] panel-flat-${type} ${type}-shadow`}
@@ -306,7 +308,7 @@ const PoliciesTable = () => {
               onChange={(e) => setMaxPrem(e.target.value)}
             />
           </div>
-          <div className="spacy-y-4 flex flex-col">
+          <div className="flex flex-col spacy-y-4">
             <h4>Filter Lines</h4>
             <Checkbox
               color="primary"
@@ -341,9 +343,9 @@ const PoliciesTable = () => {
           </div>
         </div>
       ) : null}
-      <div className="flex h-full w-full flex-col px-2 pb-2">
-        <div className="flex h-16 w-full items-center justify-between py-4">
-          <div className="flex w-full items-center px-2">
+      <div className="flex flex-col w-full h-full px-2 pb-2">
+        <div className="flex items-center justify-between w-full h-16 py-4">
+          <div className="flex items-center w-full px-2">
             <Input
               className={`z-10`}
               type="search"
@@ -362,7 +364,7 @@ const PoliciesTable = () => {
               auto
               flat
               size="xs"
-              icon={<FaFilter fill="currentColor" />}
+              icon={<AiOutlineFilter fill="currentColor" />}
               onClick={() => setShowFilter(!showFilter)}
             >
               Filter
@@ -391,13 +393,13 @@ const PoliciesTable = () => {
               {(column) =>
                 column.key !== 'reps' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="table-column-header pl-2">
+                    <div className="pl-2 table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : (
                   <Table.Column key={column.key}>
-                    <div className="table-column-header pl-4">
+                    <div className="pl-4 table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>
@@ -429,7 +431,7 @@ const PoliciesTable = () => {
             ) : null}
           </Table>
         ) : (
-          <div className="flex h-full w-full items-center justify-center py-48">
+          <div className="flex items-center justify-center w-full h-full py-48">
             <Loading
               type="points"
               size="lg"

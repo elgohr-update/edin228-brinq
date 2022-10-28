@@ -40,9 +40,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
     <>
       <div className="flex h-full w-full flex-col overflow-hidden">
         <div
-          className={`flex h-10 items-center justify-center py-8 ${
-            expand ? `panel-theme-sidebar-${type}` : ``
-          }`}
+          className={`flex sidebar-logo-height panel-flat-noblur-dark items-center justify-center py-8`}
         >
           <div className="relative flex w-full items-center justify-center transition duration-100 ease-out">
             <div

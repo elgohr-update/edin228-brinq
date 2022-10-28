@@ -17,7 +17,7 @@ import {
   formatMoney,
   getSearch,
   getFormattedDate,
-  getConstantIcons,
+  getIcon,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import {
@@ -197,11 +197,11 @@ const WritingCompaniesTable = () => {
         }
         return isWithBrokerage() ? (
           <div className="flex justify-center text-xs text-sky-500">
-            {getConstantIcons('circleCheck')}
+            {getIcon('circleCheck')}
           </div>
         ) : (
           <div className="flex justify-center text-xs text-red-500">
-            {getConstantIcons('circleX')}
+            {getIcon('circleX')}
           </div>
         )
       case 'parent_id':

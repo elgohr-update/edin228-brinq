@@ -68,6 +68,7 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>, noPadding=false, autoWidth=false,
         }
     }
     const baseClass = `relative flex ${noPadding?`p-0`:`px-4 py-2`} ${autoWidth? `w-auto` : `flex-auto  min-w-[240px]`} rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+    const barClass = `${val}%`
     return (
         <div className={baseClass}>
             <div className={`relative flex z-20 w-full ${vertical ? 'flex-col': `flex-col`}`}>
@@ -75,6 +76,11 @@ const SummaryCard = ({icon=<AiFillCaretLeft/>, noPadding=false, autoWidth=false,
                 <h5 className={`${vertical ? 'flex': `flex `} font-semibold`}>{title}</h5>
                 <div className={`top-border-flair ${returnGradient()}`} />
             </div>
+            {
+                percent ? <div className="absolute bottom-0 left-0 w-full h-[3px]">
+                    <div className={`h-full ${returnGradient()}`} style={{width:barClass}}></div>
+                </div> : null
+            }
             { 
                 isIcon ? 
                 <div className={`${vertical ? 'flex justify-end': `flex justify-end`} relative z-20`}>

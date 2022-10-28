@@ -4,7 +4,7 @@ import HiddenBackdrop from '../../util/HiddenBackdrop'
 import { useActivityDrawerContext } from '../../../context/state'
 import { BsBox, BsChevronDown, BsChevronUp } from 'react-icons/bs'
 import {
-  getConstantIcons,
+  getIcon,
   sortByProperty,
   timeout,
   useNextApi,
@@ -465,7 +465,7 @@ const ActivityDrawer = () => {
                 auto
               >
                 Suspense
-                {getConstantIcons('right')}
+                {getIcon('right')}
               </Button>
             ) : (
               <div className="flex w-full items-center justify-between">
@@ -475,7 +475,7 @@ const ActivityDrawer = () => {
                   onClick={() => setDrawerTab(1)}
                   auto
                 >
-                  {getConstantIcons('left')}
+                  {getIcon('left')}
                   Activity
                 </Button>
                 <Button

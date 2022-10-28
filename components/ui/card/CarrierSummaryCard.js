@@ -2,7 +2,7 @@ import { useTheme } from '@nextui-org/react'
 import React from 'react'
 import {
   abbreviateMoney,
-  getConstantIcons,
+  getIcon,
   sumFromArrayOfObjects,
 } from '../../../utils/utils'
 
@@ -22,13 +22,13 @@ function CarrierSummaryCard(data) {
       <div className="mt-2 flex items-center justify-end space-x-2 text-xs">
         <div className="flex items-center text-orange-500">
           <span className="mr-1 flex items-center">
-            {getConstantIcons('policy')}
+            {getIcon('policy')}
           </span>
           <span className="flex justify-end text-right min-w-[20px]">{data?.data.policies.length}</span>
         </div>
         <div className="flex items-center text-teal-500">
           <span className="mr-1 flex items-center">
-            {getConstantIcons('dollarSign')}
+            {getIcon('dollarSign')}
           </span>
           <span className="flex justify-end text-right min-w-[40px]">${abbreviateMoney(premSum())}</span>
         </div>

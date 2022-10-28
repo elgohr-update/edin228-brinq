@@ -11,7 +11,7 @@ import {
 } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import { FaFilter, FaSearch } from 'react-icons/fa'
-import { formatMoney, getSearch } from '../../utils/utils'
+import { formatMoney, getSearch, sortByProperty } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import { useAppContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
@@ -121,12 +121,13 @@ const CompanyClientsTable = ({data=null, companyId=null, parent=false, writing=f
           </div>
         )
       case 'reps':
+        const ordered = sortByProperty(client.users, 'producer')
         return (
           <div className="w-[85px] pl-10">
             <Avatar.Group
               count={client.users.length > 3 ? client.users.length : null}
             >
-              {client.users.map((u) => (
+              {ordered.map((u) => (
                 <UserAvatar
                   tooltip={true}
                   tooltipPlacement="topEnd"
@@ -165,10 +166,10 @@ const CompanyClientsTable = ({data=null, companyId=null, parent=false, writing=f
   }
 
   return (
-    <div className="flex h-full w-full flex-col md:flex-row">
-      <div className="flex h-full w-full flex-col px-2 pb-2">
-        <div className="flex h-16 flex-auto items-center py-4">
-          <div className="flex w-full flex-auto items-center px-2">
+    <div className="flex flex-col w-full h-full md:flex-row">
+      <div className="flex flex-col w-full h-full px-2 pb-2">
+        <div className="flex items-center flex-auto h-16 py-4">
+          <div className="flex items-center flex-auto w-full px-2">
             <Input
               className={`z-10`}
               type="search"
@@ -204,19 +205,19 @@ const CompanyClientsTable = ({data=null, companyId=null, parent=false, writing=f
               {(column) =>
                 column.key === 'client_name' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="table-column-header pl-5 text-xs">
+                    <div className="pl-5 text-xs table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : column.key === 'line' || column.key === 'reps' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="table-column-header flex items-center justify-center px-1 text-xs">
+                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="table-column-header flex items-center justify-center px-1 text-xs">
+                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>
@@ -248,7 +249,7 @@ const CompanyClientsTable = ({data=null, companyId=null, parent=false, writing=f
             ) : null}
           </Table>
         ) : (
-          <div className="flex h-full w-full items-center justify-center py-48">
+          <div className="flex items-center justify-center w-full h-full py-48">
             <Loading
               type="points"
               size="lg"

@@ -1,6 +1,6 @@
 import uuid from 'react-uuid'
 import { BsBox, BsPlusLg, BsClipboard, BsCheckCircleFill } from 'react-icons/bs'
-import { FaRegPaperPlane } from 'react-icons/fa'
+import { FaRegPaperPlane,FaSearch } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 import { RiLinksLine } from 'react-icons/ri'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
@@ -17,7 +17,11 @@ import {
   AiOutlineDelete,
   AiOutlineClockCircle, AiOutlineCloudDownload ,
   AiOutlineCloseCircle,
-  AiOutlineDollarCircle
+  AiOutlineDollarCircle,
+  AiFillFilter,
+  AiOutlineFilter,
+  AiFillCaretLeft,
+  AiFillCaretRight
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -25,10 +29,11 @@ import {
   BiCommentAdd,
   BiCircle,
   BiTask,
+  BiRefresh
 } from 'react-icons/bi'
 import { DateTime } from 'luxon'
 
-export const getConstantIcons = (item) => {
+export const getIcon = (item) => {
   return item == 'policy' ? (
     <BsBox />
   ) : item == 'activity' ? (
@@ -53,6 +58,10 @@ export const getConstantIcons = (item) => {
     <AiOutlineLeft />
   ) : item == 'right' ? (
     <AiOutlineRight />
+  ) : item == 'caretLeft' ? (
+    <AiFillCaretLeft />
+  ) : item == 'caretRight' ? (
+    <AiFillCaretRight />
   ) : item == 'up' ? (
     <AiOutlineUp />
   ) : item == 'comment' ? (
@@ -85,6 +94,12 @@ export const getConstantIcons = (item) => {
     <AiOutlineCloudDownload />
   ) : item == 'dollarSign' ? (
     <AiOutlineDollarCircle />
+  ) : item == 'filter' ? (
+    <AiOutlineFilter />
+  ) : item == 'search' ? (
+    <FaSearch />
+  ) : item == 'refresh' ? (
+    <BiRefresh />
   ) : null
 }
 

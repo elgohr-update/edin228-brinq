@@ -13,7 +13,7 @@ import {
   Filler,
 } from 'chart.js'
 import { Chart, Bar, Line, Scatter, Bubble } from 'react-chartjs-2'
-import { getConstantIcons, getCurrentMonth } from '../../utils/utils'
+import { getIcon, getCurrentMonth } from '../../utils/utils'
 import PanelTitle from '../ui/title/PanelTitle'
 
 ChartJS.register(
@@ -286,7 +286,7 @@ export default function CompanyAnnualChart({
         <div className="flex">
           <PanelTitle title={`Annual Performance`} color="orange" />
           <div className="cursor-pointer text-xs flex items-center px-2" onClick={() => setShow(!show)}>
-            {show ? getConstantIcons('up') : getConstantIcons('down')}
+            {show ? getIcon('up') : getIcon('down')}
           </div>
         </div>
         {show ? (

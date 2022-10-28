@@ -2,10 +2,13 @@ import React from 'react'
 import { Tooltip, useTheme } from '@nextui-org/react';
 import { textAbbrev } from '../../../utils/utils';
 
-const TagBasic = ({text='',color='sky',autoWidth=false, shadow=true,tooltip=false,tooltipContent=null}) => {
+const TagBasic = ({text='',color='sky',autoWidth=false, opacity=false, shadow=false,tooltip=false,tooltipContent=null}) => {
     const { isDark, type } = useTheme();
     const isShadow = () =>{
         return shadow ? `${type}-shadow` : ``
+    }
+    const isOpacity = () =>{
+        return opacity ? `opacity-50` : ``
     }
     const getColor = () => {
         const def = 'tag-gray-bg'
@@ -35,12 +38,12 @@ const TagBasic = ({text='',color='sky',autoWidth=false, shadow=true,tooltip=fals
         
             tooltip ? 
             <Tooltip content={tooltipContent}>
-                <div className={`${autoWidth ? `w-auto` : `min-w-[45px]` } tag-basic tag-text-shadow ${getColor()} ${isShadow()}`}>
+                <div className={`${autoWidth ? `w-auto` : `min-w-[45px]` } tag-basic tag-text-shadow ${getColor()} ${isShadow()} ${isOpacity()}`}>
                     { textAbbrev(text) }
                 </div> 
             </Tooltip>
             :
-            <div className={`${autoWidth ? `w-auto` : `min-w-[45px]` } tag-basic tag-text-shadow ${getColor()} ${isShadow()}`}>
+            <div className={`${autoWidth ? `w-auto` : `min-w-[45px]` } tag-basic tag-text-shadow ${getColor()} ${isShadow()} ${isOpacity()}`}>
                 { textAbbrev(text) }
             </div>
         

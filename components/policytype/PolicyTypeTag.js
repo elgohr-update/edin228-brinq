@@ -1,6 +1,6 @@
 import { Button, Input, Popover, Radio } from '@nextui-org/react'
 import React, { useState } from 'react'
-import { getConstantIcons } from '../../utils/utils'
+import { getIcon } from '../../utils/utils'
 import TagBasic from '../ui/tag/TagBasic'
 
 export default function PolicyTypeTag({ pt, isStarred, onClick }) {
@@ -22,21 +22,22 @@ export default function PolicyTypeTag({ pt, isStarred, onClick }) {
   }
 
   return (
-    <div key={pt.id} className="m-1 flex items-center">
+    <div key={pt.id} className="flex items-center m-1">
       <div onClick={() => onClick(pt.id)}>
         <TagBasic
           text={pt.tag}
           tooltip
           tooltipContent={pt.name}
           color={isStarred ? getTagColor() : `def`}
+          opacity={!isStarred}
         />
       </div>
       <Popover placement={'top'}>
         <Popover.Trigger>
-          <div className="cursor-pointer">{getConstantIcons('edit')}</div>
+          <div className="cursor-pointer">{getIcon('edit')}</div>
         </Popover.Trigger>
         <Popover.Content>
-          <div className="flex flex-col space-y-2 p-2">
+          <div className="flex flex-col p-2 space-y-2">
             <Input
               clearable
               underlined

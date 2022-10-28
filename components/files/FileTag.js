@@ -1,5 +1,5 @@
 import React from 'react'
-import { getConstantIcons, useNextApi } from '../../utils/utils'
+import { getIcon, useNextApi } from '../../utils/utils'
 
 export default function FileTag({ file }) {
   const getDownload = async () => {
@@ -14,7 +14,7 @@ export default function FileTag({ file }) {
         className="flex items-center space-x-1 text-xs"
         onClick={() => getDownload()}
       >
-        <div>{getConstantIcons('file')}</div>
+        <div>{getIcon('file')}</div>
         <div>{file.file_name}</div>
       </div>
     </div>

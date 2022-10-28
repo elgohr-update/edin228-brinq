@@ -8,7 +8,7 @@ import {
   useWritingCompanyDrawerContext,
 } from '../../../context/state'
 import {
-  getConstantIcons,
+  getIcon,
   sumFromArrayOfObjects,
   timeout,
   useNextApi,
@@ -176,7 +176,7 @@ const WritingCompanyDrawer = () => {
                   className="absolute top-0 right-[10px] flex text-3xl font-bold md:hidden"
                   onClick={() => closeDrawer()}
                 >
-                  {getConstantIcons('circleX')}
+                  {getIcon('circleX')}
                 </div>
               </div>
               <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
@@ -191,7 +191,7 @@ const WritingCompanyDrawer = () => {
                   shadow
                   color="teal"
                   gradientColor="green-to-blue-2"
-                  icon={getConstantIcons('dollarSign')}
+                  icon={getIcon('dollarSign')}
                   title="Premium"
                   money
                 />
@@ -203,7 +203,7 @@ const WritingCompanyDrawer = () => {
                   panel
                   shadow
                   title="Clients"
-                  icon={getConstantIcons('client')}
+                  icon={getIcon('client')}
                 />
                 <SummaryCard
                   vertical={false}
@@ -213,7 +213,7 @@ const WritingCompanyDrawer = () => {
                   panel
                   shadow
                   title="Policies"
-                  icon={getConstantIcons('policy')}
+                  icon={getIcon('policy')}
                 />
               </div>
               <div className="mt-2 flex w-full flex-col px-4">
@@ -224,8 +224,8 @@ const WritingCompanyDrawer = () => {
                     onClick={() => setShowPerformance(!showPerformance)}
                   >
                     {showPerformance
-                      ? getConstantIcons('up')
-                      : getConstantIcons('down')}
+                      ? getIcon('up')
+                      : getIcon('down')}
                   </div>
                 </div>
                 {showPerformance ? (
@@ -246,8 +246,8 @@ const WritingCompanyDrawer = () => {
                         onClick={() => setShowParentData(!showParentData)}
                       >
                         {showParentData
-                          ? getConstantIcons('up')
-                          : getConstantIcons('down')}
+                          ? getIcon('up')
+                          : getIcon('down')}
                       </div>
                     </div>
                     {showParentData ? (

@@ -79,12 +79,12 @@ export default function NewComment({ source, commentType = 'task' }) {
 
   return (
     <div className="flex w-full py-2">
-      <div className="px-2">
+      {/* <div className="px-2">
         <UserAvatar squared={false} tooltip={false} size="sm" />
-      </div>
-      <div className="relative flex w-full flex-col space-y-2">
+      </div> */}
+      <div className="relative flex flex-col w-full space-y-2">
         {loading ?
-          <div className="absolute z-50 flex h-full w-full items-center justify-center rounded-lg">
+          <div className="absolute z-50 flex items-center justify-center w-full h-full rounded-lg">
             <Loading
               type="points"
               size="md"
@@ -95,7 +95,7 @@ export default function NewComment({ source, commentType = 'task' }) {
           :null
         }
         <TextEditor getValue={(e) => setComment(e)} />
-        <div className="absolute bottom-2 right-2 z-40 flex items-center justify-end space-x-2">
+        <div className="absolute z-40 flex items-center justify-end space-x-2 bottom-2 right-2">
           <FileUploaderContainer onSave={(e) => onSave(e)} />
           <Button
             color="success"

@@ -5,7 +5,7 @@ import { BsClipboardPlus } from 'react-icons/bs'
 import ActionMenuItem from './item/ActionMenuItem'
 import { BiFolderPlus, BiCalendarPlus } from 'react-icons/bi'
 import { FaRegPaperPlane } from 'react-icons/fa'
-import { getConstantIcons } from '../../../utils/utils'
+import { getIcon } from '../../../utils/utils'
 import { useActivityDrawerContext } from '../../../context/state'
 
 const NewActionMenu = () => {
@@ -26,7 +26,7 @@ const NewActionMenu = () => {
         <Dropdown.Trigger>
           <Button size="xs" className={`${type}-shadow`} color="gradient" auto>
             <div className="flex items-center space-x-2 text-xs">
-              <div>{getConstantIcons('plus')}</div>
+              <div>{getIcon('plus')}</div>
             </div>
             <div className="pl-2">
               <AiOutlineDown />
@@ -36,7 +36,7 @@ const NewActionMenu = () => {
         <Dropdown.Menu aria-label="Static Actions">
           <Dropdown.Item key="activity">
             <ActionMenuItem
-              icon={getConstantIcons('activity')}
+              icon={getIcon('activity')}
               label="New Activity/Suspense"
               onClick={() => openNewActivity()}
             />

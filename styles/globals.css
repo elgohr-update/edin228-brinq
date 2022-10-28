@@ -37,7 +37,7 @@
 .dark-theme {
   --scrollbar-color: #ffffff63;
 
-  --color-select-input: #111111;
+  --color-select-input: #110f14;
   --color-on-select-input: #bdc1c6;
   --color-select-input-placeholder: rgb(145, 145, 145);
   --color-select-input-border: #1d1f20;
@@ -52,7 +52,7 @@
   --color-on-select-chip: #bdc1c6;
 
   --color-select-menu-border: #1d1f20;
-  --color-select-menu: #111111;
+  --color-select-menu: #110f14;
   --color-select-menu-group: grey;
   --color-on-select-menu-item: #bdc1c6;
   --select-border-radius: 4px;
@@ -62,6 +62,8 @@
 
   --color-select-menu-item-selected: #2684ff;
   --color-on-select-menu-item-selected: #0070f3;
+
+  --nextui-colors-gray50: #110f14;
 }
 .light-theme {
   --nextui-colors-accents1: #f0f3f9;
@@ -128,6 +130,16 @@
 }
 .nextui-c-cVVQUL.nextui-popover-content-enter {
   z-index:9999999999999 !important;
+}
+/* input background */
+/* .nextui-c-eXOOPO {
+  background:transparent;
+} */
+
+.reaselct-menu-item:hover{
+  /* border-radius:6px; */
+  background:rgba(187, 183, 244, 0.167) !important;
+  transition: all 250ms ease-out;
 }
 
 html,
@@ -422,6 +434,10 @@ p {
 
 .container-main {
   padding: 0 !important;
+}
+
+.sidebar-logo-height {
+  height:4.28rem;
 }
 
 .content-main {
@@ -1084,25 +1100,27 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
+  border-radius: 3px;
   height: 14px;
   font-size: 0.5rem;
+  font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
   padding: 1px 2px;
 }
 .tag-gray-bg {
-  background: #47566d; /* fallback for old browsers */
+  background: #63608b
+  ; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     310deg,
-    #47566d,
-    #8885af
+    #202732,
+    #63608b
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     310deg,
-    #47566d,
-    #8885af
+    #202732,
+    #63608b
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
 }

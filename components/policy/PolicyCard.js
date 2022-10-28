@@ -110,7 +110,7 @@ const PolicyCard = ({
           </h6>
           <h4 className={``}>{truncateString(policy.writing, truncate)}</h4>
         </div>
-        <div className="flex w-full items-center md:pt-0">
+        <div className="flex items-center w-full md:pt-0">
           <div className={`relative hidden w-full flex-col md:flex`}>
             <h6 className={`font-semibold`}>
               {truncateString(policy.carrier, truncate)}
@@ -130,7 +130,7 @@ const PolicyCard = ({
               $ {formatMoney(policy.premium)}
             </h6>
           </div>
-          <div className="flex w-full items-center">
+          <div className="flex items-center w-full">
             <div className={`relative flex w-full justify-end`}>
               <Avatar.Group
                 count={policy.users.length > 3 ? client.users.length : null}
@@ -162,7 +162,7 @@ const PolicyCard = ({
         </div>
       </div>
       {showMore ? (
-        <div className="flex w-full flex-auto pt-2">
+        <div className="flex flex-auto w-full pt-2">
           <div className={`top2-border-flair pink-to-blue-gradient-1`} />
           <div className={`flex w-full flex-col py-2`}>
             <div className="flex flex-col space-y-1">
@@ -183,8 +183,9 @@ const PolicyCard = ({
                     }}
                     transition={{ ease: 'easeInOut', duration: 2 }}
                     className="flex flex-col space-y-1"
+                    key={t.id}
                   >
-                    <TaskCard key={t.id} task={t} />
+                    <TaskCard task={t} />
                   </motion.div>
                 )
               })}

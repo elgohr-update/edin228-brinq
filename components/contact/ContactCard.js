@@ -2,7 +2,7 @@ import React from 'react'
 import { Popover, Tooltip, useTheme } from '@nextui-org/react'
 import { MdPermContactCalendar } from 'react-icons/md'
 import { AiOutlineMore } from 'react-icons/ai'
-import { getConstantIcons } from '../../utils/utils'
+import { getIcon } from '../../utils/utils'
 
 const ContactCard = ({
   contact,
@@ -62,13 +62,13 @@ const ContactCard = ({
         <Popover.Content>
           <div className="flex w-full h-full px-4 py-2 items-center space-x-2">
             <Tooltip content={'Edit'}>
-                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-sky-500 cursor-pointer">{getConstantIcons('edit')}</div>
+                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-sky-500 cursor-pointer">{getIcon('edit')}</div>
             </Tooltip>
             <Tooltip content={'Primary Contact'}>
-                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-orange-500 cursor-pointer">{getConstantIcons('star')}</div>
+                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-orange-500 cursor-pointer">{getIcon('star')}</div>
             </Tooltip>
             <Tooltip content={'Remove'}>
-                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-red-500 cursor-pointer">{getConstantIcons('trash')}</div>
+                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-red-500 cursor-pointer">{getIcon('trash')}</div>
             </Tooltip>
           </div>
         </Popover.Content>

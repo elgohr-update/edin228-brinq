@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useTheme } from '@nextui-org/react'
-import { getConstantIcons, getFormattedDate } from '../../utils/utils'
+import { getIcon, getFormattedDate } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import NewComment from '../comments/NewComment'
 import CommentContainer from '../comments/CommentContainer'
@@ -44,16 +44,16 @@ const TaskCard = ({
       <div className={`flex flex-auto items-center`}>
         <TaskCompletion task={task} />
         <div className="flex flex-auto" onClick={() => setSelected(!selected)}>
-          <div className="flex flex-auto shrink-0 flex-col">
+          <div className="flex flex-col flex-auto shrink-0">
             <div className="flex flex-col flex-auto space-y-1 md:flex-row md:items-center md:space-y-0">
-              <div className={`relative flex flex-col flex-auto space-y-1`}>
+              <div className={`relative flex flex-auto flex-col space-y-1`}>
                 {showPolicy ? (
                   <div className="flex items-center space-x-1 text-xs">
                     <TagBasic text={task?.policy_type} />
                     <h4>{task?.policy_number}</h4>
                   </div>
                 ) : null}
-                <div className="flex max-w-fit text-xs">{task?.title}</div>
+                <div className="flex text-xs max-w-fit">{task?.title}</div>
               </div>
             </div>
             <div className="flex flex-col justify-center py-2">
@@ -62,7 +62,7 @@ const TaskCard = ({
                   <div
                     className={`text-color-success relative flex w-[90px] flex-row items-center space-x-1`}
                   >
-                    <h6>{getConstantIcons('circleCheck')}</h6>
+                    <h6>{getIcon('circleCheck')}</h6>
                     <h6 className={`letter-spacing-1 flex flex-auto`}>
                       {getFormattedDate(task?.completed_date)}
                     </h6>
@@ -71,7 +71,7 @@ const TaskCard = ({
                 <div
                   className={`relative flex w-[90px] flex-row items-center space-x-1`}
                 >
-                  <h4>{getConstantIcons('clock')}</h4>
+                  <h4>{getIcon('clock')}</h4>
                   <h4
                     className={`letter-spacing-1 flex flex-auto ${
                       task.done
@@ -91,7 +91,7 @@ const TaskCard = ({
                 <div className="flex items-center space-x-1 text-xs">
                   <h4>{task.comments.length}</h4>
                   <h4 className="flex items-center">
-                    {getConstantIcons('comment')}
+                    {getIcon('comment')}
                   </h4>
                 </div>
               </div>
@@ -107,12 +107,10 @@ const TaskCard = ({
           </div>
         </div>
       </div>
-      {selected ? (
-        <div className="flex w-full flex-col py-2">
-          <CommentContainer comments={task.comments} />
-          <NewComment source={task} />
-        </div>
-      ) : null}
+      <div className="flex flex-col w-full pb-2 pl-4">
+        <CommentContainer isSelected={selected} comments={task.comments} />
+        {selected ? <NewComment source={task} /> : null}
+      </div>
     </div>
   )
 }
