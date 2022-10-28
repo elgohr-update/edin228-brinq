@@ -12,7 +12,7 @@ import SidebarItem from './SidebarItem'
 import SidebarDropdown from './SidebarDropdown'
 import SearchBar from '../../search/SearchBar'
 import SidebarSearchbar from '../../search/SidebarSearchbar'
-import { RiBuildingFill } from 'react-icons/ri';
+import { RiBuildingFill } from 'react-icons/ri'
 import { motion } from 'framer-motion'
 
 export default function SidebarItemContainer({ expand, isMobile = false }) {
@@ -38,11 +38,11 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
 
   return (
     <>
-      <div className="flex h-full w-full flex-col overflow-hidden">
+      <div className="flex flex-col w-full h-full overflow-hidden">
         <div
-          className={`flex sidebar-logo-height panel-flat-noblur-dark items-center justify-center py-8`}
+          className={`sidebar-logo-height panel-flat-noblur-dark flex items-center justify-center py-8`}
         >
-          <div className="relative flex w-full items-center justify-center transition duration-100 ease-out">
+          <div className="relative flex items-center justify-center w-full transition duration-100 ease-out">
             <div
               className={`${
                 expand ? 'opacity-1 relative' : 'absolute opacity-0'
@@ -73,12 +73,12 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
             </div>
           </div>
         </div>
-        <div className="flex h-full flex-col overflow-hidden">
+        <div className="flex flex-col h-full overflow-hidden">
           <div
             className={`flex h-full flex-col space-y-2  overflow-x-hidden px-2 py-4`}
           >
             <div
-              className={`border-solid border-b 	 ${
+              className={`border-b border-solid 	 ${
                 isDark ? 'border-white/40' : 'border-black/40'
               } pb-6`}
             >
@@ -118,7 +118,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
               isMobile={isMobile}
             >
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -144,7 +144,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 />
               </motion.div>
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -170,7 +170,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 />
               </motion.div>
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -195,32 +195,34 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                   mainMenuItem={false}
                 />
               </motion.div>
-              <motion.div
-                className="sidebar-item relative"
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      delay: 2 * 0.05,
+              {session?.user?.admin && (
+                <motion.div
+                  className="relative sidebar-item"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        delay: 2 * 0.05,
+                      },
                     },
-                  },
-                  hidden: { opacity: 0, y: -10 },
-                }}
-                transition={{ ease: 'easeInOut', duration: 0.25 }}
-              >
-                <SidebarItem
-                  href={`/reports/newbusiness`}
-                  isOpen={isExpand()}
-                  icon={<BsStars />}
-                  label={'New Business'}
-                  basePath="/newbusiness"
-                  isMobile={isMobile}
-                  mainMenuItem={false}
-                />
-              </motion.div>
+                    hidden: { opacity: 0, y: -10 },
+                  }}
+                  transition={{ ease: 'easeInOut', duration: 0.25 }}
+                >
+                  <SidebarItem
+                    href={`/reports/newbusiness`}
+                    isOpen={isExpand()}
+                    icon={<BsStars />}
+                    label={'New Business'}
+                    basePath="/newbusiness"
+                    isMobile={isMobile}
+                    mainMenuItem={false}
+                  />
+                </motion.div>
+              )}
             </SidebarDropdown>
             <SidebarDropdown
               icon={<CgToolbox />}
@@ -231,7 +233,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
               isMobile={isMobile}
             >
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -256,7 +258,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 />
               </motion.div>
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -305,7 +307,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
           expand ? 'opacity-1' : 'opacity-0'
         }`}
       >
-        <div className="flex w-full flex-col py-1">
+        <div className="flex flex-col w-full py-1">
           <div
             className={`flex w-full items-center rounded-lg py-1 px-1 text-xs panel-theme-${type}`}
           >

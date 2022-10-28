@@ -12,7 +12,7 @@ import {
   useAppHeaderContext,
   useReloadContext,
 } from '../../context/state'
-import AppLayout from '../../layouts/AppLayout'
+import AdminLayout from '../../layouts/AdminLayout'
 import {
   sumFromArray,
   sumFromArrayOfObjects,
@@ -213,7 +213,7 @@ export default function ReportsNewBusiness() {
         const subContent = () => {
           return (
             <div className="flex items-center space-x-1">
-              <div className="text-color-success flex items-center">
+              <div className="flex items-center text-color-success">
                 <h6>{percent}%</h6>
                 {percent != 0 ? (
                   <div>
@@ -230,7 +230,7 @@ export default function ReportsNewBusiness() {
         const subContent = () => {
           return (
             <div className="flex items-center space-x-1">
-              <div className="text-color-error flex items-center">
+              <div className="flex items-center text-color-error">
                 <h6>{percent}%</h6>
                 {percent != 0 ? (
                   <div>
@@ -262,7 +262,7 @@ export default function ReportsNewBusiness() {
         const subContent = () => {
           return (
             <div className="flex items-center space-x-1">
-              <div className="text-color-success flex items-center">
+              <div className="flex items-center text-color-success">
                 <h6>{percent}%</h6>
                 {percent != 0 ? (
                   <div>
@@ -279,7 +279,7 @@ export default function ReportsNewBusiness() {
         const subContent = () => {
           return (
             <div className="flex items-center space-x-1">
-              <div className="text-color-error flex items-center">
+              <div className="flex items-center text-color-error">
                 <h6>{percent}%</h6>
                 {percent != 0 ? (
                   <div>
@@ -337,11 +337,11 @@ export default function ReportsNewBusiness() {
     return sumFromArrayOfObjects(tableData, 'premium')
   }
   return (
-    <main className="relative flex w-full flex-col overflow-hidden">
+    <main className="relative flex flex-col w-full overflow-hidden">
       <ReportNavbar />
-      <div className="flex w-full flex-col">
-        <div className="flex w-full flex-col lg:flex-row md:pr-6">
-          <div className="mb-4 flex h-full w-full items-center space-x-4 overflow-x-auto px-4 py-6 lg:mb-0 lg:justify-center">
+      <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full lg:flex-row md:pr-6">
+          <div className="flex items-center w-full h-full px-4 py-6 mb-4 space-x-4 overflow-x-auto lg:mb-0 lg:justify-center">
             <SummaryCard
               val={premSum()}
               color="teal"
@@ -364,7 +364,7 @@ export default function ReportsNewBusiness() {
               vertical={false}
             />
           </div>
-          <div className="mb-4 flex justify-center space-x-2 lg:mb-0 lg:items-center lg:justify-end lg:pr-4">
+          <div className="flex justify-center mb-4 space-x-2 lg:mb-0 lg:items-center lg:justify-end lg:pr-4">
             <div className="flex flex-col">
               <div>
                 <PanelTitle title={`New Business Month`} color="pink" />
@@ -402,12 +402,12 @@ export default function ReportsNewBusiness() {
           </div>
         </div>
         <div className="flex flex-col lg:flex-row lg:gap-2 lg:pl-2">
-          <div className="flex w-auto flex-col lg:flex-row lg:justify-evenly">
-            <div className="mb-4 flex flex-col lg:mb-0">
+          <div className="flex flex-col w-auto lg:flex-row lg:justify-evenly">
+            <div className="flex flex-col mb-4 lg:mb-0">
               <div className="pl-4">
                 <PanelTitle title={`Overview`} color="indigo" />
               </div>
-              <div className="flex flex-auto flex-col overflow-hidden lg:flex-row">
+              <div className="flex flex-col flex-auto overflow-hidden lg:flex-row">
                 <div className="flex h-full flex-row space-x-4 overflow-x-auto p-2 lg:max-h-[78vh] lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4 lg:overflow-y-auto">
                   {chartData?.users.map((p, i) => (
                     <motion.div
@@ -450,13 +450,13 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="lg:max-w-9/12 flex w-full flex-col px-4 lg:pl-0 lg:pr-4">
+          <div className="flex flex-col w-full px-4 lg:max-w-9/12 lg:pl-0 lg:pr-4">
             <div className="pl-4">
               <PanelTitle title={`Charts`} color="orange" />
             </div>
             {chartData ? (
-              <div className="flex w-full flex-col space-y-4">
-                <div className="flex w-full flex-col space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
+              <div className="flex flex-col w-full space-y-4">
+                <div className="flex flex-col w-full space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
                   <div className="flex w-full lg:w-1/2">
                     <NewBusinessCurrentMonthBarChart
                       currentMonth={dataMonth}
@@ -494,5 +494,5 @@ export default function ReportsNewBusiness() {
 }
 
 ReportsNewBusiness.getLayout = function getLayout(page) {
-  return <AppLayout>{page}</AppLayout>
+  return <AdminLayout>{page}</AdminLayout>
 }
