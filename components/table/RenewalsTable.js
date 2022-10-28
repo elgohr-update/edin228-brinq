@@ -22,6 +22,8 @@ import {
   getIcon,
   basicSort,
   sortByProperty,
+  getCurrentMonth,
+  getCurrentYear,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import {
@@ -94,7 +96,6 @@ export default function RenewalsTable(data) {
 
   useEffect(() => {
     if (runOnce.current && data && bUsers) {
-      console.log('test')
       const dat = data.data.map((x) => {
         const isRenewed =
           x.policies.filter((y) => y.renewed).length == x.policies.length
@@ -108,10 +109,16 @@ export default function RenewalsTable(data) {
         }
       })
       setRows(dat)
-      const filtered = !showRenewed
-        ? dat.filter((x) => x.isRenewed == false)
-        : dat
-      setTableData(filtered)
+      const isCurrentMonth = month == getCurrentMonth() && year == getCurrentYear()
+      if (isCurrentMonth){
+        setShowRenewed(true)
+      }else {
+        const filtered = !showRenewed
+          ? dat.filter((x) => x.isRenewed == false)
+          : dat
+        setTableData(filtered)  
+      }
+      
       runOnce.current = false
     }
     runOnce.current = true
