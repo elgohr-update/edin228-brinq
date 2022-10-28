@@ -10,6 +10,7 @@ import {
   Loading,
 } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
+import { FaSearch } from 'react-icons/fa'
 import { AiOutlineFilter} from 'react-icons/ai'
 import {
   truncateString,

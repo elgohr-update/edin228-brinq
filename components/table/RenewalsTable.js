@@ -238,16 +238,14 @@ export default function RenewalsTable(data) {
             <div className="flex w-[50px] justify-end font-bold">
               <span
                 className={`mx-1 ${
-                  cellValue == client.policy_count
-                    ? 'text-sky-500'
-                    : cellValue == 0
+                  cellValue == 0
                     ? 'text-red-500'
                     : ''
                 }`}
               >
                 {cellValue}
               </span>{' '}
-              /<span className="mx-1 text-sky-500">{client.policy_count}</span>
+              /<span className="mx-1">{client.policy_count}</span>
             </div>
           </div>
         )
