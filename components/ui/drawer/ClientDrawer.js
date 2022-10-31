@@ -211,7 +211,7 @@ const ClientDrawer = () => {
                           <BiLinkExternal />
                         </Button>
                       </Tooltip>
-                      <Tooltip content="Re-Synce with AMS360">
+                      <Tooltip content="Re-Sync with AMS360">
                         <Button size="xs" flat auto onClick={() => syncAms()}>
                           <BiRefresh />
                         </Button>
