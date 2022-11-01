@@ -28,15 +28,15 @@ export default function SalesGoals() {
   }
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex flex-col">
       <PanelTitle title={`Sales Goals`} color="indigo" />
-      <div className="flex w-full flex-col space-y-2 p-4">
+      <div className="flex flex-col w-full p-4 space-y-2">
         {getProducers().map((x) => (
           <UserSalesItem user={x} key={x.id} />
         ))}
       </div>
-      <div className="flex">
-        <Button className="w-1/2" auto color="gradient" onClick={() => updateGoals()}>
+      <div className="flex w-full">
+        <Button className="w-full" auto color="gradient" onClick={() => updateGoals()}>
           Save
         </Button>
       </div>

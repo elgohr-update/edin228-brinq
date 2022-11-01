@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { useClientDrawerContext } from '../../context/state'
+import { getIcon } from '../../utils/utils'
 import TagContainer from '../ui/tag/TagContainer'
 
 export default function ClientTableCell({
@@ -70,17 +71,20 @@ export default function ClientTableCell({
 
   const checkTheme = () => {
     return type === 'dark'
-      ? `page-link h-full w-full px-2 pb-1`
-      : `page-link h-full w-full px-2 pb-1`
+      ? `page-link h-full flex items-center w-full px-2 pb-1`
+      : `page-link h-full flex items-center w-full px-2 pb-1`
   }
   return (
-    <div className="flex flex-col rounded-lg py-1 text-xs transition duration-200 ease-out hover:bg-gray-600/10">
+    <div className="flex flex-col py-1 text-xs transition duration-200 ease-out rounded-lg hover:bg-gray-600/10">
       <div className={checkTheme()} onClick={() => openSidebar()}>
         <Link href={`/clients/${clientId}`}>
           <a className="flex transition duration-100 ease-in-out">
             {cellValue}
           </a>
         </Link>
+        <div className="flex ml-4 lg:hidden">
+          {getIcon('rightDrawer')}
+        </div>
       </div>
       <div className="pl-3">
         <TagContainer tags={tags} />

@@ -13,6 +13,7 @@ import {
 } from '@nextui-org/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
+import { FaFilter } from 'react-icons/fa'
 import {
   truncateString,
   formatMoney,
@@ -109,16 +110,17 @@ export default function RenewalsTable(data) {
         }
       })
       setRows(dat)
-      const isCurrentMonth = month == getCurrentMonth() && year == getCurrentYear()
-      if (isCurrentMonth){
+      const isCurrentMonth =
+        month == getCurrentMonth() && year == getCurrentYear()
+      if (isCurrentMonth) {
         setShowRenewed(true)
-      }else {
+      } else {
         const filtered = !showRenewed
           ? dat.filter((x) => x.isRenewed == false)
           : dat
-        setTableData(filtered)  
+        setTableData(filtered)
       }
-      
+
       runOnce.current = false
     }
     runOnce.current = true
@@ -243,13 +245,7 @@ export default function RenewalsTable(data) {
         return (
           <div className="flex justify-center text-xs">
             <div className="flex w-[50px] justify-end font-bold">
-              <span
-                className={`mx-1 ${
-                  cellValue == 0
-                    ? 'text-red-500'
-                    : ''
-                }`}
-              >
+              <span className={`mx-1 ${cellValue == 0 ? 'text-red-500' : ''}`}>
                 {cellValue}
               </span>{' '}
               /<span className="mx-1">{client.policy_count}</span>
@@ -521,19 +517,17 @@ export default function RenewalsTable(data) {
       <div className="flex flex-col w-full h-full md:px-2">
         <div className="flex items-center justify-between w-full h-16 py-4">
           <div className="flex items-center justify-end px-4">
-            <div className="flex w-[45px]">
-              <Tooltip content={'Filter'}>
-                <Button
-                  color="warning"
-                  auto
-                  light
-                  onClick={() => setShowFilter(!showFilter)}
-                >
-                  <div className="flex items-center justify-center text-lg text-center">
-                    {getIcon('filter')}
-                  </div>
-                </Button>
-              </Tooltip>
+            <div className="px-2">
+              <Button
+                color="warning"
+                auto
+                flat
+                size="xs"
+                icon={<FaFilter fill="currentColor" />}
+                onClick={() => setShowFilter(!showFilter)}
+              >
+                Filter
+              </Button>
             </div>
           </div>
           <div className="flex items-center w-full">

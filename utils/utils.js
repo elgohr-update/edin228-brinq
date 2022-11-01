@@ -1,10 +1,20 @@
 import uuid from 'react-uuid'
-import { BsBox, BsPlusLg, BsClipboard, BsCheckCircleFill } from 'react-icons/bs'
-import { FaRegPaperPlane,FaSearch } from 'react-icons/fa'
+import {
+  BsBox,
+  BsPlusLg,
+  BsClipboard,
+  BsCheckCircleFill,
+  BsLayoutTextSidebarReverse,
+} from 'react-icons/bs'
+import { FaRegPaperPlane, FaSearch, FaFilter } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 import { RiLinksLine } from 'react-icons/ri'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
-import { MdOutlineStickyNote2, MdOutlineFolderShared } from 'react-icons/md'
+import {
+  MdOutlineStickyNote2,
+  MdOutlineFolderShared,
+  MdOutlineLocationOn,
+} from 'react-icons/md'
 import {
   AiOutlineEdit,
   AiOutlineFile,
@@ -15,13 +25,12 @@ import {
   AiOutlineCalendar,
   AiOutlineStar,
   AiOutlineDelete,
-  AiOutlineClockCircle, AiOutlineCloudDownload ,
+  AiOutlineClockCircle,
+  AiOutlineCloudDownload,
   AiOutlineCloseCircle,
   AiOutlineDollarCircle,
-  AiFillFilter,
-  AiOutlineFilter,
   AiFillCaretLeft,
-  AiFillCaretRight
+  AiFillCaretRight,
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -29,7 +38,9 @@ import {
   BiCommentAdd,
   BiCircle,
   BiTask,
-  BiRefresh
+  BiRefresh,
+  BiImageAdd,
+  BiHash,
 } from 'react-icons/bi'
 import { DateTime } from 'luxon'
 
@@ -95,11 +106,19 @@ export const getIcon = (item) => {
   ) : item == 'dollarSign' ? (
     <AiOutlineDollarCircle />
   ) : item == 'filter' ? (
-    <AiOutlineFilter />
+    <FaFilter />
   ) : item == 'search' ? (
     <FaSearch />
   ) : item == 'refresh' ? (
     <BiRefresh />
+  ) : item == 'rightDrawer' ? (
+    <BsLayoutTextSidebarReverse />
+  ) : item == 'imagePlus' ? (
+    <BiImageAdd />
+  ) : item == 'location' ? (
+    <MdOutlineLocationOn />
+  ) : item == 'hash' ? (
+    <BiHash />
   ) : null
 }
 
@@ -259,8 +278,10 @@ export const sumFromArray = (data = []) => {
   return total
 }
 
-export const sortByProperty = (data = [], prop = '', asc=true) => {
-  const sorted = asc ? data.sort((a, b) => (a[prop] < b[prop] ? 1 : -1)) : data.sort((a, b) => (a[prop] > b[prop] ? 1 : -1))
+export const sortByProperty = (data = [], prop = '', asc = true) => {
+  const sorted = asc
+    ? data.sort((a, b) => (a[prop] < b[prop] ? 1 : -1))
+    : data.sort((a, b) => (a[prop] > b[prop] ? 1 : -1))
   return sorted
 }
 

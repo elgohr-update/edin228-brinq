@@ -4,6 +4,7 @@ import Panel from '../ui/panel/Panel'
 import PanelTitle from '../ui/title/PanelTitle'
 import { MdOutlineLocationOn } from 'react-icons/md'
 import ClientReferences from './ClientReferences'
+import { getIcon } from '../../utils/utils'
 
 const ClientInfo = ({
   client,
@@ -31,7 +32,7 @@ const ClientInfo = ({
       shadow={shadow}
       overflow={overflow}
     >
-      <div className="flex flex-auto shrink-0 flex-col">
+      <div className="flex flex-col flex-auto shrink-0">
         <PanelTitle title={`Reps`} color="indigo" />
         <div className={`flex flex-auto shrink-0 flex-wrap space-y-2`}>
           {client?.users?.map((u) => (
@@ -46,9 +47,9 @@ const ClientInfo = ({
       <div className={`flex w-full flex-col py-2 md:flex-row`}>
         <div className={`flex w-full flex-col `}>
           <PanelTitle title={`Address`} color="orange" />
-          <div className="flex h-full items-center">
-            <div className="flex h-full items-center justify-center border-r border-sky-500 px-2">
-              <MdOutlineLocationOn />
+          <div className="flex items-center h-full">
+            <div className="flex items-center justify-center h-full px-2 border-r border-sky-500">
+              {getIcon('location')}
             </div>
             <div className="flex flex-col px-2">
               <h6>{client?.client_name}</h6>

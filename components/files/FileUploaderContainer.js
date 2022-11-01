@@ -4,9 +4,34 @@ import { AiOutlinePaperClip } from 'react-icons/ai'
 import { FileUploader } from 'react-drag-drop-files'
 import uuid from 'react-uuid'
 
-const fileTypes = ['JPG', 'PNG', 'GIF', 'CSV', 'PDF', 'DOC', 'XLSX']
+const fileTypes = [
+  'JPG',
+  'JPEG',
+  'PNG',
+  'GIF',
+  'CSV',
+  'PDF',
+  'DOC',
+  'DOCX',
+  'XLSX',
+  'MSG',
+  'WAV',
+  'WMA',
+  'MP3',
+  'MOV',
+  'ZIP',
+  'RAR',
+  '7Z',
+  'EML',
+  'XLS',
+  'XLSM',
+  'TXT',
+]
 
-export default function FileUploaderContainer({ onSave, showLargeButton=false }) {
+export default function FileUploaderContainer({
+  onSave,
+  showLargeButton = false,
+}) {
   const [visible, setVisible] = useState(false)
   const [files, setFiles] = useState([])
 
@@ -19,7 +44,9 @@ export default function FileUploaderContainer({ onSave, showLargeButton=false })
 
   const handleChange = (f) => {
     const base = Array.from(f)
-    const adjustedFiles = base.map( x => {return {id:uuid(),data:x,description:'',private:true, action:''}})
+    const adjustedFiles = base.map((x) => {
+      return { id: uuid(), data: x, description: '', private: true, action: '' }
+    })
     const newFiles = [...files, ...adjustedFiles]
     setFiles(newFiles)
   }
@@ -32,20 +59,19 @@ export default function FileUploaderContainer({ onSave, showLargeButton=false })
   return (
     <div>
       <Button auto flat color="primary" size="xs" onClick={handler}>
-        {showLargeButton ?
+        {showLargeButton ? (
           <div className="flex items-center space-x-1">
-          <div>Attach Files</div>
-          <AiOutlinePaperClip />
-        </div>
-        :
+            <div>Attach Files</div>
+            <AiOutlinePaperClip />
+          </div>
+        ) : (
           <div className="flex items-center space-x-1">
             {Array.from(files).length > 0 ? (
               <div>{Array.from(files).length}</div>
             ) : null}
             <AiOutlinePaperClip />
           </div>
-        }
-        
+        )}
       </Button>
       <Modal
         closeButton
@@ -72,12 +98,9 @@ export default function FileUploaderContainer({ onSave, showLargeButton=false })
             types={fileTypes}
             fileOrFIles={Array}
           />
-          <div className="flex w-full flex-col space-y-2">
+          <div className="flex flex-col w-full space-y-2">
             {Array.from(files).map((f) => (
-              <div
-                key={f.id}
-                className="flex items-center justify-between"
-              >
+              <div key={f.id} className="flex items-center justify-between">
                 <div>{f.data.name}</div>
                 <div>
                   <Button

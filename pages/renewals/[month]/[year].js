@@ -3,31 +3,32 @@ import { Button, useTheme } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 import AppLayout from '../../../layouts/AppLayout'
 import { getSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BsFillCalendar3WeekFill, BsBox, BsListCheck } from 'react-icons/bs'
 import {
-  AiFillCaretLeft,
-  AiFillCaretRight,
   AiFillDollarCircle,
 } from 'react-icons/ai'
 import { HiOutlineRefresh } from 'react-icons/hi'
-import { MdTaskAlt } from 'react-icons/md'
 import RenewalsTable from '../../../components/table/RenewalsTable'
-import { getIcon, sumFromArrayOfObjects } from '../../../utils/utils'
+import { getIcon, sumFromArrayOfObjects, timeout } from '../../../utils/utils'
 import SummaryCard from '../../../components/ui/card/SummaryCard'
 import { RiFolderUserFill } from 'react-icons/ri'
-import PageHeader from '../../../components/ui/pageheaders/PageHeader'
 import PageTitle from '../../../components/ui/pageheaders/PageTitle'
-import { useAppHeaderContext } from '../../../context/state'
+import { useAppHeaderContext, useClientDrawerContext } from '../../../context/state'
+import { useChannel, useEvent } from '@harelpls/use-pusher'
 
 export default function Renewals({ data }) {
   const router = useRouter()
   const { month, year } = router.query
   const date = new Date(year, month - 1, 1)
   const monthName = date.toLocaleString('default', { month: 'long' })
-  const { isDark, type } = useTheme()
   const [tableData, setTableData] = useState(data)
   const { appHeader, setAppHeader } = useAppHeaderContext()
+  const { clientDrawer, setClientDrawer } = useClientDrawerContext()
+  const runOnce = useRef(true)
+
+  // const channel = useChannel("refresh");
+  // useEvent(channel, 'renewal', (data) => ifRefreshCurrent(data))
 
   useEffect(() => {
     setAppHeader({
@@ -45,6 +46,21 @@ export default function Renewals({ data }) {
     setTableData(data)
   }, [data])
 
+  // useEffect(() => {
+  //   runOnce.current = false
+  //   const handleChange = async () => {
+  //     if (!runOnce.current) {
+  //       if (!clientDrawer.isOpen){
+  //             refreshCurrent()
+  //           }
+  //     }
+  //   }
+  //   handleChange()
+  //   return () => {
+  //     runOnce.current = true
+  //   }
+  // }, [clientDrawer])
+
   const goToMonth = (dir) => {
     const currentMonth = Number(month)
     const currentYear = Number(year)
@@ -58,7 +74,9 @@ export default function Renewals({ data }) {
       router.replace(`/renewals/${nextMonth}/${nextYear}`)
     }
   }
-  const refreshCurrent = (dir) => {
+  const refreshCurrent = () => {
+    console.log('refreshing')
+    runOnce.current = true
     const currentMonth = Number(month)
     const currentYear = Number(year)
     router.replace(`/renewals/${currentMonth}/${currentYear}`)

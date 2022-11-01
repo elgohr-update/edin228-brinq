@@ -1,4 +1,4 @@
-import { useTheme } from '@nextui-org/react'
+import { Image, useTheme } from '@nextui-org/react'
 import React from 'react'
 
 function BubbleBackground() {
@@ -13,6 +13,19 @@ function BubbleBackground() {
       <div
         className={`blur-screen fixed h-screen w-full blur-screen-${type} z-2`}
       />
+      <div
+        className={`fixed hidden lg:flex bottom-0 right-[10px] opacity-30 z-3 grayscale`}
+      >
+        <Image
+          showSkeleton
+          maxDelay={10000}
+          width={50}
+          height={50}
+          src="/brinq-logo-full-color.png"
+          alt="Default Image"
+        />
+        <div className="flex items-center ml-2 tracking-widest uppercase">BETA</div>
+      </div>
     </div>
   )
 }

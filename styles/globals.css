@@ -144,6 +144,9 @@
 #nextui-tooltip {
   z-index:999999 !important;
 }
+.nextui-tooltip-content {
+  z-index:999999 !important;
+}
 
 
 html,
@@ -492,7 +495,7 @@ p {
   position: absolute;
   width: 100%;
   height: 2px;
-  bottom: -7px;
+  bottom: 0px;
   left: 1px;
   z-index: 20;
 }

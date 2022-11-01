@@ -25,6 +25,7 @@ import { useRouter } from 'next/router'
 import ClientDrawerNavbar from '../../client/ClientDrawerNavbar'
 import DrawerLoader from '../loaders/DrawerLoader'
 import { motion } from 'framer-motion'
+import { pusherHandler } from '../../../utils/pusher'
 
 const ClientDrawer = () => {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
@@ -165,7 +166,7 @@ const ClientDrawer = () => {
         hidden: { opacity: 0, x: 200 },
       }}
       transition={{ ease: 'easeInOut', duration: 0.25 }}
-      className={`fixed top-0 left-0 z-[999998] flex h-full w-full`}
+      className={`fixed top-0 left-0 z-[999999] flex h-full w-full lg:z-[999998]`}
     >
       <div
         className={`fixed ${
@@ -180,7 +181,7 @@ const ClientDrawer = () => {
               <div className={`w-fullshrink-0 relative mb-2 flex px-2`}>
                 <div className="relative flex flex-col flex-auto shrink-0 md:flex-row md:pt-2">
                   <ClientHeader client={client} />
-                  <div className="flex items-center justify-center flex-auto pl-4 pr-8 shrink-0 md:justify-end">
+                  <div className="flex items-center justify-between flex-auto pl-4 pr-8 shrink-0 md:justify-end">
                     <SummaryCard
                       isIcon={false}
                       autoWidth
@@ -201,7 +202,7 @@ const ClientDrawer = () => {
                       icon={<BsBox />}
                     />
                     <div className="z-10 flex ml-4 space-x-1">
-                      <Tooltip content="Open in AMS360">
+                      <Tooltip content="Open in AMS360" placement="bottomEnd">
                         <Button
                           size="xs"
                           flat
@@ -211,7 +212,10 @@ const ClientDrawer = () => {
                           <BiLinkExternal />
                         </Button>
                       </Tooltip>
-                      <Tooltip content="Re-Sync with AMS360">
+                      <Tooltip
+                        content="Re-Sync with AMS360"
+                        placement="bottomEnd"
+                      >
                         <Button size="xs" flat auto onClick={() => syncAms()}>
                           <BiRefresh />
                         </Button>

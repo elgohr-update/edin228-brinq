@@ -16,6 +16,7 @@ import {
 } from '../context/state'
 import ProgressBar from '@badrap/bar-of-progress'
 import Router from 'next/router'
+import { PusherWrapper } from '../utils/pusher'
 
 const progress = new ProgressBar({
   size: 2,
@@ -92,7 +93,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                           }}
                         >
                           <NextUIProvider>
-                            {getLayout(<Component {...pageProps} />)}
+                            <PusherWrapper>
+                              {getLayout(<Component {...pageProps} />)}
+                            </PusherWrapper>
                           </NextUIProvider>
                         </NextThemesProvider>
                       </NotificationWrapper>

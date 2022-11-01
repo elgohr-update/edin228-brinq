@@ -30,13 +30,6 @@ const AdminNavbar = () => {
       />
       <NavAction
         onClick={() => setActive(3)}
-        icon={getIcon('link')}
-        title={'Integrations'}
-        activeItem={activeItem}
-        itemId={3}
-      />
-      <NavAction
-        onClick={() => setActive(4)}
         icon={getIcon('policy')}
         title={'Policy Setttings'}
         activeItem={activeItem}
