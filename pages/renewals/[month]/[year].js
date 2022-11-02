@@ -25,10 +25,6 @@ export default function Renewals({ data }) {
   const [tableData, setTableData] = useState(data)
   const { appHeader, setAppHeader } = useAppHeaderContext()
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
-  const runOnce = useRef(true)
-
-  // const channel = useChannel("refresh");
-  // useEvent(channel, 'renewal', (data) => ifRefreshCurrent(data))
 
   useEffect(() => {
     setAppHeader({
@@ -75,8 +71,6 @@ export default function Renewals({ data }) {
     }
   }
   const refreshCurrent = () => {
-    console.log('refreshing')
-    runOnce.current = true
     const currentMonth = Number(month)
     const currentYear = Number(year)
     router.replace(`/renewals/${currentMonth}/${currentYear}`)

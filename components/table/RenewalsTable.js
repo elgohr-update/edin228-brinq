@@ -25,6 +25,7 @@ import {
   sortByProperty,
   getCurrentMonth,
   getCurrentYear,
+  isCurrentMonthYear,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import {
@@ -63,7 +64,7 @@ export default function RenewalsTable(data) {
   )
   const { state, setState } = useAppContext()
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
-  const [showRenewed, setShowRenewed] = useState(false)
+  const [showRenewed, setShowRenewed] = useState(!isCurrentMonthYear(month,year))
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
@@ -110,16 +111,10 @@ export default function RenewalsTable(data) {
         }
       })
       setRows(dat)
-      const isCurrentMonth =
-        month == getCurrentMonth() && year == getCurrentYear()
-      if (isCurrentMonth) {
-        setShowRenewed(true)
-      } else {
-        const filtered = !showRenewed
-          ? dat.filter((x) => x.isRenewed == false)
-          : dat
-        setTableData(filtered)
-      }
+      const filtered = !showRenewed
+        ? dat.filter((x) => x.isRenewed == false)
+        : dat
+      setTableData(filtered)
 
       runOnce.current = false
     }

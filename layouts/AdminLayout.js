@@ -27,9 +27,10 @@ export default function AdminLayout({ children }) {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      signOut()
       router.push('/login')
       setIsAuth(false)
+      signOut()
+
     },
   })
   const router = useRouter()

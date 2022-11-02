@@ -355,6 +355,13 @@ export const getCurrentYear = () => {
   return currentYear
 }
 
+export const isCurrentMonthYear = (m, y) => {
+  const base = DateTime.local()
+  const currentYear = base.year
+  const currentMonth = base.month - 1
+  return currentYear == y && currentMonth == m
+}
+
 export const abbreviateMoney = (num, fixed) => {
   if (num === null) {
     return null

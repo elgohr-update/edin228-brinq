@@ -11,6 +11,8 @@ import { timeout, useNextApi } from '../utils/utils'
 import DashboardSummaryChart from '../components/charts/DashboardSummaryChart'
 import DashboardRecentPolicies from '../components/dashboard/policy/DashboardRecentPolicies'
 import DashboardExpiringPolicies from '../components/dashboard/expiring/DashboardExpiringPolicies'
+import { rcLoginUrl, rcsdk } from './api/rc/ringcentral'
+import { runCodeGen } from './api/rc/codegen'
 
 export default function Dashboard() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
@@ -35,7 +37,9 @@ export default function Dashboard() {
       await timeout(100)
       if (!isCancelled) {
         fetchData()
-        
+        console.log(
+          await rcLoginUrl()
+        )
       }
     }
     handleChange()

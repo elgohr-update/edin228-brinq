@@ -28,7 +28,6 @@ export default function AppLayout({ children }) {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      signOut()
       router.push('/login')
       setIsAuth(false)
     },

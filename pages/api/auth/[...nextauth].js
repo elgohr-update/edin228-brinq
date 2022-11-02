@@ -69,6 +69,7 @@ export default NextAuth({
             session.exp = token.exp
             session.accessToken = token.accessToken;
             session.error = token.error;
+            session.codeVerifier = 'x'
             return session;
         },
     },
