@@ -1,7 +1,7 @@
 import SDK from '@ringcentral/sdk'
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next'
 
-export const redirectUri = `${process.env.NEXT_PUBLIC_RC_REDIRECT_URL}/rc/redirect` // make sure you have this configured in Dev Portal
+export const redirectUri = `${process.env.NEXT_PUBLIC_RC_REDIRECT_URL}/rc/redirect`
 
 export const rcsdk = new SDK({
   appName: 'Brinq',

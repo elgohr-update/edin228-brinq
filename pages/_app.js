@@ -13,6 +13,7 @@ import {
   ParentCompanyDrawerWrapper,
   WritingCompanyDrawerWrapper,
   NotificationWrapper,
+  PhoneWrapper,
 } from '../context/state'
 import ProgressBar from '@badrap/bar-of-progress'
 import Router from 'next/router'
@@ -78,32 +79,34 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       <AppWrapper>
         <AgencyWrapper>
           <ReloadWrapper>
-            <AppHeaderWrapper>
-              <ClientDrawerWrapper>
-                <ActivityDrawerWrapper>
-                  <ParentCompanyDrawerWrapper>
-                    <WritingCompanyDrawerWrapper>
-                      <NotificationWrapper>
-                        <NextThemesProvider
-                          defaultTheme="system"
-                          attribute="class"
-                          value={{
-                            light: lightTheme.className,
-                            dark: darkTheme.className,
-                          }}
-                        >
-                          <NextUIProvider>
-                            <PusherWrapper>
-                              {getLayout(<Component {...pageProps} />)}
-                            </PusherWrapper>
-                          </NextUIProvider>
-                        </NextThemesProvider>
-                      </NotificationWrapper>
-                    </WritingCompanyDrawerWrapper>
-                  </ParentCompanyDrawerWrapper>
-                </ActivityDrawerWrapper>
-              </ClientDrawerWrapper>
-            </AppHeaderWrapper>
+            <PhoneWrapper>
+              <AppHeaderWrapper>
+                <ClientDrawerWrapper>
+                  <ActivityDrawerWrapper>
+                    <ParentCompanyDrawerWrapper>
+                      <WritingCompanyDrawerWrapper>
+                        <NotificationWrapper>
+                          <NextThemesProvider
+                            defaultTheme="system"
+                            attribute="class"
+                            value={{
+                              light: lightTheme.className,
+                              dark: darkTheme.className,
+                            }}
+                          >
+                            <NextUIProvider>
+                              <PusherWrapper>
+                                {getLayout(<Component {...pageProps} />)}
+                              </PusherWrapper>
+                            </NextUIProvider>
+                          </NextThemesProvider>
+                        </NotificationWrapper>
+                      </WritingCompanyDrawerWrapper>
+                    </ParentCompanyDrawerWrapper>
+                  </ActivityDrawerWrapper>
+                </ClientDrawerWrapper>
+              </AppHeaderWrapper>
+            </PhoneWrapper>
           </ReloadWrapper>
         </AgencyWrapper>
       </AppWrapper>

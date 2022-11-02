@@ -11,8 +11,7 @@ import { timeout, useNextApi } from '../utils/utils'
 import DashboardSummaryChart from '../components/charts/DashboardSummaryChart'
 import DashboardRecentPolicies from '../components/dashboard/policy/DashboardRecentPolicies'
 import DashboardExpiringPolicies from '../components/dashboard/expiring/DashboardExpiringPolicies'
-import { rcLoginUrl, rcsdk } from './api/rc/ringcentral'
-import { runCodeGen } from './api/rc/codegen'
+import DashboardPhone from '../components/dashboard/phone/DashboardPhone'
 
 export default function Dashboard() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
@@ -20,7 +19,6 @@ export default function Dashboard() {
   const [tasks, setTasks] = useState(null)
   const [loading, setLoading] = useState(true)
   const { reload, setReload } = useReloadContext()
-
 
   useEffect(() => {
     setAppHeader({
@@ -37,9 +35,7 @@ export default function Dashboard() {
       await timeout(100)
       if (!isCancelled) {
         fetchData()
-        console.log(
-          await rcLoginUrl()
-        )
+        
       }
     }
     handleChange()
@@ -108,7 +104,7 @@ export default function Dashboard() {
             <div className="flex flex-col flex-auto p-2 shrink-0 lg:p-2">
               <div className="flex flex-col flex-auto shrink-0 lg:flex-row lg:gap-4">
                 <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                  <DashboardTodos data={tasks}/>
+                  <DashboardTodos data={tasks} />
                 </div>
                 <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
                   <div className="flex flex-col shrink-0 lg:mb-0">
@@ -118,12 +114,17 @@ export default function Dashboard() {
                     <DashboardActivity />
                   </div>
                 </div>
-                <div className="flex w-auto flex-auto shrink-0 flex-col lg:min-w-[500px]">
+                <div className="flex flex-col flex-auto w-auto shrink-0 lg:w-[500px]">
                   <div className="flex flex-col flex-auto shrink-0">
                     <DashboardExpiringPolicies />
                   </div>
                   <div className="flex flex-col flex-auto shrink-0">
                     <DashboardRecentPolicies />
+                  </div>
+                </div>
+                <div className="flex flex-col flex-auto w-auto shrink-0 lg:w-[300px]">
+                  <div className="flex flex-col flex-auto shrink-0">
+                    <DashboardPhone />
                   </div>
                 </div>
               </div>

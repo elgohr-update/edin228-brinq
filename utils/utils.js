@@ -5,8 +5,9 @@ import {
   BsClipboard,
   BsCheckCircleFill,
   BsLayoutTextSidebarReverse,
+  BsVoicemail
 } from 'react-icons/bs'
-import { FaRegPaperPlane, FaSearch, FaFilter } from 'react-icons/fa'
+import { FaRegPaperPlane, FaSearch, FaFilter, FaFax, FaVoicemail } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 import { RiLinksLine } from 'react-icons/ri'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
@@ -31,6 +32,7 @@ import {
   AiOutlineDollarCircle,
   AiFillCaretLeft,
   AiFillCaretRight,
+  AiFillPhone
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -119,6 +121,12 @@ export const getIcon = (item) => {
     <MdOutlineLocationOn />
   ) : item == 'hash' ? (
     <BiHash />
+  ) : item == 'phone' ? (
+    <AiFillPhone />
+  ) : item == 'fax' ? (
+    <FaFax />
+  ) : item == 'voicemail' ? (
+    <FaVoicemail />
   ) : null
 }
 

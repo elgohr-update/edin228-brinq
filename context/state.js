@@ -257,3 +257,20 @@ export function AppHeaderWrapper({ children }) {
 export function useAppHeaderContext() {
   return useContext(AppHeaderContext)
 }
+
+const PhoneContext = createContext()
+
+export function PhoneWrapper({ children }) {
+  const [phoneState, setPhoneState] = useState({
+    tab: 1,
+  })
+  return (
+    <PhoneContext.Provider value={{phoneState, setPhoneState }}>
+      {children}
+    </PhoneContext.Provider>
+  )
+}
+
+export function usePhoneContext() {
+  return useContext(PhoneContext)
+}
