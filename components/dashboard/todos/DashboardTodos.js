@@ -281,7 +281,7 @@ export default function DashboardTodos({ data = [] }) {
           className={`tasks-container flex h-full max-h-[69vh] w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[68.3vh]`}
         >
           {todoTab == 1
-            ? data?.map((u) => (
+            ? raw?.map((u) => (
                 <motion.div
                   key={u.uid}
                   initial="hidden"

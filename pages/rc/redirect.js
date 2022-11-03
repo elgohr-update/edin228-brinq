@@ -1,5 +1,5 @@
 import { getCookie } from 'cookies-next'
-import { rcsdk } from '../api/rc/ringcentral'
+import { rcsdk } from '../../utils/ringcentral'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import AppLayout from '../../layouts/AppLayout'

@@ -262,7 +262,9 @@ const PhoneContext = createContext()
 
 export function PhoneWrapper({ children }) {
   const [phoneState, setPhoneState] = useState({
+    auth:false,
     tab: 1,
+    recentCalls: [],
   })
   return (
     <PhoneContext.Provider value={{phoneState, setPhoneState }}>

@@ -75,7 +75,7 @@ export default function ClientTableCell({
       : `page-link h-full flex items-center w-full px-2 pb-1`
   }
   return (
-    <div className="flex flex-col py-1 text-xs transition duration-200 ease-out rounded-lg hover:bg-gray-600/10">
+    <div className="flex flex-col py-1 text-xs transition duration-200 ease-out rounded-lg hover:bg-gray-600/20">
       <div className={checkTheme()} onClick={() => openSidebar()}>
         <Link href={`/clients/${clientId}`}>
           <a className="flex transition duration-100 ease-in-out">

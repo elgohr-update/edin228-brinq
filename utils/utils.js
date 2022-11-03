@@ -5,9 +5,19 @@ import {
   BsClipboard,
   BsCheckCircleFill,
   BsLayoutTextSidebarReverse,
-  BsVoicemail
+  BsVoicemail,
+  BsFillTelephoneInboundFill,
+  BsFillTelephoneOutboundFill,
+  BsRecordCircleFill,
+  BsFillFileTextFill
 } from 'react-icons/bs'
-import { FaRegPaperPlane, FaSearch, FaFilter, FaFax, FaVoicemail } from 'react-icons/fa'
+import {
+  FaRegPaperPlane,
+  FaSearch,
+  FaFilter,
+  FaFax,
+  FaVoicemail,
+} from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 import { RiLinksLine } from 'react-icons/ri'
 import { HiOutlineOfficeBuilding } from 'react-icons/hi'
@@ -32,7 +42,7 @@ import {
   AiOutlineDollarCircle,
   AiFillCaretLeft,
   AiFillCaretRight,
-  AiFillPhone
+  AiFillPhone,
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -44,7 +54,7 @@ import {
   BiImageAdd,
   BiHash,
 } from 'react-icons/bi'
-import { DateTime } from 'luxon'
+import { DateTime, Duration } from 'luxon'
 
 export const getIcon = (item) => {
   return item == 'policy' ? (
@@ -123,10 +133,18 @@ export const getIcon = (item) => {
     <BiHash />
   ) : item == 'phone' ? (
     <AiFillPhone />
+  ) : item == 'phoneInbound' ? (
+    <BsFillTelephoneInboundFill />
+  ) : item == 'phoneOutbound' ? (
+    <BsFillTelephoneOutboundFill />
+  ) : item == 'record' ? (
+    <BsRecordCircleFill />
   ) : item == 'fax' ? (
     <FaFax />
   ) : item == 'voicemail' ? (
     <FaVoicemail />
+  ) : item == 'paperText' ? (
+    <BsFillFileTextFill />
   ) : null
 }
 
@@ -254,6 +272,19 @@ export const getFormattedUTCDateTime = (date) => {
   const base = DateTime.fromISO(reformat)
   const d = base.toLocaleString(DateTime.DATETIME_MED)
   return d
+}
+
+export const getFormattedDuration = (t) => {
+  const hasMinute = t >= 60
+  const hasHour = t >= 60 * 60
+  const convertedToMill = t * 1000
+  if (hasHour) {
+    return Duration.fromMillis(convertedToMill).toFormat("hh'h' mm'm' ss's'")
+  }
+  else if (hasMinute) {
+    return Duration.fromMillis(convertedToMill).toFormat("mm'm' ss's'")
+  }
+  return Duration.fromMillis(convertedToMill).toFormat("ss's'")
 }
 
 export const toMonthName = (monthNumber) => {

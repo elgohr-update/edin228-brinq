@@ -26,17 +26,17 @@ const BaseHeader = () => {
         </Link>
         <div className="flex items-center justify-end">
           <Link href={`/about`}>
-            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/10">
+            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/20">
               <h6>About</h6>
             </a>
           </Link>
           <Link href={`/contact`}>
-            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/10">
+            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/20">
               <h6>Contact</h6>
             </a>
           </Link>
           <Link href={`/login`}>
-            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/10">
+            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/20">
               <Button auto color="gradient" size="xs">
                 <h6>Login</h6>
               </Button>

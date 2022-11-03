@@ -12,14 +12,14 @@ export default function TaskBundleContainer({ taskBundle }) {
   }
   return (
     <div className={`relative flex w-full flex-col rounded-lg`}>
-      <div className="mb-2 flex w-full items-center space-x-2">
+      <div className="flex items-center w-full mb-2 space-x-2">
         <div className="data-point peach-gradient-1" />
-        <h6 className={`${isLate(taskBundle.date)} font-semibold`}>
-          {getFormattedDate(taskBundle.date)}
+        <h6 className={`${isLate(taskBundle?.date)} font-semibold`}>
+          {getFormattedDate(taskBundle?.date)}
         </h6>
       </div>
-      <div className="relative flex w-full flex-col space-y-2">
-        {taskBundle.clients.map((client, i) => (
+      <div className="relative flex flex-col w-full space-y-2">
+        {taskBundle?.clients?.map((client, i) => (
           <motion.div
             key={client.uid}
             custom={i}

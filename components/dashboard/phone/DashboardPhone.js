@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Image, useTheme } from '@nextui-org/react'
 import PanelTitle from '../../ui/title/PanelTitle'
-import { rcLoginUrl, rcsdk } from '../../../pages/api/rc/ringcentral'
+import { rcLoginUrl, rcsdk } from '../../../utils/ringcentral'
 import { getIcon } from '../../../utils/utils'
 import { useRouter } from 'next/router'
 import PhoneMenu from '../../phone/PhoneMenu'
 import { usePhoneContext } from '../../../context/state'
+import PhoneLog from '../../phone/PhoneLog'
+import PhoneVoicemail from '../../phone/PhoneVoicemail'
+import PhoneFax from '../../phone/PhoneFax'
 
 function DashboardPhone() {
   const { type } = useTheme()
@@ -14,13 +16,22 @@ function DashboardPhone() {
   const [isAuth, setIsAuth] = useState(false)
   const [loading, setLoading] = useState(false)
   const { phoneState, setPhoneState } = usePhoneContext()
+  const runOnce = useRef(true)
 
   useEffect(() => {
     const handleChange = async () => {
       const authCheck = await rcsdk.platform().auth().accessTokenValid()
       setIsAuth(authCheck)
+      setPhoneState({ ...phoneState, auth: authCheck })
     }
-    handleChange()
+    if (runOnce.current) {
+      handleChange()
+      runOnce.current = false
+    }
+
+    return () => {
+      runOnce.current = false
+    }
   }, [rcsdk])
 
   const goToLoginURL = async () => {
@@ -61,14 +72,14 @@ function DashboardPhone() {
 
   const RingCentralAppContainer = () => {
     return (
-      <div className="flex flex-col w-full h-full shrink-0">
-        <div className="flex w-full h-full p-4">
+      <div className="relative flex flex-col w-full h-full shrink-0">
+        <div className="flex w-full h-full">
           {phoneState.tab === 1 ? (
-            <div>1</div>
+            <PhoneLog />
           ) : phoneState.tab === 2 ? (
-            <div>2</div>
+            <PhoneVoicemail />
           ) : phoneState.tab === 3 ? (
-            <div>3</div>
+            <PhoneFax />
           ) : null}
         </div>
         <PhoneMenu />
@@ -80,11 +91,8 @@ function DashboardPhone() {
     <div
       className={`relative flex h-full flex-auto shrink-0 flex-col rounded-lg`}
     >
-      <div className="pl-4">
-        <PanelTitle title={`Phone`} color="green" />
-      </div>
       <div
-        className={`flex h-[72.3vh] flex-col rounded-lg panel-theme-${type} ${type}-shadow overflow-y-auto`}
+        className={`flex h-[75.3vh] w-full flex-col rounded-lg panel-theme-${type} ${type}-shadow overflow-y-auto`}
       >
         {isAuth ? <RingCentralAppContainer /> : <LoginRingCentral />}
       </div>

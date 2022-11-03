@@ -12,6 +12,7 @@ import DashboardSummaryChart from '../components/charts/DashboardSummaryChart'
 import DashboardRecentPolicies from '../components/dashboard/policy/DashboardRecentPolicies'
 import DashboardExpiringPolicies from '../components/dashboard/expiring/DashboardExpiringPolicies'
 import DashboardPhone from '../components/dashboard/phone/DashboardPhone'
+import { Loading } from '@nextui-org/react'
 
 export default function Dashboard() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
@@ -21,21 +22,17 @@ export default function Dashboard() {
   const { reload, setReload } = useReloadContext()
 
   useEffect(() => {
-    setAppHeader({
-      ...appHeader,
-      titleContent: (
-        <PageTitle icon={<MdOutlineDashboard />} text={`Dashboard`} />
-      ),
-    })
-  }, [])
-
-  useEffect(() => {
     let isCancelled = false
     const handleChange = async () => {
       await timeout(100)
       if (!isCancelled) {
+        setAppHeader({
+          ...appHeader,
+          titleContent: (
+            <PageTitle icon={<MdOutlineDashboard />} text={`Dashboard`} />
+          ),
+        })
         fetchData()
-        
       }
     }
     handleChange()
@@ -62,7 +59,7 @@ export default function Dashboard() {
         isCancelled = true
       }
     }
-  }, [reload])
+  }, [reload.policies])
 
   const fetchTasks = async () => {
     const res = await useNextApi('GET', `/api/task/list`)
@@ -78,60 +75,71 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="flex flex-col w-full h-full lg:flex-row lg:pl-2">
-        <div className="flex flex-col w-full h-full">
-          <div className="flex flex-col w-full shrink-0">
-            <div className="flex flex-col h-full px-4 lg:flex-row lg:px-0">
-              <div className="flex w-full h-full lg:items-center">
-                <DashboardCards
-                  premium={data?.premium}
-                  clients={data?.clients}
-                  renewals_summary={data?.renewals_summary}
-                  tasks_summary={data?.tasks_summary}
-                  charts={data?.charts}
-                  loading={loading}
-                />
-              </div>
-              <div className="justify-center hidden w-full lg:flex ">
-                <DashboardSummaryChart
-                  fullData={data?.charts}
-                  loading={loading}
-                />
-              </div>
+      {loading && !data ? (
+        <div className="flex w-full h-full">
+          <div className="flex w-full flex-col items-center justify-center lg:mt-[-200px]">
+            <Loading size="xl" color="primary" textColor="primary" />
+            <div className="mt-5 tracking-widest uppercase opacity-80">
+              Loading
             </div>
           </div>
-          <div className="flex flex-col flex-auto shrink-0 lg:flex-row">
-            <div className="flex flex-col flex-auto p-2 shrink-0 lg:p-2">
-              <div className="flex flex-col flex-auto shrink-0 lg:flex-row lg:gap-4">
-                <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                  <DashboardTodos data={tasks} />
+        </div>
+      ) : (
+        <div className="flex flex-col w-full h-full lg:flex-row lg:pl-2">
+          <div className="flex flex-col w-full h-full">
+            <div className="flex flex-col w-full shrink-0">
+              <div className="flex flex-col h-full px-4 lg:flex-row lg:px-0">
+                <div className="flex w-full h-full lg:items-center">
+                  <DashboardCards
+                    premium={data?.premium}
+                    clients={data?.clients}
+                    renewals_summary={data?.renewals_summary}
+                    tasks_summary={data?.tasks_summary}
+                    charts={data?.charts}
+                    loading={loading}
+                  />
                 </div>
-                <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                  <div className="flex flex-col shrink-0 lg:mb-0">
-                    <DashboardTeam base={data?.relation_list} />
-                  </div>
-                  <div className="flex flex-col flex-auto shrink-0">
-                    <DashboardActivity />
-                  </div>
+                <div className="justify-center hidden w-full lg:flex ">
+                  <DashboardSummaryChart
+                    fullData={data?.charts}
+                    loading={loading}
+                  />
                 </div>
-                <div className="flex flex-col flex-auto w-auto shrink-0 lg:w-[500px]">
-                  <div className="flex flex-col flex-auto shrink-0">
-                    <DashboardExpiringPolicies />
+              </div>
+            </div>
+            <div className="flex flex-col flex-auto shrink-0 lg:flex-row">
+              <div className="flex flex-col flex-auto p-2 shrink-0 lg:p-2">
+                <div className="flex flex-col flex-auto shrink-0 lg:flex-row lg:gap-4">
+                  <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
+                    <DashboardTodos data={tasks} />
                   </div>
-                  <div className="flex flex-col flex-auto shrink-0">
-                    <DashboardRecentPolicies />
+                  <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
+                    <div className="flex flex-col shrink-0 lg:mb-0">
+                      <DashboardTeam base={data?.relation_list} />
+                    </div>
+                    <div className="flex flex-col flex-auto shrink-0">
+                      <DashboardActivity />
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col flex-auto w-auto shrink-0 lg:w-[300px]">
-                  <div className="flex flex-col flex-auto shrink-0">
-                    <DashboardPhone />
+                  <div className="flex w-auto flex-auto shrink-0 flex-col lg:w-[500px]">
+                    <div className="flex flex-col flex-auto shrink-0">
+                      <DashboardExpiringPolicies />
+                    </div>
+                    <div className="flex flex-col flex-auto shrink-0">
+                      <DashboardRecentPolicies />
+                    </div>
+                  </div>
+                  <div className="flex w-auto flex-auto shrink-0 flex-col lg:w-[300px]">
+                    <div className="flex flex-col flex-auto shrink-0">
+                      <DashboardPhone />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
