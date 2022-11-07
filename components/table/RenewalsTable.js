@@ -45,7 +45,7 @@ export default function RenewalsTable(data) {
   const { agency, setAgency } = useAgencyContext()
   const { data: session } = useSession()
   const [rows, setRows] = useState(
-    data.data.map((x) => {
+    data?.data?.map((x) => {
       return {
         ...x,
         client_name: truncateString(x.client_name, 40),
@@ -54,7 +54,7 @@ export default function RenewalsTable(data) {
     })
   )
   const [tableData, setTableData] = useState(
-    data.data.map((x) => {
+    data?.data?.map((x) => {
       return {
         ...x,
         client_name: truncateString(x.client_name, 40),
@@ -64,7 +64,9 @@ export default function RenewalsTable(data) {
   )
   const { state, setState } = useAppContext()
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
-  const [showRenewed, setShowRenewed] = useState(!isCurrentMonthYear(month,year))
+  const [showRenewed, setShowRenewed] = useState(
+    !isCurrentMonthYear(month, year)
+  )
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
@@ -97,8 +99,8 @@ export default function RenewalsTable(data) {
   }, [agency])
 
   useEffect(() => {
-    if (runOnce.current && data && bUsers) {
-      const dat = data.data.map((x) => {
+    const handleUpdate = () => {
+      const dat = data?.data?.map((x) => {
         const isRenewed =
           x.policies.filter((y) => y.renewed).length == x.policies.length
         return {
@@ -115,21 +117,30 @@ export default function RenewalsTable(data) {
         ? dat.filter((x) => x.isRenewed == false)
         : dat
       setTableData(filtered)
-
       runOnce.current = false
     }
-    runOnce.current = true
+    if (runOnce.current && data && bUsers) {
+      handleUpdate()
+      runOnce.current = true
+    }
+    return () => {}
   }, [data, bUsers])
 
   useEffect(() => {
-    const filtered = !showRenewed
-      ? rows.filter((x) => x.isRenewed == false)
-      : rows
-    setTableData(filtered)
+    if (data && bUsers) {
+      const filtered = !showRenewed
+        ? rows.filter((x) => x.isRenewed == false)
+        : rows
+      setTableData(filtered)
+    }
+    return () => {}
   }, [showRenewed])
 
   useEffect(() => {
-    runFilter()
+    if (data && bUsers) {
+      runFilter()
+    }
+    return () => {}
   }, [minPrem, maxPrem, minPolicies, maxPolicies, lineList, visibleReps, rows])
 
   const searchTable = (val) => {
@@ -307,7 +318,7 @@ export default function RenewalsTable(data) {
 
   async function sort(sortDescriptor) {
     setSortDescriptor(sortDescriptor)
-    const sorted = tableData.sort((a, b) => {
+    const sorted = tableData?.sort((a, b) => {
       let first = a[sortDescriptor.column]
       let second = b[sortDescriptor.column]
       let cmp = collator.compare(first, second)
@@ -316,16 +327,6 @@ export default function RenewalsTable(data) {
       }
       return cmp
     })
-    // setState({
-    //   ...state,
-    //   reports: {
-    //     ...state.reports,
-    //     data: {
-    //       ...state.reports.data,
-    //       policies: { ...state.reports.data.policies, filtered: sorted },
-    //     },
-    //   },
-    // })
   }
 
   const forceSort = (data) => {
@@ -549,7 +550,7 @@ export default function RenewalsTable(data) {
             </div>
           </div>
         </div>
-        {bUsers ? (
+        {data && bUsers ? (
           <Table
             hoverable={true}
             compact
@@ -605,12 +606,12 @@ export default function RenewalsTable(data) {
                 </Table.Row>
               )}
             </Table.Body>
-            {tableData.length > 14 ? (
+            {tableData?.length > 14 ? (
               <Table.Pagination
                 shadow
                 align="start"
                 noMargin
-                total={Math.ceil(Number(tableData.length / 14))}
+                total={Math.ceil(Number(tableData?.length / 14))}
                 rowsPerPage={14}
               />
             ) : null}

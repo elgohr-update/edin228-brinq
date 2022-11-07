@@ -14,7 +14,7 @@ function BubbleBackground() {
         className={`blur-screen fixed h-screen w-full blur-screen-${type} z-2`}
       />
       <div
-        className={`fixed hidden lg:flex top-[8px] right-[300px] opacity-30 z-3 grayscale`}
+        className={`fixed hidden lg:flex top-[8px] right-[300px] opacity-70 z-3 grayscale`}
       >
         <Image
           showSkeleton

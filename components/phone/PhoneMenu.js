@@ -4,7 +4,7 @@ import { usePhoneContext } from '../../context/state'
 import { getIcon } from '../../utils/utils'
 
 function PhoneMenu() {
-  const { type } = useTheme()
+  const { isDark, type } = useTheme()
   const { phoneState, setPhoneState } = usePhoneContext()
 
   const changeTab = (tab) => {
@@ -13,13 +13,13 @@ function PhoneMenu() {
       tab: tab,
     })
   }
-
+  //
   return (
     <div
-      className={`absolute bottom-[10px] flex w-full items-center justify-center `}
+      className={`absolute bottom-0 z-10 flex w-full items-center justify-center transition duration-100 ease-out panel-flat-${type}`}
     >
       <Button.Group
-        color="primary"
+        color="warning"
         auto
         size="md"
         flat

@@ -42,21 +42,6 @@ export default function Renewals({ data }) {
     setTableData(data)
   }, [data])
 
-  // useEffect(() => {
-  //   runOnce.current = false
-  //   const handleChange = async () => {
-  //     if (!runOnce.current) {
-  //       if (!clientDrawer.isOpen){
-  //             refreshCurrent()
-  //           }
-  //     }
-  //   }
-  //   handleChange()
-  //   return () => {
-  //     runOnce.current = true
-  //   }
-  // }, [clientDrawer])
-
   const goToMonth = (dir) => {
     const currentMonth = Number(month)
     const currentYear = Number(year)

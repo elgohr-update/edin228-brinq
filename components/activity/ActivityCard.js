@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTheme } from '@nextui-org/react'
+import { Image, useTheme } from '@nextui-org/react'
 import { BsBox } from 'react-icons/bs'
 import { getFormattedDateTime, truncateString } from '../../utils/utils'
 import TagBasic from '../ui/tag/TagBasic'
@@ -31,19 +31,32 @@ const ActivityCard = ({
   return (
     <div className={baseClass}>
       <div className={`flex w-full`}>
-        <div className="z-90 mr-4 flex">
-          <UserAvatar
-            squared={false}
-            tooltip={false}
-            size="sm"
-            isUser={true}
-            passUser={activity.users.find((x) => x.id === activity.author_id)}
-          />
+        <div className="flex mr-4 z-90">
+          {activity.system_action && activity.users.length < 1 ? (
+            <div className="bg-slate-900 rounded-full w-[30px] h-[30px] flex items-center justify-center">
+            <Image
+              showSkeleton
+              maxDelay={10000}
+              width={20}
+              height={20}
+              src="/brinq-logo-q-color.png"
+              alt="Default Image"
+            /> 
+            </div>
+          ) : (
+            <UserAvatar
+              squared={false}
+              tooltip={false}
+              size="sm"
+              isUser={true}
+              passUser={activity.users.find((x) => x.id === activity.author_id)}
+            />
+          )}
         </div>
         <div className={`relative flex w-full flex-col`}>
           <div className={`flex w-full items-center justify-between`}>
-            <div className="flex items-center  text-xs space-x-2">
-              <h4 className="small-subtext">By {activity.author}</h4>
+            <div className="flex items-center space-x-2 text-xs">
+              <h4 className="small-subtext">By {activity.system_action && activity.users.length < 1 ? 'Brinq' : activity.author}</h4>
               <div className="data-point-xs purple-to-green-gradient-1"></div>
               <h4 className="flex items-center small-subtext">
                 {getFormattedDateTime(activity.date)}
@@ -59,18 +72,22 @@ const ActivityCard = ({
               <h6>{activity.description}</h6>
             )}
           </div>
-          <div className={`flex flex-col md:flex-row w-full md:items-center md:space-x-2`}>
+          <div
+            className={`flex w-full flex-col md:flex-row md:items-center md:space-x-2`}
+          >
             {hideClient ? null : (
               <div className="flex">
                 <Link href={`/clients/${activity.client_id}`}>
                   <a>
-                    <h6 className="text-sky-500">{truncateString(activity.client_name,15)}</h6>
+                    <h6 className="text-sky-500">
+                      {truncateString(activity.client_name, 15)}
+                    </h6>
                   </a>
                 </Link>
               </div>
             )}
             {hidePolicy || activity.system_action ? null : (
-              <div className="flex flex-auto items-center space-x-2">
+              <div className="flex items-center flex-auto space-x-2">
                 <TagBasic text={activity.policy_type} />
                 <Link href="/">
                   <a className="transition duration-100 hover:text-sky-500">

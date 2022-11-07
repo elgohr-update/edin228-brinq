@@ -1,5 +1,6 @@
 import SDK from '@ringcentral/sdk'
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next'
+import { DateTime } from 'luxon'
 
 export const redirectUri = `${process.env.NEXT_PUBLIC_RC_REDIRECT_URL}/rc/redirect`
 
@@ -24,6 +25,23 @@ export const rcLoginUrl = async () => {
 }
 
 export const getRecentCalls = async () => {
+  const dt = DateTime.now().minus({days: 7})
+  const getData = await rcsdk
+    .get(`/restapi/v1.0/account/~/extension/~/call-log`, {
+      query: { page: 1, perPage: 10 },
+      dateFrom: String(dt)
+    })
+    .then(function (response) {
+      return response.json()
+    })
+    .catch(function (e) {
+      console.log('Recent Calls Error: ' + e.message)
+      return e.message
+    })
+  return getData
+}
+
+export const getCallLog = async () => {
   const getData = await rcsdk
     .get(`/restapi/v1.0/account/~/extension/~/call-log`, {
       query: { page: 1, perPage: 10 },

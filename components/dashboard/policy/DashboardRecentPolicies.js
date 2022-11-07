@@ -33,14 +33,14 @@ export default function DashboardRecentPolicies() {
       <div className="pl-4">
         <PanelTitle title={`Recently Added Policies`} color="pink" />
       </div>
-      <div className={`flex flex-col rounded-lg max-h-[40vh] lg:max-h-[40vh] panel-theme-${type} ${type}-shadow overflow-hidden`}>
+      <div className={`flex flex-col rounded-lg max-h-[40vh] lg:max-h-[43vh] panel-theme-${type} ${type}-shadow overflow-hidden`}>
         <div
           className={`policy-card-container py-2 flex flex-col overflow-x-hidden overflow-y-auto rounded-lg`}
         >
           {data?.map((u, i) => (
             <motion.div
               key={u.id}
-              className="policy-card relative px-2"
+              className="relative px-2 policy-card"
               custom={i}
               initial="hidden"
               animate="visible"

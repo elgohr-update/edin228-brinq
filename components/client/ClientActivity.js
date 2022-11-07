@@ -26,16 +26,14 @@ const ClientActivity = ({
     const handleChange = async () => {
       await timeout(100)
       if (!isCancelled) {
-        if (!raw) {
-          fetchActivity()
-        }
+        fetchActivity()
       }
     }
     handleChange()
     return () => {
       isCancelled = true
     }
-  }, [])
+  }, [clientId])
 
   useEffect(() => {
     if (reload.activities) {

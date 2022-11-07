@@ -108,18 +108,16 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="flex flex-col flex-auto shrink-0 lg:flex-row">
-              <div className="flex flex-col flex-auto p-2 shrink-0 lg:p-2">
-                <div className="flex flex-col flex-auto shrink-0 lg:flex-row lg:gap-4">
+              <div className="flex flex-col flex-auto p-2 shrink-0 lg:px-2">
+                <div className="flex flex-col shrink-0 lg:mb-0">
+                  <DashboardTeam base={data?.relation_list} />
+                </div>
+                <div className="flex flex-col flex-auto shrink-0 lg:flex-row lg:gap-4 lg:py-2">
                   <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
                     <DashboardTodos data={tasks} />
                   </div>
-                  <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                    <div className="flex flex-col shrink-0 lg:mb-0">
-                      <DashboardTeam base={data?.relation_list} />
-                    </div>
-                    <div className="flex flex-col flex-auto shrink-0">
-                      <DashboardActivity />
-                    </div>
+                  <div className="flex flex-col flex-auto shrink-0">
+                    <DashboardActivity />
                   </div>
                   <div className="flex w-auto flex-auto shrink-0 flex-col lg:w-[500px]">
                     <div className="flex flex-col flex-auto shrink-0">
@@ -129,11 +127,11 @@ export default function Dashboard() {
                       <DashboardRecentPolicies />
                     </div>
                   </div>
-                  <div className="flex w-auto flex-auto shrink-0 flex-col lg:w-[300px]">
-                    <div className="flex flex-col flex-auto shrink-0">
-                      <DashboardPhone />
-                    </div>
-                  </div>
+                </div>
+              </div>
+              <div className="flex p-2 w-auto flex-auto shrink-0 flex-col lg:w-[300px]">
+                <div className="flex flex-col flex-auto shrink-0">
+                  <DashboardPhone />
                 </div>
               </div>
             </div>

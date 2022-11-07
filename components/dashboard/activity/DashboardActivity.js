@@ -81,11 +81,11 @@ export default function DashboardActivity() {
               labelLeft={<FaSearch />}
               onChange={(e) => searchActivity(e.target.value)}
             />
-            <div className="flex search-border-flair pink-to-blue-gradient-1 z-30"/>
+            <div className="z-30 flex search-border-flair pink-to-blue-gradient-1"/>
           </div>
         ) : null}
         <div
-          className={`activity-card-container flex h-full w-full flex-col overflow-y-auto relative max-h-[40vh] lg:max-h-[46.4vh] rounded`}
+          className={`activity-card-container flex h-full w-full flex-col overflow-y-auto relative max-h-[40vh] lg:max-h-[59.4vh] rounded`}
         >
           {data?.map((u, i) => (
             <motion.div

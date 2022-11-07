@@ -29,10 +29,11 @@ export const postTranscriptBlob = async (_file) => {
 }
 
 export const postTranscriptUrl = async (url) => {
-  console.log(url)
   const getData = await assembly
     .post('/transcript', {
       audio_url: `${url}`,
+      entity_detection: true,
+      auto_highlights: true
     })
     .then((response) => {
       return response.data
@@ -58,7 +59,6 @@ export const getTranscriptCompleted = async (transcriptId) => {
     .get(`https://api.assemblyai.com/v2/transcript/${transcriptId}`)
     .then(async (response) => {
       let data = response.data
-
       while (data.status !== 'completed' && data.status !== 'error') {
         await timeout(1000)
         const response = await assembly.get(

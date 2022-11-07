@@ -24,13 +24,13 @@ export default function DashboardTeam({ base = [] }) {
 
   return (
     <div className={`mt-2 lg:mt-0 flex w-full rounded-lg flex-col`}>
-      <div className="pl-4">
+      {/* <div className="pl-4">
         <PanelTitle title={`Team`} color="orange" />
-      </div>
+      </div> */}
       <div
-        className={`relative flex flex-auto shrink-0 min-h-[100px] rounded-lg panel-theme-${type} ${type}-shadow`}
+        className={`relative flex flex-auto shrink-0 min-h-[85px] rounded-lg w-full`}
       >
-        <div className="flex justify-start flex-wrap space-y-2 lg:space-y-0 overflow-y-auto lg:max-h-[20vh] lg:gap-2 lg:space-x-0">
+        <div className="flex w-full justify-start lg:justfy-center flex-wrap space-y-2 lg:max-w-[71vw] lg:space-y-0 overflow-y-auto lg:max-h-[20vh] lg:gap-2 lg:space-x-0">
           {data?.map((d,i) => (
             <motion.div
               key={d.id}

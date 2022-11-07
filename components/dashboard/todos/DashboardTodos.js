@@ -261,7 +261,7 @@ export default function DashboardTodos({ data = [] }) {
         <TodosNavBar activeItem={todoTab} setTab={(e) => setTab(e)} />
       </div>
       <div
-        className={`flex flex-col rounded-lg panel-theme-${type} ${type}-shadow`}
+        className={`flex h-full flex-col rounded-lg panel-theme-${type} ${type}-shadow`}
       >
         <div className="relative w-full">
           <Input
@@ -278,7 +278,7 @@ export default function DashboardTodos({ data = [] }) {
           <div className="z-30 flex search-border-flair pink-to-blue-gradient-1" />
         </div>
         <div
-          className={`tasks-container flex h-full max-h-[69vh] w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[68.3vh]`}
+          className={`tasks-container flex h-full max-h-[69vh] w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[59.2vh]`}
         >
           {todoTab == 1
             ? raw?.map((u) => (

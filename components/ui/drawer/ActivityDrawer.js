@@ -85,8 +85,8 @@ const ActivityDrawer = () => {
         const doctypes = await fetchDocType()
         setOptPolicies(data)
         if (actions) {
-          if (actions.AllowedValue.length > 0) {
-            const newBase = actions.AllowedValue.map((x) => {
+          if (actions?.AllowedValue?.length > 0) {
+            const newBase = actions?.AllowedValue?.map((x) => {
               return {
                 id: x.__values__.Code,
                 value: x.__values__.Description,
@@ -96,8 +96,8 @@ const ActivityDrawer = () => {
           }
         }
         if (doctypes) {
-          if (doctypes.AllowedValue.length > 0) {
-            const newBase = doctypes.AllowedValue.map((x) => {
+          if (doctypes?.AllowedValue?.length > 0) {
+            const newBase = doctypes?.AllowedValue?.map((x) => {
               return {
                 id: x.__values__.Code,
                 value: x.__values__.Description,
@@ -142,6 +142,7 @@ const ActivityDrawer = () => {
   }
   const fetchActions = async () => {
     const res = await useNextApi('GET', `/api/ams360/valuelist/activityaction`)
+    console.log(res)
     return res
   }
 
@@ -243,9 +244,9 @@ const ActivityDrawer = () => {
       <div
         className={`fixed right-0 flex h-full w-full flex-col md:w-[500px] ${type}-shadow panel-theme-${type}`}
       >
-        <div className="flex h-full flex-auto flex-col space-y-2 overflow-hidden py-4 lg:gap-2">
+        <div className="flex flex-col flex-auto h-full py-4 space-y-2 overflow-hidden lg:gap-2">
           <div className={`relative mb-2 flex w-full flex-col px-2`}>
-            <div className="relative flex w-full flex-col md:flex-row md:justify-between md:pt-2">
+            <div className="relative flex flex-col w-full md:flex-row md:justify-between md:pt-2">
               <p>New Activity / Suspense</p>
               <div className="flex items-center justify-end space-x-2">
                 <Checkbox
@@ -267,7 +268,7 @@ const ActivityDrawer = () => {
               </div>
             </div>
             <div
-              className="absolute top-0 right-5 flex md:hidden"
+              className="absolute top-0 flex right-5 md:hidden"
               onClick={() => closeDrawer()}
             >
               <div className="text-color-error">
@@ -280,16 +281,16 @@ const ActivityDrawer = () => {
             <DrawerLoader />
           ) : (
             <div className="relative flex overflow-hidden">
-              <div className="flex w-full flex-col space-y-4 overflow-y-auto">
+              <div className="flex flex-col w-full space-y-4 overflow-y-auto">
                 {clientInfo && activityDrawer.clientId ? (
-                  <div className="flex w-full flex-col pl-4">
+                  <div className="flex flex-col w-full pl-4">
                     <div>
                       <PanelTitle title={`Client`} color="sky" />
                     </div>
                     <div className="flex">{clientInfo?.client_name}</div>
                   </div>
                 ) : (
-                  <div className="flex w-full flex-col pl-4">
+                  <div className="flex flex-col w-full pl-4">
                     <div>
                       <PanelTitle title={`Client`} color="sky" />
                     </div>
@@ -309,7 +310,7 @@ const ActivityDrawer = () => {
                   </div>
                 )}
                 {client && drawerTab == 1 ? (
-                  <div className="flex w-full flex-col pl-4">
+                  <div className="flex flex-col w-full pl-4">
                     <div>
                       <PanelTitle title={`Policies`} color="indigo" />
                     </div>
@@ -329,7 +330,7 @@ const ActivityDrawer = () => {
                   </div>
                 ) : null}
                 {client && drawerTab == 1 ? (
-                  <div className="flex w-full flex-col pl-4">
+                  <div className="flex flex-col w-full pl-4">
                     <div>
                       <PanelTitle title={`Activity Action`} color="orange" />
                     </div>
@@ -349,7 +350,7 @@ const ActivityDrawer = () => {
                   </div>
                 ) : null}
                 {client && isSuspense && drawerTab == 2 ? (
-                  <div className="flex w-full flex-col pl-4">
+                  <div className="flex flex-col w-full pl-4">
                     <div>
                       <PanelTitle title={`Suspense Action`} color="orange" />
                     </div>
@@ -369,7 +370,7 @@ const ActivityDrawer = () => {
                   </div>
                 ) : null}
                 {client && drawerTab == 1 ? (
-                  <div className="flex w-full flex-col px-4 pb-1">
+                  <div className="flex flex-col w-full px-4 pb-1">
                     <div>
                       <PanelTitle title={`Activity Description`} color="pink" />
                     </div>
@@ -386,7 +387,7 @@ const ActivityDrawer = () => {
                   </div>
                 ) : null}
                 {client && isSuspense && drawerTab == 2 ? (
-                  <div className="flex w-full flex-col px-4 pb-1">
+                  <div className="flex flex-col w-full px-4 pb-1">
                     <div>
                       <PanelTitle title={`Suspense Description`} color="pink" />
                     </div>
@@ -403,7 +404,7 @@ const ActivityDrawer = () => {
                   </div>
                 ) : null}
                 {client && drawerTab == 1 ? (
-                  <div className="flex w-full flex-col px-4">
+                  <div className="flex flex-col w-full px-4">
                     <div>
                       <PanelTitle title={`Attachments`} color="amber" />
                     </div>
@@ -411,11 +412,11 @@ const ActivityDrawer = () => {
                       {sortedFiles().map((f) => (
                         <div
                           key={f.id}
-                          className="flex w-full flex-col space-y-2"
+                          className="flex flex-col w-full space-y-2"
                         >
-                          <div className="flex w-full items-center">
+                          <div className="flex items-center w-full">
                             <h4 className="flex w-full">{f.data.name}</h4>
-                            <div className="flex w-full items-center justify-end">
+                            <div className="flex items-center justify-end w-full">
                               <SelectInput
                                 styling={`flex w-full min-w-[150px]`}
                                 multiple={false}
@@ -430,7 +431,7 @@ const ActivityDrawer = () => {
                               />
                             </div>
                           </div>
-                          <div className="flex w-full flex-col">
+                          <div className="flex flex-col w-full">
                             <Textarea
                               value={f.description}
                               placeholder="Attachment Description"
@@ -442,7 +443,7 @@ const ActivityDrawer = () => {
                           </div>
                         </div>
                       ))}
-                      <div className="flex w-full justify-center">
+                      <div className="flex justify-center w-full">
                         <FileUploaderContainer
                           showLargeButton
                           onSave={(e) => onSave(e)}
@@ -455,7 +456,7 @@ const ActivityDrawer = () => {
             </div>
           )}
         </div>
-        <div className="flex w-full justify-end px-2 pt-1 pb-4">
+        <div className="flex justify-end w-full px-2 pt-1 pb-4">
           {isActivity && isSuspense ? (
             drawerTab == 1 ? (
               <Button
@@ -468,7 +469,7 @@ const ActivityDrawer = () => {
                 {getIcon('right')}
               </Button>
             ) : (
-              <div className="flex w-full items-center justify-between">
+              <div className="flex items-center justify-between w-full">
                 <Button
                   color={!client ? 'primary' : 'gradient'}
                   disabled={client ? false : true}

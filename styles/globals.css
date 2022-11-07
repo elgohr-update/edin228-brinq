@@ -481,7 +481,9 @@ p {
   top: 0;
   z-index: 1;
 }
-
+.menu-bottom-fade {
+  background-image:linear-gradient(to top, #000000, #000, #00000052, #00000014);
+}
 /* Gradients */
 .top-border-flair {
   position: absolute;
