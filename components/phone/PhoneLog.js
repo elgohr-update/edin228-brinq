@@ -51,27 +51,9 @@ function PhoneLog() {
         <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
       </div>
       <div className="flex flex-col w-full h-full">
-        <div className="flex h-full w-full flex-col space-y-2 overflow-y-auto p-2 lg:max-h-[70vh]">
+        <div className="flex h-full w-full flex-col space-y-2 overflow-y-auto max-h-[88vh] p-2 lg:pb-[50px] lg:max-h-[94vh]">
           {recentCalls?.map((u, i) => (
-            <motion.div
-              key={u.id}
-              custom={i}
-              initial="hidden"
-              animate="visible"
-              variants={{
-                visible: {
-                  opacity: 1,
-                  transition: {
-                    delay: i * 0.05,
-                  },
-                  y: 0,
-                },
-                hidden: { opacity: 0, y: -10 },
-              }}
-              transition={{ ease: 'easeInOut', duration: 0.1 }}
-            >
-              <CallLogCard record={u} />
-            </motion.div>
+            <CallLogCard key={u.id} record={u} />
           ))}
         </div>
       </div>

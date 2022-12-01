@@ -146,7 +146,7 @@ export default function BackgroundFillSparkline({
     elements: {
       line: {
         tension: 0.4,
-        borderWidth: 0,
+        borderWidth: 0.5,
         fill: true,
       },
       point: {

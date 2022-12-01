@@ -90,7 +90,7 @@ export default function DashboardActivity() {
           {data?.map((u, i) => (
             <motion.div
               key={u.id}
-              className="relative activity-card"
+              className="relative"
               custom={i}
               initial="hidden"
               animate="visible"
@@ -106,7 +106,7 @@ export default function DashboardActivity() {
               }}
               transition={{ ease: 'easeInOut', duration: 0.25 }}
             >
-              <ActivityCard activity={u} />
+              <ActivityCard activity={u} indexLast={i+1 == data?.length} />
             </motion.div>
           ))}
         </div>

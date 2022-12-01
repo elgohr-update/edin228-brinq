@@ -50,15 +50,15 @@ export default function DashboardSummaryCard({
       transition={{ ease: 'easeInOut', duration: 2 }}
       className={`${gradient} content-dark relative flex h-[100px] w-full flex-col overflow-hidden rounded-lg ${shadow? getShadowColor():``}`}
     >
-      <div className="relative z-20 flex h-full flex-col">
-        <div className="flex h-full flex-col lg:items-end lg:flex-row z-40 items-center space-x-1 lg:space-x-2 text-sm justify-center text-center lg:text-lg font-semibold">
+      <div className="relative z-20 flex flex-col h-full">
+        <div className="z-40 flex flex-col items-center justify-center h-full space-x-1 text-sm font-semibold text-center lg:items-end lg:flex-row lg:space-x-2 lg:text-lg">
           <div className="flex pb-1">{icon}</div>
-          <div className="flex items-center text-center justify-center uppercase">{label}</div>
+          <div className="flex items-center justify-center text-center uppercase">{label}</div>
         </div>
         <BackgroundFillSparkline toCurrentMonth={toCurrentMonth} slice={slice} passColors={colors} baseData={chartData} />
       </div>
       <div
-        className={`relative card-overlay-bg flex items-center justify-center rounded-b-lg py-1 lg:text-xl font-bold `}
+        className={`relative flex items-center justify-center rounded-b-lg py-1 lg:text-xl font-bold `}
       >
         <div className="z-20">{content}</div>
       </div>

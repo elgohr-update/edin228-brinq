@@ -187,6 +187,9 @@ export function ActivityDrawerWrapper({ children }) {
   const [activityDrawer, setActivityDrawer] = useState({
     isOpen: false,
     clientId: null,
+    style:1,
+    prefill: null,
+    callData: null
   })
   return (
     <ActivityDrawerContext.Provider
@@ -275,4 +278,39 @@ export function PhoneWrapper({ children }) {
 
 export function usePhoneContext() {
   return useContext(PhoneContext)
+}
+
+const AMS360ValueListContext = createContext()
+
+export function AMS360ValueListWrapper({ children }) {
+  const [AMS360ValueList, setAMS360ValueList] = useState({
+    activityAction:null,
+    docType:null,
+  })
+  return (
+    <AMS360ValueListContext.Provider value={{AMS360ValueList, setAMS360ValueList }}>
+      {children}
+    </AMS360ValueListContext.Provider>
+  )
+}
+
+export function useAMS360ValueListContext() {
+  return useContext(AMS360ValueListContext)
+}
+
+const UpdateDataContext = createContext()
+
+export function UpdateDataWrapper({ children }) {
+  const [updateData, setUpdateData] = useState({
+    task:null
+  })
+  return (
+    <UpdateDataContext.Provider value={{updateData, setUpdateData }}>
+      {children}
+    </UpdateDataContext.Provider>
+  )
+}
+
+export function useUpdateDataContext() {
+  return useContext(UpdateDataContext)
 }

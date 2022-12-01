@@ -64,6 +64,7 @@
   --color-on-select-menu-item-selected: #0070f3;
 
   --nextui-colors-gray50: #110f14;
+  --nextui--backdropOpacity: 0.1;
 }
 .light-theme {
   --nextui-colors-accents1: #f0f3f9;
@@ -95,6 +96,7 @@
 
   --color-select-menu-item-selected: #2684ff;
   --color-on-select-menu-item-selected: #0070f3;
+  --nextui--backdropOpacity: 0.1;
 }
 .rdk-portal {
   z-index: 99999999999 !important;
@@ -104,7 +106,9 @@
 }
 /* Fixes */
 /* ---modal */
-
+.nextui-c-csEDlc-ivNdeP-css {
+  --nextui--backdropOpacity: 0.3;
+}
 .nextui-c-blxbWP {
   z-index: 9999998 !important;
 }
@@ -1348,7 +1352,7 @@ p {
 .page-link a {
   text-decoration: none;
   display: inline-block;
-  padding: 0.5em;
+  padding-bottom: 0.5em;
   position: relative;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
@@ -1378,7 +1382,7 @@ p {
   transform: translateX(0);
 }
 /* Activity */
-.activity-card-container .activity-card:not(:first-child):after {
+.activity-card-container .activity-card:not(:first-child):before {
   content: '';
   position: absolute;
   width: 1px;
@@ -1389,9 +1393,13 @@ p {
   opacity: 0.2;
 }
 @media screen and (max-width: 400px) {
-  .activity-card-container .activity-card:not(:first-child):after {
+  .activity-card-container .activity-card:not(:first-child):before {
     top: -46px;
   }
+}
+.userBadge-timeline {
+  height: calc(100% - 35px);
+
 }
 .data-point {
   height: 10px;

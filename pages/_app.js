@@ -14,6 +14,8 @@ import {
   WritingCompanyDrawerWrapper,
   NotificationWrapper,
   PhoneWrapper,
+  AMS360ValueListWrapper,
+  UpdateDataWrapper,
 } from '../context/state'
 import ProgressBar from '@badrap/bar-of-progress'
 import Router from 'next/router'
@@ -77,38 +79,42 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
       <AppWrapper>
-        <AgencyWrapper>
-          <ReloadWrapper>
-            <PhoneWrapper>
-              <AppHeaderWrapper>
-                <ClientDrawerWrapper>
-                  <ActivityDrawerWrapper>
-                    <ParentCompanyDrawerWrapper>
-                      <WritingCompanyDrawerWrapper>
-                        <NotificationWrapper>
-                          <NextThemesProvider
-                            defaultTheme="system"
-                            attribute="class"
-                            value={{
-                              light: lightTheme.className,
-                              dark: darkTheme.className,
-                            }}
-                          >
-                            <NextUIProvider>
-                              <PusherWrapper>
-                                {getLayout(<Component {...pageProps} />)}
-                              </PusherWrapper>
-                            </NextUIProvider>
-                          </NextThemesProvider>
-                        </NotificationWrapper>
-                      </WritingCompanyDrawerWrapper>
-                    </ParentCompanyDrawerWrapper>
-                  </ActivityDrawerWrapper>
-                </ClientDrawerWrapper>
-              </AppHeaderWrapper>
-            </PhoneWrapper>
-          </ReloadWrapper>
-        </AgencyWrapper>
+        <AMS360ValueListWrapper>
+          <AgencyWrapper>
+            <ReloadWrapper>
+              <PhoneWrapper>
+                <AppHeaderWrapper>
+                  <ClientDrawerWrapper>
+                    <ActivityDrawerWrapper>
+                      <ParentCompanyDrawerWrapper>
+                        <WritingCompanyDrawerWrapper>
+                          <NotificationWrapper>
+                            <UpdateDataWrapper>
+                              <NextThemesProvider
+                                defaultTheme="system"
+                                attribute="class"
+                                value={{
+                                  light: lightTheme.className,
+                                  dark: darkTheme.className,
+                                }}
+                              >
+                                <NextUIProvider>
+                                  <PusherWrapper>
+                                    {getLayout(<Component {...pageProps} />)}
+                                  </PusherWrapper>
+                                </NextUIProvider>
+                              </NextThemesProvider>
+                            </UpdateDataWrapper>
+                          </NotificationWrapper>
+                        </WritingCompanyDrawerWrapper>
+                      </ParentCompanyDrawerWrapper>
+                    </ActivityDrawerWrapper>
+                  </ClientDrawerWrapper>
+                </AppHeaderWrapper>
+              </PhoneWrapper>
+            </ReloadWrapper>
+          </AgencyWrapper>
+        </AMS360ValueListWrapper>
       </AppWrapper>
     </SessionProvider>
   )

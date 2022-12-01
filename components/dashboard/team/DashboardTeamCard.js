@@ -9,14 +9,14 @@ export default function DashboardTeamCard({ data = null }) {
     <div className={`relative flex flex-auto shrink-0 w-[190px] lg:w-[210px] rounded-lg p-2`}>
       <div className="flex flex-col items-center">
         <UserAvatar size="md" isUser squared={false} passUser={data?.user} />
-        <h6 className="flex py-1 justify-end text-teal-500">${abbreviateMoney(data?.prem)}</h6>
+        <h6 className="flex py-2 text-teal-500 justfy-end">${abbreviateMoney(data?.prem)}</h6>
       </div>
-      <div className="ml-4 flex w-full flex-col">
-        <div className="flex w-full flex-col">
+      <div className="flex flex-col w-full ml-4">
+        <div className="flex flex-col w-full">
           <div className="flex flex-col">
-            <div className="flex w-full justify-between">
+            <div className="flex justify-between w-full">
               <h4>Renewals</h4>
-              <h5 className="flex w-full justify-end text-xs">
+              <h5 className="flex justify-end w-full text-xs">
                 {getPercentage(
                   data?.renewal.renewals_completed,
                   data?.renewal.renewals_total
@@ -35,11 +35,11 @@ export default function DashboardTeamCard({ data = null }) {
             />
           </div>
         </div>
-        <div className="flex w-full flex-col">
-          <div className="flex w-full flex-col">
-            <div className="flex w-full justify-between">
+        <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full">
+            <div className="flex justify-between w-full">
               <h4>Tasks</h4>
-              <h5 className="flex w-full justify-end text-xs">
+              <h5 className="flex justify-end w-full text-xs">
                 {getPercentage(
                   data?.tasks.tasks_completed,
                   data?.tasks.tasks_total

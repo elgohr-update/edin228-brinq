@@ -91,8 +91,8 @@ const ClientActivity = ({
         </div>
       ) : null}
       <div className={`flex h-full w-full flex-col rounded`}>
-        {data?.map((u) => (
-          <ActivityCard key={u.id} activity={u} hideClient />
+        {data?.map((u,i) => (
+          <ActivityCard key={u.id} activity={u} hideClient indexLast={i+1 == data?.length} />
         ))}
       </div>
     </Panel>

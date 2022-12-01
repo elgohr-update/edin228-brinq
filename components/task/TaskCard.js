@@ -49,7 +49,7 @@ const TaskCard = ({
               <div className={`relative flex flex-auto flex-col space-y-1`}>
                 {showPolicy ? (
                   <div className="flex items-center space-x-1 text-xs">
-                    <TagBasic text={task?.policy_type} />
+                    <TagBasic tooltip tooltipContent={task?.policy_type_full} text={task?.policy_type} />
                     <h4>{task?.policy_number}</h4>
                   </div>
                 ) : null}
@@ -60,7 +60,7 @@ const TaskCard = ({
               <div className="flex items-center space-x-2">
                 {task.done ? (
                   <div
-                    className={`text-color-success relative flex w-[90px] flex-row items-center space-x-1`}
+                    className={`${task.completed ? 'text-color-success' : 'text-color-warning'} relative flex w-[90px] flex-row items-center space-x-1`}
                   >
                     <h6>{getIcon('circleCheck')}</h6>
                     <h6 className={`letter-spacing-1 flex flex-auto`}>

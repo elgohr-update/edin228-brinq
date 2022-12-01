@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react"
 export default async function handler(req, res) {
     const session = await getSession({req})
     try {
-        let results = await fetch(`${process.env.FETCHBASE_URL}/tasks/list`, {
+        let results = await fetch(`${process.env.FETCHBASE_URL}/tasks/list/all`, {
             method: 'GET',
             headers: { 
                 "Content-Type": "application/json",

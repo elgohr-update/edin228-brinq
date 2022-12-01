@@ -9,7 +9,7 @@ import {
   BsFillTelephoneInboundFill,
   BsFillTelephoneOutboundFill,
   BsRecordCircleFill,
-  BsFillFileTextFill
+  BsFillFileTextFill,
 } from 'react-icons/bs'
 import {
   FaRegPaperPlane,
@@ -17,6 +17,7 @@ import {
   FaFilter,
   FaFax,
   FaVoicemail,
+  FaDiceD20,
 } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 import { RiLinksLine } from 'react-icons/ri'
@@ -98,7 +99,7 @@ export const getIcon = (item) => {
   ) : item == 'circle' ? (
     <BiCircle />
   ) : item == 'file' ? (
-    <AiOutlineFile />
+    <FaDiceD20 />
   ) : item == 'link' ? (
     <RiLinksLine />
   ) : item == 'agency' ? (
@@ -190,13 +191,28 @@ export const timeout = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export const useApi = async (method, path, token) => {
-  const req = await fetch(`${process.env.FETCHBASE_URL}${path}`, {
+export const useApi = async (method, path, token, data) => {
+  const url = `${process.env.NEXT_PUBLIC_FETCHBASE_URL}${path}`
+  const req = await fetch(url, {
     method: `${method}`,
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+    body: data,
+  })
+  const res = await req.json()
+  return res
+}
+
+export const useApiFormData = async (method, path, token, data) => {
+  const url = `${process.env.NEXT_PUBLIC_FETCHBASE_URL}${path}`
+  const req = await fetch(url, {
+    method: `${method}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: data,
   })
   const res = await req.json()
   return res
@@ -280,8 +296,7 @@ export const getFormattedDuration = (t) => {
   const convertedToMill = t * 1000
   if (hasHour) {
     return Duration.fromMillis(convertedToMill).toFormat("hh'h' mm'm' ss's'")
-  }
-  else if (hasMinute) {
+  } else if (hasMinute) {
     return Duration.fromMillis(convertedToMill).toFormat("mm'm' ss's'")
   }
   return Duration.fromMillis(convertedToMill).toFormat("ss's'")
@@ -397,8 +412,25 @@ export const getCurrentYear = () => {
 export const isCurrentMonthYear = (m, y) => {
   const base = DateTime.local()
   const currentYear = base.year
-  const currentMonth = base.month - 1
+  const currentMonth = base.month
   return currentYear == y && currentMonth == m
+}
+
+export const getBase64String = async (data) => {
+  const reader = new FileReader()
+  let result = null
+  reader.readAsDataURL(data)
+  reader.onloadend = function () {
+    result = reader.result
+    return result
+    // Simply Print the Base64 Encoded String,
+    // without additional data: Attributes.
+    // console.log(
+    //   'Base64 String without Tags- ',
+    //   base64String.substr(base64String.indexOf(', ') + 1)
+    // )
+  }
+  return result
 }
 
 export const abbreviateMoney = (num, fixed) => {
@@ -418,4 +450,15 @@ export const abbreviateMoney = (num, fixed) => {
     d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
     e = d + ['', 'K', 'M', 'B', 'T'][k] // append power
   return e
+}
+
+export const formatPhoneNumber = (phone) => {
+  let value = String(phone)
+  var cleaned = ('' + value).replace(/\D/g, '');
+  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+  if (match) {
+    var intlCode = (match[1] ? '+1 ' : '');
+    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
+  }
+  return null;
 }

@@ -154,7 +154,7 @@ export default function Client({ data }) {
 
   return (
     <div className="relative flex h-full w-full flex-auto shrink-0 flex-col overflow-y-auto overflow-x-hidden xl:max-h-[92.6vh] xl:flex-row xl:overflow-hidden">
-      <div className="flex flex-auto shrink-0 xl:w-2/12 xl:py-0 xl:pb-8">
+      <div className="flex flex-auto shrink-0 xl:w-[320px] xl:py-0 xl:pb-8">
         <div
           className={`relative flex flex-auto  flex-col space-y-2 py-4 px-4`}
         >
@@ -167,7 +167,7 @@ export default function Client({ data }) {
           />
         </div>
       </div>
-      <div className="flex flex-col flex-auto shrink-0 xl:w-6/12 xl:overflow-hidden">
+      <div className="flex flex-col flex-auto xl:w-full xl:overflow-hidden">
         <div className="flex items-center justify-between shrink-0">
           <ClientDataNavbar />
           <div className="flex items-center py-2 pr-2 space-x-2 xl:justify-end xl:py-0">
@@ -229,12 +229,12 @@ export default function Client({ data }) {
         ) : null}
       </div>
       <div
-        className={`mt-4 flex flex-auto flex-col pb-2 xl:mt-0 xl:w-4/12 xl:overflow-hidden`}
+        className={`mt-4 flex flex-auto flex-col pb-2 lg:min-w-[450px] xl:mt-0`}
       >
         <div className="xl:px-4">
           <ClientActionNavbar />
         </div>
-        <div className="xl:overflow-y-auto xl:px-4">
+        <div className="flex w-full xl:overflow-y-auto xl:px-4">
           {state.client.actionNavbar === 1 && client ? (
             <ClientActivity clientId={client?.id} limit={50} />
           ) : null}

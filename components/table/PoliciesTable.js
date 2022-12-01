@@ -11,7 +11,7 @@ import {
 } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
-import { AiOutlineFilter} from 'react-icons/ai'
+import { AiOutlineFilter } from 'react-icons/ai'
 import {
   truncateString,
   formatMoney,
@@ -205,7 +205,11 @@ const PoliciesTable = () => {
       case 'policy_type':
         return (
           <div className={`relative mr-4 flex flex-col items-end space-y-1`}>
-            <TagBasic text={policy.policy_type} />
+            <TagBasic
+              tooltip
+              tooltipContent={policy.policy_type_full}
+              text={`${policy.policy_type}`}
+            />
             <TagBasic text={`active`} color="green" />
           </div>
         )

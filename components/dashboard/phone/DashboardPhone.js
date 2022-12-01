@@ -13,22 +13,17 @@ import PhoneFax from '../../phone/PhoneFax'
 function DashboardPhone() {
   const { type } = useTheme()
   const router = useRouter()
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(true)
   const [loading, setLoading] = useState(false)
   const { phoneState, setPhoneState } = usePhoneContext()
   const runOnce = useRef(true)
-
   useEffect(() => {
     const handleChange = async () => {
-      const authCheck = await rcsdk.platform().auth().accessTokenValid()
-      setIsAuth(authCheck)
-      setPhoneState({ ...phoneState, auth: authCheck })
+      const isLoggedIn = await rcsdk.platform().auth().accessTokenValid();
+      setIsAuth(isLoggedIn)
+      setPhoneState({ ...phoneState, auth: isLoggedIn })
     }
-    if (runOnce.current) {
-      handleChange()
-      runOnce.current = false
-    }
-
+    handleChange()
     return () => {
       runOnce.current = false
     }
@@ -82,7 +77,7 @@ function DashboardPhone() {
             <PhoneFax />
           ) : null}
         </div>
-        <PhoneMenu />
+        {/* <PhoneMenu /> */}
       </div>
     )
   }
@@ -92,7 +87,7 @@ function DashboardPhone() {
       className={`relative flex h-full flex-auto shrink-0 flex-col rounded-lg`}
     >
       <div
-        className={`flex h-[75.3vh] w-full flex-col rounded-lg panel-theme-${type} ${type}-shadow overflow-y-auto`}
+        className={`flex h-full w-full flex-col rounded-lg panel-flatter-${type} ${type}-shadow overflow-y-auto`}
       >
         {isAuth ? <RingCentralAppContainer /> : <LoginRingCentral />}
       </div>

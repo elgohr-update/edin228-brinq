@@ -161,25 +161,26 @@ export default function DashboardSummaryChart({
         label: 'Clients',
         type: 'bar',
         yAxisID: 'y1',
+        borderRadius: {
+          topLeft: 10,
+          topRight: 0,
+          bottomRight: 0,
+          bottomLeft: 0,
+        },
       },
       {
         data: fullData?.policies_chart,
         label: 'Policies',
         type: 'bar',
         yAxisID: 'y2',
-      },
-      // {
-      //   data: fullData?.nb_chart,
-      //   label: 'New Business',
-      //   type: 'line',
-      //   yAxisID: 'y3',
-      // },
-      // {
-      //   data: fullData?.nb_premium_chart,
-      //   label: 'New Business Premium',
-      //   type: 'line',
-      //   yAxisID: 'y4',
-      // },
+        barThickness: 16,
+        borderRadius: {
+          topLeft: 0,
+          topRight: 10,
+          bottomRight: 0,
+          bottomLeft: 0,
+        },
+      }
     ]
   }
 
@@ -217,12 +218,11 @@ export default function DashboardSummaryChart({
           boxHeight: 6,
           usePointStyle: true,
         },
+        position: 'top',
+        align: 'start',
       },
       title: {
         display: false,
-        text: 'New Business Track',
-        position: 'top',
-        align: 'center',
       },
     },
     elements: {
@@ -237,12 +237,6 @@ export default function DashboardSummaryChart({
         barPercentage: 0.3,
         categoryPercentage: 1,
         borderSkipped: false,
-        borderRadius: {
-          topLeft: 100,
-          topRight: 0,
-          bottomRight: 100,
-          bottomLeft: 0,
-        },
         barThickness: 10,
       },
       point: {
@@ -295,19 +289,17 @@ export default function DashboardSummaryChart({
       },
     },
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
   }
 
-  const baseClass = `relative z-20 w-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+  const baseClass = `relative z-20 w-full h-[150px] rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
     <div className="flex w-full lg:justify-center">
       <div className={`${baseClass} flex`}>
         <Chart
           data={chartData}
-          height={`50px`}
           ref={chartRef}
-          //   plugins={[multiply]}
           options={options}
         />
       </div>

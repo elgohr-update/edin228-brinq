@@ -22,6 +22,7 @@ import WritingCompanyDrawer from '../components/ui/drawer/WritingCompanyDrawer'
 import AppNotification from '../components/ui/Notifications/AppNotification'
 import { signOut } from 'next-auth/react'
 import BubbleBackground from '../components/ui/BubbleBackground'
+import PhoneContainer from '../components/phone/PhoneContainer/PhoneContainer'
 
 export default function AppLayout({ children }) {
   const { isDark, type } = useTheme()
@@ -40,7 +41,7 @@ export default function AppLayout({ children }) {
   const { parentCompanyDrawer } = useParentCompanyDrawerContext()
   const { writingCompanyDrawer } = useWritingCompanyDrawerContext()
   const [isAuth, setIsAuth] = useState(true)
-  
+
   useEffect(() => {
     let isCancelled = false
     const handleChange = async () => {
@@ -56,24 +57,22 @@ export default function AppLayout({ children }) {
   }, [])
 
   useEffect(() => {
-    if (reload.agency) {
-      let isCancelled = false
-      const handleChange = async () => {
-        await timeout(100)
-        if (!isCancelled) {
-          fetchData()
-          setReload({
-            ...reload,
-            agency: false,
-          })
-        }
-      }
-      handleChange()
-      return () => {
-        isCancelled = true
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(100)
+      if (!isCancelled) {
+        fetchData()
+        setReload({
+          ...reload,
+          agency: false,
+        })
       }
     }
-  }, [reload])
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [reload.agency])
 
   const fetchData = async () => {
     const res = await useNextApi('GET', `/api/agency/`)
@@ -84,7 +83,6 @@ export default function AppLayout({ children }) {
       signOut()
     }
   }
-
   return (
     <>
       <Head>
@@ -98,10 +96,11 @@ export default function AppLayout({ children }) {
       <div className={`container-main overflow-hidden`}>
         <BubbleBackground />
         {clientDrawer.isOpen ? <ClientDrawer /> : null}
-        {activityDrawer.isOpen ? <ActivityDrawer /> : null}
+        <ActivityDrawer />
         {parentCompanyDrawer.isOpen ? <ParentCompanyDrawer /> : null}
         {writingCompanyDrawer.isOpen ? <WritingCompanyDrawer /> : null}
         <AppNotification />
+        <PhoneContainer />
         <Row fluid className={`z-3 overflow-hidden`}>
           {isAuth ? <SidebarContainer /> : null}
           <Col className="h-screen">

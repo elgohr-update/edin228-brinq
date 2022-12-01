@@ -41,28 +41,8 @@ export default function Dashboard() {
     }
   }, [])
 
-  useEffect(() => {
-    if (reload.policies) {
-      let isCancelled = false
-      const handleChange = async () => {
-        await timeout(100)
-        if (!isCancelled) {
-          fetchTasks()
-          setReload({
-            ...reload,
-            policies: false,
-          })
-        }
-      }
-      handleChange()
-      return () => {
-        isCancelled = true
-      }
-    }
-  }, [reload.policies])
-
   const fetchTasks = async () => {
-    const res = await useNextApi('GET', `/api/task/list`)
+    const res = await useNextApi('GET', `/api/tasks/`)
     setTasks(res)
   }
 
@@ -107,31 +87,28 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col flex-auto shrink-0 lg:flex-row">
-              <div className="flex flex-col flex-auto p-2 shrink-0 lg:px-2">
-                <div className="flex flex-col shrink-0 lg:mb-0">
-                  <DashboardTeam base={data?.relation_list} />
+            <div className="flex flex-col flex-auto w-full shrink-0 lg:flex-row">
+              <div className="flex flex-col flex-auto p-2 shrink-0 lg:flex-row lg:px-2 lg:gap-2">
+                <div className="flex flex-auto shrink-0 flex-col lg:w-[500px]">
+                  <DashboardTodos data={tasks} />
                 </div>
-                <div className="flex flex-col flex-auto shrink-0 lg:flex-row lg:gap-4 lg:py-2">
-                  <div className="flex flex-auto shrink-0 flex-col lg:min-w-[450px] lg:max-w-[450px]">
-                    <DashboardTodos data={tasks} />
+                <div className="flex flex-col flex-auto px-2 shrink-0">
+                  <div className="flex flex-col py-4 shrink-0 lg:mb-0 lg:py-0">
+                    <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex flex-col flex-auto shrink-0">
-                    <DashboardActivity />
-                  </div>
-                  <div className="flex w-auto flex-auto shrink-0 flex-col lg:w-[500px]">
-                    <div className="flex flex-col flex-auto shrink-0">
-                      <DashboardExpiringPolicies />
+                  <div className="flex flex-col flex-auto w-full shrink-0 lg:flex-row lg:gap-4 lg:py-2">
+                    <div className="flex flex-auto shrink-0 flex-col lg:w-[400px]">
+                      <DashboardActivity />
                     </div>
-                    <div className="flex flex-col flex-auto shrink-0">
-                      <DashboardRecentPolicies />
+                    <div className="flex flex-col flex-auto w-auto shrink-0">
+                      <div className="flex flex-col flex-auto shrink-0">
+                        <DashboardExpiringPolicies />
+                      </div>
+                      <div className="flex flex-col flex-auto shrink-0">
+                        <DashboardRecentPolicies />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="flex p-2 w-auto flex-auto shrink-0 flex-col lg:w-[300px]">
-                <div className="flex flex-col flex-auto shrink-0">
-                  <DashboardPhone />
                 </div>
               </div>
             </div>

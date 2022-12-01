@@ -3,45 +3,27 @@ import { BsCheckCircleFill, BsFillXCircleFill } from 'react-icons/bs'
 import { BiCircle } from 'react-icons/bi'
 import { Popover } from '@nextui-org/react'
 import { useNextApi } from '../../utils/utils'
-import { useReloadContext } from '../../context/state'
+import { useReloadContext, useUpdateDataContext } from '../../context/state'
 
 export default function TaskCompletion({ task }) {
   const { reload, setReload } = useReloadContext()
+  const { updateData, setUpdateData } = useUpdateDataContext()
   const [isOpen, setIsOpen] = useState(false);
 
-  const setCompleted = async () => {
+
+  const setTask = async (completed=false, na=false) => {
     const res = await useNextApi(
       'PUT',
-      `/api/task/${task.id}?completed=true&na=false`
+      `/api/task/${task.id}?completed=${completed}&na=${na}`
     )
     setReload({
       ...reload,
       policies: true,
       activities: true,
     })
-    setIsOpen(false)
-  }
-  const setNa = async () => {
-    const res = await useNextApi(
-      'PUT',
-      `/api/task/${task.id}?completed=false&na=true`
-    )
-    setReload({
-      ...reload,
-      policies: true,
-      activities: true,
-    })
-    setIsOpen(false)
-  }
-  const setNone = async () => {
-    const res = await useNextApi(
-      'PUT',
-      `/api/task/${task.id}?completed=false&na=false`
-    )
-    setReload({
-      ...reload,
-      policies: true,
-      activities: true,
+    setUpdateData({
+      ...updateData,
+      task: res,
     })
     setIsOpen(false)
   }
@@ -55,6 +37,10 @@ export default function TaskCompletion({ task }) {
               <div className="text-color-success">
                 <BsCheckCircleFill />
               </div>
+            ) : task?.na ? (
+              <div className="text-color-warning">
+                <BsFillXCircleFill />
+              </div>
             ) : (
               <div className="text-color-warning">
                 <BsFillXCircleFill />
@@ -67,14 +53,14 @@ export default function TaskCompletion({ task }) {
           )}
         </Popover.Trigger>
         <Popover.Content>
-          <div className="flex w-full items-center space-x-4 p-4">
-            <div className="hover:scale-110 transition duration-100 ease-in-out cursor-pointer text-color-success" onClick={() => setCompleted()}>
+          <div className="flex items-center w-full p-4 space-x-4">
+            <div className="transition duration-100 ease-in-out cursor-pointer hover:scale-110 text-color-success" onClick={() => setTask(true,false)}>
               <BsCheckCircleFill />
             </div>
-            <div className="hover:scale-110 transition duration-100 ease-in-out cursor-pointer" onClick={() => setNone()}>
+            <div className="transition duration-100 ease-in-out cursor-pointer hover:scale-110" onClick={() => setTask()}>
               <BiCircle />
             </div>
-            <div className="hover:scale-110 transition duration-100 ease-in-out cursor-pointer text-color-warning" onClick={() => setNa()}>
+            <div className="transition duration-100 ease-in-out cursor-pointer hover:scale-110 text-color-warning" onClick={() => setTask(false,true)}>
               <BsFillXCircleFill />
             </div>
           </div>

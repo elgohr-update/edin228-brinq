@@ -1,6 +1,6 @@
 import { Button, Loading } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { useReloadContext } from '../../context/state'
+import { useReloadContext, useUpdateDataContext } from '../../context/state'
 import { timeout, useNextApi } from '../../utils/utils'
 import TextEditor from '../ui/editor/TextEditor'
 import UserAvatar from '../user/Avatar'
@@ -12,6 +12,7 @@ export default function NewComment({ source, commentType = 'task' }) {
   const [loading, setLoading] = useState(false)
   const [files, setFiles] = useState(null)
   const { reload, setReload } = useReloadContext()
+  const { updateData, setUpdateData } = useUpdateDataContext()
   const { data: session } = useSession()
 
   const submitNewComment = async () => {
@@ -31,6 +32,7 @@ export default function NewComment({ source, commentType = 'task' }) {
         JSON.stringify(bundle)
       )
       if (res) {
+        console.log(res)
         if (files) {
           const formData = new FormData()
           for (let fil of files) {
@@ -61,6 +63,7 @@ export default function NewComment({ source, commentType = 'task' }) {
           }
         }
         if (commentType === 'task' || commentType === 'reply') {
+          updateTaskData(res.source_id)
           setReload({
             ...reload,
             policies: true,
@@ -70,6 +73,16 @@ export default function NewComment({ source, commentType = 'task' }) {
           setLoading(false)
         }
       }
+    }
+  }
+
+  const updateTaskData = async (task_id=null) => {
+    const task = await useNextApi('GET', `/api/task/${task_id}`)
+    if (task) {
+      setUpdateData({
+        ...updateData,
+        task: task,
+      })
     }
   }
 
@@ -83,7 +96,7 @@ export default function NewComment({ source, commentType = 'task' }) {
         <UserAvatar squared={false} tooltip={false} size="sm" />
       </div> */}
       <div className="relative flex flex-col w-full space-y-2">
-        {loading ?
+        {loading ? (
           <div className="absolute z-50 flex items-center justify-center w-full h-full rounded-lg">
             <Loading
               type="points"
@@ -92,8 +105,7 @@ export default function NewComment({ source, commentType = 'task' }) {
               textColor="primary"
             />
           </div>
-          :null
-        }
+        ) : null}
         <TextEditor getValue={(e) => setComment(e)} />
         <div className="absolute z-40 flex items-center justify-end space-x-2 bottom-2 right-2">
           <FileUploaderContainer onSave={(e) => onSave(e)} />

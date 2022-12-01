@@ -1,10 +1,11 @@
 import React from 'react'
-import { Image, useTheme } from '@nextui-org/react'
+import { Image, Tooltip, useTheme } from '@nextui-org/react'
 import { BsBox } from 'react-icons/bs'
 import { getFormattedDateTime, truncateString } from '../../utils/utils'
 import TagBasic from '../ui/tag/TagBasic'
 import UserAvatar from '../user/Avatar'
 import Link from 'next/link'
+import FileTagContainer from '../files/FileTagContainer'
 
 const ActivityCard = ({
   activity,
@@ -13,6 +14,7 @@ const ActivityCard = ({
   shadow = false,
   hideClient = false,
   hidePolicy = false,
+  indexLast = null,
 }) => {
   const { isDark, type } = useTheme()
 
@@ -27,21 +29,21 @@ const ActivityCard = ({
       ? `${isDark ? `border-slate-900` : `border-slate-200`} border`
       : ``
   }
-  const baseClass = `activity-card relative flex-col w-full p-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
+  const baseClass = `flex flex-none activity-card overflow-x-hidden overflow-y-hidden relative flex-col w-full p-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
   return (
     <div className={baseClass}>
       <div className={`flex w-full`}>
-        <div className="flex mr-4 z-90">
+        <div className="relative flex mr-4 z-90">
           {activity.system_action && activity.users.length < 1 ? (
-            <div className="bg-slate-900 rounded-full w-[30px] h-[30px] flex items-center justify-center">
-            <Image
-              showSkeleton
-              maxDelay={10000}
-              width={20}
-              height={20}
-              src="/brinq-logo-q-color.png"
-              alt="Default Image"
-            /> 
+            <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-slate-900">
+              <Image
+                showSkeleton
+                maxDelay={10000}
+                width={20}
+                height={20}
+                src="/brinq-logo-q-color.png"
+                alt="Default Image"
+              />
             </div>
           ) : (
             <UserAvatar
@@ -52,11 +54,23 @@ const ActivityCard = ({
               passUser={activity.users.find((x) => x.id === activity.author_id)}
             />
           )}
+          {!indexLast ? (
+            <div
+              className={`absolute border-l-[2px] border-t-0 border-b-0 border-r-0 ${
+                isDark ? 'border-zinc-200' : 'border-zinc-500'
+              } userBadge-timeline top-[35px] left-[48%] w-full border-[1px] opacity-10`}
+            ></div>
+          ) : null}
         </div>
         <div className={`relative flex w-full flex-col`}>
           <div className={`flex w-full items-center justify-between`}>
             <div className="flex items-center space-x-2 text-xs">
-              <h4 className="small-subtext">By {activity.system_action && activity.users.length < 1 ? 'Brinq' : activity.author}</h4>
+              <h4 className="small-subtext">
+                By{' '}
+                {activity.system_action && activity.users.length < 1
+                  ? 'Brinq'
+                  : activity.author}
+              </h4>
               <div className="data-point-xs purple-to-green-gradient-1"></div>
               <h4 className="flex items-center small-subtext">
                 {getFormattedDateTime(activity.date)}
@@ -72,34 +86,56 @@ const ActivityCard = ({
               <h6>{activity.description}</h6>
             )}
           </div>
-          <div
-            className={`flex w-full flex-col md:flex-row md:items-center md:space-x-2`}
-          >
+          <div className={`flex w-full flex-col`}>
             {hideClient ? null : (
-              <div className="flex">
+              <div className="flex page-link">
                 <Link href={`/clients/${activity.client_id}`}>
                   <a>
-                    <h6 className="text-sky-500">
-                      {truncateString(activity.client_name, 15)}
+                    <h6 className="opacity-60">
+                      {truncateString(activity.client_name, 50)}
                     </h6>
                   </a>
                 </Link>
               </div>
             )}
-            {hidePolicy || activity.system_action ? null : (
+            {hidePolicy ||
+            activity.system_action ||
+            activity.policies.length == 0 ? null : activity.policies.length ==
+              1 ? (
               <div className="flex items-center flex-auto space-x-2">
-                <TagBasic text={activity.policy_type} />
+                <TagBasic
+                  tooltip
+                  tooltipContent={activity.policies[0].policy_type_full}
+                  text={activity.policies[0].policy_type}
+                />
                 <Link href="/">
                   <a className="transition duration-100 hover:text-sky-500">
                     <h4 className="flex items-center space-x-2">
                       <BsBox />
-                      <div>{activity.policy_number}</div>
+                      <div>{activity.policies[0].policy_number}</div>
                     </h4>
                   </a>
                 </Link>
               </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                {activity.policies.map((pol) => (
+                  <div key={pol.id} className="flex items-center space-x-2">
+                    <TagBasic
+                      tooltip
+                      tooltipContent={pol.policy_number}
+                      text={`${pol.policy_type}`}
+                    />
+                  </div>
+                ))}
+              </div>
             )}
           </div>
+          {activity.attachments.length > 0 ? (
+            <div className="py-2">
+              <FileTagContainer files={activity.attachments} />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

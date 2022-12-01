@@ -62,11 +62,7 @@ export default function RenewalsTable(data) {
       }
     })
   )
-  const { state, setState } = useAppContext()
-  const { clientDrawer, setClientDrawer } = useClientDrawerContext()
-  const [showRenewed, setShowRenewed] = useState(
-    !isCurrentMonthYear(month, year)
-  )
+  const [showRenewed, setShowRenewed] = useState(true)
   const [showFilter, setShowFilter] = useState(true)
   const [minPrem, setMinPrem] = useState(null)
   const [maxPrem, setMaxPrem] = useState(null)
@@ -117,6 +113,7 @@ export default function RenewalsTable(data) {
         ? dat.filter((x) => x.isRenewed == false)
         : dat
       setTableData(filtered)
+      setShowRenewed(!isCurrentMonthYear(month, year))
       runOnce.current = false
     }
     if (runOnce.current && data && bUsers) {

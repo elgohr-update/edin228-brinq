@@ -25,7 +25,7 @@ export const rcLoginUrl = async () => {
 }
 
 export const getRecentCalls = async () => {
-  const dt = DateTime.now().minus({days: 7})
+  const dt = DateTime.now().minus({days:30})
   const getData = await rcsdk
     .get(`/restapi/v1.0/account/~/extension/~/call-log`, {
       query: { page: 1, perPage: 10 },
@@ -35,7 +35,7 @@ export const getRecentCalls = async () => {
       return response.json()
     })
     .catch(function (e) {
-      console.log('Recent Calls Error: ' + e.message)
+      console.log('Error: ' + e.message)
       return e.message
     })
   return getData
@@ -50,21 +50,33 @@ export const getCallLog = async () => {
       return response.json()
     })
     .catch(function (e) {
-      console.log('Recent Calls Error: ' + e.message)
+      console.log('Error: ' + e.message)
       return e.message
     })
   return getData
 }
 
-export const getRecording = async (recordingId) => {
-  const url = `/restapi/v1.0/account/~/recording/${recordingId}/content`
+export const getRecording = async (uri) => {
   const getData = await rcsdk
-    .get(url)
+    .get(`${uri}`)
     .then(function (response) {
       return response.blob()
     })
     .catch(function (e) {
-      console.log('Recent Calls Error: ' + e.message)
+      console.log('Error: ' + e.message)
+      return e.message
+    })
+  return getData
+}
+
+export const getRecordingContent = async (contentUri) => {
+  const getData = await rcsdk
+    .get(`${contentUri}`)
+    .then(function (response) {
+      return response.blob()
+    })
+    .catch(function (e) {
+      console.log('Error: ' + e.message)
       return e.message
     })
   return getData
@@ -77,7 +89,7 @@ export const getVoicemail = async (url) => {
       return response.json()
     })
     .catch(function (e) {
-      console.log('Recent Calls Error: ' + e.message)
+      console.log('Error: ' + e.message)
       return e.message
     })
   return getData
@@ -91,7 +103,7 @@ export const getVoicemailDownload = async (contentUri) => {
       return response.blob()
     })
     .catch(function (e) {
-      console.log('Recent Calls Error: ' + e.message)
+      console.log('Error: ' + e.message)
       return e.message
     })
   return getData
