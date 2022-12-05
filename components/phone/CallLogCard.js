@@ -168,7 +168,7 @@ function CallLogCard({ record }) {
       }`}
     >
       <div className="flex items-center w-full" onClick={openInfo}>
-        <span className="px-2 text-xs">
+        <span className="px-2 text-xs min-w-[60px]">
           {outbound ? (
             <div className="flex flex-col items-center">
               <div

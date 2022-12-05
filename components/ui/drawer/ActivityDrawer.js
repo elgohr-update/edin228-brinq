@@ -380,7 +380,7 @@ const ActivityDrawer = () => {
         >
           <div
             className={`fixed ${
-              activityDrawer.style == 1 ? 'right-0' : 'xl:right-[450px]'
+              activityDrawer.style == 1 ? 'xl:right-[100px]' : 'xl:right-[450px]'
             }   right-0 flex h-full w-full flex-col md:w-[400px] ${type}-shadow panel-theme-${type}`}
           >
             <div className="flex flex-col flex-auto h-full py-2 space-y-2 overflow-hidden lg:gap-2">
