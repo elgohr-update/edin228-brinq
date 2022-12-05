@@ -189,7 +189,7 @@ export function ActivityDrawerWrapper({ children }) {
     clientId: null,
     style:1,
     prefill: null,
-    callData: null
+    callData: null,
   })
   return (
     <ActivityDrawerContext.Provider

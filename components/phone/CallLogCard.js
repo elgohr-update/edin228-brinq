@@ -32,7 +32,6 @@ function CallLogCard({ record }) {
     record?.result == 'Stopped' || record?.result == 'Voicemail'
   const [showInfo, setShowInfo] = useState(false)
   const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
-  const { phoneState, setPhoneState } = usePhoneContext()
 
   const hasName = outbound ? record.to.name : record.from.name
 
@@ -123,7 +122,6 @@ function CallLogCard({ record }) {
   }
 
   const openInfo = () => {
-    console.log(record)
     // if (hasRecording && !transcriptData) {
     //   getRecordingTranscript(record.recording)
     // } else if (hasMessage && !transcriptData) {
@@ -132,12 +130,28 @@ function CallLogCard({ record }) {
     setShowInfo(!showInfo)
   }
 
-  const createActivity = () => {
+  const createActivity = async () => {
+    const description = `${outbound ? 'Outbound' : 'Inbound'} Call \n From: ${
+      hasName ? record.from.name : 'Unknown'
+    } \n Phone Number: ${
+      record.from.phoneNumber ? formatPhoneNumber(record.from.phoneNumber) : ''
+    } \n To: ${
+      hasName ? (outbound ? record.to.name : record.from.name) : 'Unknown'
+    } \n Phone Number: ${
+      record.to.phoneNumber ? formatPhoneNumber(record.to.phoneNumber) : ''
+    }
+    `
+
+    const prefill = {
+      description: description,
+    }
+    console.log(prefill)
     setActivityDrawer({
       ...activityDrawer,
       style: 2,
       isOpen: true,
       callData: record,
+      prefill: prefill,
     })
   }
 
@@ -321,14 +335,15 @@ function CallLogCard({ record }) {
           </div>
           {hasRecording ? (
             !transcriptData && !transcriptLoading ? (
-              <Button
-                size="xs"
-                ghost
-                auto
-                onClick={() => getRecordingTranscript(record.recording)}
-              >
-                <div>Load Transcript</div>
-              </Button>
+              <div className="w-[100px]">
+                <Button
+                  size="xs"
+                  ghost
+                  onClick={() => getRecordingTranscript(record.recording)}
+                >
+                  <div>Load Transcript</div>
+                </Button>
+              </div>
             ) : (
               <div className="flex flex-col">
                 <div className="mb-2 text-xs opacity-60">
@@ -344,14 +359,15 @@ function CallLogCard({ record }) {
           ) : null}
           {hasMessage ? (
             !transcriptData && !transcriptLoading ? (
-              <Button
-                size="xs"
-                auto
-                ghost
-                onClick={() => getVoicemailTranscript(record)}
-              >
-                Load Transcript
-              </Button>
+              <div className="w-[100px]">
+                <Button
+                  size="xs"
+                  ghost
+                  onClick={() => getVoicemailTranscript(record)}
+                >
+                  Load Transcript
+                </Button>
+              </div>
             ) : (
               <div className="flex flex-col">
                 <div className="mb-2 text-xs opacity-60">

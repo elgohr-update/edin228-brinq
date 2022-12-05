@@ -69,6 +69,10 @@ const ActivityDrawer = () => {
         setClientInfo(data)
         setClient(data.id)
       }
+      if (activityDrawer.prefill) {
+        setActivityDescription(activityDrawer.prefill.description)
+        setSuspenseDescription(activityDrawer.prefill.description)
+      }
     }
     handleChange()
     return () => {
@@ -587,6 +591,7 @@ const ActivityDrawer = () => {
                           <Textarea
                             fullWidth
                             bordered
+                            value={activityDescription}
                             placeholder="Write your activity here"
                             minRows={5}
                             onChange={(e) =>
@@ -611,6 +616,7 @@ const ActivityDrawer = () => {
                           <Textarea
                             fullWidth
                             bordered
+                            value={suspenseDescription}
                             placeholder="Write your suspense here"
                             minRows={5}
                             onChange={(e) =>

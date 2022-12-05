@@ -25,7 +25,7 @@ export const rcLoginUrl = async () => {
 }
 
 export const getRecentCalls = async () => {
-  const dt = DateTime.now().minus({days:30})
+  const dt = DateTime.now().minus({days:50})
   const getData = await rcsdk
     .get(`/restapi/v1.0/account/~/extension/~/call-log`, {
       query: { page: 1, perPage: 10 },

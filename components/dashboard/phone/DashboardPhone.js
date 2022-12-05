@@ -19,7 +19,7 @@ function DashboardPhone() {
   const runOnce = useRef(true)
   useEffect(() => {
     const handleChange = async () => {
-      const isLoggedIn = await rcsdk.platform().auth().accessTokenValid();
+      const isLoggedIn = await rcsdk.platform().loggedIn();
       setIsAuth(isLoggedIn)
       setPhoneState({ ...phoneState, auth: isLoggedIn })
     }
