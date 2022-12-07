@@ -21,6 +21,8 @@ import { DateTime } from 'luxon'
 function NewActivityModal({
   open = false,
   callBack = null,
+  preLoadClient = null,
+  preLoadPolicy = null,
   callData = null,
   preLoadFiles = null,
   transcriptData = null,
@@ -87,6 +89,34 @@ function NewActivityModal({
     })
     setSuspenseUsersOptions(users)
   }
+
+  useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(1000)
+      if (!isCancelled && preLoadClient) {
+        setClient(preLoadClient.id)
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [preLoadClient])
+
+  useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(1000)
+      if (!isCancelled && preLoadPolicy) {
+        setPolicies([preLoadPolicy])
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [preLoadPolicy])
 
   useEffect(() => {
     let isCancelled = false
@@ -191,7 +221,6 @@ function NewActivityModal({
       suspenseUsers: suspenseUsers,
       submissionDateTime: DateTime.local(),
     }
-    console.log(activitySubmission)
     const formData = new FormData()
     formData.append('activityParams', JSON.stringify(activitySubmission))
     formData.append('brinqActivityId', JSON.stringify([]))
@@ -247,6 +276,20 @@ function NewActivityModal({
     }
   }
 
+  const submitSuspense = async () => {
+    const formData = getSubmissionFormData()
+    const url = `/activity/suspense/`
+    const res = await useApiFormData(
+      'POST',
+      url,
+      `${session.accessToken}`,
+      formData
+    )
+    if (res) {
+      return true
+    }
+  }
+
   const submitActivity = async () => {
     if (isActivity) {
       const bSubmission = await submitBrinqActivity()
@@ -263,7 +306,15 @@ function NewActivityModal({
       }
     }
     if (isSuspense) {
-      console.log('run suspense')
+      const suspenseSubmission = await submitSuspense()
+      if (suspenseSubmission) {
+        setLoading(false)
+        setReload({
+          ...reload,
+          activities: true,
+        })
+        setDefault()
+      }
     }
   }
 
@@ -283,7 +334,7 @@ function NewActivityModal({
     setFiles([])
     setActivityActions(null)
     setOptPolicies(null)
-    
+
     callBack()
   }
 
@@ -300,7 +351,10 @@ function NewActivityModal({
     const activityParams =
       isActivity && activityDescription != null && activityAction != null
     const suspenseParams =
-      isSuspense && suspenseDescription != null && suspenseAction != null
+      isSuspense &&
+      suspenseDescription != null &&
+      suspenseAction != null &&
+      suspenseDate != null
     return client && isOk()
   }
 
@@ -347,14 +401,32 @@ function NewActivityModal({
         </div>
         <div className="relative flex flex-col w-full">
           <div className="w-full mb-2">
+            {!preLoadClient ? (
+              <BrinqSelect
+                title="Client"
+                placeholder="Search and Select Client"
+                callBack={setClient}
+                useSearch={true}
+                searchClients={true}
+                labelField={'client_name'}
+                filterable={true}
+              />
+            ) : (
+              <div className="py-4 text-lg font-bold">{preLoadClient.name}</div>
+            )}
+
             <BrinqSelect
-              title="Client"
-              placeholder="Search and Select Client"
-              callBack={setClient}
-              useSearch={true}
-              searchClients={true}
-              labelField={'client_name'}
+              title="Policies"
+              color="indigo"
+              placeholder="Select policies"
+              initialOptions={optPolicies}
+              callBack={setPolicies}
+              labelField={'policy_number'}
               filterable={true}
+              multiple={true}
+              useDetail={true}
+              detailField={'policy_type'}
+              disabled={client ? false : true}
             />
           </div>
           <div className="relative flex items-center justify-center w-full mb-4">
@@ -409,19 +481,7 @@ function NewActivityModal({
                     </div>
                   ) : null}
                 </div>
-                <BrinqSelect
-                  title="Policies"
-                  color="indigo"
-                  placeholder="Select policies"
-                  initialOptions={optPolicies}
-                  callBack={setPolicies}
-                  labelField={'policy_number'}
-                  filterable={true}
-                  multiple={true}
-                  useDetail={true}
-                  detailField={'policy_type'}
-                  disabled={client ? false : true}
-                />
+
                 <ActivityFiles
                   disabled={client ? false : true}
                   callBack={setFiles}

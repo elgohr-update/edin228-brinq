@@ -51,7 +51,9 @@ function CallLogCard({ record }) {
       await timeout(1000)
       if (!isCancelled && transcriptData) {
         const formatted = JSON.stringify(transcriptData.text)
-        const data = new File([formatted],'transcript.txt', { type: 'text/plain'})
+        const data = new File([formatted], 'transcript.txt', {
+          type: 'text/plain',
+        })
         setPreLoadFiles([...preLoadFiles, data])
       }
     }
@@ -139,17 +141,21 @@ function CallLogCard({ record }) {
   }
 
   const downloadFilesToPassBlobs = async () => {
-    if (hasRecording) {
-      const dl = await getRecordingContent(record.recording.contentUri)
-      const _file = new File([dl],'Recording.wav',{ type: 'audio/wav'})
-      console.log(_file)
-      sendForTranscript(_file)
-      setPreLoadFiles([...preLoadFiles, _file])
-    } else if (hasMessage) {
-      const dl = await getVoicemail(record.message.uri)
-      const _file = new File([dl.attachments[0].uri],'Voicemail.wav',{ type: 'audio/wav'})
-      sendForTranscript(_file)
-      setPreLoadFiles([...preLoadFiles, _file])
+    if (preLoadFiles.length < 1) {
+      if (hasRecording) {
+        const dl = await getRecordingContent(record.recording.contentUri)
+        const _file = new File([dl], 'Recording.wav', { type: 'audio/wav' })
+        console.log(_file)
+        sendForTranscript(_file)
+        setPreLoadFiles([...preLoadFiles, _file])
+      } else if (hasMessage) {
+        const dl = await getVoicemail(record.message.uri)
+        const _file = new File([dl.attachments[0].uri], 'Voicemail.wav', {
+          type: 'audio/wav',
+        })
+        sendForTranscript(_file)
+        setPreLoadFiles([...preLoadFiles, _file])
+      }
     }
   }
 
@@ -304,7 +310,7 @@ function CallLogCard({ record }) {
                   </Button>
                   <Button
                     color="primary"
-                    disabled={transcriptLoading}
+                    disabled={!transcriptData}
                     auto
                     size="xs"
                     onClick={() => {

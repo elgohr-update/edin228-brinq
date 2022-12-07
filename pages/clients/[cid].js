@@ -28,17 +28,26 @@ import Panel from '../../components/ui/panel/Panel'
 import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
+import NewActivityModal from '../../components/activity/NewActivityModal'
 
 export default function Client({ data }) {
   const router = useRouter()
   const { isDark, type } = useTheme()
   const { state, setState } = useAppContext()
-  const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
   const { reload, setReload } = useReloadContext()
   const { appHeader, setAppHeader } = useAppHeaderContext()
   const [showActive, setShowActive] = useState(true)
   const [client, setClient] = useState(null)
   const [policies, setPolicies] = useState([])
+  const [showActivityModal, setShowActivityModal] = useState(false)
+
+  const openNewActivity = () => {
+    setShowActivityModal(true)
+  }
+
+  const closeActivityModal = () => {
+    setShowActivityModal(false)
+  }
 
   useEffect(() => {
     let isCancelled = false
@@ -100,6 +109,7 @@ export default function Client({ data }) {
       ...appHeader,
       titleContent: <ClientHeader client={client} />,
     })
+    syncAms()
   }, [])
 
   const fetchClient = async () => {
@@ -143,10 +153,6 @@ export default function Client({ data }) {
     })
   }
 
-  const openActivity = () => {
-    setActivityDrawer({ isOpen: true, clientId: router.query.cid })
-  }
-
   const openAMS360Page = () => {
     const URL = `https://www.ams360.com/v2212631/nextgen/Customer/Detail/${data.ams360_customer_id}`
     window.open(URL, '_blank')
@@ -179,7 +185,7 @@ export default function Client({ data }) {
                 <BsChatLeftQuoteFill />
               </Button> */}
               <Tooltip content="Create Activity / Suspense">
-                <Button size="xs" flat auto onClick={() => openActivity()}>
+                <Button size="xs" flat auto onClick={() => openNewActivity()}>
                   <RiPlayListAddFill />
                 </Button>
               </Tooltip>
@@ -240,6 +246,11 @@ export default function Client({ data }) {
           ) : null}
         </div>
       </div>
+      <NewActivityModal
+        open={showActivityModal}
+        callBack={closeActivityModal}
+        preLoadClient={{id:data.id, name:data.client_name}}
+      />
     </div>
   )
 }

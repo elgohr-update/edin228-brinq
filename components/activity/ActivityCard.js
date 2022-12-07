@@ -64,7 +64,7 @@ const ActivityCard = ({
         </div>
         <div className={`relative flex flex-col`}>
           <div className={`flex w-full items-center justify-between`}>
-            <div className="flex items-center space-x-2 text-xs">
+            <div className="flex flex-wrap items-center space-x-2 text-xs lg:gap-2 lg:space-x-0">
               <h4 className="small-subtext">
                 By{' '}
                 {activity.system_action && activity.users.length < 1
@@ -77,13 +77,23 @@ const ActivityCard = ({
               </h4>
               <div className="data-point-xs pink-to-blue-gradient-1"></div>
               <h4 className="small-subtext ">{activity.activity_type}</h4>
+              {activity.pushed_to_ams360 ? (
+                <div className="flex items-center space-x-2 lg:gap-2 lg:space-x-0">
+                  <div className="data-point-xs orange-gradient-1"></div>
+                  <h4 className="small-subtext ">
+                    AMS360
+                  </h4>{' '}
+                </div>
+              ) : null}
             </div>
           </div>
           <div className="block py-1">
             {activity.system_action ? (
               <h6>{`${activity.author} ` + activity.description}</h6>
             ) : (
-              <h6 className="block whitespace-pre-line">{activity.description}</h6>
+              <h6 className="block whitespace-pre-line">
+                {activity.description}
+              </h6>
             )}
           </div>
           <div className={`flex w-full flex-col`}>

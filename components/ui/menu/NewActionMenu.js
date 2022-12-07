@@ -7,21 +7,23 @@ import { BiFolderPlus, BiCalendarPlus } from 'react-icons/bi'
 import { FaRegPaperPlane } from 'react-icons/fa'
 import { getIcon } from '../../../utils/utils'
 import { useActivityDrawerContext } from '../../../context/state'
+import NewActivityModal from '../../activity/NewActivityModal'
 
 const NewActionMenu = () => {
   const { type } = useTheme()
-  const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
   const [shouldClose, setShouldClose] = useState(false)
+  const [showActivityModal, setShowActivityModal] = useState(false)
 
   const openNewActivity = () => {
-    setShouldClose(true)
-    setActivityDrawer({ ...activityDrawer, isOpen: true })
+    setShowActivityModal(true)
+  }
 
-    // setShouldClose(false)
+  const closeActivityModal = () => {
+    setShowActivityModal(false)
   }
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
+    <div className="relative flex items-center justify-center w-full h-full">
       <Dropdown>
         <Dropdown.Trigger>
           <Button size="xs" className={`${type}-shadow`} color="gradient" auto>
@@ -43,6 +45,10 @@ const NewActionMenu = () => {
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
+      <NewActivityModal
+        open={showActivityModal}
+        callBack={closeActivityModal}
+      />
     </div>
   )
 }
