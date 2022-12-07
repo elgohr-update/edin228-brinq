@@ -11,13 +11,16 @@ import {
   getVoicemailDownload,
 } from '../../utils/ringcentral'
 import {
+  checkWidth,
   formatPhoneNumber,
   getFormattedDateTime,
   getFormattedDuration,
   getIcon,
+  timeout,
 } from '../../utils/utils'
 import { motion } from 'framer-motion'
 import { useActivityDrawerContext, usePhoneContext } from '../../context/state'
+import NewActivityModal from '../activity/NewActivityModal'
 
 function CallLogCard({ record }) {
   const { type, isDark } = useTheme()
@@ -32,7 +35,8 @@ function CallLogCard({ record }) {
     record?.result == 'Stopped' || record?.result == 'Voicemail'
   const [showInfo, setShowInfo] = useState(false)
   const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
-
+  const [showActivityModal, setShowActivityModal] = useState(false)
+  const [preLoadFiles, setPreLoadFiles] = useState([])
   const hasName = outbound ? record.to.name : record.from.name
 
   useEffect(() => {
@@ -40,6 +44,22 @@ function CallLogCard({ record }) {
       openInfo()
     }
   }, [activityDrawer.callData])
+
+  useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(1000)
+      if (!isCancelled && transcriptData) {
+        const formatted = JSON.stringify(transcriptData.text)
+        const data = new File([formatted],'transcript.txt', { type: 'text/plain'})
+        setPreLoadFiles([...preLoadFiles, data])
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [transcriptData])
 
   const getRecordingDownload = async (data = null) => {
     setDownloadLoading(true)
@@ -59,30 +79,25 @@ function CallLogCard({ record }) {
     sendForTranscript(new Blob([dl]))
   }
   const getVoicemailTranscript = async (data = null) => {
-    console.log(data)
     const voicemail = await getVoicemail(data.message.uri)
     if (voicemail) {
       const dl = await getVoicemailDownload(voicemail.attachments[0].uri)
       sendForTranscript(new Blob([dl]))
     }
   }
-
   const getProcessedTranscript = async (data) => {
     let transcript = await getTranscriptCompleted(data.id)
     if (transcript) {
       setTranscriptData(transcript)
       setTranscriptLoading(false)
-      // setTrancriptModal(true)
     }
   }
-
   const processTrancriptUrl = async (assemblyUrl) => {
     const submitUrl = await postTranscriptUrl(assemblyUrl)
     if (submitUrl) {
       getProcessedTranscript(submitUrl)
     }
   }
-
   const sendForTranscript = async (_file) => {
     setTranscriptLoading(true)
     const submission = await postTranscriptBlob(_file)
@@ -90,7 +105,6 @@ function CallLogCard({ record }) {
       processTrancriptUrl(submission)
     }
   }
-
   const downloadVoicemail = async (contentUri) => {
     const dl = await getVoicemailDownload(contentUri)
     const url = window.URL.createObjectURL(new Blob([dl]))
@@ -102,7 +116,6 @@ function CallLogCard({ record }) {
     link.parentNode.removeChild(link)
     setDownloadLoading(false)
   }
-
   const downloadTranscript = () => {
     const formatted = JSON.stringify(transcriptData.text)
     const data = new Blob([formatted], { type: 'text/plain' })
@@ -122,37 +135,31 @@ function CallLogCard({ record }) {
   }
 
   const openInfo = () => {
-    // if (hasRecording && !transcriptData) {
-    //   getRecordingTranscript(record.recording)
-    // } else if (hasMessage && !transcriptData) {
-    //   getVoicemailTranscript(record)
-    // }
     setShowInfo(!showInfo)
   }
 
-  const createActivity = async () => {
-    const description = `${outbound ? 'Outbound' : 'Inbound'} Call \n From: ${
-      hasName ? record.from.name : 'Unknown'
-    } \n Phone Number: ${
-      record.from.phoneNumber ? formatPhoneNumber(record.from.phoneNumber) : ''
-    } \n To: ${
-      hasName ? (outbound ? record.to.name : record.from.name) : 'Unknown'
-    } \n Phone Number: ${
-      record.to.phoneNumber ? formatPhoneNumber(record.to.phoneNumber) : ''
+  const downloadFilesToPassBlobs = async () => {
+    if (hasRecording) {
+      const dl = await getRecordingContent(record.recording.contentUri)
+      const _file = new File([dl],'Recording.wav',{ type: 'audio/wav'})
+      console.log(_file)
+      sendForTranscript(_file)
+      setPreLoadFiles([...preLoadFiles, _file])
+    } else if (hasMessage) {
+      const dl = await getVoicemail(record.message.uri)
+      const _file = new File([dl.attachments[0].uri],'Voicemail.wav',{ type: 'audio/wav'})
+      sendForTranscript(_file)
+      setPreLoadFiles([...preLoadFiles, _file])
     }
-    `
+  }
 
-    const prefill = {
-      description: description,
-    }
-    console.log(prefill)
-    setActivityDrawer({
-      ...activityDrawer,
-      style: 2,
-      isOpen: true,
-      callData: record,
-      prefill: prefill,
-    })
+  const createActivity = async () => {
+    downloadFilesToPassBlobs()
+    setShowActivityModal(true)
+  }
+
+  const closeActivityModal = () => {
+    setShowActivityModal(false)
   }
 
   return (
@@ -168,7 +175,7 @@ function CallLogCard({ record }) {
       }`}
     >
       <div className="flex items-center w-full" onClick={openInfo}>
-        <span className="px-2 text-xs min-w-[60px]">
+        <span className="min-w-[84px] px-2 text-xs">
           {outbound ? (
             <div className="flex flex-col items-center">
               <div
@@ -414,158 +421,13 @@ function CallLogCard({ record }) {
           </Modal.Footer>
         </Modal>
       ) : null}
-      {record ? <div></div> : null}
-      {/* <Modal
-        closeButton
-        noPadding
-        autoMargin
-        scroll
-        aria-labelledby="modal-title"
-        open={showInfo}
-        onClose={openInfo}
-      >
-        <Modal.Body>
-          <div className="flex flex-col w-full p-2">
-            <div className="flex items-center w-full" onClick={openInfo}>
-              <span className="px-4 text-xs">
-                {outbound ? (
-                  <div className="flex flex-col items-center">
-                    <div
-                      className={`${
-                        isMissedCall ? 'text-red-500' : 'text-green-500'
-                      }`}
-                    >
-                      {getIcon('phoneOutbound')}
-                    </div>
-                    <div className="mt-2 text-xs opacity-80">
-                      {getFormattedDuration(record.duration)}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center">
-                    <div
-                      className={`${
-                        isMissedCall ? 'text-red-500' : 'text-green-500'
-                      }`}
-                    >
-                      {getIcon('phoneInbound')}
-                    </div>
-                    <div className="mt-2 text-xs opacity-80">
-                      {getFormattedDuration(record.duration)}
-                    </div>
-                  </div>
-                )}
-              </span>
-              <div className="flex flex-col">
-                <div className="text-sm font-bold">
-                  {outbound ? record.to.name : record.from.name}
-                </div>
-                <div className="text-xs opacity-80">
-                  {outbound && record.to.phoneNumber
-                    ? record.to.phoneNumber
-                    : record.from.phoneNumber}
-                </div>
-                <div className="text-xs opacity-80">
-                  Ext.{' '}
-                  {outbound
-                    ? record.to.extensionNumber
-                    : record.from.extensionNumber}
-                </div>
-                <div className="text-xs opacity-80">
-                  {getFormattedDateTime(record.startTime)}
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col w-full px-2 mb-2">
-              <div className="mb-2 text-xs opacity-60">Actions</div>
-              <div className="flex w-full space-x-2">
-                <div>
-                  <Button color="gradient" auto size="xs">
-                    <span className="text-xs">
-                      {getIcon('activity')} Create Activity
-                    </span>
-                  </Button>
-                </div>
-                {hasRecording ? (
-                  <div className="flex space-x-2">
-                    <Button
-                      color="error"
-                      auto
-                      disabled={downloadLoading}
-                      size="xs"
-                      onClick={() => {
-                        getRecordingDownload(record.recording)
-                      }}
-                    >
-                      {downloadLoading ? (
-                        <Loading color="currentColor" size="xs" />
-                      ) : (
-                        <span className="text-xs">
-                          {getIcon('record')} Recording
-                        </span>
-                      )}
-                    </Button>
-                    <Button
-                      color="primary"
-                      disabled={transcriptLoading}
-                      auto
-                      size="xs"
-                      onClick={() => {
-                        downloadTranscript()
-                      }}
-                    >
-                      <span className="text-xs">
-                        {getIcon('paperText')} Transcript
-                      </span>
-                    </Button>
-                  </div>
-                ) : null}
-                {hasMessage ? (
-                  <div>
-                    <Button
-                      color="warning"
-                      disabled={downloadLoading}
-                      auto
-                      size="xs"
-                      onClick={() => {
-                        getVoicemailInfo(record.message.uri)
-                      }}
-                    >
-                      {downloadLoading ? (
-                        <Loading color="currentColor" size="xs" />
-                      ) : (
-                        <span className="text-xs">
-                          {getIcon('voicemail')} Voicemail
-                        </span>
-                      )}
-                    </Button>
-                  </div>
-                ) : null}
-              </div>
-            </div>
-            {hasRecording ? (
-              <div className="flex flex-col px-2">
-                <div className="mb-2 text-xs opacity-60">
-                  Recording Transcript
-                </div>
-                {transcriptLoading ? (
-                  <Loading color="currentColor" size="xs" />
-                ) : (
-                  <div>{transcriptData?.text}</div>
-                )}
-              </div>
-            ) : null}
-            {hasMessage ? (
-              <div className="flex flex-col px-2">
-                <div className="mb-2 text-xs opacity-60">
-                  Voicemail Transcript
-                </div>
-                <div>{transcriptData?.text}</div>
-              </div>
-            ) : null}
-          </div>
-        </Modal.Body>
-      </Modal> */}
+      <NewActivityModal
+        open={showActivityModal}
+        callBack={closeActivityModal}
+        preLoadFiles={preLoadFiles}
+        callData={record}
+        transcriptData={transcriptData}
+      />
     </div>
   )
 }

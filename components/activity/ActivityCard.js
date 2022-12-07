@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Tooltip, useTheme } from '@nextui-org/react'
+import { Image, Textarea, Tooltip, useTheme } from '@nextui-org/react'
 import { BsBox } from 'react-icons/bs'
 import { getFormattedDateTime, truncateString } from '../../utils/utils'
 import TagBasic from '../ui/tag/TagBasic'
@@ -32,7 +32,7 @@ const ActivityCard = ({
   const baseClass = `flex flex-none activity-card overflow-x-hidden overflow-y-hidden relative flex-col w-full p-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
   return (
     <div className={baseClass}>
-      <div className={`flex w-full`}>
+      <div className={`flex`}>
         <div className="relative flex mr-4 z-90">
           {activity.system_action && activity.users.length < 1 ? (
             <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-slate-900">
@@ -62,7 +62,7 @@ const ActivityCard = ({
             ></div>
           ) : null}
         </div>
-        <div className={`relative flex w-full flex-col`}>
+        <div className={`relative flex flex-col`}>
           <div className={`flex w-full items-center justify-between`}>
             <div className="flex items-center space-x-2 text-xs">
               <h4 className="small-subtext">
@@ -79,11 +79,11 @@ const ActivityCard = ({
               <h4 className="small-subtext ">{activity.activity_type}</h4>
             </div>
           </div>
-          <div className="flex py-1">
+          <div className="block py-1">
             {activity.system_action ? (
               <h6>{`${activity.author} ` + activity.description}</h6>
             ) : (
-              <h6>{activity.description}</h6>
+              <h6 className="block whitespace-pre-line">{activity.description}</h6>
             )}
           </div>
           <div className={`flex w-full flex-col`}>

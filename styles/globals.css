@@ -20,6 +20,8 @@
   --tw-ring-shadow: 0 0 #0000;
   --tw-shadow: 0 0 #0000;
   --tw-shadow-colored: 0 0 #0000;
+  --nextui-space-4: 0.25rem;
+  --nextui-space-6: 0.25rem;
 }
 *,
 ::before,
@@ -40,7 +42,7 @@
   --color-select-input: #110f14;
   --color-on-select-input: #bdc1c6;
   --color-select-input-placeholder: rgb(145, 145, 145);
-  --color-select-input-border: #1d1f20;
+  --color-select-input-border: #313538;
   --color-select-input-disabled: rgb(145, 145, 145);
 
   --color-select-input-error: rgba(255, 0, 0, 0.5);
@@ -51,7 +53,7 @@
   --color-select-chip-border: transparent;
   --color-on-select-chip: #bdc1c6;
 
-  --color-select-menu-border: #1d1f20;
+  --color-select-menu-border: #313538;
   --color-select-menu: #110f14;
   --color-select-menu-group: grey;
   --color-on-select-menu-item: #bdc1c6;
@@ -74,7 +76,7 @@
   --color-select-input: white;
   --color-on-select-input: rgb(51, 51, 51);
   --color-select-input-placeholder: rgb(145, 145, 145);
-  --color-select-input-border: rgb(204, 204, 204);
+  --color-select-input-border: #dfe3e6;
   --color-select-input-disabled: rgb(145, 145, 145);
 
   --color-select-input-error: rgba(255, 0, 0, 0.5);
@@ -85,7 +87,7 @@
   --color-select-chip-border: transparent;
   --color-on-select-chip: rgb(51, 51, 51);
 
-  --color-select-menu-border: rgb(204, 204, 204);
+  --color-select-menu-border: #dfe3e6;
   --color-select-menu: white;
   --color-select-menu-group: grey;
   --color-on-select-menu-item: rgb(51, 51, 51);
@@ -135,11 +137,15 @@
 .nextui-c-cVVQUL.nextui-popover-content-enter {
   z-index:9999999999999 !important;
 }
-/* input background */
-/* .nextui-c-eXOOPO {
+/* textarea background */
+.activity-textarea .nextui-c-eXOOPO {
   background:transparent;
-} */
-
+  margin: 0;
+}
+.activity-textarea .nextui-c-eXOOPO textarea {
+  background:transparent;
+  margin: 0;
+}
 .reaselct-menu-item:hover{
   /* border-radius:6px; */
   background:rgba(187, 183, 244, 0.167) !important;
@@ -507,7 +513,7 @@ p {
 }
 .search-border-flair {
   position: absolute;
-  width: 100%;
+  /* width: 100%; */
   height: 2px;
   bottom: 0px;
   left: -1px;

@@ -1,8 +1,9 @@
 import { Button, Modal, Text } from '@nextui-org/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlinePaperClip } from 'react-icons/ai'
 import { FileUploader } from 'react-drag-drop-files'
 import uuid from 'react-uuid'
+import { timeout } from '../../utils/utils'
 
 const fileTypes = [
   'JPG',
@@ -31,9 +32,29 @@ const fileTypes = [
 export default function FileUploaderContainer({
   onSave,
   showLargeButton = false,
+  initialFiles = null
 }) {
   const [visible, setVisible] = useState(false)
   const [files, setFiles] = useState([])
+
+  useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(1000)
+      if (!isCancelled && initialFiles) {
+        const base = Array.from(initialFiles)
+        const adjustedFiles = base.map((x) => {
+          return { id: uuid(), data: x, description: '', private: true, action: '' }
+        })
+        const newFiles = [...adjustedFiles]
+        setFiles(newFiles)
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [initialFiles])
 
   const handler = () => setVisible(true)
 
@@ -97,6 +118,7 @@ export default function FileUploaderContainer({
             name="file"
             types={fileTypes}
             fileOrFIles={Array}
+            maxSize={1000}
           />
           <div className="flex flex-col w-full space-y-2">
             {Array.from(files).map((f) => (

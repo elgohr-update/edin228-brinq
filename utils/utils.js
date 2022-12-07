@@ -56,6 +56,7 @@ import {
   BiHash,
 } from 'react-icons/bi'
 import { DateTime, Duration } from 'luxon'
+import { useEffect, useState } from 'react'
 
 export const getIcon = (item) => {
   return item == 'policy' ? (
@@ -334,8 +335,8 @@ export const sumFromArray = (data = []) => {
 
 export const sortByProperty = (data = [], prop = '', asc = true) => {
   const sorted = asc
-    ? data.sort((a, b) => (a[prop] < b[prop] ? 1 : -1))
-    : data.sort((a, b) => (a[prop] > b[prop] ? 1 : -1))
+    ? data?.sort((a, b) => (a[prop] < b[prop] ? 1 : -1))
+    : data?.sort((a, b) => (a[prop] > b[prop] ? 1 : -1))
   return sorted
 }
 
@@ -454,11 +455,22 @@ export const abbreviateMoney = (num, fixed) => {
 
 export const formatPhoneNumber = (phone) => {
   let value = String(phone)
-  var cleaned = ('' + value).replace(/\D/g, '');
-  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+  var cleaned = ('' + value).replace(/\D/g, '')
+  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
   if (match) {
-    var intlCode = (match[1] ? '+1 ' : '');
-    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('');
+    var intlCode = match[1] ? '+1 ' : ''
+    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
   }
-  return null;
+  return null
+}
+
+export const checkWidth = () => {
+  const [width, setWidth] = useState(390) // default width, detect on server.
+  const handleResize = () => setWidth(window.innerWidth)
+  useEffect(() => {
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [handleResize])
+  console.log(width)
+  return width
 }

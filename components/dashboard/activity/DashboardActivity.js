@@ -81,7 +81,7 @@ export default function DashboardActivity() {
               labelLeft={<FaSearch />}
               onChange={(e) => searchActivity(e.target.value)}
             />
-            <div className="z-30 flex search-border-flair pink-to-blue-gradient-1"/>
+            <div className="z-30 flex w-full search-border-flair pink-to-blue-gradient-1"/>
           </div>
         ) : null}
         <div
