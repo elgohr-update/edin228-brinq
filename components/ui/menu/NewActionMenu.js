@@ -1,12 +1,8 @@
 import { Button, Dropdown, Popover, useTheme } from '@nextui-org/react'
 import React, { useState } from 'react'
 import { AiOutlineDown } from 'react-icons/ai'
-import { BsClipboardPlus } from 'react-icons/bs'
 import ActionMenuItem from './item/ActionMenuItem'
-import { BiFolderPlus, BiCalendarPlus } from 'react-icons/bi'
-import { FaRegPaperPlane } from 'react-icons/fa'
 import { getIcon } from '../../../utils/utils'
-import { useActivityDrawerContext } from '../../../context/state'
 import NewActivityModal from '../../activity/NewActivityModal'
 
 const NewActionMenu = () => {

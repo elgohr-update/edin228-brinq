@@ -181,29 +181,6 @@ export function useClientDrawerContext() {
   return useContext(ClientDrawerContext)
 }
 
-const ActivityDrawerContext = createContext()
-
-export function ActivityDrawerWrapper({ children }) {
-  const [activityDrawer, setActivityDrawer] = useState({
-    isOpen: false,
-    clientId: null,
-    style:1,
-    prefill: null,
-    callData: null,
-  })
-  return (
-    <ActivityDrawerContext.Provider
-      value={{ activityDrawer, setActivityDrawer }}
-    >
-      {children}
-    </ActivityDrawerContext.Provider>
-  )
-}
-
-export function useActivityDrawerContext() {
-  return useContext(ActivityDrawerContext)
-}
-
 const ParentCompanyDrawerContext = createContext()
 
 export function ParentCompanyDrawerWrapper({ children }) {

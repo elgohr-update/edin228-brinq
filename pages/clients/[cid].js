@@ -7,7 +7,6 @@ import ClientContacts from '../../components/client/ClientContacts'
 import ClientHeader from '../../components/client/ClientTitle'
 import ClientInfo from '../../components/client/ClientInfo'
 import {
-  useActivityDrawerContext,
   useAppContext,
   useAppHeaderContext,
   useReloadContext,

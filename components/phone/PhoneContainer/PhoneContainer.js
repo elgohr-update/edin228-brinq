@@ -3,17 +3,12 @@ import DashboardPhone from '../../dashboard/phone/DashboardPhone'
 import PhoneToggle from './PhoneToggle'
 import { motion } from 'framer-motion'
 import { useTheme } from '@nextui-org/react'
-import { useActivityDrawerContext } from '../../../context/state'
 
 function PhoneContainer() {
   const { type } = useTheme()
   const [open, setOpen] = useState(false)
-  const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
 
   const openPhoneToggle = () => {
-    if (activityDrawer.callData){
-      setActivityDrawer({ ...activityDrawer, callData:null })
-    }
     setOpen(!open)
   }
 

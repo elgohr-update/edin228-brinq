@@ -8,7 +8,6 @@ import {
   AppWrapper,
   ReloadWrapper,
   ClientDrawerWrapper,
-  ActivityDrawerWrapper,
   AppHeaderWrapper,
   ParentCompanyDrawerWrapper,
   WritingCompanyDrawerWrapper,
@@ -85,7 +84,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
               <PhoneWrapper>
                 <AppHeaderWrapper>
                   <ClientDrawerWrapper>
-                    <ActivityDrawerWrapper>
                       <ParentCompanyDrawerWrapper>
                         <WritingCompanyDrawerWrapper>
                           <NotificationWrapper>
@@ -108,7 +106,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                           </NotificationWrapper>
                         </WritingCompanyDrawerWrapper>
                       </ParentCompanyDrawerWrapper>
-                    </ActivityDrawerWrapper>
                   </ClientDrawerWrapper>
                 </AppHeaderWrapper>
               </PhoneWrapper>

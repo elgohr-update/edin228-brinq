@@ -19,7 +19,6 @@ import {
   timeout,
 } from '../../utils/utils'
 import { motion } from 'framer-motion'
-import { useActivityDrawerContext, usePhoneContext } from '../../context/state'
 import NewActivityModal from '../activity/NewActivityModal'
 
 function CallLogCard({ record }) {
@@ -34,16 +33,9 @@ function CallLogCard({ record }) {
   const isMissedCall =
     record?.result == 'Stopped' || record?.result == 'Voicemail'
   const [showInfo, setShowInfo] = useState(false)
-  const { activityDrawer, setActivityDrawer } = useActivityDrawerContext()
   const [showActivityModal, setShowActivityModal] = useState(false)
   const [preLoadFiles, setPreLoadFiles] = useState([])
   const hasName = outbound ? record.to.name : record.from.name
-
-  useEffect(() => {
-    if (record.id == activityDrawer.callData?.id) {
-      openInfo()
-    }
-  }, [activityDrawer.callData])
 
   useEffect(() => {
     let isCancelled = false

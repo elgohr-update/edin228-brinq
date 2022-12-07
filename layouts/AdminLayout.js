@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import ClientDrawer from '../components/ui/drawer/ClientDrawer'
-import ActivityDrawer from '../components/ui/drawer/ActivityDrawer'
 import {
-  useActivityDrawerContext,
   useAgencyContext,
   useClientDrawerContext,
   useParentCompanyDrawerContext,
@@ -37,7 +35,6 @@ export default function AdminLayout({ children }) {
   const { agency, setAgency } = useAgencyContext()
   const { reload, setReload } = useReloadContext()
   const { clientDrawer } = useClientDrawerContext()
-  const { activityDrawer } = useActivityDrawerContext()
   const { parentCompanyDrawer } = useParentCompanyDrawerContext()
   const { writingCompanyDrawer } = useWritingCompanyDrawerContext()
   const [isAuth, setIsAuth] = useState(true)
@@ -105,7 +102,6 @@ export default function AdminLayout({ children }) {
       <div className={`container-main overflow-hidden`}>
         <BubbleBackground />
         {clientDrawer.isOpen ? <ClientDrawer /> : null}
-        {activityDrawer.isOpen ? <ActivityDrawer /> : null}
         {parentCompanyDrawer.isOpen ? <ParentCompanyDrawer /> : null}
         {writingCompanyDrawer.isOpen ? <WritingCompanyDrawer /> : null}
         <AppNotification />
