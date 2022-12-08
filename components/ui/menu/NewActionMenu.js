@@ -9,13 +9,16 @@ const NewActionMenu = () => {
   const { type } = useTheme()
   const [shouldClose, setShouldClose] = useState(false)
   const [showActivityModal, setShowActivityModal] = useState(false)
+  const [suspenseOnly, setSuspenseOnly] = useState(false)
 
-  const openNewActivity = () => {
+  const openNewActivity = (isSuspense = false) => {
     setShowActivityModal(true)
+    setSuspenseOnly(isSuspense)
   }
 
   const closeActivityModal = () => {
     setShowActivityModal(false)
+    setSuspenseOnly(false)
   }
 
   return (
@@ -31,12 +34,19 @@ const NewActionMenu = () => {
             </div>
           </Button>
         </Dropdown.Trigger>
-        <Dropdown.Menu aria-label="Static Actions">
+        <Dropdown.Menu className="p-2 space-y-2" aria-label="Static Actions">
           <Dropdown.Item key="activity">
             <ActionMenuItem
               icon={getIcon('activity')}
-              label="New Activity/Suspense"
+              label="New Activity"
               onClick={() => openNewActivity()}
+            />
+          </Dropdown.Item>
+          <Dropdown.Item key="suspense">
+            <ActionMenuItem
+              icon={getIcon('activity')}
+              label="New Suspense"
+              onClick={() => openNewActivity(true)}
             />
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -44,6 +54,7 @@ const NewActionMenu = () => {
       <NewActivityModal
         open={showActivityModal}
         callBack={closeActivityModal}
+        createSuspenseOnly={suspenseOnly}
       />
     </div>
   )

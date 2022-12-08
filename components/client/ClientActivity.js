@@ -90,7 +90,7 @@ const ClientActivity = ({
           />
         </div>
       ) : null}
-      <div className={`flex h-full w-full flex-col rounded`}>
+      <div className={`flex h-full w-full flex-col rounded py-1`}>
         {data?.map((u,i) => (
           <ActivityCard key={u.id} activity={u} hideClient indexLast={i+1 == data?.length} />
         ))}

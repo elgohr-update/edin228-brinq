@@ -26,6 +26,7 @@ function NewActivityModal({
   callData = null,
   preLoadFiles = null,
   transcriptData = null,
+  createSuspenseOnly = null
 }) {
   const { AMS360ValueList, setAMS360ValueList } = useAMS360ValueListContext()
   const { reload, setReload } = useReloadContext()
@@ -117,6 +118,22 @@ function NewActivityModal({
       isCancelled = true
     }
   }, [preLoadPolicy])
+
+  useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(1000)
+      if (!isCancelled && createSuspenseOnly) {
+        setIsActivity(false)
+        setIsSuspense(true)
+        setIsAMSActivity(false)        
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [createSuspenseOnly])
 
   useEffect(() => {
     let isCancelled = false
@@ -367,15 +384,15 @@ function NewActivityModal({
       className={'flex w-full items-center justify-center'}
       aria-labelledby="modal-title"
       open={open}
-      onClose={callBack}
+      onClose={setDefault}
     >
       <Modal.Header className="flex flex-col w-full px-4">
         <div className="text-xs tracking-widest opacity-60">New Activity</div>
         <div className="flex items-center justify-center space-x-2">
           <Checkbox
             color="primary"
-            defaultSelected
-            checked={isActivity}
+            defaultSelected={isActivity}
+            isSelected={isActivity}
             onChange={(e) => activityCheck(e)}
             size="xs"
           >
@@ -383,8 +400,8 @@ function NewActivityModal({
           </Checkbox>
           <Checkbox
             color="warning"
-            defaultSelected
-            checked={isAMSActivity}
+            defaultSelected={isAMSActivity}
+            isSelected={isAMSActivity}
             onChange={(e) => setIsAMSActivity(e)}
             size="xs"
           >
@@ -392,7 +409,8 @@ function NewActivityModal({
           </Checkbox>
           <Checkbox
             color="secondary"
-            checked={isSuspense}
+            defaultSelected={isSuspense}
+            isSelected={isSuspense}
             onChange={(e) => suspenseCheck(e)}
             size="xs"
           >
@@ -473,6 +491,7 @@ function NewActivityModal({
                       <Button
                         auto
                         ghost
+                        disabled={client ? false : true}
                         size="xs"
                         onClick={() => addTranscriptToDescription()}
                       >

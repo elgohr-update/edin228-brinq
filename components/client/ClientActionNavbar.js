@@ -13,7 +13,7 @@ const ClientActionNavbar = () => {
   }
 
   return (
-    <div className="flex items-center space-x-2 px-4 mb-1">
+    <div className="flex items-center px-4 mb-1 space-x-2">
       <NavAction
         onClick={() => setActive(1)}
         icon={getIcon('activity')}
@@ -35,13 +35,13 @@ const ClientActionNavbar = () => {
         activeItem={activeItem}
         itemId={3}
       />
-      <NavAction
+      {/* <NavAction
         onClick={() => setActive(4)}
         icon={getIcon('calendar')}
         title={'Events'}
         activeItem={activeItem}
         itemId={4}
-      />
+      /> */}
     </div>
   )
 }

@@ -41,7 +41,7 @@ function BrinqInput({
   }
 
   return (
-    <div className={`flex flex-col w-full px-4 pb-1 ${disabled ? 'opacity-50':''}`}>
+    <div className={`flex flex-col w-full px-4 pb-1 ${disabled ? 'opacity-20':''}`}>
       {title ? <PanelTitle title={title} color={color} /> : null}
       <div className="flex w-full ">
         <Input

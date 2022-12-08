@@ -118,7 +118,7 @@ function ActivityFiles({
   return (
     <div
       className={`flex w-full flex-col px-4 pb-1 ${
-        disabled ? 'opacity-50' : ''
+        disabled ? 'opacity-20' : ''
       }`}
     >
       <div>

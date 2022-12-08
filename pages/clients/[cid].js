@@ -28,6 +28,7 @@ import ClientDataNavbar from '../../components/client/ClientDataNavbar'
 import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
 import NewActivityModal from '../../components/activity/NewActivityModal'
+import ClientFiles from '../../components/client/ClientFiles'
 
 export default function Client({ data }) {
   const router = useRouter()
@@ -108,7 +109,7 @@ export default function Client({ data }) {
       ...appHeader,
       titleContent: <ClientHeader client={client} />,
     })
-    syncAms()
+    // syncAms()
   }, [])
 
   const fetchClient = async () => {
@@ -242,6 +243,9 @@ export default function Client({ data }) {
         <div className="flex w-full xl:overflow-y-auto xl:px-4">
           {state.client.actionNavbar === 1 && client ? (
             <ClientActivity clientId={client?.id} limit={50} />
+          ) : null}
+          {state.client.actionNavbar === 3 && client ? (
+            <ClientFiles files={client?.attachments} />
           ) : null}
         </div>
       </div>

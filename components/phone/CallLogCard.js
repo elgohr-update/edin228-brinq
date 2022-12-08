@@ -42,11 +42,8 @@ function CallLogCard({ record }) {
     const handleChange = async () => {
       await timeout(1000)
       if (!isCancelled && transcriptData) {
-        const formatted = JSON.stringify(transcriptData.text)
-        const data = new File([formatted], 'transcript.txt', {
-          type: 'text/plain',
-        })
-        setPreLoadFiles([...preLoadFiles, data])
+        const _file = createTranscriptFile()
+        setPreLoadFiles([...preLoadFiles, _file])
       }
     }
     handleChange()
@@ -121,6 +118,13 @@ function CallLogCard({ record }) {
     link.click()
     link.parentNode.removeChild(link)
   }
+  const createTranscriptFile = () => {
+    const formatted = JSON.stringify(transcriptData.text)
+    const data = new File([formatted], `${record.id}_Transcript.txt`, {
+      type: 'text/plain',
+    })
+    return data
+  }
 
   const getVoicemailInfo = async (contentUri) => {
     setDownloadLoading(true)
@@ -133,19 +137,30 @@ function CallLogCard({ record }) {
   }
 
   const downloadFilesToPassBlobs = async () => {
-    if (preLoadFiles.length < 1) {
+    if (preLoadFiles.length < 2) {
       if (hasRecording) {
         const dl = await getRecordingContent(record.recording.contentUri)
-        const _file = new File([dl], 'Recording.wav', { type: 'audio/wav' })
-        console.log(_file)
-        sendForTranscript(_file)
-        setPreLoadFiles([...preLoadFiles, _file])
+        const _file = new File([dl], `${record.id}_Recording.wav`, { type: 'audio/wav' })
+        if (!transcriptData){
+          sendForTranscript(_file)
+          setPreLoadFiles([_file])
+        }
+        else {
+          const transcriptFile = createTranscriptFile()
+          setPreLoadFiles([transcriptFile, _file])
+        }
+        
       } else if (hasMessage) {
         const dl = await getVoicemail(record.message.uri)
-        const _file = new File([dl.attachments[0].uri], 'Voicemail.wav', {
+        const _file = new File([dl.attachments[0].uri], `${record.id}_Voicemail.wav`, {
           type: 'audio/wav',
         })
-        sendForTranscript(_file)
+        if (!transcriptData){
+          sendForTranscript(_file)
+        }
+        else {
+          createTranscriptFile()
+        }
         setPreLoadFiles([...preLoadFiles, _file])
       }
     }
@@ -157,6 +172,7 @@ function CallLogCard({ record }) {
   }
 
   const closeActivityModal = () => {
+    setPreLoadFiles([])
     setShowActivityModal(false)
   }
 

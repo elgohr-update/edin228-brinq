@@ -29,7 +29,7 @@ const ActivityCard = ({
       ? `${isDark ? `border-slate-900` : `border-slate-200`} border`
       : ``
   }
-  const baseClass = `flex flex-none activity-card overflow-x-hidden overflow-y-hidden relative flex-col w-full p-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
+  const baseClass = `flex flex-none activity-card overflow-x-hidden overflow-y-hidden relative flex-col w-full py-1 px-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
   return (
     <div className={baseClass}>
       <div className={`flex`}>

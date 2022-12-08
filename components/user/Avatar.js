@@ -2,6 +2,7 @@ import { Avatar, Tooltip, User, useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import React from 'react'
 import { useSession } from 'next-auth/react'
+import { useAgencyContext } from '../../context/state'
 
 const UserAvatar = ({
   tooltip = false,
@@ -15,11 +16,18 @@ const UserAvatar = ({
   userWithName = false,
   userSubContent = null,
   userTitle = true,
+  lookUpUser = null
 }) => {
   const { type } = useTheme()
   const { data: session } = useSession()
+  const { agency, setAgency } = useAgencyContext()
 
-  const user = isUser ? passUser : session?.user
+  const getUserFromLookUp = () => {
+    const u = agency.users.find( x => x.id == lookUpUser)
+    return u
+  }
+
+  const user = isUser ? passUser : lookUpUser ? getUserFromLookUp() : session?.user
 
   const getPosition = () => {
     return user?.owner
@@ -34,7 +42,7 @@ const UserAvatar = ({
   }
 
   return (
-    <div className="relative z-40 flex h-full w-full cursor-pointer">
+    <div className="relative z-40 flex w-full h-full cursor-pointer">
       {userWithName ? (
         <User
           src={user?.image_file}

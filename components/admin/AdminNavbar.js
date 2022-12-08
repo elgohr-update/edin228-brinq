@@ -33,7 +33,7 @@ const AdminNavbar = () => {
         icon={getIcon('policy')}
         title={'Policy Setttings'}
         activeItem={activeItem}
-        itemId={4}
+        itemId={3}
       />
     </div>
   )
