@@ -171,7 +171,7 @@ const ClientDrawer = ({
       <div
         className={`fixed ${
           clientDrawer.style == 1 ? 'right-0' : 'xl:right-[800px]'
-        }  flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
+        }  flex h-[80vh] top-[12vh] lg:top-0 lg:h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!client ? (
           <DrawerLoader />
