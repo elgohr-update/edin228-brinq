@@ -1,6 +1,6 @@
 import { Input, Modal, useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { getIcon, timeout } from '../../../utils/utils'
+import { getIcon, getSearch, timeout } from '../../../utils/utils'
 import { motion } from 'framer-motion'
 import DashboardPolicyCard from '../policy/DashboardPolicyCard'
 import ContactCard from '../../contact/ContactCard'
