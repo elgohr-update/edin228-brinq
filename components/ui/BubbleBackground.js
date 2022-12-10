@@ -14,7 +14,7 @@ function BubbleBackground() {
         className={`blur-screen fixed h-screen w-full blur-screen-${type} z-2`}
       />
       <div
-        className={`fixed hidden lg:flex top-[8px] right-[300px] opacity-70 z-3 grayscale`}
+        className={`fixed hidden lg:flex items-center top-[8px] right-[300px] opacity-70 z-3 grayscale`}
       >
         <Image
           showSkeleton
@@ -24,7 +24,7 @@ function BubbleBackground() {
           src="/brinq-logo-full-color.png"
           alt="Default Image"
         />
-        <div className="flex items-center ml-2 tracking-widest uppercase">BETA</div>
+        <div className="flex items-center ml-2 text-xs tracking-widest uppercase mt-[4px]">ALPHA</div>
       </div>
     </div>
   )

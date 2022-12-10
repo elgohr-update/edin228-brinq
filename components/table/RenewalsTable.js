@@ -37,9 +37,13 @@ import LineIcon from '../util/LineIcon'
 import ClientTableCell from './ClientTableCell'
 import { motion } from 'framer-motion'
 import { useSession } from 'next-auth/react'
+import SelectInput from '../ui/select/SelectInput'
+import BrinqSelect from '../ui/select/BrinqSelect'
+import ClientDrawer from '../ui/drawer/ClientDrawer'
 
 export default function RenewalsTable(data) {
   const router = useRouter()
+  const [pageSize, setPageSize] = useState(15)
   const { month, year } = router.query
   const { type } = useTheme()
   const { agency, setAgency } = useAgencyContext()
@@ -76,6 +80,8 @@ export default function RenewalsTable(data) {
   ])
   const [sortDescriptor, setSortDescriptor] = useState('ascending')
   const [bUsers, setBUsers] = useState(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [clientDrawer, setClientDrawer] = useState(null)
 
   const runOnce = useRef(true)
   const runUsers = useRef(true)
@@ -83,6 +89,16 @@ export default function RenewalsTable(data) {
   const ams = agency?.users?.filter((u) => u.is_active && u.account_manager)
 
   const currentUser = session?.user
+  const pageSizeOptions = [
+    { id: 15, value: '15' },
+    { id: 20, value: '20' },
+    { id: 25, value: '25' },
+    { id: 30, value: '30' },
+    { id: 35, value: '35' },
+    { id: 40, value: '40' },
+    { id: 45, value: '45' },
+    { id: 50, value: '50' },
+  ]
 
   useEffect(() => {
     if (runUsers.current && agency.id) {
@@ -213,7 +229,7 @@ export default function RenewalsTable(data) {
     },
   ]
 
-  const renderCell = (client, columnKey) => {
+  const renderCell = (client, columnKey, drawerCallback) => {
     const cellValue = client[columnKey]
     switch (columnKey) {
       case 'line':
@@ -234,6 +250,7 @@ export default function RenewalsTable(data) {
             isRnwl={true}
             month={month}
             year={year}
+            drawerCallback={drawerCallback}
           />
         )
       case 'policy_count':
@@ -378,6 +395,15 @@ export default function RenewalsTable(data) {
     return isInc
   }
 
+  const pageSizeSet = (e) => {
+    setPageSize(e)
+  }
+
+  const clientDrawerSet = e => {
+    setIsOpen(true)
+    setClientDrawer(e)
+  }
+
   return (
     <div className="flex flex-col w-full h-full md:flex-row">
       {showFilter ? (
@@ -508,7 +534,7 @@ export default function RenewalsTable(data) {
         </motion.div>
       ) : null}
       <div className="flex flex-col w-full h-full md:px-2">
-        <div className="flex items-center justify-between w-full h-16 py-4">
+        <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 lg:h-16 lg:flex-row lg:space-y-0">
           <div className="flex items-center justify-end px-4">
             <div className="px-2">
               <Button
@@ -523,27 +549,39 @@ export default function RenewalsTable(data) {
               </Button>
             </div>
           </div>
-          <div className="flex items-center w-full">
-            <Input
-              className={`z-10`}
-              type="search"
-              aria-label="Table Search Bar"
-              size="sm"
-              fullWidth
-              underlined
-              placeholder="Search"
-              labelLeft={getIcon('search')}
-              onChange={(e) => searchTable(e.target.value)}
-            />
-          </div>
-          <div className="flex w-[140px] items-center justify-end px-4">
-            <div className="flex flex-col items-end">
-              <h4>Show Renewed</h4>
-              <Switch
-                checked={showRenewed}
-                size="xs"
-                onChange={(e) => setShowRenewed(e.target.checked)}
+          <div className="flex w-full">
+            <div className="flex items-center w-full pr-4">
+              <Input
+                className={`z-10`}
+                type="search"
+                aria-label="Table Search Bar"
+                size="sm"
+                fullWidth
+                underlined
+                placeholder="Search"
+                labelLeft={getIcon('search')}
+                onChange={(e) => searchTable(e.target.value)}
               />
+            </div>
+            <div className="flex w-[140px] items-center justify-end px-4">
+              <div>
+                <BrinqSelect
+                  fullWidth={false}
+                  callBack={pageSizeSet}
+                  inititalValue={pageSize}
+                  initialOptions={pageSizeOptions}
+                  labelField={'value'}
+                  clearable={false}
+                />
+              </div>
+              <div className="flex flex-col items-end mt-[-10px]">
+                <h4>Renewed</h4>
+                <Switch
+                  checked={showRenewed}
+                  size="xs"
+                  onChange={(e) => setShowRenewed(e.target.checked)}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -598,22 +636,23 @@ export default function RenewalsTable(data) {
               {(item) => (
                 <Table.Row>
                   {(columnKey) => (
-                    <Table.Cell>{renderCell(item, columnKey)}</Table.Cell>
+                    <Table.Cell>{renderCell(item, columnKey, clientDrawerSet)}</Table.Cell>
                   )}
                 </Table.Row>
               )}
             </Table.Body>
-            {tableData?.length > 14 ? (
+            {tableData?.length > pageSize ? (
               <Table.Pagination
                 shadow
                 align="start"
                 noMargin
-                total={Math.ceil(Number(tableData?.length / 14))}
-                rowsPerPage={14}
+                total={Math.ceil(Number(tableData?.length / pageSize))}
+                rowsPerPage={pageSize}
               />
             ) : null}
           </Table>
         ) : null}
+        {isOpen ? <ClientDrawer clientId={clientDrawer} isRenewal={true} callBack={() => setIsOpen(!isOpen)} /> : null}
       </div>
     </div>
   )

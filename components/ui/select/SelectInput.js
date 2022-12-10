@@ -2,7 +2,7 @@ import React from 'react'
 import { Select, SelectOption } from 'reaselct'
 
 export default function SelectInput({
-  styling = 'flex w-full min-w-[350px]',
+  styling = 'flex',
   loading = false,
   value = null,
   opts = [],

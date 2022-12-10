@@ -24,6 +24,8 @@ import { useAppContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import TagBasic from '../ui/tag/TagBasic'
 import ClientTableCell from './ClientTableCell'
+import BrinqSelect from '../ui/select/BrinqSelect'
+import ClientDrawer from '../ui/drawer/ClientDrawer'
 
 const PoliciesTable = () => {
   const { type } = useTheme()
@@ -39,7 +41,19 @@ const PoliciesTable = () => {
     'Benefits',
   ])
   const [sortDescriptor, setSortDescriptor] = useState('ascending')
-
+  const [isOpen, setIsOpen] = useState(false)
+  const [clientDrawer, setClientDrawer] = useState(null)
+  const [pageSize, setPageSize] = useState(15)
+  const pageSizeOptions = [
+    { id: 15, value: '15' },
+    { id: 20, value: '20' },
+    { id: 25, value: '25' },
+    { id: 30, value: '30' },
+    { id: 35, value: '35' },
+    { id: 40, value: '40' },
+    { id: 45, value: '45' },
+    { id: 50, value: '50' },
+  ]
   const rows = state.reports.data.policies.raw
   const tableData = state.reports.data.policies.filtered
 
@@ -153,7 +167,7 @@ const PoliciesTable = () => {
     return sorted
   }
 
-  const renderCell = (policy, columnKey) => {
+  const renderCell = (policy, columnKey, drawerCallback) => {
     const cellValue = policy[columnKey]
     switch (columnKey) {
       case 'line':
@@ -171,6 +185,7 @@ const PoliciesTable = () => {
             clientId={policy.client.id}
             tags={policy.client.tags}
             type={type}
+            // drawerCallback={drawerCallback}
           />
         )
       case 'policy_number':
@@ -282,6 +297,15 @@ const PoliciesTable = () => {
     }
   }
 
+  const pageSizeSet = (e) => {
+    setPageSize(e)
+  }
+
+  const clientDrawerSet = (e) => {
+    setIsOpen(true)
+    setClientDrawer(e)
+  }
+
   return (
     <div className="flex flex-col w-full h-full md:flex-row">
       {showFilter ? (
@@ -363,6 +387,18 @@ const PoliciesTable = () => {
               onChange={(e) => searchTable(e.target.value)}
             />
           </div>
+          <div className="flex w-[140px] items-center justify-end px-4">
+            <div>
+              <BrinqSelect
+                fullWidth={false}
+                callBack={pageSizeSet}
+                inititalValue={pageSize}
+                initialOptions={pageSizeOptions}
+                labelField={'value'}
+                clearable={false}
+              />
+            </div>
+          </div>
           <div className="px-4">
             <Button
               color="warning"
@@ -420,18 +456,18 @@ const PoliciesTable = () => {
               {(item) => (
                 <Table.Row>
                   {(columnKey) => (
-                    <Table.Cell>{renderCell(item, columnKey)}</Table.Cell>
+                    <Table.Cell>{renderCell(item, columnKey, clientDrawerSet)}</Table.Cell>
                   )}
                 </Table.Row>
               )}
             </Table.Body>
-            {tableData.length > 13 ? (
+            {tableData?.length > pageSize ? (
               <Table.Pagination
                 shadow
                 align="start"
                 noMargin
-                rowsPerPage={13}
-                total={Math.ceil(Number(tableData.length / 13))}
+                total={Math.ceil(Number(tableData?.length / pageSize))}
+                rowsPerPage={pageSize}
               />
             ) : null}
           </Table>
@@ -445,6 +481,13 @@ const PoliciesTable = () => {
             />
           </div>
         )}
+        {isOpen ? (
+          <ClientDrawer
+            clientId={clientDrawer}
+            isRenewal={false}
+            callBack={() => setIsOpen(!isOpen)}
+          />
+        ) : null}
       </div>
     </div>
   )

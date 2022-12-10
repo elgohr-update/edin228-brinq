@@ -23,7 +23,9 @@ function BrinqSelect({
   valueField = 'id',
   keyField = 'id',
   initialUser = null,
-  inititalValue = null
+  inititalValue = null,
+  fullWidth = true,
+  clearable = true
 }) {
   const [value, setValue] = useState('')
   const [search, setSearch] = useState(null)
@@ -94,10 +96,10 @@ function BrinqSelect({
   }
 
   return (
-    <div className={`flex flex-col w-full px-4 pb-1 ${disabled ? 'opacity-20':''}`}>
+    <div className={`flex flex-col ${fullWidth ? 'w-full': ''} px-4 pb-1 ${disabled ? 'opacity-20':''}`}>
       {title ? <PanelTitle title={title} color={color} /> : null}
-      <div className="flex w-full">
-        <div className="w-full">
+      <div className={`flex ${fullWidth ? 'w-full': ''} `}>
+        <div className={`${fullWidth ? 'w-full': ''} `}>
           <SelectInput
             loading={loading}
             value={value}
@@ -113,6 +115,7 @@ function BrinqSelect({
             disabled={disabled}
             keyField={keyField}
             valueField={valueField}
+            clearable={clearable}
           />
         </div>
       </div>

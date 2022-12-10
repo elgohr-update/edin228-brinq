@@ -46,8 +46,8 @@ export default function DashboardPolicyCard({ policy }) {
               <div className="flex items-center text-color-primary">
                 <BsBox />
               </div>
-              <h6 className="flex w-[65px]">
-                {truncateString(policy.policy_number, 10)}
+              <h6 className="flex w-[150px]">
+                {truncateString(policy.policy_number, 20)}
               </h6>
             </div>
           </div>

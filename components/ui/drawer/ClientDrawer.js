@@ -27,7 +27,13 @@ import DrawerLoader from '../loaders/DrawerLoader'
 import { motion } from 'framer-motion'
 import { pusherHandler } from '../../../utils/pusher'
 
-const ClientDrawer = () => {
+const ClientDrawer = ({
+  clientId = null,
+  isRenewal = false,
+  companyId = null,
+  parent = false,
+  callBack = null,
+}) => {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
   const { reload, setReload } = useReloadContext()
   const router = useRouter()
@@ -39,13 +45,13 @@ const ClientDrawer = () => {
 
   useEffect(() => {
     let isCancelled = false
-    handleChange(isCancelled)
+    getData(isCancelled)
     return () => {
       isCancelled = true
     }
   }, [])
 
-  const handleChange = async (isCancelled) => {
+  const getData = async (isCancelled) => {
     await timeout(100)
     if (!isCancelled) {
       fetchClient().then(() => fetchPolicies())
@@ -79,32 +85,23 @@ const ClientDrawer = () => {
   }, [router.events])
 
   const fetchClient = async () => {
-    const clientId = clientDrawer.clientId
-    const res = await useNextApi(
-      'GET',
-      `/api/clients/${clientId}?onlyInfo=true`
-    )
+    let cid = clientId ? clientId : clientDrawer.clientId
+    const res = await useNextApi('GET', `/api/clients/${cid}?onlyInfo=true`)
     setClient(res)
   }
   const fetchPolicies = async () => {
-    const clientId = clientDrawer.clientId
-    const queryUrl = clientDrawer.isRenewal
-      ? `?month=${month}&year=${year}`
-      : `?active=true`
+    let cid = clientId ? clientId : clientDrawer.clientId
+    const queryUrl = isRenewal ? `?month=${month}&year=${year}` : `?active=true`
     const res = await useNextApi(
       'GET',
-      `/api/clients/${clientId}/policies${queryUrl}`
+      `/api/clients/${cid}/policies${queryUrl}`
     )
-    if (clientDrawer.companyId) {
-      if (clientDrawer.parent) {
-        let formatted = res?.filter(
-          (x) => x.carrier_id === clientDrawer.companyId
-        )
+    if (companyId) {
+      if (parent) {
+        let formatted = res?.filter((x) => x.carrier_id === companyId)
         setPolicies(formatted)
       } else {
-        let formatted = res?.filter(
-          (x) => x.writing_id === clientDrawer.companyId
-        )
+        let formatted = res?.filter((x) => x.writing_id === companyId)
         setPolicies(formatted)
       }
     } else {
@@ -128,26 +125,29 @@ const ClientDrawer = () => {
   }
 
   const closeDrawer = () => {
-    const setDefault = {
-      isOpen: false,
-      clientId: null,
-      isRenewal: false,
-      renewalMonth: null,
-      renewalYear: null,
-      nav: 1,
-      style: 1,
-      company_id: null,
-      parent: false,
-      writing: false,
+    if (callBack) {
+      callBack()
+    } else {
+      const setDefault = {
+        isOpen: false,
+        clientId: null,
+        isRenewal: false,
+        renewalMonth: null,
+        renewalYear: null,
+        nav: 1,
+        style: 1,
+        company_id: null,
+        parent: false,
+        writing: false,
+      }
+      setClientDrawer(setDefault)
     }
-    setClientDrawer(setDefault)
   }
 
   const syncAms = async () => {
-    const clientId = clientDrawer.clientId
-    const res = await useNextApi('GET', `/api/clients/${clientId}/ams360/sync`)
+    const res = await useNextApi('GET', `/api/clients/${client.id}/ams360/sync`)
     await timeout(10000)
-    handleChange(false)
+    getData(false)
   }
   const openAMS360Page = () => {
     const URL = `https://www.ams360.com/v2212631/nextgen/Customer/Detail/${client.ams360_customer_id}`
@@ -296,7 +296,7 @@ const ClientDrawer = () => {
                 </div>
                 {client ? (
                   <div className="flex flex-auto mt-4 shrink-0">
-                    <ClientActivity clientId={clientDrawer.clientId} />
+                    <ClientActivity clientId={client.id} />
                   </div>
                 ) : null}
               </div>
@@ -305,7 +305,7 @@ const ClientDrawer = () => {
         )}
         {!client ? null : (
           <div className="flex justify-end px-2 pt-1 pb-4 shrink-0">
-            <Link href={`/clients/${clientDrawer.clientId}`}>
+            <Link href={`/clients/${client.id}`}>
               <a className="w-full">
                 <Button color="gradient" className="w-full">
                   View More
@@ -315,9 +315,7 @@ const ClientDrawer = () => {
           </div>
         )}
       </div>
-      {clientDrawer.isOpen ? (
-        <HiddenBackdrop onClick={() => closeDrawer()} />
-      ) : null}
+      <HiddenBackdrop onClick={() => closeDrawer()} />
     </motion.div>
   )
 }

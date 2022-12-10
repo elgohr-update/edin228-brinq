@@ -11,8 +11,8 @@ import { timeout, useNextApi } from '../utils/utils'
 import DashboardSummaryChart from '../components/charts/DashboardSummaryChart'
 import DashboardRecentPolicies from '../components/dashboard/policy/DashboardRecentPolicies'
 import DashboardExpiringPolicies from '../components/dashboard/expiring/DashboardExpiringPolicies'
-import DashboardPhone from '../components/dashboard/phone/DashboardPhone'
 import { Loading } from '@nextui-org/react'
+import DashboardAudit from '../components/dashboard/audit/DashboardAudit'
 
 export default function Dashboard() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
@@ -100,7 +100,10 @@ export default function Dashboard() {
                     <div className="flex flex-auto shrink-0 flex-col lg:w-[400px]">
                       <DashboardActivity />
                     </div>
-                    <div className="flex flex-col flex-auto w-auto shrink-0">
+                    <div className="flex flex-col flex-auto w-auto lg:w-[400px] shrink-0">
+                      <div className="flex flex-col flex-auto shrink-0">
+                        <DashboardAudit />
+                      </div>
                       <div className="flex flex-col flex-auto shrink-0">
                         <DashboardExpiringPolicies />
                       </div>
