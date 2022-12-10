@@ -6,6 +6,7 @@ export function AppWrapper({ children }) {
   const [state, setState] = useState({
     search: '',
     scrollY: 0,
+    lowZIndex: false,
     reports: {
       default: 'clients',
       data: {
@@ -196,7 +197,6 @@ export function ParentCompanyDrawerWrapper({ children }) {
     </ParentCompanyDrawerContext.Provider>
   )
 }
-
 export function useParentCompanyDrawerContext() {
   return useContext(ParentCompanyDrawerContext)
 }

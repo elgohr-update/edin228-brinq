@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
 import {
+  useAppHeaderContext,
   useClientDrawerContext,
   useReloadContext,
 } from '../../../context/state'
@@ -35,6 +36,7 @@ const ClientDrawer = ({
   callBack = null,
 }) => {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
+  const {appHeader, setAppHeader} = useAppHeaderContext();
   const { reload, setReload } = useReloadContext()
   const router = useRouter()
   const { month, year } = router.query
@@ -54,6 +56,7 @@ const ClientDrawer = ({
   const getData = async (isCancelled) => {
     await timeout(100)
     if (!isCancelled) {
+      setAppHeader({...appHeader, lowZindex: true})
       fetchClient().then(() => fetchPolicies())
     }
   }
@@ -126,6 +129,7 @@ const ClientDrawer = ({
 
   const closeDrawer = () => {
     if (callBack) {
+      setAppHeader({...appHeader, lowZindex: false})
       callBack()
     } else {
       const setDefault = {
@@ -140,6 +144,7 @@ const ClientDrawer = ({
         parent: false,
         writing: false,
       }
+      setAppHeader({...appHeader, lowZindex: false})
       setClientDrawer(setDefault)
     }
   }
@@ -171,7 +176,7 @@ const ClientDrawer = ({
       <div
         className={`fixed ${
           clientDrawer.style == 1 ? 'right-0' : 'xl:right-[800px]'
-        }  flex h-[80vh] top-[12vh] lg:top-0 lg:h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
+        }  flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!client ? (
           <DrawerLoader />
