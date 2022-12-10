@@ -394,7 +394,7 @@ function AuditCard({
           </div>
         </Modal.Body>
         <Modal.Footer autoMargin={false} className="flex w-full p-4 space-x-2">
-          <div>{data.length} Total</div>
+          <div>{data?.length} Total</div>
           <Button
             color="success"
             auto
