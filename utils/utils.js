@@ -10,6 +10,7 @@ import {
   BsFillTelephoneOutboundFill,
   BsRecordCircleFill,
   BsFillFileTextFill,
+  BsFileSpreadsheet
 } from 'react-icons/bs'
 import {
   FaRegPaperPlane,
@@ -57,6 +58,8 @@ import {
 } from 'react-icons/bi'
 import { DateTime, Duration } from 'luxon'
 import { useEffect, useState } from 'react'
+import * as XLSX from 'xlsx'
+
 
 export const getIcon = (item) => {
   return item == 'policy' ? (
@@ -147,6 +150,8 @@ export const getIcon = (item) => {
     <FaVoicemail />
   ) : item == 'paperText' ? (
     <BsFillFileTextFill />
+  ) : item == 'spreadsheet' ? (
+    <BsFileSpreadsheet />
   ) : null
 }
 
@@ -473,4 +478,13 @@ export const checkWidth = () => {
   }, [handleResize])
   console.log(width)
   return width
+}
+
+export const downloadExcel = (data, title) => {
+  const worksheet = XLSX.utils.json_to_sheet(data)
+  const workbook = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
+  let nameString = encodeURIComponent(title?.replace(/[^\w]/g, ''))
+  const fileName = title ? nameString+'.xlsx' : 'DataSheet.xlsx'
+  XLSX.writeFile(workbook, fileName)
 }

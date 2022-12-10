@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Link, useTheme } from '@nextui-org/react'
+import { Avatar, Link, Tooltip, useTheme } from '@nextui-org/react'
 import {
   abbreviateMoney,
   getIcon,
@@ -11,6 +11,7 @@ import TagBasic from '../../ui/tag/TagBasic'
 import { BsBox } from 'react-icons/bs'
 import { AiOutlineClockCircle, AiOutlineCloudDownload } from 'react-icons/ai'
 import UserAvatar from '../../user/Avatar'
+import LineIcon from '../../util/LineIcon'
 
 export default function DashboardPolicyCard({ policy }) {
   const { type } = useTheme()
@@ -33,14 +34,19 @@ export default function DashboardPolicyCard({ policy }) {
               ))}
             </Avatar.Group>
           </div>
-          {policy.new_business ? (
-            <TagBasic autoWidth color="green" text={`NB`} />
-          ) : null}
+          <div>
+            <Tooltip content={policy.line}>
+              <LineIcon iconSize={14} size="xs" line={policy.line} />
+            </Tooltip>
+          </div>
           <TagBasic
             tooltip
             tooltipContent={policy.policy_type_full}
             text={`${policy.policy_type}`}
           />
+           {policy.new_business ? (
+            <TagBasic autoWidth color="green" text={`NEW`} />
+          ) : null}
           <div className="transition duration-100 text-color-primary hover:text-sky-500">
             <div className="flex items-center space-x-2">
               <div className="flex items-center text-color-primary">
@@ -55,9 +61,7 @@ export default function DashboardPolicyCard({ policy }) {
         <div>
           <div className="flex items-center justify-end w-full space-x-2">
             <div className="flex items-center flex-auto space-x-1 text-teal-500 ">
-              <h6 className="flex items-center">
-                {getIcon('dollarSign')}
-              </h6>
+              <h6 className="flex items-center">{getIcon('dollarSign')}</h6>
               <h6 className="flex w-[30px] flex-auto lg:justify-end">
                 ${abbreviateMoney(policy.premium)}
               </h6>

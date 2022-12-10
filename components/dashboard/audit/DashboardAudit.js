@@ -35,7 +35,7 @@ function DashboardAudit() {
       className={`relative flex h-full w-full flex-auto shrink-0 flex-col rounded-lg`}
     >
       <div className="pl-4">
-        <PanelTitle title={`Audit`} color="red" />
+        <PanelTitle title={`Audits`} color="red" />
       </div>
       <div
         className={`flex flex-col space-y-2 lg:flex-row lg:space-y-0 panel-theme-${type} ${type}-shadow min-h-[140px] w-full gap-2 rounded-lg p-2`}
@@ -56,11 +56,11 @@ function DashboardAudit() {
           init={contacts?.contacts_missing_email}
           useContactCard
         />
-        <AuditCard
+        {/* <AuditCard
           title={'Contacts missing phone'}
           init={contacts?.contacts_missing_phone}
           useContactCard
-        />
+        /> */}
         <AuditCard
           title={'Clients with No Contacts'}
           init={contacts?.contacts_missing}

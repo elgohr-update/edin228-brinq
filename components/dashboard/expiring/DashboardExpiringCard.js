@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Link, useTheme } from '@nextui-org/react'
+import { Avatar, Link, Tooltip, useTheme } from '@nextui-org/react'
 import {
   abbreviateMoney,
   getIcon,
@@ -11,6 +11,7 @@ import TagBasic from '../../ui/tag/TagBasic'
 import { BsBox } from 'react-icons/bs'
 import { AiOutlineClockCircle, AiOutlineCloudDownload } from 'react-icons/ai'
 import UserAvatar from '../../user/Avatar'
+import LineIcon from '../../util/LineIcon'
 
 export default function DashboardExpiringCard({ policy }) {
   const { type } = useTheme()
@@ -32,6 +33,11 @@ export default function DashboardExpiringCard({ policy }) {
                 />
               ))}
             </Avatar.Group>
+          </div>
+          <div>
+            <Tooltip content={policy.line}>
+              <LineIcon iconSize={14} size="xs" line={policy.line} />
+            </Tooltip>
           </div>
           <TagBasic
             tooltip

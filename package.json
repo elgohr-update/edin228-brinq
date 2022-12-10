@@ -38,7 +38,8 @@
     "react-drag-drop-files": "^2.3.4",
     "react-icons": "^4.3.1",
     "react-uuid": "^1.0.2",
-    "reaselct": "^2.0.1"
+    "reaselct": "^2.0.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.2.0",
