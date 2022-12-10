@@ -9,6 +9,7 @@ import { usePhoneContext } from '../../../context/state'
 import PhoneLog from '../../phone/PhoneLog'
 import PhoneVoicemail from '../../phone/PhoneVoicemail'
 import PhoneFax from '../../phone/PhoneFax'
+import Link from 'next/link'
 
 function DashboardPhone() {
   const { type } = useTheme()
@@ -16,23 +17,21 @@ function DashboardPhone() {
   const [isAuth, setIsAuth] = useState(true)
   const [loading, setLoading] = useState(false)
   const { phoneState, setPhoneState } = usePhoneContext()
+  const [loginUrl, setLoginUrl] = useState(null)
   const runOnce = useRef(true)
   useEffect(() => {
     const handleChange = async () => {
       const isLoggedIn = await rcsdk.platform().loggedIn();
       setIsAuth(isLoggedIn)
       setPhoneState({ ...phoneState, auth: isLoggedIn })
+      const url = await rcLoginUrl()
+      setLoginUrl(url)
     }
     handleChange()
     return () => {
       runOnce.current = false
     }
   }, [rcsdk])
-
-  const goToLoginURL = async () => {
-    const url = await rcLoginUrl()
-    router.replace(`${url}`)
-  }
 
   const LoginRingCentral = () => {
     return (
@@ -47,20 +46,16 @@ function DashboardPhone() {
             alt="Default Image"
           />
         </div>
-        <Button
-          color="primary"
-          auto
-          size="sm"
-          flat
-          onClick={() => goToLoginURL()}
+        <a
+          href={loginUrl}
         >
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center p-2 space-x-2 rounded-lg bg-sky-700/20 text-sky-500">
             <div className="flex items-center justify-center text-lg text-center">
               {getIcon('link')}
             </div>
             <div>Login to RingCentral</div>
           </div>
-        </Button>
+        </a>
       </div>
     )
   }

@@ -1,22 +1,44 @@
-import React from 'react'
+import { Loading } from '@nextui-org/react'
+import React, { useState } from 'react'
 import { getIcon, useNextApi } from '../../utils/utils'
 
 export default function FileTag({ file }) {
+  const [downloadUrl, setDownloadUrl] = useState(null)
+  const [loading, setLoading] = useState(false)
   const getDownload = async () => {
-    const data = await useNextApi(`GET`, `/api/files/${file.uid}/`)
-    if (data) {
-      window.open(data.url)
+    if (!downloadUrl) {
+      setLoading(true)
+      const data = await useNextApi(`GET`, `/api/files/${file.uid}/`)
+      if (data) {
+        setLoading(false)
+        setDownloadUrl(data.url)
+      }
     }
   }
   return (
-    <div className="flex  cursor-pointer items-center rounded-lg bg-sky-800/10 px-2 py-1 text-sky-500">
-      <div
-        className="flex items-center space-x-1 text-xs"
-        onClick={() => getDownload()}
-      >
-        <div>{getIcon('file')}</div>
-        <div>{file.file_name}</div>
-      </div>
+    <div className={`flex h-full min-h-[20px] min-w-[50px] cursor-pointer items-center rounded-lg px-2 py-1 ${!downloadUrl ? 'bg-zinc-800/10 text-zinc-500' : 'bg-sky-800/10 text-sky-500'}`}>
+      {downloadUrl ? (
+        <a
+          href={downloadUrl}
+          target="_blank"
+          className="flex items-center h-full space-x-1 text-xs"
+        >
+          <div>{getIcon('file')}</div>
+          <div>{file.file_name}</div>
+        </a>
+      ) : loading ? (
+        <div className="flex items-center justify-center w-full h-full">
+          <Loading type="points-opacity" color="currentColor" size="md" />
+        </div>
+      ) : (
+        <div
+          onClick={() => getDownload()}
+          className="flex items-center h-full space-x-1 text-xs"
+        >
+          <div>{getIcon('file')}</div>
+          <div>{file.file_name}</div>
+        </div>
+      )}
     </div>
   )
 }
