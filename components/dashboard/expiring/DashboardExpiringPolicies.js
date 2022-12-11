@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PanelTitle from '../../ui/title/PanelTitle'
 import { motion } from 'framer-motion'
-import { timeout, useNextApi } from '../../../utils/utils'
+import { isMobile, timeout, useNextApi } from '../../../utils/utils'
 import { useTheme } from '@nextui-org/react'
 import DashboardExpiringCard from './DashboardExpiringCard'
 
@@ -27,15 +27,20 @@ export default function DashboardExpiringPolicies() {
     const res = await useNextApi('GET', `/api/policy/expiring`)
     setData(res)
   }
+  const mobile = isMobile()
 
   return (
-    <div className={`flex flex-auto shrink-0 h-full relative flex-col rounded-lg`}>
+    <div
+      className={`relative flex h-full flex-auto shrink-0 flex-col rounded-lg`}
+    >
       <div className="pl-4">
-        <PanelTitle title={`Expiring Soon`} color="orange" />
+        {!mobile ? <PanelTitle title={`Expiring Soon`} color="orange" /> : null}
       </div>
-      <div className={`flex flex-col rounded-lg max-h-[40vh] lg:max-h-[16vh] panel-theme-${type} ${type}-shadow overflow-y-auto`}>
+      <div
+        className={`flex h-full flex-col rounded-lg lg:max-h-[16vh] panel-theme-${type} ${type}-shadow overflow-y-auto`}
+      >
         <div
-          className={`policy-card-container py-2 flex flex-col overflow-x-hidden overflow-y-auto rounded-lg`}
+          className={`policy-card-container flex flex-col overflow-y-auto overflow-x-hidden rounded-lg py-2`}
         >
           {data?.map((u, i) => (
             <motion.div

@@ -19,21 +19,6 @@ export default function DashboardExpiringCard({ policy }) {
     return (
       <div className="flex flex-col w-full space-y-1 lg:flex-row lg:items-center lg:space-y-0 lg:space-x-2">
         <div className="flex items-center w-full space-x-2">
-          <div className="flex pl-2">
-            <Avatar.Group>
-              {policy?.users.map((u) => (
-                <UserAvatar
-                  key={u.id}
-                  size="sm"
-                  isLink={false}
-                  squared={false}
-                  isGrouped
-                  isUser
-                  passUser={u}
-                />
-              ))}
-            </Avatar.Group>
-          </div>
           <div>
             <Tooltip content={policy.line}>
               <LineIcon iconSize={14} size="xs" line={policy.line} />
@@ -49,7 +34,7 @@ export default function DashboardExpiringCard({ policy }) {
               <div className="flex items-center text-color-primary">
                 <BsBox />
               </div>
-              <h6 className="flex w-[65px]">
+              <h6 className="flex w-[120px]">
                 {truncateString(policy.policy_number, 15)}
               </h6>
             </div>
@@ -59,7 +44,7 @@ export default function DashboardExpiringCard({ policy }) {
           <div className="flex items-center justify-end w-full space-x-2">
             <div className="flex items-center flex-auto space-x-1 text-teal-500 ">
               <h6 className="flex items-center">{getIcon('dollarSign')}</h6>
-              <h6 className="flex flex-auto w-[30px] lg:justify-end">
+              <h6 className="flex w-[30px] flex-auto lg:justify-end">
                 ${abbreviateMoney(policy.premium)}
               </h6>
             </div>
@@ -71,6 +56,21 @@ export default function DashboardExpiringCard({ policy }) {
                 {getFormattedDate(policy.expiration_date)}
               </div>
             </h6>
+            <div className="flex pl-6">
+              <Avatar.Group>
+                {policy?.users.map((u) => (
+                  <UserAvatar
+                    key={u.id}
+                    size="sm"
+                    isLink={false}
+                    squared={false}
+                    isGrouped
+                    isUser
+                    passUser={u}
+                  />
+                ))}
+              </Avatar.Group>
+            </div>
           </div>
         </div>
       </div>

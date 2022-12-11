@@ -8,6 +8,8 @@ import {
 } from '../../context/state'
 import {
   formatPhoneNumber,
+  getFormattedDateTime,
+  getFormattedDuration,
   timeout,
   useApiFormData,
   useNextApi,
@@ -26,7 +28,7 @@ function NewActivityModal({
   callData = null,
   preLoadFiles = null,
   transcriptData = null,
-  createSuspenseOnly = null
+  createSuspenseOnly = null,
 }) {
   const { AMS360ValueList, setAMS360ValueList } = useAMS360ValueListContext()
   const { reload, setReload } = useReloadContext()
@@ -126,7 +128,7 @@ function NewActivityModal({
       if (!isCancelled && createSuspenseOnly) {
         setIsActivity(false)
         setIsSuspense(true)
-        setIsAMSActivity(false)        
+        setIsAMSActivity(false)
       }
     }
     handleChange()
@@ -161,7 +163,11 @@ function NewActivityModal({
       await timeout(1000)
       if (!isCancelled && callData) {
         const outbound = callData.direction == 'Outbound'
-        const callDirection = `${outbound ? 'Outbound' : 'Inbound'} Call`
+        const callDirection = `${
+          outbound ? 'Outbound' : 'Inbound'
+        } Call ${getFormattedDateTime(
+          callData.startTime
+        )} ${getFormattedDuration(callData.duration)}`
         const fromName = `From: ${
           callData.from.name ? callData.from.name : 'Unknown'
         }`
@@ -308,7 +314,7 @@ function NewActivityModal({
   }
 
   const submitActivity = async () => {
-    if (isActivity) {
+    if (isActivity && isSuspense) {
       const bSubmission = await submitBrinqActivity()
       if (isAMSActivity) {
         await submitAmsActivity(bSubmission)
@@ -321,8 +327,23 @@ function NewActivityModal({
         })
         setDefault()
       }
-    }
-    if (isSuspense) {
+      if (isSuspense) {
+        await submitSuspense()
+      }
+    } else if (isActivity && !isSuspense) {
+      const bSubmission = await submitBrinqActivity()
+      if (isAMSActivity) {
+        await submitAmsActivity(bSubmission)
+      }
+      if (bSubmission) {
+        setLoading(false)
+        setReload({
+          ...reload,
+          activities: true,
+        })
+        setDefault()
+      }
+    } else if (isSuspense && !isActivity) {
       const suspenseSubmission = await submitSuspense()
       if (suspenseSubmission) {
         setLoading(false)
@@ -432,20 +453,6 @@ function NewActivityModal({
             ) : (
               <div className="py-4 text-lg font-bold">{preLoadClient.name}</div>
             )}
-
-            <BrinqSelect
-              title="Policies"
-              color="indigo"
-              placeholder="Select policies"
-              initialOptions={optPolicies}
-              callBack={setPolicies}
-              labelField={'policy_number'}
-              filterable={true}
-              multiple={true}
-              useDetail={true}
-              detailField={'policy_type'}
-              disabled={client ? false : true}
-            />
           </div>
           <div className="relative flex items-center justify-center w-full mb-4">
             <div className="search-border-flair pink-to-blue-gradient-1 !relative z-30 flex w-[80%] justify-center" />
@@ -454,7 +461,20 @@ function NewActivityModal({
       </Modal.Header>
       <Modal.Body className="flex flex-col w-full px-4">
         <div className="flex flex-col w-full">
-          <div className="flex flex-col w-full xl:flex-row">
+          <BrinqSelect
+            title="Policies"
+            color="indigo"
+            placeholder="Select policies"
+            initialOptions={optPolicies}
+            callBack={setPolicies}
+            labelField={'policy_number'}
+            filterable={true}
+            multiple={true}
+            useDetail={true}
+            detailField={'policy_type'}
+            disabled={client ? false : true}
+          />
+          <div className="flex flex-col w-full py-2 lg:flex-row">
             {isActivity ? (
               <div className="flex flex-col w-full pb-4">
                 {isSuspense ? (

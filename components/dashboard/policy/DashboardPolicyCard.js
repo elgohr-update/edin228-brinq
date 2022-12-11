@@ -19,21 +19,6 @@ export default function DashboardPolicyCard({ policy }) {
     return (
       <div className="flex flex-col w-full space-y-1 lg:flex-row lg:items-center lg:space-y-0 lg:space-x-2">
         <div className="flex items-center w-full space-x-2">
-          <div className="flex pl-2">
-            <Avatar.Group>
-              {policy?.users.map((u) => (
-                <UserAvatar
-                  key={u.id}
-                  size="sm"
-                  isLink={false}
-                  squared={false}
-                  isGrouped
-                  isUser
-                  passUser={u}
-                />
-              ))}
-            </Avatar.Group>
-          </div>
           <div>
             <Tooltip content={policy.line}>
               <LineIcon iconSize={14} size="xs" line={policy.line} />
@@ -44,7 +29,7 @@ export default function DashboardPolicyCard({ policy }) {
             tooltipContent={policy.policy_type_full}
             text={`${policy.policy_type}`}
           />
-           {policy.new_business ? (
+          {policy.new_business ? (
             <TagBasic autoWidth color="green" text={`NEW`} />
           ) : null}
           <div className="transition duration-100 text-color-primary hover:text-sky-500">
@@ -81,6 +66,21 @@ export default function DashboardPolicyCard({ policy }) {
               <h4 className="flex w-[60px] justify-end">
                 {policy.added_date ? getFormattedDate(policy.added_date) : null}
               </h4>
+              <div className="flex pl-6">
+                <Avatar.Group>
+                  {policy?.users.map((u) => (
+                    <UserAvatar
+                      key={u.id}
+                      size="sm"
+                      isLink={false}
+                      squared={false}
+                      isGrouped
+                      isUser
+                      passUser={u}
+                    />
+                  ))}
+                </Avatar.Group>
+              </div>
             </div>
           </div>
         </div>

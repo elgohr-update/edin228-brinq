@@ -107,7 +107,7 @@ export default function ClientTableCell({
       <div className="pl-3">
         <TagContainer tags={tags} />
       </div>
-      {subContent ? <div className="flex w-full px-4">{subContent}</div> : null}
+      {subContent ? <div className="flex w-full px-2">{subContent}</div> : null}
       {isOpen && !drawerCallback ? (
         <ClientDrawer
           clientId={clientId}

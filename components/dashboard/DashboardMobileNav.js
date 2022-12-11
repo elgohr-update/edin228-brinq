@@ -1,45 +1,50 @@
 import React from 'react'
-import NavAction from '../../ui/navbar/NavAction'
 import { BsListTask,BsCalendarX,BsCalendarEvent,BsCalendar2Week } from 'react-icons/bs';
-import { useTheme } from '@nextui-org/react';
+import NavAction from '../ui/navbar/NavAction';
 
-const TodosNavBar = ({activeItem=1, setTab}) => {
-  const { type } = useTheme()
+const DashboardMobileNav = ({activeItem=1, setTab}) => {
   const setActive = (key) => {
     setTab(key)
   }
 
   return (
-    <div className={`flex items-center justify-center lg:justify-start space-x-1 rounded-lg px-2 py-1`}>
+    <div className={`flex items-center space-x-1 rounded-lg p-2`}>
       <NavAction
         onClick={() => setActive(1)}
         icon={<BsListTask/>}
-        title={'All'}
+        title={'Todos'}
         activeItem={activeItem}
         itemId={1}
       />
       <NavAction
         onClick={() => setActive(2)}
         icon={<BsCalendarX/>}
-        title={'Overdue'}
+        title={'Activity'}
         activeItem={activeItem}
         itemId={2}
       />
       <NavAction
         onClick={() => setActive(3)}
         icon={<BsCalendarEvent/>}
-        title={'Today'}
+        title={'Audits'}
         activeItem={activeItem}
         itemId={3}
       />
       <NavAction
         onClick={() => setActive(4)}
         icon={<BsCalendar2Week/>}
-        title={'Week'}
+        title={'Expiring'}
         activeItem={activeItem}
         itemId={4}
+      />
+      <NavAction
+        onClick={() => setActive(5)}
+        icon={<BsCalendar2Week/>}
+        title={'Recently Added'}
+        activeItem={activeItem}
+        itemId={5}
       />
     </div>
   )
 }
-export default TodosNavBar
+export default DashboardMobileNav

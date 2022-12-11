@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PanelTitle from '../../ui/title/PanelTitle'
 import { motion } from 'framer-motion'
-import { timeout, useNextApi } from '../../../utils/utils'
+import { isMobile, timeout, useNextApi } from '../../../utils/utils'
 import { useTheme } from '@nextui-org/react'
 import DashboardPolicyCard from './DashboardPolicyCard'
 
@@ -27,15 +27,22 @@ export default function DashboardRecentPolicies() {
     const res = await useNextApi('GET', `/api/policy/recent`)
     setData(res)
   }
+  const mobile = isMobile()
 
   return (
-    <div className={`flex flex-auto shrink-0 h-full relative flex-col rounded-lg`}>
+    <div
+      className={`relative flex h-full flex-auto shrink-0 flex-col rounded-lg`}
+    >
       <div className="pl-4">
-        <PanelTitle title={`Recently Added Policies`} color="pink" />
+        {!mobile ? (
+          <PanelTitle title={`Recently Added Policies`} color="pink" />
+        ) : null}
       </div>
-      <div className={`flex flex-col rounded-lg max-h-[40vh] lg:max-h-[25vh] panel-theme-${type} ${type}-shadow overflow-hidden`}>
+      <div
+        className={`flex h-full flex-col rounded-lg lg:max-h-[25vh] panel-theme-${type} ${type}-shadow overflow-hidden`}
+      >
         <div
-          className={`policy-card-container py-2 flex flex-col overflow-x-hidden overflow-y-auto rounded-lg`}
+          className={`policy-card-container flex flex-col overflow-y-auto overflow-x-hidden rounded-lg py-2`}
         >
           {data?.map((u, i) => (
             <motion.div

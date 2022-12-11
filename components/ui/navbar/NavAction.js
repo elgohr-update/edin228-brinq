@@ -1,6 +1,9 @@
 import React from 'react'
+import { isMobile, truncateString } from '../../../utils/utils';
 
 export default function NavAction({onClick,icon,title, activeItem, itemId}) {
+    const mobile =  isMobile();
+    const active = activeItem == itemId
     const isActive = () => {
         if (activeItem == itemId){
             return 'opacity-100 active-path-small navlink-active'
@@ -21,7 +24,7 @@ export default function NavAction({onClick,icon,title, activeItem, itemId}) {
     return (
         <div onClick={onClick} className={`flex cursor-pointer relative text-xs tracking-wider transition duration-100 ease-out items-center px-1 py-1 ${isActive()}`}>
             <div className={`mr-2 ${isActiveIcon()}`}>{icon}</div>
-            <div className={`flex mr-2`}>{title}</div>
+            <div className={`flex mr-2`}>{mobile && active ? title : !mobile ? title : truncateString(title, 4) }</div>
             <div className={`${isActiveBorder()} navlink-border`} />
         </div>
     )

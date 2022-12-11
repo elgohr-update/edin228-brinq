@@ -1,6 +1,6 @@
 import { useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
-import { timeout, useNextApi } from '../../../utils/utils'
+import { isMobile, timeout, useNextApi } from '../../../utils/utils'
 import PanelTitle from '../../ui/title/PanelTitle'
 import AuditCard from './AuditCard'
 
@@ -29,13 +29,14 @@ function DashboardAudit() {
     const res2 = await useNextApi('GET', `/api/audit/contacts`)
     setContacts(res2)
   }
-
+  const mobile =  isMobile();
+  
   return (
     <div
       className={`relative flex h-full w-full flex-auto shrink-0 flex-col rounded-lg`}
     >
       <div className="pl-4">
-        <PanelTitle title={`Audits`} color="red" />
+        {!mobile ? <PanelTitle title={`Audits`} color="red" /> : null}
       </div>
       <div
         className={`flex flex-col space-y-2 lg:flex-row lg:space-y-0 panel-theme-${type} ${type}-shadow min-h-[140px] w-full gap-2 rounded-lg p-2`}
@@ -47,7 +48,7 @@ function DashboardAudit() {
           usePolicyCard
         />
         <AuditCard
-          title={'Policies with $0 Premium'}
+          title={'Active Policies with $0 Prem'}
           init={policies?.zero_premium}
           usePolicyCard
         />

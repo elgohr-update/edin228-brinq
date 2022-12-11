@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { Input, Switch, useTheme } from '@nextui-org/react'
 import PanelTitle from '../../ui/title/PanelTitle'
-import { getSearch, timeout} from '../../../utils/utils'
+import { getSearch, isMobile, timeout} from '../../../utils/utils'
 import TaskBundleContainer from '../../task/taskbundle/TaskBundleContainer'
 import uuid from 'react-uuid'
 import { DateTime } from 'luxon'
@@ -20,7 +20,7 @@ export default function DashboardTodos({ data = [] }) {
   const [rawNoFormat, setRawNoFormat] = useState(null)
   const [showCompleted, setShowCompleted] = useState(false)  
   const { type } = useTheme()
-
+  const mobile =  isMobile();
   useEffect(() => {
     let isCancelled = false
     const handleChange = async () => {
@@ -349,8 +349,8 @@ export default function DashboardTodos({ data = [] }) {
     <div
       className={`mt-2 flex h-full w-full flex-auto shrink-0 flex-col rounded-lg lg:mt-0`}
     >
-      <div className="flex flex-col w-full pl-4 md:flex-row md:items-center md:justify-between">
-        <PanelTitle title={`Todos`} color="sky" />
+      <div className="flex flex-col w-full lg:pl-4 md:flex-row md:items-center md:justify-between">
+        {!mobile ? <PanelTitle title={`Todos`} color="sky" /> : null}
         <TodosNavBar activeItem={todoTab} setTab={(e) => setTab(e)} />
       </div>
       <div
@@ -384,7 +384,7 @@ export default function DashboardTodos({ data = [] }) {
           
         </div>
         <div
-          className={`tasks-container flex h-full max-h-[69vh] w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[70.2vh]`}
+          className={`tasks-container flex h-full w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[70.2vh]`}
         >
           {todoTab == 1
             ? raw?.map((u) => (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useReloadContext } from '../../../context/state'
-import { getSearch, timeout, useNextApi } from '../../../utils/utils'
+import { getSearch, isMobile, timeout, useNextApi } from '../../../utils/utils'
 import ActivityCard from '../../activity/ActivityCard'
 import { FaSearch } from 'react-icons/fa'
 import { Input, useTheme } from '@nextui-org/react'
@@ -61,11 +61,12 @@ export default function DashboardActivity() {
       setData(raw)
     }
   }
-
+  const mobile =  isMobile();
   return (
     <div className={`flex flex-auto shrink-0 h-full rounded-lg w-full flex-col relative`}>
       <div className="pl-4">
-        <PanelTitle title={`Recent Activity`} color="indigo" />
+      {!mobile ? <PanelTitle title={`Recent Activity`} color="indigo" /> : null}
+        
       </div>
       <div className={`flex flex-col overflow-hidden relative rounded-lg lg:px-0 panel-theme-${type} ${type}-shadow`}>
         {data?.length > 0 ? (
@@ -85,7 +86,7 @@ export default function DashboardActivity() {
           </div>
         ) : null}
         <div
-          className={`activity-card-container flex h-full w-full flex-col overflow-y-auto relative max-h-[40vh] py-2 lg:max-h-[59.4vh] rounded`}
+          className={`activity-card-container flex h-full w-full flex-col overflow-y-auto relative py-2 lg:max-h-[59.4vh] rounded`}
         >
           {data?.map((u, i) => (
             <motion.div

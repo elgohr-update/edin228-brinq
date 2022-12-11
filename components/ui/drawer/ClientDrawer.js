@@ -56,7 +56,7 @@ const ClientDrawer = ({
   const getData = async (isCancelled) => {
     await timeout(100)
     if (!isCancelled) {
-      setAppHeader({...appHeader, lowZindex: true})
+      setAppHeader({...appHeader, lowZIndex: true})
       fetchClient().then(() => fetchPolicies())
     }
   }
@@ -129,7 +129,7 @@ const ClientDrawer = ({
 
   const closeDrawer = () => {
     if (callBack) {
-      setAppHeader({...appHeader, lowZindex: false})
+      setAppHeader({...appHeader, lowZIndex: false})
       callBack()
     } else {
       const setDefault = {
@@ -144,7 +144,7 @@ const ClientDrawer = ({
         parent: false,
         writing: false,
       }
-      setAppHeader({...appHeader, lowZindex: false})
+      setAppHeader({...appHeader, lowZIndex: false})
       setClientDrawer(setDefault)
     }
   }

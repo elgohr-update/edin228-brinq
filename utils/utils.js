@@ -480,6 +480,19 @@ export const checkWidth = () => {
   return width
 }
 
+export const isMobile = () => {
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const handleWindowSizeChange = () => setWidth(window.innerWidth);
+    handleWindowSizeChange();
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => window.removeEventListener("resize", handleWindowSizeChange);
+  }, []);
+
+  return width <= 576;
+};
+
 export const downloadExcel = (data, title) => {
   const worksheet = XLSX.utils.json_to_sheet(data)
   const workbook = XLSX.utils.book_new()

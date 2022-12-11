@@ -31,6 +31,7 @@ import UserAvatar from '../user/Avatar'
 import {
   useAgencyContext,
   useAppContext,
+  useAppHeaderContext,
   useClientDrawerContext,
 } from '../../context/state'
 import LineIcon from '../util/LineIcon'
@@ -47,6 +48,7 @@ export default function RenewalsTable(data) {
   const { month, year } = router.query
   const { type } = useTheme()
   const { agency, setAgency } = useAgencyContext()
+  const {appHeader, setAppHeader} = useAppHeaderContext();
   const { data: session } = useSession()
   const [rows, setRows] = useState(
     data?.data?.map((x) => {
@@ -401,6 +403,7 @@ export default function RenewalsTable(data) {
 
   const clientDrawerSet = e => {
     setIsOpen(true)
+    setAppHeader({...appHeader, lowZIndex: true})
     setClientDrawer(e)
   }
 
