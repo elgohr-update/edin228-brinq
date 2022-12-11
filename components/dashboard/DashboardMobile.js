@@ -91,7 +91,7 @@ export default function DashboardMobile() {
                 activeItem={navTab}
                 setTab={(e) => setTab(e)}
               />
-              <div className="flex flex-col w-full h-full">
+              <div className="flex flex-col w-full h-full px-2">
                 {navTab == 1 ? (
                   <div className="flex flex-col flex-auto shrink-0 ">
                     <DashboardTodos data={tasks} />

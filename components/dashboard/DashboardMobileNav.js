@@ -15,7 +15,9 @@ const DashboardMobileNav = ({ activeItem = 1, setTab }) => {
   }
 
   return (
-    <div className={`flex items-center space-x-1 p-2 panel-theme-${type} ${type}-shadow`}>
+    <div
+      className={`mb-2 flex items-center space-x-1  p-2 panel-theme-${type} ${type}-shadow`}
+    >
       <NavAction
         onClick={() => setActive(1)}
         icon={<BsListTask />}
