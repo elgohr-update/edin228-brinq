@@ -263,8 +263,8 @@ function NewActivityModal({
     const formData = getSubmissionFormData()
     const url =
       files?.length > 0
-        ? `/activity/brinq-activity/`
-        : `/activity/brinq-activity-no-files/`
+        ? `/activity/brinq-activity`
+        : `/activity/brinq-activity-no-files`
     const res = await useApiFormData(
       'POST',
       url,
@@ -279,8 +279,8 @@ function NewActivityModal({
       formData.set('brinqActivityId', JSON.stringify({ ids: data }))
       const url =
         files?.length > 0
-          ? `/activity/ams360-activity/`
-          : `/activity/ams360-activity-no-files/`
+          ? `/activity/ams360-activity`
+          : `/activity/ams360-activity-no-files`
       const res = await useApiFormData(
         'POST',
         url,
@@ -295,7 +295,7 @@ function NewActivityModal({
 
   const submitSuspense = async () => {
     const formData = getSubmissionFormData()
-    const url = `/activity/suspense/`
+    const url = `/activity/suspense`
     const res = await useApiFormData(
       'POST',
       url,
