@@ -63,7 +63,6 @@ function NewActivityModal({
   }
   const fetchActions = async () => {
     if (!AMS360ValueList.activityAction) {
-      console.log('test')
       const res = await useNextApi(
         'GET',
         `/api/ams360/valuelist/activityaction`
@@ -87,7 +86,7 @@ function NewActivityModal({
     return AMS360ValueList.activityAction
   }
   const fetchUserInfo = () => {
-    const users = agency?.users.map((x) => {
+    const users = agency?.users?.map((x) => {
       return { id: x.id, name: x.name, code: x.ams360_employee_code }
     })
     setSuspenseUsersOptions(users)
@@ -142,11 +141,8 @@ function NewActivityModal({
     const handleChange = async () => {
       await timeout(1000)
       if (!isCancelled && client) {
-        console.log('checking')
         setLoading(true)
         const data = await fetchPolicies()
-        await fetchActions()
-        fetchUserInfo()
         setOptPolicies(data)
         setLoading(false)
       }
@@ -156,6 +152,21 @@ function NewActivityModal({
       isCancelled = true
     }
   }, [client])
+
+  useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(1000)
+      if (!isCancelled && open) {
+        await fetchActions()
+        fetchUserInfo()
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [open])
 
   useEffect(() => {
     let isCancelled = false
