@@ -16,6 +16,7 @@ import {
   timeout,
   useNextApi,
 } from '../../../utils/utils'
+import { RiPlayListAddFill } from 'react-icons/ri'
 import SummaryCard from '../card/SummaryCard'
 import { AiFillDollarCircle, AiOutlineClose } from 'react-icons/ai'
 import ClientHeader from '../../client/ClientTitle'
@@ -27,6 +28,7 @@ import ClientDrawerNavbar from '../../client/ClientDrawerNavbar'
 import DrawerLoader from '../loaders/DrawerLoader'
 import { motion } from 'framer-motion'
 import { pusherHandler } from '../../../utils/pusher'
+import NewActivityModal from '../../activity/NewActivityModal'
 
 const ClientDrawer = ({
   clientId = null,
@@ -36,7 +38,7 @@ const ClientDrawer = ({
   callBack = null,
 }) => {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
-  const {appHeader, setAppHeader} = useAppHeaderContext();
+  const { appHeader, setAppHeader } = useAppHeaderContext()
   const { reload, setReload } = useReloadContext()
   const router = useRouter()
   const { month, year } = router.query
@@ -44,6 +46,15 @@ const ClientDrawer = ({
   const [client, setClient] = useState(null)
   const [policies, setPolicies] = useState([])
   const [showMore1, setShowMore1] = useState(true)
+  const [showActivityModal, setShowActivityModal] = useState(false)
+
+  const openNewActivity = () => {
+    setShowActivityModal(true)
+  }
+
+  const closeActivityModal = () => {
+    setShowActivityModal(false)
+  }
 
   useEffect(() => {
     let isCancelled = false
@@ -56,7 +67,7 @@ const ClientDrawer = ({
   const getData = async (isCancelled) => {
     await timeout(100)
     if (!isCancelled) {
-      setAppHeader({...appHeader, lowZIndex: true})
+      setAppHeader({ ...appHeader, lowZIndex: true })
       fetchClient().then(() => fetchPolicies())
     }
   }
@@ -101,10 +112,14 @@ const ClientDrawer = ({
     )
     if (clientDrawer.companyId) {
       if (clientDrawer.parent) {
-        let formatted = res?.filter((x) => x.carrier_id == clientDrawer.companyId)
+        let formatted = res?.filter(
+          (x) => x.carrier_id == clientDrawer.companyId
+        )
         setPolicies(formatted)
       } else {
-        let formatted = res?.filter((x) => x.writing_id == clientDrawer.companyId)
+        let formatted = res?.filter(
+          (x) => x.writing_id == clientDrawer.companyId
+        )
         setPolicies(formatted)
       }
     } else {
@@ -129,7 +144,7 @@ const ClientDrawer = ({
 
   const closeDrawer = () => {
     if (callBack) {
-      setAppHeader({...appHeader, lowZIndex: false})
+      setAppHeader({ ...appHeader, lowZIndex: false })
       callBack()
     } else {
       const setDefault = {
@@ -144,7 +159,7 @@ const ClientDrawer = ({
         parent: false,
         writing: false,
       }
-      setAppHeader({...appHeader, lowZIndex: false})
+      setAppHeader({ ...appHeader, lowZIndex: false })
       setClientDrawer(setDefault)
     }
   }
@@ -207,6 +222,16 @@ const ClientDrawer = ({
                       icon={<BsBox />}
                     />
                     <div className="z-10 flex ml-4 space-x-1">
+                      <Tooltip content="Create Activity / Suspense">
+                        <Button
+                          size="xs"
+                          flat
+                          auto
+                          onClick={() => openNewActivity()}
+                        >
+                          <RiPlayListAddFill />
+                        </Button>
+                      </Tooltip>
                       <Tooltip content="Open in AMS360" placement="bottomEnd">
                         <Button
                           size="xs"
@@ -320,6 +345,11 @@ const ClientDrawer = ({
           </div>
         )}
       </div>
+      <NewActivityModal
+        open={showActivityModal}
+        callBack={closeActivityModal}
+        preLoadClient={{id:client?.id, name:client?.client_name}}
+      />
       <HiddenBackdrop onClick={() => closeDrawer()} />
     </motion.div>
   )

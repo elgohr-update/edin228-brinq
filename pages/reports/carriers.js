@@ -107,11 +107,11 @@ export default function ReportsCarriers() {
     return sumFromArrayOfObjects(tableData, 'premium_b')
   }
   return (
-    <main className="relative flex w-full flex-col">
+    <main className="relative flex flex-col w-full">
       <ReportNavbar />
-      <div className="flex flex-auto flex-col">
-        <div className="flex flex-auto flex-col lg:flex-row">
-          <div className="flex w-full flex-auto items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:overflow-hidden">
+      <div className="flex flex-col flex-auto">
+        <div className="flex flex-col flex-auto lg:flex-row">
+          <div className="flex items-center flex-auto w-full px-4 py-4 space-x-4 overflow-x-auto md:mb-0 md:overflow-hidden">
             <SummaryCard
               val={allPremSum()}
               color="teal"
@@ -173,14 +173,14 @@ export default function ReportsCarriers() {
           dataSelection={dataSelection}
         />
         <div className="flex flex-col px-4 pb-4">
-          <div className="flex flex-col xl:flex-row w-full xl:items-center xl:justify-between">
+          <div className="flex flex-col w-full xl:flex-row xl:items-center xl:justify-between">
             <div className="pl-4">
               <PanelTitle title={`Carriers`} color="teal" />
             </div>
-            <div className="flex flex-auto space-x-1 p-4 lg:mb-4 lg:items-center lg:justify-end lg:gap-2 lg:space-x-0 lg:p-0 lg:pr-4">
+            <div className="flex flex-auto p-4 space-x-1 lg:mb-4 lg:items-center lg:justify-end lg:gap-2 lg:space-x-0 lg:p-0 lg:pr-4">
               <div className="flex flex-col">
                 <div>
-                  <PanelTitle title={`Carrier Type`} color="purple" />
+                  <PanelTitle title={`Data Table`} color="purple" />
                 </div>
                 <SelectInput
                   styling={`flex w-full min-w-[150px]`}
@@ -190,7 +190,7 @@ export default function ReportsCarriers() {
                   labelField={`label`}
                   keyField={`id`}
                   valueField={`id`}
-                  placeholder={'Carrier Type'}
+                  placeholder={'Data Table'}
                   filterable={false}
                   onChange={(v) => setDataSelection(v)}
                 />
