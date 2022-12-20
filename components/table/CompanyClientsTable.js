@@ -82,7 +82,7 @@ const CompanyClientsTable = ({data=null, companyId=null, parent=false, writing=f
     return sorted
   }
 
-  const renderCell = (client, columnKey, companyId, writing, parent) => {
+  const renderCell = (client, columnKey, companyId, parent, writing ) => {
     const cellValue = client[columnKey]
     switch (columnKey) {
       case 'line':
@@ -233,7 +233,7 @@ const CompanyClientsTable = ({data=null, companyId=null, parent=false, writing=f
               {(item) => (
                 <Table.Row>
                   {(columnKey) => (
-                    <Table.Cell>{renderCell(item, columnKey, companyId, writing, parent)}</Table.Cell>
+                    <Table.Cell>{renderCell(item, columnKey, companyId, parent, writing )}</Table.Cell>
                   )}
                 </Table.Row>
               )}

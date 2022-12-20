@@ -76,6 +76,7 @@ export default function ClientTableCell({
     if (drawerCallback) {
       drawerCallback(clientId)
     } else if (useStateDrawer) {
+      console.log(clientId, style, companyId, parent, writing)
       setClientDrawer({
         ...clientDrawer,
         nav: 1,
@@ -112,6 +113,9 @@ export default function ClientTableCell({
         <ClientDrawer
           clientId={clientId}
           isRenewal={isRnwl}
+          companyId={companyId}
+          parent={parent}
+          writing={writing}
           callBack={() => setIsOpen(!isOpen)}
         />
       ) : null}

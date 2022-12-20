@@ -99,12 +99,12 @@ const ClientDrawer = ({
       'GET',
       `/api/clients/${cid}/policies${queryUrl}`
     )
-    if (companyId) {
-      if (parent) {
-        let formatted = res?.filter((x) => x.carrier_id === companyId)
+    if (clientDrawer.companyId) {
+      if (clientDrawer.parent) {
+        let formatted = res?.filter((x) => x.carrier_id == clientDrawer.companyId)
         setPolicies(formatted)
       } else {
-        let formatted = res?.filter((x) => x.writing_id === companyId)
+        let formatted = res?.filter((x) => x.writing_id == clientDrawer.companyId)
         setPolicies(formatted)
       }
     } else {

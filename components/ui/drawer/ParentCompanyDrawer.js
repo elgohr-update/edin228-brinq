@@ -394,7 +394,8 @@ const ParentCompanyDrawer = () => {
                     <CompanyClientsTable
                       data={clients?.clients}
                       companyId={company?.id}
-                      writing={true}
+                      writing={false}
+                      parent={true}
                     />
                   ) : null}
                 </div>
