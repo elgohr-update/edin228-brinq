@@ -63,23 +63,17 @@ function NewActivityModal({
   }
   const fetchActions = async () => {
     if (!AMS360ValueList.activityAction) {
-      const res = await useNextApi(
-        'GET',
-        `/api/ams360/valuelist/activityaction`
-      )
-      const actions = res
-      if (actions) {
-        if (actions?.AllowedValue?.length > 0) {
-          const newBase = actions?.AllowedValue?.map((x) => {
-            return {
-              id: x.__values__.Code,
-              value: x.__values__.Description,
-            }
-          })
-          setActivityActions(newBase)
-          setAMS360ValueList({ ...AMS360ValueList, activityAction: newBase })
-          return newBase
-        }
+      const res = await useNextApi('GET', `/api/activity/actions`)
+      if (res) {
+        const newBase = res?.map((x) => {
+          return {
+            id: x.code,
+            value: x.value,
+          }
+        })
+        setActivityActions(newBase)
+        setAMS360ValueList({ ...AMS360ValueList, activityAction: newBase })
+        return newBase
       }
     }
     setActivityActions(AMS360ValueList.activityAction)
@@ -557,7 +551,7 @@ function NewActivityModal({
                   filterable={true}
                   multiple={false}
                   disabled={client ? false : true}
-                  inititalValue={suspenseAction}
+                  initialValue={suspenseAction}
                 />
                 <BrinqTextArea
                   title="Suspense Description"

@@ -18,28 +18,31 @@ export default function DashboardPolicyCard({ policy }) {
   const PolicyInfo = () => {
     return (
       <div className="flex flex-col w-full space-y-1 lg:flex-row lg:items-center lg:space-y-0 lg:space-x-2">
-        <div className="flex items-center w-full space-x-2">
-          <div>
-            <Tooltip content={policy.line}>
-              <LineIcon iconSize={14} size="xs" line={policy.line} />
-            </Tooltip>
-          </div>
-          <TagBasic
-            tooltip
-            tooltipContent={policy.policy_type_full}
-            text={`${policy.policy_type}`}
-          />
-          {policy.new_business ? (
-            <TagBasic autoWidth color="green" text={`NEW`} />
-          ) : null}
-          <div className="transition duration-100 text-color-primary hover:text-sky-500">
-            <div className="flex items-center space-x-2">
-              <div className="flex items-center text-color-primary">
-                <BsBox />
+        <div className="flex flex-col w-full">
+          <div className="pb-2 opacity-60">{policy.description}</div>
+          <div className="flex items-center w-full space-x-2">
+            <div>
+              <Tooltip content={policy.line}>
+                <LineIcon iconSize={14} size="xs" line={policy.line} />
+              </Tooltip>
+            </div>
+            <TagBasic
+              tooltip
+              tooltipContent={policy.policy_type_full}
+              text={`${policy.policy_type}`}
+            />
+            {policy.new_business ? (
+              <TagBasic autoWidth color="green" text={`NEW`} />
+            ) : null}
+            <div className="transition duration-100 text-color-primary hover:text-sky-500">
+              <div className="flex items-center space-x-2">
+                <div className="flex items-center text-color-primary">
+                  <BsBox />
+                </div>
+                <h6 className="flex w-[150px]">
+                  {truncateString(policy.policy_number, 20)}
+                </h6>
               </div>
-              <h6 className="flex w-[150px]">
-                {truncateString(policy.policy_number, 20)}
-              </h6>
             </div>
           </div>
         </div>
@@ -52,20 +55,30 @@ export default function DashboardPolicyCard({ policy }) {
               </h6>
             </div>
             <div className="flex items-center flex-auto">
-              <h6 className="flex items-center font-bold text-color-warning">
-                <AiOutlineClockCircle />
-              </h6>
-              <h4 className="flex w-[60px] justify-end">
-                {getFormattedDate(policy.expiration_date)}
-              </h4>
+              <Tooltip content={'Expiration Date'}>
+                <div className="flex items-center flex-auto">
+                  <h6 className="flex items-center font-bold text-color-warning">
+                    <AiOutlineClockCircle />
+                  </h6>
+                  <h4 className="flex w-[60px] justify-end">
+                    {getFormattedDate(policy.expiration_date)}
+                  </h4>
+                </div>
+              </Tooltip>
             </div>
             <div className="flex items-center flex-auto">
-              <h6 className="flex items-center font-bold text-color-warning">
-                <AiOutlineCloudDownload />
-              </h6>
-              <h4 className="flex w-[60px] justify-end">
-                {policy.added_date ? getFormattedDate(policy.added_date) : null}
-              </h4>
+              <Tooltip content={'Added Date'}>
+                <h6 className="flex items-center font-bold text-color-warning">
+                  <AiOutlineCloudDownload />
+                </h6>
+                <h4 className="flex w-[60px] justify-end">
+                  {policy.added_date
+                    ? getFormattedDate(policy.added_date)
+                    : null}
+                </h4>
+              </Tooltip>
+            </div>
+            <div className="flex items-center flex-auto">
               <div className="flex pl-6">
                 <Avatar.Group>
                   {policy?.users.map((u) => (

@@ -61,20 +61,17 @@ function ActivityFiles({
 
   const fetchDocType = async () => {
     if (!AMS360ValueList.docType) {
-      const res = await useNextApi('GET', `/api/ams360/valuelist/doc360type`)
-      const doctypes = res
-      if (doctypes) {
-        if (doctypes?.AllowedValue?.length > 0) {
-          const newBase = doctypes?.AllowedValue?.map((x) => {
-            return {
-              id: x.__values__.Code,
-              value: x.__values__.Description,
-            }
-          })
-          setDocTypes(newBase)
-          setAMS360ValueList({ ...AMS360ValueList, docType: newBase })
-          return newBase
-        }
+      const res = await useNextApi('GET', `/api/activity/doctype`)
+      if (res) {
+        const newBase = res?.map((x) => {
+          return {
+            id: x.code,
+            value: x.value,
+          }
+        })
+        setDocTypes(newBase)
+        setAMS360ValueList({ ...AMS360ValueList, docType: newBase })
+        return newBase
       }
     }
     setDocTypes(AMS360ValueList.docType)

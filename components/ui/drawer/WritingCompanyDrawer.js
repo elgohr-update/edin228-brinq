@@ -8,6 +8,7 @@ import {
   useWritingCompanyDrawerContext,
 } from '../../../context/state'
 import {
+  downloadExcel,
   getIcon,
   sumFromArrayOfObjects,
   timeout,
@@ -116,6 +117,50 @@ const WritingCompanyDrawer = () => {
     return sumFromArrayOfObjects(clients?.policies, 'premium')
   }
 
+  const parentCompaniesExportData = parents?.map((x, indx) => {
+    let format = {
+      name: x.name,
+      policies: x.policies.length,
+      premium: sumFromArrayOfObjects(x.policies, 'premium'),
+    }
+    return format
+  })
+
+  const clientsExportData = clients?.clients?.map((x, indx) => {
+    let format = {
+      name: x.client_name,
+      policies: x.policies.length,
+      premiumWith: x.premium_with,
+      totalPremium: x.total_premium,
+    }
+    return format
+  })
+
+  const policiesExportData = clients?.policies?.map((x, indx) => {
+    let format = {
+      client_name: x.client_name,
+      policy_number: x.policy_number,
+      line: x.line,
+      policy_type: x.policy_type,
+      poliy_type_full: x.policy_type_full,
+      effective_date: x.effective_date,
+      expiration_date: x.expiration_date,
+      carrier: x.carrier,
+      writing: x.writing,
+      premium: x.premium,
+    }
+    const countAM = x.users.filter((x) => x.account_manager)
+    const countAE = x.users.filter((x) => x.producer)
+
+    countAM.forEach((u, i) => {
+      format['account_manager_' + `${i + 1}`] = u.name
+    })
+    countAE.forEach((u, i) => {
+      format['account_executive_' + `${i + 1}`] = u.name
+    })
+    return format
+  })
+
   return (
     <motion.div
       initial="hidden"
@@ -136,9 +181,9 @@ const WritingCompanyDrawer = () => {
         {!company ? (
           <DrawerLoader />
         ) : (
-          <div className="flex flex-auto shrink-0 flex-col overflow-hidden py-4">
+          <div className="flex flex-col flex-auto py-4 overflow-hidden shrink-0">
             <div className="relative flex flex-col px-2 pb-2 font-bold">
-              <div className="flex w-full flex-col text-left xl:flex-row xl:items-center xl:justify-between">
+              <div className="flex flex-col w-full text-left xl:flex-row xl:items-center xl:justify-between">
                 <div className="flex text-left">{company.name}</div>
                 <div className="flex space-x-2">
                   <div className="flex items-center justify-center">
@@ -181,8 +226,8 @@ const WritingCompanyDrawer = () => {
               </div>
               <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
             </div>
-            <div className="flex h-[90vh] w-full flex-col overflow-y-auto xl:h-[94vh] xl:mt-2">
-              <div className="flex shrink-0 items-center space-x-2 overflow-x-auto p-4">
+            <div className="flex h-[90vh] w-full flex-col overflow-y-auto xl:mt-2 xl:h-[94vh]">
+              <div className="flex items-center p-4 space-x-2 overflow-x-auto shrink-0">
                 <SummaryCard
                   vertical={false}
                   isIcon={true}
@@ -216,16 +261,14 @@ const WritingCompanyDrawer = () => {
                   icon={getIcon('policy')}
                 />
               </div>
-              <div className="mt-2 flex w-full flex-col px-4">
+              <div className="flex flex-col w-full px-4 mt-2">
                 <div className="flex pl-4">
                   <PanelTitle title={`Performance`} color="teal" />
                   <div
-                    className="flex cursor-pointer items-center px-2 text-xs"
+                    className="flex items-center px-2 text-xs cursor-pointer"
                     onClick={() => setShowPerformance(!showPerformance)}
                   >
-                    {showPerformance
-                      ? getIcon('up')
-                      : getIcon('down')}
+                    {showPerformance ? getIcon('up') : getIcon('down')}
                   </div>
                 </div>
                 {showPerformance ? (
@@ -237,67 +280,124 @@ const WritingCompanyDrawer = () => {
                 ) : null}
               </div>
               {parents?.length > 0 ? (
-                <div className="flex w-full flex-col px-4 xl:flex-row xl:gap-2">
-                  <div className="flex flex-col space-y-2">
-                    <div className="flex pl-4">
-                      <PanelTitle title={`Parent Companies`} color="indigo" />
-                      <div
-                        className="flex cursor-pointer items-center px-2 text-xs"
-                        onClick={() => setShowParentData(!showParentData)}
+                <div className="flex flex-col w-full px-4 xl:gap-2">
+                  <div className="flex items-center w-full pl-4">
+                    <PanelTitle title={`Parent Companies`} color="indigo" />
+                    <div className="px-2">
+                      <Button
+                        color="success"
+                        auto
+                        ghost
+                        size="xs"
+                        icon={getIcon('spreadsheet')}
+                        onClick={() =>
+                          downloadExcel(
+                            parentCompaniesExportData,
+                            `${company.name}-ParentCompanies`
+                          )
+                        }
                       >
-                        {showParentData
-                          ? getIcon('up')
-                          : getIcon('down')}
-                      </div>
+                        Export
+                      </Button>
                     </div>
-                    {showParentData ? (
-                      <div
-                        className={`flex h-auto min-w-[200px] flex-col space-y-2 overflow-y-auto rounded-lg py-2 xl:h-[375px] `}
-                      >
-                        {parents?.map((p, i) => (
-                          <motion.div
-                            key={p.id}
-                            className="flex w-full"
-                            custom={i}
-                            initial="hidden"
-                            animate="visible"
-                            variants={{
-                              visible: {
-                                opacity: 1,
-                                transition: {
-                                  delay: i * 0.1,
+                    <div
+                      className="flex items-center px-2 text-xs cursor-pointer"
+                      onClick={() => setShowParentData(!showParentData)}
+                    >
+                      {showParentData ? getIcon('up') : getIcon('down')}
+                    </div>
+                  </div>
+                  <div className="flex flex-col w-full lg:flex-row">
+                    <div className="flex flex-col space-y-2">
+                      {showParentData ? (
+                        <div
+                          className={`flex h-auto min-w-[200px] flex-col space-y-2 overflow-y-auto rounded-lg py-2 xl:h-[375px] `}
+                        >
+                          {parents?.map((p, i) => (
+                            <motion.div
+                              key={p.id}
+                              className="flex w-full"
+                              custom={i}
+                              initial="hidden"
+                              animate="visible"
+                              variants={{
+                                visible: {
+                                  opacity: 1,
+                                  transition: {
+                                    delay: i * 0.1,
+                                  },
+                                  y: 0,
                                 },
-                                y: 0,
-                              },
-                              hidden: { opacity: 0, y: -10 },
-                            }}
-                            transition={{ ease: 'easeInOut', duration: 0.25 }}
-                          >
-                            <CarrierSummaryCard data={p} />
-                          </motion.div>
-                        ))}
+                                hidden: { opacity: 0, y: -10 },
+                              }}
+                              transition={{ ease: 'easeInOut', duration: 0.25 }}
+                            >
+                              <CarrierSummaryCard data={p} />
+                            </motion.div>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                    {showParentData && parents ? (
+                      <div className={`flex h-full w-full`}>
+                        <div className={`flex h-[425px] w-full rounded-lg`}>
+                          <CompanyPremAndVolumeChart
+                            fullData={parentsChartData}
+                          />
+                        </div>
                       </div>
                     ) : null}
                   </div>
-                  {showParentData && parents ? (
-                    <div className={`flex h-full w-full`}>
-                      <div className={`flex h-[425px] w-full rounded-lg`}>
-                        <CompanyPremAndVolumeChart
-                          fullData={parentsChartData}
-                        />
-                      </div>
-                    </div>
-                  ) : null}
                 </div>
               ) : null}
 
-              <div className="flex w-full flex-col px-4">
-                <div className="flex pl-4">
-                  <PanelTitle title={`Clients`} color="orange" />
+              <div className="flex flex-col w-full px-4">
+                <div className="flex items-center w-full pl-4 space-x-2 lg:gap-2 lg:space-x-0">
+                  <div className="flex">
+                    <PanelTitle title={`Clients`} color="orange" />
+                  </div>
+                  <div>
+                    <Button
+                      color="success"
+                      auto
+                      ghost
+                      size="xs"
+                      icon={getIcon('spreadsheet')}
+                      onClick={() =>
+                        downloadExcel(
+                          clientsExportData,
+                          `${company.name}-Clients`
+                        )
+                      }
+                    >
+                      Export Clients
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      color="success"
+                      auto
+                      ghost
+                      size="xs"
+                      icon={getIcon('spreadsheet')}
+                      onClick={() =>
+                        downloadExcel(
+                          policiesExportData,
+                          `${company.name}-Policies`
+                        )
+                      }
+                    >
+                      Export Policies
+                    </Button>
+                  </div>
                 </div>
                 <div>
                   {clients ? (
-                    <CompanyClientsTable data={clients?.clients} companyId={company?.id} writing={true} />
+                    <CompanyClientsTable
+                      data={clients?.clients}
+                      companyId={company?.id}
+                      writing={true}
+                    />
                   ) : null}
                 </div>
               </div>
@@ -305,7 +405,7 @@ const WritingCompanyDrawer = () => {
           </div>
         )}
         {/* {!company ? null : (
-          <div className="flex shrink-0 justify-end px-2 pt-1 pb-4">
+          <div className="flex justify-end px-2 pt-1 pb-4 shrink-0">
             <Link href={`/company/${writingCompanyDrawer.companyId}`}>
               <a className="w-full">
                 <Button color="gradient" className="w-full">

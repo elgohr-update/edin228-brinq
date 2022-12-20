@@ -392,7 +392,7 @@ const PoliciesTable = () => {
               <BrinqSelect
                 fullWidth={false}
                 callBack={pageSizeSet}
-                inititalValue={pageSize}
+                initialValue={pageSize}
                 initialOptions={pageSizeOptions}
                 labelField={'value'}
                 clearable={false}

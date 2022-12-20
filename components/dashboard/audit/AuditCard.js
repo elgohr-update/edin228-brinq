@@ -277,7 +277,7 @@ function AuditCard({
   return (
     <>
       <div
-        className={`flex h-full w-full flex-auto cursor-pointer flex-col items-center justify-between rounded-lg py-6 transition duration-200 ease-out  ${
+        className={`flex h-full w-full flex-auto cursor-pointer flex-col items-center rounded-lg py-6 transition duration-200 ease-out  ${
           isDark ? 'hover:bg-zinc-600/20' : 'hover:bg-zinc-400/20'
         }`}
         onClick={() => setOpenModal(true)}
@@ -286,7 +286,7 @@ function AuditCard({
           {data ? data?.length : 0}
         </div>
         <div
-          className="px-6 tracking-widest text-center uppercase opacity-70"
+          className="flex items-center justify-center h-full px-2 tracking-widest text-center uppercase opacity-70"
           style={{ fontSize: '0.65rem' }}
         >
           {title}
@@ -341,7 +341,7 @@ function AuditCard({
                   <BrinqSelect
                     title={'Lines'}
                     fullWidth={false}
-                    inititalValue={lineFilter}
+                    initialValue={lineFilter}
                     initialOptions={lineFilterOptions}
                     labelField={'value'}
                     clearable={true}
@@ -354,7 +354,7 @@ function AuditCard({
                     title={'Users'}
                     color={'indigo'}
                     fullWidth={false}
-                    inititalValue={userFilter}
+                    initialValue={userFilter}
                     initialOptions={userFilterOptions}
                     labelField={'value'}
                     clearable={true}

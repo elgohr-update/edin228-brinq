@@ -43,13 +43,18 @@ function DashboardAudit() {
       >
         <AuditCard
           color={'rose'}
-          title={'Expired Policies'}
+          title={'Active Policies Expired'}
           init={policies?.past_expiration}
           usePolicyCard
         />
         <AuditCard
-          title={'Active Policies with $0 Prem'}
+          title={'Policies with $0 Prem'}
           init={policies?.zero_premium}
+          usePolicyCard
+        />
+        <AuditCard
+          title={'Policies Missing Description'}
+          init={policies?.policies_missing_description}
           usePolicyCard
         />
         <AuditCard
@@ -63,7 +68,7 @@ function DashboardAudit() {
           useContactCard
         /> */}
         <AuditCard
-          title={'Clients with No Contacts'}
+          title={'Clients missing Contacts'}
           init={contacts?.contacts_missing}
           useClientCard
         />

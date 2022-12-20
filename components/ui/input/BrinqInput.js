@@ -6,7 +6,6 @@ function BrinqInput({
   title = null,
   initialValue = null,
   placeholder = null,
-  minRows = 5,
   color = 'blue',
   bordered = true,
   fullWidth = true,
@@ -23,7 +22,6 @@ function BrinqInput({
   required = false,
   callBack = null,
 }) {
-  const { type } = useTheme()
   const [value, setValue] = useState('')
 
   useEffect(() => {
@@ -45,6 +43,7 @@ function BrinqInput({
       {title ? <PanelTitle title={title} color={color} /> : null}
       <div className="flex w-full ">
         <Input
+          value={value}
           disabled={disabled}
           clearable={clearable}
           fullWidth={fullWidth}

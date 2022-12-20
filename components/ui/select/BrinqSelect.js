@@ -23,9 +23,10 @@ function BrinqSelect({
   valueField = 'id',
   keyField = 'id',
   initialUser = null,
-  inititalValue = null,
+  initialValue = null,
   fullWidth = true,
-  clearable = true
+  clearable = true,
+  fastCallback = true
 }) {
   const [value, setValue] = useState('')
   const [search, setSearch] = useState(null)
@@ -35,7 +36,7 @@ function BrinqSelect({
   useEffect(() => {
     const setOpts = () => {
       setValue([initialUser])
-      if (callBack) {
+      if (callBack && fastCallback) {
         callBack([initialUser])
       }
     }
@@ -46,15 +47,15 @@ function BrinqSelect({
 
   useEffect(() => {
     const setOpts = () => {
-      setValue(inititalValue)
-      if (callBack) {
-        callBack(inititalValue)
+      setValue(initialValue)
+      if (callBack && fastCallback) {
+        callBack(initialValue)
       }
     }
-    if (inititalValue) {
+    if (initialValue ) {
       setOpts()
     }
-  }, [inititalValue])
+  }, [initialValue])
 
   useEffect(() => {
     const setOpts = () => {
@@ -96,10 +97,10 @@ function BrinqSelect({
   }
 
   return (
-    <div className={`flex flex-col ${fullWidth ? 'w-full': ''} px-4 pb-1 ${disabled ? 'opacity-20':''}`}>
+    <div className={`flex relative flex-col ${fullWidth ? 'w-full': ''} px-4 pb-1 ${disabled ? 'opacity-20':''}`}>
       {title ? <PanelTitle title={title} color={color} /> : null}
-      <div className={`flex ${fullWidth ? 'w-full': ''} `}>
-        <div className={`${fullWidth ? 'w-full': ''} `}>
+      <div className={`flex ${fullWidth ? 'w-full': ''} relative `}>
+        <div className={`${fullWidth ? 'w-full': ''} relative `}>
           <SelectInput
             loading={loading}
             value={value}

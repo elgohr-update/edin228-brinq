@@ -23,22 +23,17 @@ import {
   getIcon,
   basicSort,
   sortByProperty,
-  getCurrentMonth,
-  getCurrentYear,
   isCurrentMonthYear,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import {
   useAgencyContext,
-  useAppContext,
   useAppHeaderContext,
-  useClientDrawerContext,
 } from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import ClientTableCell from './ClientTableCell'
 import { motion } from 'framer-motion'
 import { useSession } from 'next-auth/react'
-import SelectInput from '../ui/select/SelectInput'
 import BrinqSelect from '../ui/select/BrinqSelect'
 import ClientDrawer from '../ui/drawer/ClientDrawer'
 
@@ -571,7 +566,7 @@ export default function RenewalsTable(data) {
                 <BrinqSelect
                   fullWidth={false}
                   callBack={pageSizeSet}
-                  inititalValue={pageSize}
+                  initialValue={pageSize}
                   initialOptions={pageSizeOptions}
                   labelField={'value'}
                   clearable={false}

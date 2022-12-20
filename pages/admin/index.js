@@ -54,7 +54,7 @@ export default function Admin() {
       <div className="flex flex-col lg:pl-4">
         <div className="flex">
           {state.admin.navBar == 1 ? (
-            <div className="flex flex-col w-full p-2 space-x-0 space-y-2 lg:flex-row lg:space-y-0 lg:space-x-2">
+            <div className="flex flex-col w-full p-2 space-x-0 space-y-2">
               <Agency data={data} />
               <UsersControlPanel data={data} />
             </div>

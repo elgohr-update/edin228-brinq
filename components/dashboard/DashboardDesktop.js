@@ -88,7 +88,7 @@ export default function DashboardDesktop() {
             </div>
             <div className="flex flex-col flex-auto w-full shrink-0 lg:flex-row">
               <div className="flex flex-col flex-auto p-2 shrink-0 lg:flex-row lg:px-2 lg:gap-2">
-                <div className="flex flex-auto shrink-0 flex-col lg:w-[500px]">
+                <div className="flex flex-auto shrink-0 flex-col lg:w-[300px]">
                   <DashboardTodos data={tasks} />
                 </div>
                 <div className="flex flex-col flex-auto px-2 shrink-0">

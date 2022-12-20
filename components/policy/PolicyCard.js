@@ -87,14 +87,15 @@ const PolicyCard = ({
             )}
           </div>
           <div
-            className={`relative flex w-full flex-col flex-wrap md:mr-2 md:w-[150px]`}
+            className={`relative flex w-full flex-col flex-wrap md:mr-2 md:w-[250px]`}
           >
             <h6 className={`flex w-full font-semibold`}>
               {truncateString(String(policy.policy_number), 16)}
             </h6>
-            <h4 className={`flex w-full flex-wrap`}>
+            <h4 className={`flex w-full flex-wrap font-semibold`}>
               {truncateString(policy.policy_type_full, truncate)}
             </h4>
+            <h4 className={`flex w-full flex-wrap`}>{policy.description}</h4>
           </div>
           <div
             onClick={() => toggleShowMore()}
@@ -108,7 +109,7 @@ const PolicyCard = ({
           <h6 className={`font-semibold`}>
             {truncateString(policy.carrier, truncate)}
           </h6>
-          <h4 className={``}>{truncateString(policy.writing, truncate)}</h4>
+          <h4>{truncateString(policy.writing, truncate)}</h4>
         </div>
         <div className="flex items-center w-full md:pt-0">
           <div className={`relative hidden w-full flex-col md:flex`}>
@@ -117,19 +118,23 @@ const PolicyCard = ({
             </h6>
             <h4 className={``}>{truncateString(policy.writing, truncate)}</h4>
           </div>
-          <div className={`relative flex w-full flex-col pl-1 lg:pl-0 lg:items-end`}>
-            <h4 className={`letter-spacing-1`}>
-              {getFormattedDate(policy.effective_date)}
-            </h4>
-            <h6 className={`letter-spacing-1`}>
-              {getFormattedDate(policy.expiration_date)}
-            </h6>
+          <div className="flex flex-col w-full">
+            <div className={`relative flex w-full lg:justify-end lg:items-end`}>
+              <h4 className={`letter-spacing-1`}>
+                {getFormattedDate(policy.effective_date)}
+              </h4>
+              <div className="mx-2">-</div>
+              <h6 className={`letter-spacing-1`}>
+                {getFormattedDate(policy.expiration_date)}
+              </h6>
+            </div>
+            <div className={`relative flex w-full lg:justify-end`}>
+              <h6 className={`font-bold text-teal-500`}>
+                $ {formatMoney(policy.premium)}
+              </h6>
+            </div>
           </div>
-          <div className={`relative flex w-full justify-end pr-6 md:pr-4`}>
-            <h6 className={`font-bold text-teal-500`}>
-              $ {formatMoney(policy.premium)}
-            </h6>
-          </div>
+
           <div className="flex items-center w-full">
             <div className={`relative flex w-full justify-end`}>
               <Avatar.Group
@@ -166,7 +171,7 @@ const PolicyCard = ({
           <div className={`top2-border-flair pink-to-blue-gradient-1`} />
           <div className={`flex w-full flex-col py-2`}>
             <div className="flex flex-col space-y-1">
-              {policy.tasks.map((t,i) => {
+              {policy.tasks.map((t, i) => {
                 return (
                   <motion.div
                     initial="hidden"

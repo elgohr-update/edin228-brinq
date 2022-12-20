@@ -16,6 +16,7 @@ const UserAvatar = ({
   userWithName = false,
   userSubContent = null,
   userTitle = true,
+  userEmail = false,
   lookUpUser = null
 }) => {
   const { type } = useTheme()
@@ -47,7 +48,8 @@ const UserAvatar = ({
         <User
           src={user?.image_file}
           name={user?.name}
-          description={userTitle ? getPosition() : null}
+          description={userEmail ? user?.email : userTitle ? getPosition() : null}
+          squared={squared}
         />
       ) : tooltip && isLink ? (
         <Link href={`/user/${user?.id}`}>
