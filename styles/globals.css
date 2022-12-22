@@ -446,7 +446,7 @@ p {
   background-image: linear-gradient(15deg, #040508, #00000069);
 }
 .blur-screen-light {
-  background-image: linear-gradient(179deg, #f8f8f8, #ffffff85);
+  background-image: linear-gradient(179deg, #f8f8f8, #ffffff00);
 }
 
 .container-main {
@@ -1274,7 +1274,6 @@ p {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  border: 1px solid white;
   cursor: pointer;
 }
 

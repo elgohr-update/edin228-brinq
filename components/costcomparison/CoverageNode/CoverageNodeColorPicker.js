@@ -43,27 +43,27 @@ export default function CoverageNodeColorPicker({
     <div className="relative z-50">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="color-picker-container"
+        className="border-[1px] border-zinc-600 color-picker-container"
         style={{ background: getBgColor(getColor()) }}
       ></div>
       {isOpen ? (
         <div className="absolute top-[-40px] right-[-20px]">
             <div className={`flex items-center space-x-2 px-4 rounded-lg py-2 panel-flatter-${type} ${type}-shadow`}>
-                <div onClick={ () => selectColor(`#ff0000`)} className="color-picker-container bg-color-red"></div>
-                <div onClick={ () => selectColor(`#ffff00`)} className="color-picker-container bg-color-yellow"></div>
-                <div onClick={ () => selectColor(`#ffa500`)} className="color-picker-container bg-color-orange"></div>
-                <div onClick={ () => selectColor(`#0000ff`)} className="color-picker-container bg-color-blue"></div>
-                <div onClick={ () => selectColor(`#00ff00`)} className="color-picker-container bg-color-lime"></div>
-                <div onClick={ () => selectColor(`#ff00ff`)} className="color-picker-container bg-color-fuchsia"></div>
-                <div onClick={ () => selectColor(`#800080`)} className="color-picker-container bg-color-purple"></div>
-                <div onClick={ () => selectColor(`#ffffff`)} className="color-picker-container bg-color-white"></div>
-                <div onClick={ () => selectColor(`#000000`)} className="color-picker-container bg-color-black"></div>
-                <div onClick={ () => selectColor(`var(--nextui-colors-text)`)} className="color-picker-container bg-color-transparent"></div>
+                <div onClick={ () => selectColor(`#ff0000`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-red"></div>
+                <div onClick={ () => selectColor(`#ffff00`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-yellow"></div>
+                <div onClick={ () => selectColor(`#ffa500`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-orange"></div>
+                <div onClick={ () => selectColor(`#0000ff`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-blue"></div>
+                <div onClick={ () => selectColor(`#00ff00`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-lime"></div>
+                <div onClick={ () => selectColor(`#ff00ff`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-fuchsia"></div>
+                <div onClick={ () => selectColor(`#800080`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-purple"></div>
+                <div onClick={ () => selectColor(`#ffffff`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-white"></div>
+                <div onClick={ () => selectColor(`#000000`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-black"></div>
+                <div onClick={ () => selectColor(`var(--nextui-colors-text)`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-transparent"></div>
                 {
                     usedFor === 'background'?
-                    <div onClick={ () => selectColor(`transparent`)} className="color-picker-container bg-color-transparent"></div>
+                    <div onClick={ () => selectColor(`transparent`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-transparent"></div>
                     :usedFor === 'text' ?
-                    <div onClick={ () => selectColor(`var(--nextui-colors-text)`)} className="color-picker-container bg-color-default"></div>
+                    <div onClick={ () => selectColor(`var(--nextui-colors-text)`)} className="border-[1px] border-zinc-600 color-picker-container bg-color-default"></div>
                     :null
                 }
             </div>

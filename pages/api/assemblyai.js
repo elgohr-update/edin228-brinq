@@ -33,7 +33,20 @@ export const postTranscriptUrl = async (url) => {
     .post('/transcript', {
       audio_url: `${url}`,
       entity_detection: true,
-      auto_highlights: true
+      auto_highlights: true,
+      redact_pii: true,
+      redact_pii_policies: [
+        'medical_process',
+        'drug', 
+        'medical_condition',
+        'blood_type',
+        'us_social_security_number',
+        'credit_card_number',
+        'credit_card_expiration',
+        'credit_card_cvv',
+        'drivers_license',
+        'banking_information',
+      ],
     })
     .then((response) => {
       return response.data

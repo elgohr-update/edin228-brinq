@@ -13,7 +13,7 @@ import { AiOutlineClockCircle, AiOutlineCloudDownload } from 'react-icons/ai'
 import UserAvatar from '../../user/Avatar'
 import LineIcon from '../../util/LineIcon'
 
-export default function DashboardPolicyCard({ policy }) {
+export default function DashboardPolicyCard({ policy, expiring = false }) {
   const { type } = useTheme()
   const PolicyInfo = () => {
     return (
@@ -54,31 +54,44 @@ export default function DashboardPolicyCard({ policy }) {
                 ${abbreviateMoney(policy.premium)}
               </h6>
             </div>
-            <div className="flex items-center flex-auto">
-              <Tooltip content={'Expiration Date'}>
-                <div className="flex items-center flex-auto">
-                  <h6 className="flex items-center font-bold text-color-warning">
-                    <AiOutlineClockCircle />
-                  </h6>
-                  <h4 className="flex w-[60px] justify-end">
-                    {getFormattedDate(policy.expiration_date)}
-                  </h4>
+            {expiring ? (
+              <h6 className="flex items-center flex-auto space-x-1">
+                <div className="flex items-center text-color-error">
+                  <AiOutlineClockCircle />
                 </div>
-              </Tooltip>
-            </div>
-            <div className="flex items-center flex-auto">
-              <Tooltip content={'Added Date'}>
-                <h6 className="flex items-center font-bold text-color-warning">
-                  <AiOutlineCloudDownload />
-                </h6>
-                <h4 className="flex w-[60px] justify-end">
-                  {policy.added_date
-                    ? getFormattedDate(policy.added_date)
-                    : null}
-                </h4>
-              </Tooltip>
-            </div>
-            <div className="flex items-center flex-auto">
+                <div className="flex w-[55px] justify-end">
+                  {getFormattedDate(policy.expiration_date)}
+                </div>
+              </h6>
+            ) : (
+              <>
+                <div className="flex items-center flex-auto">
+                  <Tooltip content={'Expiration Date'}>
+                    <div className="flex items-center flex-auto">
+                      <h6 className="flex items-center font-bold text-color-warning">
+                        <AiOutlineClockCircle />
+                      </h6>
+                      <h4 className="flex w-[60px] justify-end">
+                        {getFormattedDate(policy.expiration_date)}
+                      </h4>
+                    </div>
+                  </Tooltip>
+                </div>
+                <div className="flex items-center flex-auto">
+                  <Tooltip content={'Added Date'}>
+                    <h6 className="flex items-center font-bold text-color-warning">
+                      <AiOutlineCloudDownload />
+                    </h6>
+                    <h4 className="flex w-[60px] justify-end">
+                      {policy.added_date
+                        ? getFormattedDate(policy.added_date)
+                        : null}
+                    </h4>
+                  </Tooltip>
+                </div>
+              </>
+            )}
+            <div className="flex flex-auto justify-end items-center min-w-[60px]">
               <div className="flex pl-6">
                 <Avatar.Group>
                   {policy?.users.map((u) => (

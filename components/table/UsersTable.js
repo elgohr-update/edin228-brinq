@@ -454,7 +454,7 @@ export default function UsersTable({ data = null, callback = null }) {
             bordered={false}
             animated="true"
             shadow={false}
-            lined={true}
+            lined={false}
             aria-label="Renewals Table"
             sortDescriptor={sortDescriptor}
             onSortChange={(s) => sort(s)}

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { isMobile, timeout, useNextApi } from '../../../utils/utils'
 import { useTheme } from '@nextui-org/react'
 import DashboardExpiringCard from './DashboardExpiringCard'
+import DashboardPolicyCard from '../policy/DashboardPolicyCard'
 
 export default function DashboardExpiringPolicies() {
   const [data, setData] = useState([])
@@ -61,7 +62,7 @@ export default function DashboardExpiringPolicies() {
               }}
               transition={{ ease: 'easeInOut', duration: 0.25 }}
             >
-              <DashboardExpiringCard policy={u} />
+              <DashboardPolicyCard policy={u} expiring />
             </motion.div>
           ))}
         </div>

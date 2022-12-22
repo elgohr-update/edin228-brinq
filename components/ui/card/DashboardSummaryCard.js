@@ -53,7 +53,7 @@ export default function DashboardSummaryCard({
       <div className="relative z-20 flex flex-col h-full">
         <div className="z-40 flex flex-col items-center justify-center h-full space-x-1 text-sm font-semibold text-center lg:items-end lg:flex-row lg:space-x-2 lg:text-lg">
           <div className="flex pb-1">{icon}</div>
-          <div className="flex items-center justify-center text-center uppercase">{label}</div>
+          <div className="flex items-center justify-center tracking-widest text-center uppercase">{label}</div>
         </div>
         <BackgroundFillSparkline toCurrentMonth={toCurrentMonth} slice={slice} passColors={colors} baseData={chartData} />
       </div>

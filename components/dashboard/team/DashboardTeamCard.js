@@ -8,8 +8,8 @@ export default function DashboardTeamCard({ data = null }) {
   return (
     <div className={`relative flex flex-auto shrink-0 w-[190px] lg:w-[160px] rounded-lg p-2`}>
       <div className="flex flex-col items-center">
-        <UserAvatar size="md" isUser squared={false} passUser={data?.user} />
-        <h6 className="flex py-2 text-teal-500 justfy-end">${abbreviateMoney(data?.prem)}</h6>
+        <UserAvatar tooltip size="lg" isUser squared={true} passUser={data?.user} />
+        <h6 className="flex pt-2 text-teal-500 justfy-end">${abbreviateMoney(data?.prem)}</h6>
       </div>
       <div className="flex flex-col w-full ml-4">
         <div className="flex flex-col w-full">
