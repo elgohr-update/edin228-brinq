@@ -3,6 +3,7 @@ import { BsBox } from 'react-icons/bs'
 import React from 'react'
 import NavLink from './NavLink'
 import { useSession } from 'next-auth/react'
+import { getIcon } from '../../../utils/utils'
 
 const ReportNavbar = () => {
   const { data: session } = useSession()
@@ -12,7 +13,7 @@ const ReportNavbar = () => {
         <NavLink
           url={'/reports/newbusiness'}
           slug={'/newbusiness'}
-          icon={<RiFolderUserFill />}
+          icon={getIcon('dollarSign')}
           title={'New Business'}
         />
       )}
