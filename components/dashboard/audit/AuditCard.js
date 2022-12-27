@@ -277,7 +277,7 @@ function AuditCard({
   return (
     <>
       <div
-        className={`flex h-full w-full flex-auto cursor-pointer flex-col items-center rounded-lg py-6 transition duration-200 ease-out  ${
+        className={`flex h-full w-full flex-auto cursor-pointer flex-col items-center rounded-lg py-4 transition duration-200 ease-out  ${
           isDark ? 'hover:bg-zinc-600/20' : 'hover:bg-zinc-400/20'
         }`}
         onClick={() => setOpenModal(true)}

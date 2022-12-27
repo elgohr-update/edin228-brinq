@@ -38,7 +38,7 @@ export default function DashboardExpiringPolicies() {
         {!mobile ? <PanelTitle title={`Expiring Soon`} color="orange" /> : null}
       </div>
       <div
-        className={`flex h-full flex-col rounded-lg lg:max-h-[16vh] panel-theme-${type} ${type}-shadow overflow-y-auto`}
+        className={`flex h-full flex-col rounded-lg lg:max-h-[17vh] panel-theme-${type} ${type}-shadow overflow-y-auto`}
       >
         <div
           className={`policy-card-container flex flex-col overflow-y-auto overflow-x-hidden rounded-lg py-2`}

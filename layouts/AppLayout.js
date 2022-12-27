@@ -74,8 +74,14 @@ export default function AppLayout({ children }) {
   const fetchData = async () => {
     const res = await useNextApi('GET', `/api/agency/`)
     if (res) {
-      setAgency(res)
-      setIsAuth(true)
+      if (res.detail){
+        signOut()
+      }
+      else{
+        setAgency(res)
+        setIsAuth(true)
+      }
+      
     } else {
       signOut()
     }

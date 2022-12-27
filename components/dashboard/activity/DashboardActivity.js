@@ -8,8 +8,8 @@ import PanelTitle from '../../ui/title/PanelTitle'
 import { motion } from 'framer-motion'
 
 export default function DashboardActivity() {
-  const [data, setData] = useState(null)
-  const [raw, setRaw] = useState(null)
+  const [data, setData] = useState([])
+  const [raw, setRaw] = useState([])
   const { reload, setReload } = useReloadContext()
   const { type } = useTheme()
 
@@ -49,8 +49,10 @@ export default function DashboardActivity() {
 
   const fetchActivity = async () => {
     const res = await useNextApi('GET', `/api/activity/recent`)
-    setData(res)
-    setRaw(res)
+    if (res) {
+      setData(res)
+      setRaw(res)
+    }
   }
 
   const searchActivity = (val) => {
@@ -61,14 +63,19 @@ export default function DashboardActivity() {
       setData(raw)
     }
   }
-  const mobile =  isMobile();
+  const mobile = isMobile()
   return (
-    <div className={`flex flex-auto shrink-0 h-full rounded-lg w-full flex-col relative`}>
+    <div
+      className={`relative flex h-full w-full flex-auto shrink-0 flex-col rounded-lg`}
+    >
       <div className="pl-4">
-      {!mobile ? <PanelTitle title={`Recent Activity`} color="indigo" /> : null}
-        
+        {!mobile ? (
+          <PanelTitle title={`Recent Activity`} color="indigo" />
+        ) : null}
       </div>
-      <div className={`flex flex-col overflow-hidden relative rounded-lg lg:px-0 panel-theme-${type} ${type}-shadow`}>
+      <div
+        className={`relative flex flex-col overflow-hidden rounded-lg lg:px-0 panel-theme-${type} ${type}-shadow`}
+      >
         {data?.length > 0 ? (
           <div className="relative w-full">
             <Input
@@ -82,11 +89,11 @@ export default function DashboardActivity() {
               labelLeft={<FaSearch />}
               onChange={(e) => searchActivity(e.target.value)}
             />
-            <div className="z-30 flex w-full search-border-flair pink-to-blue-gradient-1"/>
+            <div className="z-30 flex w-full search-border-flair pink-to-blue-gradient-1" />
           </div>
         ) : null}
         <div
-          className={`activity-card-container flex h-full w-full flex-col overflow-y-auto relative py-2 lg:max-h-[59.4vh] rounded`}
+          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 lg:max-h-[59.4vh]`}
         >
           {data?.map((u, i) => (
             <motion.div
@@ -107,7 +114,7 @@ export default function DashboardActivity() {
               }}
               transition={{ ease: 'easeInOut', duration: 0.25 }}
             >
-              <ActivityCard activity={u} indexLast={i+1 == data?.length} />
+              <ActivityCard activity={u} indexLast={i + 1 == data?.length} />
             </motion.div>
           ))}
         </div>
