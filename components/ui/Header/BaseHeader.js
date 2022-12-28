@@ -1,4 +1,4 @@
-import { Button, useTheme } from '@nextui-org/react'
+import { Button, Text, useTheme } from '@nextui-org/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ const BaseHeader = () => {
     <div
       className={`relative z-40 flex h-full w-full items-center justify-between py-2 lg:min-w-[400px]`}
     >
-      <div className="z-10 flex w-full items-center justify-between lg:mt-0">
+      <div className="z-10 flex items-center justify-between w-full lg:mt-0">
         <Link href={`/`}>
           <div className={`flex scale-[0.5] transition`}>
             <Image
@@ -26,17 +26,24 @@ const BaseHeader = () => {
         </Link>
         <div className="flex items-center justify-end">
           <Link href={`/about`}>
-            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/20">
+            <a className="w-full h-full p-2 transition duration-100 ease-in-out rounded cursor-pointer hover:bg-gray-600/20">
               <h6>About</h6>
             </a>
           </Link>
           <Link href={`/contact`}>
-            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/20">
+            <a className="w-full h-full p-2 transition duration-100 ease-in-out rounded cursor-pointer hover:bg-gray-600/20">
               <h6>Contact</h6>
             </a>
           </Link>
+          <Link href={`/register`}>
+            <a className="w-full h-full p-2 transition duration-100 ease-in-out rounded cursor-pointer hover:bg-gray-600/20">
+              <Button auto ghost color="gradient" size="xs">
+                Sign Up
+              </Button>
+            </a>
+          </Link>
           <Link href={`/login`}>
-            <a className="h-full w-full cursor-pointer rounded p-2 transition duration-100 ease-in-out hover:bg-gray-600/20">
+            <a className="w-full h-full p-2 transition duration-100 ease-in-out rounded cursor-pointer hover:bg-gray-600/20">
               <Button auto color="gradient" size="xs">
                 <h6>Login</h6>
               </Button>
