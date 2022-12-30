@@ -140,25 +140,28 @@ function CallLogCard({ record }) {
     if (preLoadFiles.length < 2) {
       if (hasRecording) {
         const dl = await getRecordingContent(record.recording.contentUri)
-        const _file = new File([dl], `${record.id}_Recording.wav`, { type: 'audio/wav' })
-        if (!transcriptData){
+        const _file = new File([dl], `${record.id}_Recording.wav`, {
+          type: 'audio/wav',
+        })
+        if (!transcriptData) {
           sendForTranscript(_file)
           setPreLoadFiles([_file])
-        }
-        else {
+        } else {
           const transcriptFile = createTranscriptFile()
           setPreLoadFiles([transcriptFile, _file])
         }
-        
       } else if (hasMessage) {
         const dl = await getVoicemail(record.message.uri)
-        const _file = new File([dl.attachments[0].uri], `${record.id}_Voicemail.wav`, {
-          type: 'audio/wav',
-        })
-        if (!transcriptData){
+        const _file = new File(
+          [dl.attachments[0].uri],
+          `${record.id}_Voicemail.wav`,
+          {
+            type: 'audio/wav',
+          }
+        )
+        if (!transcriptData) {
           sendForTranscript(_file)
-        }
-        else {
+        } else {
           createTranscriptFile()
         }
         setPreLoadFiles([...preLoadFiles, _file])
@@ -235,14 +238,14 @@ function CallLogCard({ record }) {
             {outbound ? (
               record.to.extensionNumber ? (
                 <div className="text-xs opacity-80">
-                  Ext.{' '}
+                  <span>Ext.</span>
                   {outbound
                     ? record.to.extensionNumber
                     : record.from.extensionNumber}
                 </div>
               ) : record.from.extensionNumber ? (
                 <div className="text-xs opacity-80">
-                  Ext.{' '}
+                  <span>Ext.</span>
                   {outbound
                     ? record.to.extensionNumber
                     : record.from.extensionNumber}

@@ -384,7 +384,7 @@ export default function DashboardTodos({ data = [] }) {
           
         </div>
         <div
-          className={`tasks-container flex h-full w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[70.2vh]`}
+          className={`tasks-container flex h-full w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[68vh]`}
         >
           {todoTab == 1
             ? raw?.map((u) => (

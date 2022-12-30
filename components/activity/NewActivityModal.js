@@ -205,9 +205,11 @@ function NewActivityModal({
     if (!e) {
       if (isSuspense) {
         setIsActivity(e)
+        setIsAMSActivity(e)
       }
     } else {
       setIsActivity(e)
+      setIsAMSActivity(e)
     }
   }
 
@@ -414,7 +416,7 @@ function NewActivityModal({
     >
       <Modal.Header className="flex flex-col w-full px-4">
         <div className="text-xs tracking-widest opacity-60">New Activity</div>
-        <div className="flex items-center justify-center space-x-2">
+        <div className="flex items-center justify-center py-2 space-x-2">
           <Checkbox
             color="primary"
             defaultSelected={isActivity}
@@ -423,15 +425,6 @@ function NewActivityModal({
             size="xs"
           >
             <div className="text-xs tracking-widest">Activity</div>
-          </Checkbox>
-          <Checkbox
-            color="warning"
-            defaultSelected={isAMSActivity}
-            isSelected={isAMSActivity}
-            onChange={(e) => setIsAMSActivity(e)}
-            size="xs"
-          >
-            <div className="text-xs tracking-widest">AMS360Activity</div>
           </Checkbox>
           <Checkbox
             color="secondary"

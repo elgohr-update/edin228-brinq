@@ -1,5 +1,6 @@
 import { Input, useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
+import { getIcon } from '../../../utils/utils'
 import PanelTitle from '../title/PanelTitle'
 
 function BrinqInput({
@@ -17,7 +18,7 @@ function BrinqInput({
   inputType = 'text',
   underlined = null,
   rounded = null,
-  labelLeft = null,
+  labelLeft = getIcon('caretRight'),
   labelRight = null,
   required = false,
   callBack = null,
@@ -61,6 +62,7 @@ function BrinqInput({
           onChange={(v) => updateValue(v.target.value)}
           borderWeight={'light'}
           className="h-[38px] rounded-[10px]"
+          aria-label={'input'}
         />
       </div>
     </div>

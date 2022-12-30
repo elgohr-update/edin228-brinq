@@ -57,7 +57,7 @@ export default function DashboardDesktop() {
       {loading && !data ? (
         <div className="flex w-full h-full">
           <div className="flex w-full flex-col items-center justify-center lg:mt-[-200px]">
-            <Loading size="xl" color="primary" textColor="primary" />
+            <Loading type="points-opacity" size="xl" color="primary" textColor="primary" />
             <div className="mt-5 tracking-widest uppercase opacity-80">
               Loading
             </div>

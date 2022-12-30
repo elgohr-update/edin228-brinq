@@ -282,6 +282,12 @@ export const getFormattedDate = (date) => {
   return d
 }
 
+export const getFormattedDateHuge = (date) => {
+  const base = DateTime.fromISO(date)
+  const d = base.toLocaleString(DateTime.DATE_HUGE)
+  return d
+}
+
 export const getFormattedDateTime = (date) => {
   const reformat = DateTime.fromISO(date, { zone: 'utc' }).toUTC()
   const base = DateTime.fromISO(reformat)

@@ -60,7 +60,7 @@ export default function DashboardMobile() {
       {loading && !data ? (
         <div className="flex w-full h-full">
           <div className="flex flex-col items-center justify-center w-full ">
-            <Loading size="xl" color="primary" textColor="primary" />
+            <Loading type="points-opacity" size="xl" color="primary" textColor="primary" />
             <div className="mt-5 tracking-widest uppercase opacity-80">
               Loading
             </div>

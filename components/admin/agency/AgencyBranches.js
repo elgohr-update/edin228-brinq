@@ -14,22 +14,6 @@ const BranchCard = ({ data }) => {
         <div className="mr-2 opacity-60">{getIcon('hash')}</div>
         <div className="text-sm font-bold">{data.name}</div>
       </div>
-      <div className="flex">
-        <div className="flex items-center justify-center h-full pr-2 border-r border-sky-500">
-          {getIcon('location')}
-        </div>
-        <div className="flex flex-col px-2">
-          <h6>{data.address}</h6>
-          <div className="flex items-center space-x-1">
-            <h6>
-              {data.city}
-              {data.city ? `,` : null}
-            </h6>
-            <h6>{data.state}</h6>
-            <h6>{data.zipcode}</h6>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
@@ -39,7 +23,7 @@ function AgencyBranches({ data = null }) {
     <div className="flex flex-col w-full">
       <PanelTitle title="Branches" color="yellow" />
       <div className="flex flex-col w-full space-y-2 lg:flex-row lg:flex-wrap lg:gap-2 lg:space-y-0">
-        {data?.branches?.map((u) => (
+        {data?.branches?.filter(x => x.IsInactive == 'False').filter(x => x.GLBranchCode.length > 0).map((u) => (
           <motion.div
             key={u.uid}
             initial="hidden"

@@ -222,7 +222,7 @@ const ClientDrawer = ({
                       icon={<BsBox />}
                     />
                     <div className="z-10 flex ml-4 space-x-1">
-                      <Tooltip content="Create Activity / Suspense">
+                      <Tooltip content="Create Activity / Suspense" placement="bottomEnd">
                         <Button
                           size="xs"
                           flat

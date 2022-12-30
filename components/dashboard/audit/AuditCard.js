@@ -240,6 +240,9 @@ function AuditCard({
       countAE.forEach((u, i) => {
         format['account_executive_' + `${i + 1}`] = u.name
       })
+      x.policy_types.forEach((u, i) => {
+        format['LOB_' + `${i + 1}`] = u.tag+' '+u.name
+      })
       return format
     }
     if (useClientCard) {
