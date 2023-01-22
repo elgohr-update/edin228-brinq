@@ -1,5 +1,6 @@
 import { Col, Container, Row, useTheme } from '@nextui-org/react';
 import Head from 'next/head'
+import BubbleBackground from '../components/ui/BubbleBackground';
 
 export default function BlankLayout({ children }) {
     const { type } = useTheme();
@@ -9,7 +10,9 @@ export default function BlankLayout({ children }) {
             <title>brinq</title>
             <link rel="icon" href="/brinq-icon.ico" />
         </Head>
+        
         <Container fluid className={`overflow-hidden container-main`}>
+            <BubbleBackground />
             <div className={`fixed h-screen w-full main-bg main-bg-${type} z-1`}/>
             <div className={`fixed h-screen w-full blur-screen blur-screen-${type} z-2`} />
             <Row fluid className={`overflow-hidden z-3`}>
