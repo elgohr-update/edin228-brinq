@@ -1450,6 +1450,10 @@ export default function Register() {
   }
 
   const submitForCreation = async () =>  {
+    const isDisabled = true
+    if (isDisabled){
+      return
+    }
     const bundle = JSON.stringify({
       wsapi: wsapiCredentials,
       users,
