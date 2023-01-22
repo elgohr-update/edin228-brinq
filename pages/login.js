@@ -27,18 +27,18 @@ export default function Login() {
   }
 
   return (
-    <main className="flex h-full w-full items-center justify-center overflow-hidden px-4 py-40 xl:px-28 xl:py-0 xl:px-4 xl:py-64">
+    <main className="flex items-center justify-center w-full h-full px-4 py-40">
       <div className={`flex h-full w-full flex-col rounded-lg xl:w-3/12`}>
-        <div className="flex h-full flex-col items-center">
-          <div className={`w-full rounded-t px-24 py-4 xl:px-40`}>
+        <div className="flex flex-col items-center h-full">
+          <div className={`max-w-[50%] xl:max-w-[100%] w-full rounded-t md:px-24 py-4`}>
             <img src="/brinq-logo-full-color.png" alt="brinq" />
           </div>
           <h3 className="py-6 font-bold uppercase">Login</h3>
           <form
             onSubmit={(e) => handleSubmit(e)}
-            className="flex h-full w-full flex-col items-center px-8 py-4"
+            className="flex flex-col items-center w-full h-full px-8 py-4"
           >
-            <div className="mb-4 flex w-full justify-center">
+            <div className="flex justify-center w-full mb-4">
               <Input
                 aria-label="username"
                 fullWidth
@@ -49,7 +49,7 @@ export default function Login() {
                 className={`${type}-shadow w-full`}
               />
             </div>
-            <div className="mb-4 flex w-full flex-col justify-center">
+            <div className="flex flex-col justify-center w-full mb-4">
               <Input
                 aria-label="password"
                 fullWidth
@@ -59,11 +59,11 @@ export default function Login() {
                 placeholder="Password"
                 className={`${type}-shadow w-full`}
               />
-              <h4 className="mt-2 flex w-full justify-end pr-4 text-xs">
+              <h4 className="flex justify-end w-full pr-4 mt-2 text-xs">
                 Forgot Password?
               </h4>
             </div>
-            <div className="mt-2 flex w-full justify-center">
+            <div className="flex justify-center w-full mt-2">
               <Button type="submit" color="gradient">
                 Sign In
               </Button>

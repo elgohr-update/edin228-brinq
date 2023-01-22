@@ -507,7 +507,7 @@ export const isMobile = () => {
     return () => window.removeEventListener('resize', handleWindowSizeChange)
   }, [])
 
-  return width <= 576
+  return width <= 768
 }
 
 export const downloadExcel = (data, title) => {

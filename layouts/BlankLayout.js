@@ -10,12 +10,11 @@ export default function BlankLayout({ children }) {
             <title>brinq</title>
             <link rel="icon" href="/brinq-icon.ico" />
         </Head>
-        
-        <Container fluid className={`overflow-hidden container-main`}>
-            <BubbleBackground />
-            <Row fluid className={`overflow-hidden z-3`}>
+        <BubbleBackground />
+        <Container fluid className={`container-main`}>
+            <Row fluid className={`z-3`}>
               <Col className="h-screen">
-                <Row fluid className={`z-3 w-full content-main overflow-hidden`}>
+                <Row fluid className={`z-3 w-full content-main`}>
                   {children}
                 </Row>
               </Col>              
