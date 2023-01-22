@@ -8,9 +8,6 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
       const results = await fetch(baseUrl, {
         method: 'GET',
-        headers: {
-          Authorization: `Bearer ${session.accessToken}`,
-        },
       })
       if (results) {
         res.status(200).json(results.body)
@@ -20,7 +17,6 @@ export default async function handler(req, res) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.accessToken}`,
         },
         body: req.body,
       })

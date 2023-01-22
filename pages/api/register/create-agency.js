@@ -11,8 +11,7 @@ export default async function handler(req, res) {
       const results = await fetch(baseUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${session.accessToken}`,
+          'Content-Type': 'application/json'
         },
         body: req.body,
       })
