@@ -26,7 +26,9 @@ function BrinqSelect({
   initialValue = null,
   fullWidth = true,
   clearable = true,
-  fastCallback = true
+  fastCallback = true,
+  tooltip = false,
+  tooltipContent = null,
 }) {
   const [value, setValue] = useState('')
   const [search, setSearch] = useState(null)
@@ -52,7 +54,7 @@ function BrinqSelect({
         callBack(initialValue)
       }
     }
-    if (initialValue ) {
+    if (initialValue) {
       setOpts()
     }
   }, [initialValue])
@@ -74,7 +76,6 @@ function BrinqSelect({
     const handleChange = async () => {
       await timeout(500)
       if (!isCancelled && search && searchClients) {
-        console.log('test')
         setLoading(true)
         const data = await fetchSearchClients()
         setOptions(data)
@@ -97,10 +98,21 @@ function BrinqSelect({
   }
 
   return (
-    <div className={`flex relative flex-col ${fullWidth ? 'w-full': ''} px-4 pb-1 ${disabled ? 'opacity-20':''}`}>
-      {title ? <PanelTitle title={title} color={color} /> : null}
-      <div className={`flex ${fullWidth ? 'w-full': ''} relative `}>
-        <div className={`${fullWidth ? 'w-full': ''} relative `}>
+    <div
+      className={`relative flex flex-col ${
+        fullWidth ? 'w-full' : ''
+      } px-4 pb-1 ${disabled ? 'opacity-20' : ''}`}
+    >
+      {title ? (
+        <PanelTitle
+          title={title}
+          color={color}
+          tooltip={tooltip}
+          tooltipContent={tooltipContent}
+        />
+      ) : null}
+      <div className={`flex ${fullWidth ? 'w-full' : ''} relative `}>
+        <div className={`${fullWidth ? 'w-full' : ''} relative `}>
           <SelectInput
             loading={loading}
             value={value}

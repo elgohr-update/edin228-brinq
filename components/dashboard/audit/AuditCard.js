@@ -51,12 +51,11 @@ function AuditCard({
         setData(init)
         setRaw(init)
         if (useClientCard || usePolicyCard) {
-          const userOptions = agency.users
-            .filter((y) => y.is_active)
+          const userOptions = agency?.users?.filter((y) => y.is_active)
             .map((x) => {
               return { id: x.id, value: x.name }
             })
-          const users = agency.users.map((x) => x.id)
+          const users = agency?.users.map((x) => x.id)
           setUserFilterOptions(userOptions)
           setUserFilter(users)
         }

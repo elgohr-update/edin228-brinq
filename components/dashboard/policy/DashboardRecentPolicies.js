@@ -5,7 +5,7 @@ import { isMobile, timeout, useNextApi } from '../../../utils/utils'
 import { useTheme } from '@nextui-org/react'
 import DashboardPolicyCard from './DashboardPolicyCard'
 
-export default function DashboardRecentPolicies() {
+export default function DashboardRecentPolicies({hideTitle = false}) {
   const [data, setData] = useState([])
   const { type } = useTheme()
 
@@ -33,13 +33,13 @@ export default function DashboardRecentPolicies() {
     <div
       className={`relative flex h-full flex-auto shrink-0 flex-col rounded-lg`}
     >
-      <div className="pl-4">
-        {!mobile ? (
-          <PanelTitle title={`Recently Added Policies`} color="pink" />
-        ) : null}
-      </div>
+      {!mobile && !hideTitle ? (
+        <div className="pl-4">
+        <PanelTitle title={`Recently Added Policies`} color="pink" />
+        </div>
+      ) : null}
       <div
-        className={`flex h-full flex-col rounded-lg lg:max-h-[25vh] panel-theme-${type} ${type}-shadow overflow-hidden`}
+        className={`flex h-full flex-col rounded-lg lg:h-[46vh] panel-theme-${type} ${type}-shadow overflow-hidden`}
       >
         <div
           className={`policy-card-container flex flex-col overflow-y-auto overflow-x-hidden rounded-lg py-2`}

@@ -26,10 +26,7 @@ import {
   isCurrentMonthYear,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
-import {
-  useAgencyContext,
-  useAppHeaderContext,
-} from '../../context/state'
+import { useAgencyContext, useAppHeaderContext } from '../../context/state'
 import LineIcon from '../util/LineIcon'
 import ClientTableCell from './ClientTableCell'
 import { motion } from 'framer-motion'
@@ -43,7 +40,7 @@ export default function RenewalsTable(data) {
   const { month, year } = router.query
   const { type } = useTheme()
   const { agency, setAgency } = useAgencyContext()
-  const {appHeader, setAppHeader} = useAppHeaderContext();
+  const { appHeader, setAppHeader } = useAppHeaderContext()
   const { data: session } = useSession()
   const [rows, setRows] = useState(
     data?.data?.map((x) => {
@@ -126,7 +123,6 @@ export default function RenewalsTable(data) {
         ? dat.filter((x) => x.isRenewed == false)
         : dat
       setTableData(filtered)
-      setShowRenewed(!isCurrentMonthYear(month, year))
       runOnce.current = false
     }
     if (runOnce.current && data && bUsers) {
@@ -135,6 +131,14 @@ export default function RenewalsTable(data) {
     }
     return () => {}
   }, [data, bUsers])
+
+  useEffect(() => {
+    const handleChange = () => {
+      setShowRenewed(!isCurrentMonthYear(month, year))
+    }
+    handleChange()
+    return () => {}
+  }, [])
 
   useEffect(() => {
     if (data && bUsers) {
@@ -396,9 +400,9 @@ export default function RenewalsTable(data) {
     setPageSize(e)
   }
 
-  const clientDrawerSet = e => {
+  const clientDrawerSet = (e) => {
     setIsOpen(true)
-    setAppHeader({...appHeader, lowZIndex: true})
+    setAppHeader({ ...appHeader, lowZIndex: true })
     setClientDrawer(e)
   }
 
@@ -572,7 +576,7 @@ export default function RenewalsTable(data) {
                   clearable={false}
                 />
               </div>
-              <div className="flex flex-col items-end mt-[-10px]">
+              <div className="mt-[-10px] flex flex-col items-end">
                 <h4>Renewed</h4>
                 <Switch
                   checked={showRenewed}
@@ -634,7 +638,9 @@ export default function RenewalsTable(data) {
               {(item) => (
                 <Table.Row>
                   {(columnKey) => (
-                    <Table.Cell>{renderCell(item, columnKey, clientDrawerSet)}</Table.Cell>
+                    <Table.Cell>
+                      {renderCell(item, columnKey, clientDrawerSet)}
+                    </Table.Cell>
                   )}
                 </Table.Row>
               )}
@@ -650,7 +656,13 @@ export default function RenewalsTable(data) {
             ) : null}
           </Table>
         ) : null}
-        {isOpen ? <ClientDrawer clientId={clientDrawer} isRenewal={true} callBack={() => setIsOpen(!isOpen)} /> : null}
+        {isOpen ? (
+          <ClientDrawer
+            clientId={clientDrawer}
+            isRenewal={true}
+            callBack={() => setIsOpen(!isOpen)}
+          />
+        ) : null}
       </div>
     </div>
   )

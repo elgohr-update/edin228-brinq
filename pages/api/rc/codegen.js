@@ -10,6 +10,4 @@ export const runCodeGen = () => {
     .digest("base64")
 
   const code_challenge_str = base64url.fromBase64(code_challenge)
-  console.log('code_verifier', code_verifier)
-  console.log('challenge', code_challenge_str)
 }

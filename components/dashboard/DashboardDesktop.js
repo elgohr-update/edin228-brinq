@@ -8,8 +8,11 @@ import PageTitle from '../ui/pageheaders/PageTitle'
 import DashboardActivity from './activity/DashboardActivity'
 import DashboardAudit from './audit/DashboardAudit'
 import DashboardCards from './cards/DashboardCards'
+import DashboardActivitySuspenseContainer from './containers/DashboardActivitySuspenseContainer'
+import DashboardExpiringAndRecent from './containers/DashboardExpiringAndRecent'
 import DashboardExpiringPolicies from './expiring/DashboardExpiringPolicies'
 import DashboardRecentPolicies from './policy/DashboardRecentPolicies'
+import DashboardSuspense from './suspense/DashboardSuspense'
 import DashboardTeam from './team/DashboardTeam'
 import DashboardTodos from './todos/DashboardTodos'
 
@@ -86,28 +89,25 @@ export default function DashboardDesktop() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col flex-auto w-full shrink-0 lg:flex-row">
-              <div className="flex flex-col flex-auto p-2 shrink-0 lg:flex-row lg:px-2 lg:gap-2">
-                <div className="flex flex-auto shrink-0 flex-col py-2 lg:min-w-[400px]">
+            <div className="flex flex-col flex-auto w-full">
+              <div className="flex flex-auto gap-2 p-2 shrink-0">
+                <div className="flex flex-col flex-auto w-3/12 py-2 shrink-0">
                   <DashboardTodos data={tasks} />
                 </div>
-                <div className="flex flex-col flex-auto px-2">
-                  <div className="flex flex-col shrink-0">
+                <div className="flex flex-col flex-auto w-9/12 px-2">
+                  <div className="flex flex-col w-full shrink-0">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex flex-col flex-auto w-full lg:flex-row lg:gap-4 lg:py-2">
-                    <div className="flex flex-auto shrink-0 flex-col lg:w-[500px]">
-                      <DashboardActivity />
+                  <div className="flex flex-auto w-full gap-4 p-2">
+                    <div className="flex flex-col w-1/2">
+                      <DashboardActivitySuspenseContainer />
                     </div>
-                    <div className="flex flex-col flex-auto w-[300px] shrink-0">
-                      <div className="flex flex-col flex-auto shrink-0">
+                    <div className="flex flex-col w-1/2">
+                      <div className="flex flex-col">
                         <DashboardAudit />
                       </div>
-                      <div className="flex flex-col flex-auto shrink-0">
-                        <DashboardExpiringPolicies />
-                      </div>
-                      <div className="flex flex-col flex-auto shrink-0">
-                        <DashboardRecentPolicies />
+                      <div className="flex flex-col flex-auto">
+                        <DashboardExpiringAndRecent /> 
                       </div>
                     </div>
                   </div>

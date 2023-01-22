@@ -22,6 +22,7 @@ import BrinqInput from '../ui/input/BrinqInput'
 import ImageUploader from '../files/UserImageUploader'
 
 const UserProfilePicture = ({ user = null, newUser=false, callback }) => {
+  const { type, isDark } = useTheme()
   const [imageSrc, setImageSrc] = useState(null)
 
   useEffect(() => {
@@ -51,7 +52,7 @@ const UserProfilePicture = ({ user = null, newUser=false, callback }) => {
             className="rounded-lg"
           />
         ) : (
-          <div className="flex h-[200px] w-[200px] items-center justify-center rounded-lg bg-zinc-900">
+          <div className={`flex h-[200px] w-[200px] items-center justify-center rounded-lg ${isDark ? 'bg-zinc-900' : 'bg-zinc-200'} shadow-lg mb-2`}>
             <div className="flex flex-col items-center justify-center">
               <div className="text-2xl ">{getIcon('imagePlus')}</div>
               <div className="text-xs tracking-widest uppercase">
@@ -135,6 +136,11 @@ export default function UsersTable({ data = null, callback = null }) {
 
   const columns = [
     {
+      key: 'is_active',
+      label: 'status',
+      centerColumnHeader: false,
+    },
+    {
       key: 'name',
       label: 'name',
       centerColumnHeader: false,
@@ -147,11 +153,6 @@ export default function UsersTable({ data = null, callback = null }) {
     {
       key: 'owner',
       label: 'role',
-      centerColumnHeader: false,
-    },
-    {
-      key: 'is_active',
-      label: 'status',
       centerColumnHeader: false,
     },
     {
@@ -192,35 +193,35 @@ export default function UsersTable({ data = null, callback = null }) {
             } flex flex-wrap items-center space-y-2 lg:gap-2 lg:space-y-0`}
           >
             {item.admin ? (
-              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-red-500/20 px-2 text-[0.55rem] font-bold uppercase tracking-widest text-red-500">
+              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-red-500/20  text-[0.55rem] font-bold uppercase tracking-widest px-1 border-[1px] border-red-500 text-red-500">
                 admin
               </div>
             ) : (
               ''
             )}
             {item.owner ? (
-              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-purple-500/20 px-2 text-[0.55rem] font-bold uppercase tracking-widest text-purple-500">
+              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-purple-500/20 text-[0.55rem] font-bold uppercase tracking-widest px-1 border-[1px] border-purple-500 text-purple-500">
                 owner
               </div>
             ) : (
               ''
             )}
             {item.producer ? (
-              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-orange-500/20 px-2 text-[0.55rem] font-bold uppercase tracking-widest text-orange-500">
+              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-orange-500/20 text-[0.55rem] font-bold uppercase tracking-widest px-1 border-[1px] border-orange-500 text-orange-500">
                 producer
               </div>
             ) : (
               ''
             )}
             {item.account_manager ? (
-              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-sky-500/20 px-2 text-[0.55rem] font-bold uppercase tracking-widest text-sky-500">
+              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-sky-500/20 text-[0.55rem] font-bold uppercase tracking-widest px-1 border-[1px] border-sky-500 text-sky-500">
                 account manager
               </div>
             ) : (
               ''
             )}
             {item.support ? (
-              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-yellow-500/20 px-2 text-[0.55rem] font-bold uppercase tracking-widest text-yellow-500">
+              <div className="flex min-w-[65px] items-center justify-center rounded-md bg-yellow-500/20 text-[0.55rem] font-bold uppercase tracking-widest px-1 border-[1px] border-yellow-500 text-yellow-500">
                 support
               </div>
             ) : (
@@ -236,11 +237,11 @@ export default function UsersTable({ data = null, callback = null }) {
             } flex items-center`}
           >
             {cellValue ? (
-              <div className="flex w-[65px] items-center justify-center rounded-md bg-emerald-500/20 text-[0.65rem] font-bold tracking-widest text-emerald-500">
+              <div className="flex w-[65px] items-center justify-center rounded-md border-[1px] border-emerald-500 bg-emerald-500/20 text-[0.55rem] px-1 font-bold tracking-widest text-emerald-500">
                 ACTIVE
               </div>
             ) : (
-              <div className="flex w-[65px] items-center justify-center rounded-md bg-rose-500/20 text-[0.65rem] font-bold tracking-widest text-rose-500">
+              <div className="flex w-[65px] items-center justify-center rounded-md bg-rose-500/20 text-[0.55rem] font-bold tracking-widest px-1 border-[1px] border-rose-500 text-rose-500 ">
                 INACTIVE
               </div>
             )}

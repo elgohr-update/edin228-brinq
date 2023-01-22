@@ -82,6 +82,8 @@ const PolicyCard = ({
               <TagBasic text={`QTE`} color="orange" />
             ) : policy.renewed ? (
               <TagBasic text={`RNWD`} color="blue" />
+            ) : policy.expired ? (
+              <TagBasic text={`EXPRD`} color="red" />
             ) : (
               <TagBasic text={`ACTV`} color="green" />
             )}

@@ -12,7 +12,9 @@ function BrinqTextArea({
   bordered = true,
   fullWidth = true,
   callBack = null,
-  disabled = false
+  disabled = false,
+  tooltip = false,
+  tooltipContent = null,
 }) {
   const { type } = useTheme()
   const [value, setValue] = useState('')
@@ -32,8 +34,19 @@ function BrinqTextArea({
   }
 
   return (
-    <div className={`flex flex-col w-full px-4 pb-1 ${disabled ? 'opacity-20':''}`}>
-      {title ? <PanelTitle title={title} color={color} /> : null}
+    <div
+      className={`flex w-full flex-col px-4 pb-1 ${
+        disabled ? 'opacity-20' : ''
+      }`}
+    >
+      {title ? (
+        <PanelTitle
+          title={title}
+          color={color}
+          tooltip={tooltip}
+          tooltipContent={tooltipContent}
+        />
+      ) : null}
       <div className={`flex w-full rounded-lg panel-flatter-${type}`}>
         <Textarea
           fullWidth={fullWidth}

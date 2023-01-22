@@ -22,6 +22,8 @@ function BrinqInput({
   labelRight = null,
   required = false,
   callBack = null,
+  tooltip = false,
+  tooltipContent = null,
 }) {
   const [value, setValue] = useState('')
 
@@ -40,8 +42,19 @@ function BrinqInput({
   }
 
   return (
-    <div className={`flex flex-col w-full px-4 pb-1 ${disabled ? 'opacity-20':''}`}>
-      {title ? <PanelTitle title={title} color={color} /> : null}
+    <div
+      className={`flex w-full flex-col px-4 pb-1 ${
+        disabled ? 'opacity-20' : ''
+      }`}
+    >
+      {title ? (
+        <PanelTitle
+          title={title}
+          color={color}
+          tooltip={tooltip}
+          tooltipContent={tooltipContent}
+        />
+      ) : null}
       <div className="flex w-full ">
         <Input
           value={value}

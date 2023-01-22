@@ -50,7 +50,7 @@ export default function Contact() {
           <li className="flex flex-col">
             <div className="py-6">
               <div className="mb-2">
-                Use the following information to create the WSAPI Account.{' '}
+                Use the following information to create the WSAPI login credentials.{' '}
               </div>
               <div>Web Service Application: Custom</div>
               <div>WSAPI Login ID: brinq</div>
@@ -67,7 +67,7 @@ export default function Contact() {
                 </div>
               </div>
               <div>Data Security Based On: Entity Access Security Only</div>
-              <div>Click Select All to Enable Full Access</div>
+              <div>Click "Check All" to Enable Full Access</div>
             </div>
             <div className="w-full h-full mb-2">
               <Image
@@ -118,7 +118,7 @@ export default function Contact() {
                 showSkeleton
                 maxDelay={10000}
                 width={250}
-                height={40}
+                height={32}
                 layout="responsive"
                 src="https://cdn.brinq.io/assets/WSAPISetup/step6.png"
                 alt="LOGO"

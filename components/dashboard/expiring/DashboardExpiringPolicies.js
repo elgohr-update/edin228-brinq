@@ -6,7 +6,7 @@ import { useTheme } from '@nextui-org/react'
 import DashboardExpiringCard from './DashboardExpiringCard'
 import DashboardPolicyCard from '../policy/DashboardPolicyCard'
 
-export default function DashboardExpiringPolicies() {
+export default function DashboardExpiringPolicies({hideTitle = false}) {
   const [data, setData] = useState([])
   const { type } = useTheme()
 
@@ -34,11 +34,13 @@ export default function DashboardExpiringPolicies() {
     <div
       className={`relative flex h-full flex-auto shrink-0 flex-col rounded-lg`}
     >
-      <div className="pl-4">
-        {!mobile ? <PanelTitle title={`Expiring Soon`} color="orange" /> : null}
-      </div>
+      {!mobile && !hideTitle ? (
+        <div className="pl-4">
+        <PanelTitle title={`Expiring Soon`} color="orange" />
+        </div>
+      ) : null}
       <div
-        className={`flex h-full flex-col rounded-lg lg:max-h-[17vh] panel-theme-${type} ${type}-shadow overflow-y-auto`}
+        className={`flex h-full flex-col rounded-lg lg:h-[46vh] panel-theme-${type} ${type}-shadow overflow-y-auto`}
       >
         <div
           className={`policy-card-container flex flex-col overflow-y-auto overflow-x-hidden rounded-lg py-2`}

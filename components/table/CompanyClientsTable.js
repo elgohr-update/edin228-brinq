@@ -38,13 +38,10 @@ const CompanyClientsTable = ({data=null, companyId=null, parent=false, writing=f
   const [tableData, setTableData] = useState(null)
 
   const searchTable = (val) => {
-    console.log(val)
+    console.log('search')
   }
 
   useEffect(() => {
-      console.log(companyId,
-        parent,
-        writing)
     const base = data
     setRows(base)
     setTableData(base)

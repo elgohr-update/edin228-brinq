@@ -34,7 +34,7 @@ const ActivityCard = ({
     <div className={baseClass}>
       <div className={`flex`}>
         <div className="relative flex mr-4 z-90">
-          {activity.system_action && activity.users.length < 1 ? (
+          {activity?.system_action && activity?.users.length < 1 ? (
             <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-slate-900">
               <Image
                 showSkeleton
@@ -51,7 +51,7 @@ const ActivityCard = ({
               tooltip={false}
               size="sm"
               isUser={true}
-              passUser={activity.users.find((x) => x.id === activity.author_id)}
+              passUser={activity?.users.find((x) => x.id === activity?.author_id)}
             />
           )}
           {!indexLast ? (
@@ -67,17 +67,17 @@ const ActivityCard = ({
             <div className="flex flex-wrap items-center space-x-2 text-xs lg:gap-2 lg:space-x-0">
               <h4 className="small-subtext">
                 By{' '}
-                {activity.system_action && activity.users.length < 1
+                {activity?.system_action && activity?.users.length < 1
                   ? 'Brinq'
-                  : activity.author}
+                  : activity?.author}
               </h4>
               <div className="data-point-xs purple-to-green-gradient-1"></div>
               <h4 className="flex items-center small-subtext">
-                {getFormattedDateTime(activity.date)}
+                {getFormattedDateTime(activity?.date)}
               </h4>
               <div className="data-point-xs pink-to-blue-gradient-1"></div>
-              <h4 className="small-subtext ">{activity.activity_type}</h4>
-              {activity.pushed_to_ams360 ? (
+              <h4 className="small-subtext ">{activity?.activity_type}</h4>
+              {activity?.pushed_to_ams360 ? (
                 <div className="flex items-center space-x-2 lg:gap-2 lg:space-x-0">
                   <div className="data-point-xs orange-gradient-1"></div>
                   <h4 className="small-subtext ">
@@ -88,48 +88,48 @@ const ActivityCard = ({
             </div>
           </div>
           <div className="block py-1">
-            {activity.system_action ? (
-              <h6>{`${activity.author} ` + activity.description}</h6>
+            {activity?.system_action ? (
+              <h6>{`${activity?.author} ` + activity?.description}</h6>
             ) : (
               <h6 className="block whitespace-pre-line">
-                {activity.description}
+                {activity?.description}
               </h6>
             )}
           </div>
           <div className={`flex w-full flex-col`}>
             {hideClient ? null : (
               <div className="flex page-link">
-                <Link href={`/clients/${activity.client_id}`}>
+                <Link href={`/clients/${activity?.client_id}`}>
                   <a>
                     <h6 className="opacity-60">
-                      {truncateString(activity.client_name, 50)}
+                      {truncateString(activity?.client_name, 50)}
                     </h6>
                   </a>
                 </Link>
               </div>
             )}
             {hidePolicy ||
-            activity.system_action ||
-            activity.policies.length == 0 ? null : activity.policies.length ==
+            activity?.system_action ||
+            activity?.policies.length == 0 ? null : activity?.policies.length ==
               1 ? (
               <div className="flex items-center flex-auto space-x-2">
                 <TagBasic
                   tooltip
-                  tooltipContent={activity.policies[0].policy_type_full}
-                  text={activity.policies[0].policy_type}
+                  tooltipContent={activity?.policies[0].policy_type_full}
+                  text={activity?.policies[0].policy_type}
                 />
                 <Link href="/">
                   <a className="transition duration-100 hover:text-sky-500">
                     <h4 className="flex items-center space-x-2">
                       <BsBox />
-                      <div>{activity.policies[0].policy_number}</div>
+                      <div>{activity?.policies[0].policy_number}</div>
                     </h4>
                   </a>
                 </Link>
               </div>
             ) : (
               <div className="flex items-center space-x-2">
-                {activity.policies.map((pol) => (
+                {activity?.policies.map((pol) => (
                   <div key={pol.id} className="flex items-center space-x-2">
                     <TagBasic
                       tooltip
@@ -141,9 +141,9 @@ const ActivityCard = ({
               </div>
             )}
           </div>
-          {activity.attachments.length > 0 ? (
+          {activity?.attachments.length > 0 ? (
             <div className="py-2">
-              <FileTagContainer files={activity.attachments} />
+              <FileTagContainer files={activity?.attachments} />
             </div>
           ) : null}
         </div>

@@ -291,6 +291,7 @@ export default function DashboardTodos({ data = [] }) {
   }
   const formatThisWeeksTasks = (tasks = null) => {
     if (tasks) {
+      
       const today = DateTime.local()
       let tdt
       if (showCompleted){
@@ -301,7 +302,7 @@ export default function DashboardTodos({ data = [] }) {
       } else {
         tdt = tasks.filter(
           (b) =>
-            b.done === false &&
+            b.done == false &&
             DateTime.fromISO(b.date, { zone: 'utc' }).hasSame(today, 'week')
         )
       }

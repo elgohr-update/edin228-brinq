@@ -16,10 +16,6 @@ export default function AppNotification() {
   )
   const { type } = useTheme()
 
-  //   useEffect(() => {
-  //     let isCancelled = false
-  //     console.log(notification)
-  //   }, [notification])
   useEffect(() => {
     let isCancelled = false
     const handleChange = async () => {
@@ -125,7 +121,7 @@ export default function AppNotification() {
             n.background
           )} z-40 min-h-[80px] rounded-lg text-white`}
         >
-          <div className="flex flex-auto items-center justify-between p-4">
+          <div className="flex items-center justify-between flex-auto p-4">
             <div className="mr-4 text-3xl">{n.icon}</div>
             <div>{n.text}</div>
           </div>

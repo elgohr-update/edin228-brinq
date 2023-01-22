@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useReloadContext } from '../../../context/state'
 import { getSearch, isMobile, timeout, useNextApi } from '../../../utils/utils'
-import ActivityCard from '../../activity/ActivityCard'
 import { FaSearch } from 'react-icons/fa'
 import { Input, useTheme } from '@nextui-org/react'
 import PanelTitle from '../../ui/title/PanelTitle'
 import { motion } from 'framer-motion'
+import SuspenseCard from '../../suspense/SuspenseCard'
 
-export default function DashboardActivity({hideTitle = false}) {
+export default function DashboardSuspense({ hideTitle = false }) {
   const [data, setData] = useState([])
   const [raw, setRaw] = useState([])
   const { reload, setReload } = useReloadContext()
@@ -19,11 +19,11 @@ export default function DashboardActivity({hideTitle = false}) {
       const handleChange = async () => {
         await timeout(100)
         if (!isCancelled) {
-          fetchActivity()
-          setReload({
-            ...reload,
-            activities: false,
-          })
+          fetchData()
+          //   setReload({
+          //     ...reload,
+          //     activities: false,
+          //   })
         }
       }
       handleChange()
@@ -38,7 +38,7 @@ export default function DashboardActivity({hideTitle = false}) {
     const handleChange = async () => {
       await timeout(100)
       if (!isCancelled) {
-        fetchActivity()
+        fetchData()
       }
     }
     handleChange()
@@ -47,15 +47,15 @@ export default function DashboardActivity({hideTitle = false}) {
     }
   }, [])
 
-  const fetchActivity = async () => {
-    const res = await useNextApi('GET', `/api/activity/recent`)
+  const fetchData = async () => {
+    const res = await useNextApi('GET', `/api/suspense/recent`)
     if (res) {
       setData(res)
       setRaw(res)
     }
   }
 
-  const searchActivity = (val) => {
+  const searchData = (val) => {
     if (val.length > 1) {
       const filtered = getSearch(raw, val)
       setData(filtered)
@@ -70,9 +70,10 @@ export default function DashboardActivity({hideTitle = false}) {
     >
       {!mobile && !hideTitle ? (
         <div className="pl-4">
-          <PanelTitle title={`Recent Activity`} color="indigo" />
+          <PanelTitle title={`Suspenses`} color="yellow" />
         </div>
       ) : null}
+
       <div
         className={`relative flex flex-col overflow-hidden rounded-lg lg:px-0 panel-theme-${type} ${type}-shadow`}
       >
@@ -87,7 +88,7 @@ export default function DashboardActivity({hideTitle = false}) {
               underlined
               placeholder="Search"
               labelLeft={<FaSearch />}
-              onChange={(e) => searchActivity(e.target.value)}
+              onChange={(e) => searchData(e.target.value)}
             />
             <div className="z-30 flex w-full search-border-flair pink-to-blue-gradient-1" />
           </div>
@@ -114,7 +115,7 @@ export default function DashboardActivity({hideTitle = false}) {
               }}
               transition={{ ease: 'easeInOut', duration: 0.25 }}
             >
-              <ActivityCard activity={u} indexLast={i + 1 == data?.length} />
+              <SuspenseCard data={u} />
             </motion.div>
           ))}
         </div>

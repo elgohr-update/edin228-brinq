@@ -32,7 +32,6 @@ export default function NewComment({ source, commentType = 'task' }) {
         JSON.stringify(bundle)
       )
       if (res) {
-        console.log(res)
         if (files) {
           const formData = new FormData()
           for (let fil of files) {

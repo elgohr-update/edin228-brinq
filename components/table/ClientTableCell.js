@@ -76,7 +76,6 @@ export default function ClientTableCell({
     if (drawerCallback) {
       drawerCallback(clientId)
     } else if (useStateDrawer) {
-      console.log(clientId, style, companyId, parent, writing)
       setClientDrawer({
         ...clientDrawer,
         nav: 1,

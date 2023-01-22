@@ -10,7 +10,7 @@ import {
   BsFillTelephoneOutboundFill,
   BsRecordCircleFill,
   BsFillFileTextFill,
-  BsFileSpreadsheet
+  BsFileSpreadsheet,
 } from 'react-icons/bs'
 import {
   FaRegPaperPlane,
@@ -45,6 +45,8 @@ import {
   AiFillCaretLeft,
   AiFillCaretRight,
   AiFillPhone,
+  AiFillInfoCircle,
+  AiOutlineUser,
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -59,7 +61,7 @@ import {
 import { DateTime, Duration } from 'luxon'
 import { useEffect, useState } from 'react'
 import * as XLSX from 'xlsx'
-
+import fuzzysearch from 'fuzzysearch'
 
 export const getIcon = (item) => {
   return item == 'policy' ? (
@@ -152,6 +154,10 @@ export const getIcon = (item) => {
     <BsFillFileTextFill />
   ) : item == 'spreadsheet' ? (
     <BsFileSpreadsheet />
+  ) : item == 'info' ? (
+    <AiFillInfoCircle />
+  ) : item == 'user' ? (
+    <AiOutlineUser />
   ) : null
 }
 
@@ -344,6 +350,12 @@ export const sumFromArray = (data = []) => {
   return total
 }
 
+export const countPropertyFromArray = (data = [], field = '', val = None) => {
+  const total = data?.filter( x => x[field] == val)
+  const count = total.length
+  return count
+}
+
 export const sortByProperty = (data = [], prop = '', asc = true) => {
   const sorted = asc
     ? data?.sort((a, b) => (a[prop] < b[prop] ? 1 : -1))
@@ -482,28 +494,69 @@ export const checkWidth = () => {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [handleResize])
-  console.log(width)
   return width
 }
 
 export const isMobile = () => {
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(0)
 
   useEffect(() => {
-    const handleWindowSizeChange = () => setWidth(window.innerWidth);
-    handleWindowSizeChange();
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => window.removeEventListener("resize", handleWindowSizeChange);
-  }, []);
+    const handleWindowSizeChange = () => setWidth(window.innerWidth)
+    handleWindowSizeChange()
+    window.addEventListener('resize', handleWindowSizeChange)
+    return () => window.removeEventListener('resize', handleWindowSizeChange)
+  }, [])
 
-  return width <= 576;
-};
+  return width <= 576
+}
 
 export const downloadExcel = (data, title) => {
   const worksheet = XLSX.utils.json_to_sheet(data)
   const workbook = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
   let nameString = encodeURIComponent(title?.replace(/[^\w]/g, ''))
-  const fileName = title ? nameString+'.xlsx' : 'DataSheet.xlsx'
+  const fileName = title ? nameString + '.xlsx' : 'DataSheet.xlsx'
   XLSX.writeFile(workbook, fileName)
+}
+
+export const isEmail = (email) => {
+  const emailRegex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return emailRegex.test(email)
+}
+
+export const isValidPassword = (password) => {
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.{6,30})/
+  return passwordRegex.test(password)
+}
+
+export const generatePassword = () => {
+  const lowercaseCharacters = 'abcdefghijklmnopqrstuvwxyz'
+  const uppercaseCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const numbers = '0123456789'
+
+  let password = ''
+  while (password.length < 15) {
+    const characterSet =
+      Math.random() < 0.3
+        ? lowercaseCharacters
+        : Math.random() < 0.5
+        ? uppercaseCharacters
+        : numbers
+    password += characterSet[Math.floor(Math.random() * characterSet.length)]
+  }
+
+  return password
+}
+
+export const findSimilarEmployees = (employee, employees) => {
+  const similarEmployees = []
+  for (const e of employees) {
+    if (e.Email && employee.Email) {
+      if (e.Email === employee.Email) {
+        similarEmployees.push(e.EmployeeCode)
+      }
+    }
+  }
+  return similarEmployees
 }

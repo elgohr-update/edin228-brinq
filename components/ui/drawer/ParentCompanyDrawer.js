@@ -65,7 +65,6 @@ const ParentCompanyDrawer = () => {
   const fetchData = async () => {
     const companyId = parentCompanyDrawer.companyId
     const res = await useNextApi('GET', `/api/company/parent/${companyId}`)
-    console.log(res)
     setCompany(res)
   }
   const fetchClients = async () => {

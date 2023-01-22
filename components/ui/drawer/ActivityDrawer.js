@@ -144,7 +144,6 @@ const ActivityDrawer = () => {
   }
   const fetchActions = async () => {
     if (!AMS360ValueList.activityAction) {
-      console.log('test')
       const res = await useNextApi(
         'GET',
         `/api/ams360/valuelist/activityaction`
@@ -170,7 +169,6 @@ const ActivityDrawer = () => {
 
   const fetchDocType = async () => {
     if (!AMS360ValueList.docType) {
-      console.log('test')
       const res = await useNextApi('GET', `/api/ams360/valuelist/doc360type`)
       const doctypes = res
       if (doctypes) {

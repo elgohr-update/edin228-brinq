@@ -134,7 +134,8 @@ export default function Client({ data }) {
                 !x.canceled &&
                 !x.nottaken &&
                 !x.nonrenewed &&
-                !x.rewritten
+                !x.rewritten &&
+                !x.expired
             ),
             'expiration_date',
             false
