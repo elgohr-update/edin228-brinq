@@ -33,7 +33,7 @@ function RCRedirect() {
 
   return (
     <div className="flex w-full h-full">
-      <div className="flex flex-col items-center justify-center w-full lg:mt-[-200px]">
+      <div className="flex flex-col items-center justify-center w-full xl:mt-[-200px]">
         <Loading size="xl" color="primary" textColor="primary" />
         <div className="mt-5 tracking-widest uppercase opacity-80">Loading</div>
       </div>

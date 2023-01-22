@@ -46,7 +46,7 @@ function FileCard({
         </div>
         <div className={`relative flex flex-col w-full`}>
           <div className={`flex w-full items-center justify-between`}>
-            <div className="flex flex-wrap items-center space-x-2 text-xs lg:gap-2 lg:space-x-0">
+            <div className="flex flex-wrap items-center space-x-2 text-xs xl:gap-2 xl:space-x-0">
               <h4 className="small-subtext">By {data.author}</h4>
               <div className="data-point-xs purple-to-green-gradient-1"></div>
               <h4 className="flex items-center small-subtext">

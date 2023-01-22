@@ -163,7 +163,7 @@ const CompanyClientsTable = ({data=null, companyId=null, parent=false, writing=f
   }
 
   return (
-    <div className="flex flex-col w-full h-full md:flex-row">
+    <div className="flex flex-col w-full h-full xl:flex-row">
       <div className="flex flex-col w-full h-full px-2 pb-2">
         <div className="flex items-center flex-auto h-16 py-4">
           <div className="flex items-center flex-auto w-full px-2">

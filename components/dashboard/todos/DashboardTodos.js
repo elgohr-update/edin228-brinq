@@ -348,9 +348,9 @@ export default function DashboardTodos({ data = [] }) {
   
   return (
     <div
-      className={`mt-2 flex h-full w-full flex-auto shrink-0 flex-col rounded-lg lg:mt-0`}
+      className={`mt-2 flex h-full w-full flex-auto shrink-0 flex-col rounded-lg xl:mt-0`}
     >
-      <div className="flex flex-col w-full lg:pl-4 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col w-full xl:pl-4 xl:flex-row xl:items-center xl:justify-between">
         {!mobile ? <PanelTitle title={`Todos`} color="sky" /> : null}
         <TodosNavBar activeItem={todoTab} setTab={(e) => setTab(e)} />
       </div>
@@ -385,7 +385,7 @@ export default function DashboardTodos({ data = [] }) {
           
         </div>
         <div
-          className={`tasks-container flex h-full w-full flex-col space-y-4 overflow-y-auto rounded p-2 lg:max-h-[68vh]`}
+          className={`tasks-container flex h-full w-full flex-col space-y-4 overflow-y-auto rounded p-2 xl:max-h-[68vh]`}
         >
           {todoTab == 1
             ? raw?.map((u) => (

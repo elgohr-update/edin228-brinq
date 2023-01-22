@@ -4,8 +4,8 @@ import RenewalTimelines from './RenewalTimelines'
 
 export default function PolicySettings() {
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="flex flex-col md:w-3/12">
+    <div className="flex flex-col xl:flex-row">
+      <div className="flex flex-col xl:w-3/12">
         <PolicyTypeSettings />
       </div>
       <div className="flex flex-col flex-auto">

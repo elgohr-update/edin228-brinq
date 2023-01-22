@@ -39,7 +39,7 @@ function DashboardAudit() {
         {!mobile ? <PanelTitle title={`Audits`} color="red" /> : null}
       </div>
       <div
-        className={`flex flex-col space-y-2 lg:flex-row lg:space-y-0 panel-theme-${type} ${type}-shadow min-h-[130px] w-full gap-2 rounded-lg p-2`}
+        className={`flex flex-col space-y-2 xl:flex-row xl:space-y-0 panel-theme-${type} ${type}-shadow min-h-[130px] w-full gap-2 rounded-lg p-2`}
       >
         <AuditCard
           color={'rose'}

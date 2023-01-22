@@ -16,10 +16,10 @@ const UserMenu = () => {
       <Dropdown>
         <Dropdown.Trigger>
           <div className="flex cursor-pointer items-center">
-            <div className="flex lg:hidden">
+            <div className="flex xl:hidden">
               <UserAvatar squared={false} tooltip={false} isLink={false} />
             </div>
-            <div className="hidden lg:flex">
+            <div className="hidden xl:flex">
               <UserAvatar
                 userWithName
                 squared={false}
@@ -27,7 +27,7 @@ const UserMenu = () => {
                 isLink={false}
               />
             </div>
-            <div className="hidden lg:flex">{getIcon('down')}</div>
+            <div className="hidden xl:flex">{getIcon('down')}</div>
           </div>
         </Dropdown.Trigger>
         <Dropdown.Menu aria-label="Static Actions">

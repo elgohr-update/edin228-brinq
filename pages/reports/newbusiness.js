@@ -340,8 +340,8 @@ export default function ReportsNewBusiness() {
     <main className="relative flex flex-col w-full overflow-hidden">
       <ReportNavbar />
       <div className="flex flex-col w-full">
-        <div className="flex flex-col w-full lg:flex-row md:pr-6">
-          <div className="flex items-center w-full h-full px-4 py-6 mb-4 space-x-4 overflow-x-auto lg:mb-0 lg:justify-center">
+        <div className="flex flex-col w-full xl:flex-row xl:pr-6">
+          <div className="flex items-center w-full h-full px-4 py-6 mb-4 space-x-4 overflow-x-auto xl:mb-0 xl:justify-center">
             <SummaryCard
               val={premSum()}
               color="teal"
@@ -364,7 +364,7 @@ export default function ReportsNewBusiness() {
               vertical={false}
             />
           </div>
-          <div className="flex justify-center mb-4 space-x-2 lg:mb-0 lg:items-center lg:justify-end lg:pr-4">
+          <div className="flex justify-center mb-4 space-x-2 xl:mb-0 xl:items-center xl:justify-end xl:pr-4">
             <div className="flex flex-col">
               <div>
                 <PanelTitle title={`New Business Month`} color="pink" />
@@ -401,14 +401,14 @@ export default function ReportsNewBusiness() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row lg:gap-2 lg:pl-2">
-          <div className="flex flex-col w-auto lg:flex-row lg:justify-evenly">
-            <div className="flex flex-col mb-4 lg:mb-0">
+        <div className="flex flex-col xl:flex-row xl:gap-2 xl:pl-2">
+          <div className="flex flex-col w-auto xl:flex-row xl:justify-evenly">
+            <div className="flex flex-col mb-4 xl:mb-0">
               <div className="pl-4">
                 <PanelTitle title={`Overview`} color="indigo" />
               </div>
-              <div className="flex flex-col flex-auto overflow-hidden lg:flex-row">
-                <div className="flex h-full flex-row space-x-4 overflow-x-auto p-2 lg:max-h-[78vh] lg:flex-col lg:items-center lg:space-x-0 lg:space-y-4 lg:overflow-y-auto">
+              <div className="flex flex-col flex-auto overflow-hidden xl:flex-row">
+                <div className="flex h-full flex-row space-x-4 overflow-x-auto p-2 xl:max-h-[78vh] xl:flex-col xl:items-center xl:space-x-0 xl:space-y-4 xl:overflow-y-auto">
                   {chartData?.users.map((p, i) => (
                     <motion.div
                       key={p.id}
@@ -450,21 +450,21 @@ export default function ReportsNewBusiness() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col w-full px-4 lg:max-w-9/12 lg:pl-0 lg:pr-4">
+          <div className="flex flex-col w-full px-4 xl:max-w-9/12 xl:pl-0 xl:pr-4">
             <div className="pl-4">
               <PanelTitle title={`Charts`} color="orange" />
             </div>
             {chartData ? (
               <div className="flex flex-col w-full space-y-4">
-                <div className="flex flex-col w-full space-y-4 lg:flex-row lg:space-y-0 lg:space-x-4">
-                  <div className="flex w-full lg:w-1/2">
+                <div className="flex flex-col w-full space-y-4 xl:flex-row xl:space-y-0 xl:space-x-4">
+                  <div className="flex w-full xl:w-1/2">
                     <NewBusinessCurrentMonthBarChart
                       currentMonth={dataMonth}
                       year={dataYear}
                       fullData={chartData}
                     />
                   </div>
-                  <div className={`flex w-full lg:w-1/2`}>
+                  <div className={`flex w-full xl:w-1/2`}>
                     <NewBusinessBarChart fullData={chartData} year={dataYear} />
                   </div>
                 </div>

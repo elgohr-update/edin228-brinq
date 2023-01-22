@@ -258,7 +258,7 @@ const Summary = ({ users, agencyInfo, paymentOption, dataCallback = null }) => {
           onClick={() => updatePayment('monthly')}
           className={`${
             paymentOption == 'monthly' ? 'border-[1px] border-sky-500' : ''
-          } flex w-full cursor-pointer flex-col lg:flex-row lg:items-center  lg:justify-between panel-flat-${type} rounded-lg p-4 shadow`}
+          } flex w-full cursor-pointer flex-col xl:flex-row xl:items-center  xl:justify-between panel-flat-${type} rounded-lg p-4 shadow`}
         >
           <div className={`flex items-center`}>
             <div className="mr-2">
@@ -273,18 +273,18 @@ const Summary = ({ users, agencyInfo, paymentOption, dataCallback = null }) => {
                 {countPropertyFromArray(users, 'is_active', true)}
               </Text>
             </div>
-            <div className="text-xs font-bold tracking-widest uppercase lg:text-xl">
+            <div className="text-xs font-bold tracking-widest uppercase xl:text-xl">
               Licenses
             </div>
             <div className="mx-2 text-xs font-bold tracking-widest opacity-50">
               x
             </div>
-            <div className="text-xs font-bold tracking-widest text-teal-500 uppercase lg:text-2xl">
+            <div className="text-xs font-bold tracking-widest text-teal-500 uppercase xl:text-2xl">
               $20
             </div>
           </div>
           <div className={`flex items-center`}>
-            <div className="flex lg:w-[300px]">
+            <div className="flex xl:w-[300px]">
               <div className="flex justify-end w-full">
                 <Text
                   h1
@@ -310,7 +310,7 @@ const Summary = ({ users, agencyInfo, paymentOption, dataCallback = null }) => {
           onClick={() => updatePayment('annual')}
           className={`${
             paymentOption == 'annual' ? 'border-[1px] border-sky-500' : ''
-          } flex w-full cursor-pointer flex-col lg:flex-row lg:items-center lg:justify-between panel-flat-${type} rounded-lg p-4 shadow`}
+          } flex w-full cursor-pointer flex-col xl:flex-row xl:items-center xl:justify-between panel-flat-${type} rounded-lg p-4 shadow`}
         >
           <div className={`flex items-center`}>
             <div className="mr-2">
@@ -325,21 +325,21 @@ const Summary = ({ users, agencyInfo, paymentOption, dataCallback = null }) => {
                 {countPropertyFromArray(users, 'is_active', true)}
               </Text>
             </div>
-            <div className="text-xs font-bold tracking-widest uppercase lg:text-xl">
+            <div className="text-xs font-bold tracking-widest uppercase xl:text-xl">
               Licenses
             </div>
             <div className="mx-2 text-xs font-bold tracking-widest opacity-50">
               x
             </div>
-            <div className="text-xs font-bold tracking-widest text-teal-500 uppercase lg:text-2xl">
+            <div className="text-xs font-bold tracking-widest text-teal-500 uppercase xl:text-2xl">
               $20
             </div>
           </div>
           <div className={`relative flex items-center`}>
-            <div className="absolute right-0 rounded-lg  border-[1px] border-rose-500 bg-rose-600/20 px-2 text-xs text-rose-500 lg:top-[-10px]">
+            <div className="absolute right-0 rounded-lg  border-[1px] border-rose-500 bg-rose-600/20 px-2 text-xs text-rose-500 xl:top-[-10px]">
               1 Month Free
             </div>
-            <div className="justfiy-end flex lg:w-[300px]">
+            <div className="justfiy-end flex xl:w-[300px]">
               <div className="flex justify-end w-full">
                 <Text
                   h1
@@ -401,10 +401,10 @@ const UserCard = ({ user, agencyEmployeesRaw = null, dataCallback = null }) => {
     <div className="flex flex-col w-full">
       <div
         onClick={() => setEditModal(true)}
-        className={`relative flex w-full flex-col rounded-lg p-2 lg:flex-row lg:items-center lg:justify-start panel-theme-${type} ${type}-shadow`}
+        className={`relative flex w-full flex-col rounded-lg p-2 xl:flex-row xl:items-center xl:justify-start panel-theme-${type} ${type}-shadow`}
       >
-        <div className="flex flex-col w-full mb-2 lg:flex-row lg:items-center lg:mb-0">
-          <div className="lg:mr-2 flex mb-2 lg:w-[75px] lg:justify-end">
+        <div className="flex flex-col w-full mb-2 xl:flex-row xl:items-center xl:mb-0">
+          <div className="xl:mr-2 flex mb-2 xl:w-[75px] xl:justify-end">
             {user.is_active ? (
               <div className="rounded-md border-[1px] border-emerald-500/20 bg-emerald-700/20 px-2 text-[8px] font-semibold tracking-widest text-emerald-500 shadow-md">
                 ACTIVE
@@ -415,7 +415,7 @@ const UserCard = ({ user, agencyEmployeesRaw = null, dataCallback = null }) => {
               </div>
             )}
           </div>
-          <div className='flex flex-col lg:flex-row'>
+          <div className='flex flex-col xl:flex-row'>
             <div
               className={`panel-flat-${type} ${type}-shadow mr-2 flex h-[35px] w-[35px] items-center justify-center rounded-lg`}
             >
@@ -429,7 +429,7 @@ const UserCard = ({ user, agencyEmployeesRaw = null, dataCallback = null }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-full space-y-2 lg:gap-2 lg:space-y-0">
+        <div className="flex flex-col w-full space-y-2 xl:gap-2 xl:space-y-0">
           <div>
             <div className="text-[10px] opacity-50">Department</div>
             <div
@@ -450,7 +450,7 @@ const UserCard = ({ user, agencyEmployeesRaw = null, dataCallback = null }) => {
           </div>
           <div>
             <div className="text-[10px] opacity-50">Permissions</div>
-            <div className="flex flex-col space-y-2 lg:flex-row lg:gap-2 lg:space-y-0">
+            <div className="flex flex-col space-y-2 xl:flex-row xl:gap-2 xl:space-y-0">
               <div
                 className={`text-[10px] font-bold capitalize tracking-widest ${
                   user.owner ? ' text-violet-500' : 'opacity-50'
@@ -669,7 +669,7 @@ const UserCard = ({ user, agencyEmployeesRaw = null, dataCallback = null }) => {
             className="flex items-center w-full p-4"
           >
             <div
-              className={`flex w-full justify-end space-x-2  rounded-lg py-2 px-4 lg:gap-2 lg:space-x-0`}
+              className={`flex w-full justify-end space-x-2  rounded-lg py-2 px-4 xl:gap-2 xl:space-x-0`}
             >
               <div>
                 <Button
@@ -948,7 +948,7 @@ const AdminSetup = ({
           className="flex items-center w-full p-4"
         >
           <div
-            className={`flex w-full justify-end space-x-2  rounded-lg py-2 px-4 lg:gap-2 lg:space-x-0`}
+            className={`flex w-full justify-end space-x-2  rounded-lg py-2 px-4 xl:gap-2 xl:space-x-0`}
           >
             <div>
               <Button
@@ -1279,7 +1279,7 @@ const UsersSetup = ({
           className="flex items-center w-full p-4"
         >
           <div
-            className={`flex w-full justify-end space-x-2  rounded-lg py-2 px-4 lg:gap-2 lg:space-x-0`}
+            className={`flex w-full justify-end space-x-2  rounded-lg py-2 px-4 xl:gap-2 xl:space-x-0`}
           >
             <div>
               <Button size="xs" onClick={reset} color="error" auto ghost>
@@ -1468,7 +1468,7 @@ export default function Register() {
 
   return (
     <main className="flex w-full h-full">
-      <div className="flex flex-col w-full h-full p-4 space-y-4 lg:gap-2 lg:space-y-0">
+      <div className="flex flex-col w-full h-full p-4 space-y-4 xl:gap-2 xl:space-y-0">
         <TabSteps tab={tab} tabMax={tabMax} />
         <div className={`flex h-[72vh] w-full overflow-y-auto rounded-lg p-4`}>
           {tab == 0 ? (
@@ -1509,7 +1509,7 @@ export default function Register() {
         </div>
         <div className="relative flex flex-col w-full">
           <div
-            className={`flex w-full justify-between space-x-2  rounded-lg py-2 px-4 lg:gap-2 lg:space-x-0`}
+            className={`flex w-full justify-between space-x-2  rounded-lg py-2 px-4 xl:gap-2 xl:space-x-0`}
           >
             {tab > 3 ? (
               <div className="w-full">

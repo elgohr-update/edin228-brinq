@@ -27,10 +27,10 @@ export default function Login() {
   }
 
   return (
-    <main className="flex h-full w-full items-center justify-center overflow-hidden px-4 py-40 md:px-28 md:py-0 lg:px-4 lg:py-64">
-      <div className={`flex h-full w-full flex-col rounded-lg lg:w-3/12`}>
+    <main className="flex h-full w-full items-center justify-center overflow-hidden px-4 py-40 xl:px-28 xl:py-0 xl:px-4 xl:py-64">
+      <div className={`flex h-full w-full flex-col rounded-lg xl:w-3/12`}>
         <div className="flex h-full flex-col items-center">
-          <div className={`w-full rounded-t px-24 py-4 md:px-40`}>
+          <div className={`w-full rounded-t px-24 py-4 xl:px-40`}>
             <img src="/brinq-logo-full-color.png" alt="brinq" />
           </div>
           <h3 className="py-6 font-bold uppercase">Login</h3>

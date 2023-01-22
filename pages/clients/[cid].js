@@ -236,7 +236,7 @@ export default function Client({ data }) {
         ) : null}
       </div>
       <div
-        className={`mt-4 flex shrink-0 flex-col pb-2 lg:w-[600px] xl:mt-0`}
+        className={`mt-4 flex shrink-0 flex-col pb-2 xl:w-[600px] xl:mt-0`}
       >
         <div className="xl:px-4">
           <ClientActionNavbar />

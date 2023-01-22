@@ -470,7 +470,7 @@ function NewActivityModal({
             detailField={'policy_type'}
             disabled={client ? false : true}
           />
-          <div className="flex flex-col w-full py-2 lg:flex-row">
+          <div className="flex flex-col w-full py-2 xl:flex-row">
             {isActivity ? (
               <div className="flex flex-col w-full pb-4">
                 {isSuspense ? (

@@ -15,12 +15,12 @@ const Header = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
 
     return (
-        <div className={`z-40 flex flex-col shrink-0 lg:flex-row lg:items-center justify-between w-full h-[100px] lg:h-full relative md:py-2 ${state.scrollY > 0 ? `panel-flat-noblur-${type}`: null}`}>
-            <div className="hidden z-20 lg:flex w-full lg:w-1/4 lg:pl-4">
+        <div className={`z-40 flex flex-col shrink-0 xl:flex-row xl:items-center justify-between w-full h-[100px] xl:h-full relative xl:py-2 ${state.scrollY > 0 ? `panel-flat-noblur-${type}`: null}`}>
+            <div className="hidden z-20 xl:flex w-full xl:w-1/4 xl:pl-4">
                 {appHeader.titleContent}
             </div>
-            <div className="z-40 flex items-center justify-between lg:justify-end mt-2 lg:mt-0 px-4">
-                <div className="lg:hidden z-30">
+            <div className="z-40 flex items-center justify-between xl:justify-end mt-2 xl:mt-0 px-4">
+                <div className="xl:hidden z-30">
                     <MobileSidebar />
                 </div>
                 <div className="z-20 flex items-center justify-end">
@@ -35,12 +35,12 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex lg:hidden z-20 w-full pl-4 py-4">
+            <div className="flex xl:hidden z-20 w-full pl-4 py-4">
                 {appHeader.titleContent}
             </div>
             {
                 showSearchBar ? 
-                    <div className={`z-20 lg:flex w-full panel-theme-${type} px-4 py-2`}>
+                    <div className={`z-20 xl:flex w-full panel-theme-${type} px-4 py-2`}>
                         <SearchBar />
                     </div>
                 :null

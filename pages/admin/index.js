@@ -51,7 +51,7 @@ export default function Admin() {
         </div>
       </PageHeader>
 
-      <div className="flex flex-col lg:pl-4">
+      <div className="flex flex-col xl:pl-4">
         <div className="flex">
           {state.admin.navBar == 1 ? (
             <div className="flex flex-col w-full p-2 space-x-0 space-y-2">

@@ -6,7 +6,7 @@ import UserAvatar from '../../user/Avatar'
 export default function DashboardTeamCard({ data = null }) {
   const { type } = useTheme()
   return (
-    <div className={`relative flex flex-auto shrink-0 w-[190px] lg:w-[160px] rounded-lg p-2`}>
+    <div className={`relative flex flex-auto shrink-0 w-[190px] xl:w-[160px] rounded-lg p-2`}>
       <div className="flex flex-col items-center">
         <UserAvatar tooltip size="lg" isUser squared={true} passUser={data?.user} />
         <h6 className="flex pt-2 text-teal-500 justfy-end">${abbreviateMoney(data?.prem)}</h6>

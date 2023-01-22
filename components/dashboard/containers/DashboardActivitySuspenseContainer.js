@@ -37,7 +37,7 @@ function DashboardActivitySuspenseContainer() {
   }
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-col w-full md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col w-full xl:flex-row xl:items-center xl:justify-between">
         <ContainerNavbar activeItem={tab} setTab={(e) => setActiveTab(e)} />
       </div>
       <div>

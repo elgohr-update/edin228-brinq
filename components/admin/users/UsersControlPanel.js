@@ -32,7 +32,7 @@ export default function UsersControlPanel() {
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="flex flex-col w-full h-full lg:w-8/12">
+      <div className="flex flex-col w-full h-full xl:w-8/12">
         <PanelTitle title="Users" />
       </div>
       {users && !loading ? <UsersTable data={users} callback={fetchData} /> : null}

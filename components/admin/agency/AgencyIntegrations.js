@@ -8,7 +8,7 @@ const IntegrationCard = ({ data }) => {
   const { isDark, type } = useTheme()
   return (
     <div
-      className={`flex w-full flex-col rounded-lg lg:w-[200px] panel-theme-${type} ${type}-shadow p-2`}
+      className={`flex w-full flex-col rounded-lg xl:w-[200px] panel-theme-${type} ${type}-shadow p-2`}
     >
       <div className="flex w-full">
         <div

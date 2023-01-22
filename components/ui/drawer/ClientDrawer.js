@@ -186,12 +186,12 @@ const ClientDrawer = ({
         hidden: { opacity: 0, x: 200 },
       }}
       transition={{ ease: 'easeInOut', duration: 0.25 }}
-      className={`fixed top-0 left-0 z-[999999] flex h-full w-full lg:z-[999998]`}
+      className={`fixed top-0 left-0 z-[999999] flex h-full w-full xl:z-[999998]`}
     >
       <div
         className={`fixed ${
           clientDrawer.style == 1 ? 'right-0' : 'xl:right-[800px]'
-        }  flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-sidebar-${type}`}
+        }  flex h-full w-full flex-col overflow-hidden xl:w-[800px] ${type}-shadow panel-theme-sidebar-${type}`}
       >
         {!client ? (
           <DrawerLoader />
@@ -199,9 +199,9 @@ const ClientDrawer = ({
           <div className="flex flex-auto py-4 overflow-hidden">
             <div className={`flex w-full shrink-0 flex-col`}>
               <div className={`w-fullshrink-0 relative mb-2 flex px-2`}>
-                <div className="relative flex flex-col flex-auto shrink-0 md:flex-row md:pt-2">
+                <div className="relative flex flex-col flex-auto shrink-0 xl:flex-row xl:pt-2">
                   <ClientHeader client={client} />
-                  <div className="flex items-center justify-between flex-auto pl-4 pr-8 shrink-0 md:justify-end">
+                  <div className="flex items-center justify-between flex-auto pl-4 pr-8 shrink-0 xl:justify-end">
                     <SummaryCard
                       isIcon={false}
                       autoWidth
@@ -253,7 +253,7 @@ const ClientDrawer = ({
                     </div>
                   </div>
                   <div
-                    className="absolute top-0 right-0 flex text-3xl font-bold md:hidden"
+                    className="absolute top-0 right-0 flex text-3xl font-bold xl:hidden"
                     onClick={() => closeDrawer()}
                   >
                     {getIcon('circleX')}

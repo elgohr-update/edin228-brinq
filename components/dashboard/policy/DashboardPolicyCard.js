@@ -17,7 +17,7 @@ export default function DashboardPolicyCard({ policy, expiring = false }) {
   const { type } = useTheme()
   const PolicyInfo = () => {
     return (
-      <div className="flex flex-col w-full space-y-1 lg:flex-row lg:items-center lg:space-y-0 lg:space-x-2">
+      <div className="flex flex-col w-full space-y-1 xl:flex-row xl:items-center xl:space-y-0 xl:space-x-2">
         <div className="flex flex-col w-full">
           <div className="pb-2 opacity-60">{policy.description}</div>
           <div className="flex items-center w-full space-x-2">
@@ -50,7 +50,7 @@ export default function DashboardPolicyCard({ policy, expiring = false }) {
           <div className="flex items-center justify-end w-full space-x-2">
             <div className="flex items-center flex-auto space-x-1 text-teal-500 ">
               <h6 className="flex items-center">{getIcon('dollarSign')}</h6>
-              <h6 className="flex w-[30px] flex-auto lg:justify-end">
+              <h6 className="flex w-[30px] flex-auto xl:justify-end">
                 ${abbreviateMoney(policy.premium)}
               </h6>
             </div>

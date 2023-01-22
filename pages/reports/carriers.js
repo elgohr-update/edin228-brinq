@@ -110,8 +110,8 @@ export default function ReportsCarriers() {
     <main className="relative flex flex-col w-full">
       <ReportNavbar />
       <div className="flex flex-col flex-auto">
-        <div className="flex flex-col flex-auto lg:flex-row">
-          <div className="flex items-center flex-auto w-full px-4 py-4 space-x-4 overflow-x-auto md:mb-0 md:overflow-hidden">
+        <div className="flex flex-col flex-auto xl:flex-row">
+          <div className="flex items-center flex-auto w-full px-4 py-4 space-x-4 overflow-x-auto xl:mb-0 xl:overflow-hidden">
             <SummaryCard
               val={allPremSum()}
               color="teal"
@@ -177,7 +177,7 @@ export default function ReportsCarriers() {
             <div className="pl-4">
               <PanelTitle title={`Carriers`} color="teal" />
             </div>
-            <div className="flex flex-auto p-4 space-x-1 lg:mb-4 lg:items-center lg:justify-end lg:gap-2 lg:space-x-0 lg:p-0 lg:pr-4">
+            <div className="flex flex-auto p-4 space-x-1 xl:mb-4 xl:items-center xl:justify-end xl:gap-2 xl:space-x-0 xl:p-0 xl:pr-4">
               <div className="flex flex-col">
                 <div>
                   <PanelTitle title={`Data Table`} color="purple" />

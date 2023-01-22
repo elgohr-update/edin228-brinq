@@ -245,7 +245,7 @@ export default function NewBusinessLineChart({
 
   return (
     <div className="flex h-full w-full">
-      <div className={`${baseClass} md:hidden lg:hidden`}>
+      <div className={`${baseClass} xl:hidden xl:hidden`}>
         <Line
           data={chartData}
           ref={chartRef}
@@ -253,7 +253,7 @@ export default function NewBusinessLineChart({
           options={options}
         />
       </div>
-      <div className={`${baseClass} hidden md:flex`}>
+      <div className={`${baseClass} hidden xl:flex`}>
         <Line
           data={chartData}
           ref={chartRef}

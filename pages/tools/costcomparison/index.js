@@ -432,9 +432,9 @@ export default function CostComparison() {
   return (
     <main className="flex w-full flex-col">
       <ProposalNavbar />
-      <div className="flex w-full flex-col pl-4 pr-2 md:flex-row md:space-x-2">
+      <div className="flex w-full flex-col pl-4 pr-2 xl:flex-row xl:space-x-2">
         <div
-          className={`flex max-h-[60vh] flex-col overflow-hidden p-2 md:w-[300px] panel-flat-${type} ${type}-shadow rounded-lg`}
+          className={`flex max-h-[60vh] flex-col overflow-hidden p-2 xl:w-[300px] panel-flat-${type} ${type}-shadow rounded-lg`}
         >
           <Button color="gradient" size="sm">
             <AiFillPlusCircle /> NEW

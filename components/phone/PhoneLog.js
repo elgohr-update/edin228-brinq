@@ -82,7 +82,7 @@ function PhoneLog() {
         </div>
       ) : null}
       <div className="flex flex-col w-full h-full">
-        <div className="flex h-full max-h-[90vh] w-full flex-col space-y-2 overflow-y-auto p-2 lg:max-h-[92vh] lg:pb-[50px]">
+        <div className="flex h-full max-h-[90vh] w-full flex-col space-y-2 overflow-y-auto p-2 xl:max-h-[92vh] xl:pb-[50px]">
           {recentCalls?.map((u, i) => (
             <div key={u.id}>
               {i == 0 ? (

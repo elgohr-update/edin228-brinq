@@ -9,9 +9,9 @@ const BaseHeader = () => {
 
   return (
     <div
-      className={`relative z-40 flex h-full w-full items-center justify-between py-2 lg:min-w-[400px]`}
+      className={`relative z-40 flex h-full w-full items-center justify-between py-2 xl:min-w-[400px]`}
     >
-      <div className="z-10 flex items-center justify-between w-full lg:mt-0">
+      <div className="z-10 flex items-center justify-between w-full xl:mt-0">
         <Link href={`/`}>
           <div className={`flex scale-[0.5] transition`}>
             <Image

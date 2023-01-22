@@ -10,7 +10,7 @@ const TodosNavBar = ({activeItem=1, setTab}) => {
   }
 
   return (
-    <div className={`flex items-center justify-center lg:justify-start space-x-1 rounded-lg px-2 py-1`}>
+    <div className={`flex items-center justify-center xl:justify-start space-x-1 rounded-lg px-2 py-1`}>
       <NavAction
         onClick={() => setActive(1)}
         icon={<BsListTask/>}

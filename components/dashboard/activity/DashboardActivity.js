@@ -74,7 +74,7 @@ export default function DashboardActivity({hideTitle = false}) {
         </div>
       ) : null}
       <div
-        className={`relative flex flex-col overflow-hidden rounded-lg lg:px-0 panel-theme-${type} ${type}-shadow`}
+        className={`relative flex flex-col overflow-hidden rounded-lg xl:px-0 panel-theme-${type} ${type}-shadow`}
       >
         {data?.length > 0 ? (
           <div className="relative w-full">
@@ -93,7 +93,7 @@ export default function DashboardActivity({hideTitle = false}) {
           </div>
         ) : null}
         <div
-          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 lg:max-h-[59.4vh]`}
+          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 xl:max-h-[59.4vh]`}
         >
           {data?.map((u, i) => (
             <motion.div

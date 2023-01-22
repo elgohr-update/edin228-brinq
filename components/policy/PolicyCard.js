@@ -60,14 +60,14 @@ const PolicyCard = ({
   return (
     <div className={baseClass}>
       <div
-        className={`flex w-full flex-auto flex-col md:flex-row md:items-center`}
+        className={`flex w-full flex-auto flex-col xl:flex-row xl:items-center`}
       >
-        <div className="flex w-full items-center md:w-fit md:min-w-[240px]">
+        <div className="flex w-full items-center xl:w-fit xl:min-w-[240px]">
           <div className="mr-4">
             <LineIcon iconSize={18} size="sm" line={policy.line} />
           </div>
           <div
-            className={`relative mr-4 flex flex-col items-end space-x-1 space-y-1 md:space-x-0`}
+            className={`relative mr-4 flex flex-col items-end space-x-1 space-y-1 xl:space-x-0`}
           >
             <TagBasic text={policy.policy_type} />
             {policy.nonrenewed ? (
@@ -89,7 +89,7 @@ const PolicyCard = ({
             )}
           </div>
           <div
-            className={`relative flex w-full flex-col flex-wrap md:mr-2 md:w-[250px]`}
+            className={`relative flex w-full flex-col flex-wrap xl:mr-2 xl:w-[250px]`}
           >
             <h6 className={`flex w-full font-semibold`}>
               {truncateString(String(policy.policy_number), 16)}
@@ -101,27 +101,27 @@ const PolicyCard = ({
           </div>
           <div
             onClick={() => toggleShowMore()}
-            className={`relative ml-4 flex h-full cursor-pointer items-center justify-end px-1 transition duration-100 ease-out hover:text-sky-500 md:hidden`}
+            className={`relative ml-4 flex h-full cursor-pointer items-center justify-end px-1 transition duration-100 ease-out hover:text-sky-500 xl:hidden`}
           >
             <BsListTask />
             {showMore ? <AiOutlineDown /> : <AiOutlineLeft />}
           </div>
         </div>
-        <div className={`relative flex w-full flex-col py-2 md:hidden`}>
+        <div className={`relative flex w-full flex-col py-2 xl:hidden`}>
           <h6 className={`font-semibold`}>
             {truncateString(policy.carrier, truncate)}
           </h6>
           <h4>{truncateString(policy.writing, truncate)}</h4>
         </div>
-        <div className="flex items-center w-full md:pt-0">
-          <div className={`relative hidden w-full flex-col md:flex`}>
+        <div className="flex items-center w-full xl:pt-0">
+          <div className={`relative hidden w-full flex-col xl:flex`}>
             <h6 className={`font-semibold`}>
               {truncateString(policy.carrier, truncate)}
             </h6>
             <h4 className={``}>{truncateString(policy.writing, truncate)}</h4>
           </div>
           <div className="flex flex-col w-full">
-            <div className={`relative flex w-full lg:justify-end lg:items-end`}>
+            <div className={`relative flex w-full xl:justify-end xl:items-end`}>
               <h4 className={`letter-spacing-1`}>
                 {getFormattedDate(policy.effective_date)}
               </h4>
@@ -130,7 +130,7 @@ const PolicyCard = ({
                 {getFormattedDate(policy.expiration_date)}
               </h6>
             </div>
-            <div className={`relative flex w-full lg:justify-end`}>
+            <div className={`relative flex w-full xl:justify-end`}>
               <h6 className={`font-bold text-teal-500`}>
                 $ {formatMoney(policy.premium)}
               </h6>
@@ -160,7 +160,7 @@ const PolicyCard = ({
             </div>
             <div
               onClick={() => toggleShowMore()}
-              className={`relative ml-4 hidden h-full cursor-pointer items-center justify-end px-1 transition duration-100 ease-out hover:text-sky-500 md:flex`}
+              className={`relative ml-4 hidden h-full cursor-pointer items-center justify-end px-1 transition duration-100 ease-out hover:text-sky-500 xl:flex`}
             >
               <BsListTask />
               {showMore ? <AiOutlineDown /> : <AiOutlineLeft />}

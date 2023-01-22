@@ -8,7 +8,7 @@ import { getIcon } from '../../../utils/utils'
 const ReportNavbar = () => {
   const { data: session } = useSession()
   return (
-    <div className="flex py-2 space-x-2 md:py-0 lg:pl-4">
+    <div className="flex py-2 space-x-2 xl:py-0 xl:pl-4">
       {session?.user.admin && (
         <NavLink
           url={'/reports/newbusiness'}

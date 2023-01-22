@@ -407,10 +407,10 @@ export default function RenewalsTable(data) {
   }
 
   return (
-    <div className="flex flex-col w-full h-full md:flex-row">
+    <div className="flex flex-col w-full h-full xl:flex-row">
       {showFilter ? (
         <motion.div
-          className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 md:w-[400px] panel-flat-${type} ${type}-shadow`}
+          className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 xl:w-[400px] panel-flat-${type} ${type}-shadow`}
           initial="hidden"
           animate="visible"
           variants={{
@@ -535,8 +535,8 @@ export default function RenewalsTable(data) {
           </div>
         </motion.div>
       ) : null}
-      <div className="flex flex-col w-full h-full md:px-2">
-        <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 lg:h-16 lg:flex-row lg:space-y-0">
+      <div className="flex flex-col w-full h-full xl:px-2">
+        <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 xl:h-16 xl:flex-row xl:space-y-0">
           <div className="flex items-center justify-end px-4">
             <div className="px-2">
               <Button

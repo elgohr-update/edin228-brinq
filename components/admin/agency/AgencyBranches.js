@@ -8,7 +8,7 @@ const BranchCard = ({ data }) => {
   const { type } = useTheme()
   return (
     <div
-      className={`flex w-full flex-col rounded-lg lg:w-[200px] panel-theme-${type} ${type}-shadow p-2`}
+      className={`flex w-full flex-col rounded-lg xl:w-[200px] panel-theme-${type} ${type}-shadow p-2`}
     >
       <div className="flex items-center">
         <div className="mr-2 opacity-60">{getIcon('hash')}</div>
@@ -22,7 +22,7 @@ function AgencyBranches({ data = null }) {
   return (
     <div className="flex flex-col w-full">
       <PanelTitle title="Branches" color="yellow" />
-      <div className="flex flex-col w-full space-y-2 lg:flex-row lg:flex-wrap lg:gap-2 lg:space-y-0">
+      <div className="flex flex-col w-full space-y-2 xl:flex-row xl:flex-wrap xl:gap-2 xl:space-y-0">
         {data?.branches?.filter(x => x.IsInactive == 'False').filter(x => x.GLBranchCode.length > 0).map((u) => (
           <motion.div
             key={u.uid}

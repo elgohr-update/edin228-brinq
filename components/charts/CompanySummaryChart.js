@@ -230,7 +230,7 @@ export default function CompanySummaryChart({
   } rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className="mt-2 flex h-full w-full flex-auto shrink-0 flex-col lg:mt-0 lg:justify-center">
+    <div className="mt-2 flex h-full w-full flex-auto shrink-0 flex-col xl:mt-0 xl:justify-center">
       <div className="pl-4">
         <PanelTitle title={`Summary`} color="sky" />
       </div>

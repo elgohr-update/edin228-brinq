@@ -44,7 +44,7 @@ const ClientInfo = ({
           ))}
         </div>
       </div>
-      <div className={`flex w-full flex-col py-2 md:flex-row`}>
+      <div className={`flex w-full flex-col py-2 xl:flex-row`}>
         <div className={`flex w-full flex-col `}>
           <PanelTitle title={`Address`} color="orange" />
           <div className="flex items-center h-full">

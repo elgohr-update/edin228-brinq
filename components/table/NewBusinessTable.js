@@ -384,10 +384,10 @@ const NewBusinessTable = ({ year = 2022, month = 1 }) => {
   }
 
   return (
-    <div className="flex flex-col w-full h-full md:flex-row">
+    <div className="flex flex-col w-full h-full xl:flex-row">
       {showFilter ? (
         <div
-          className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 md:w-[400px] panel-flat-${type} ${type}-shadow`}
+          className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 xl:w-[400px] panel-flat-${type} ${type}-shadow`}
         >
           <h4>Filter Premium</h4>
           <div className="flex items-center space-x-2">
@@ -449,12 +449,12 @@ const NewBusinessTable = ({ year = 2022, month = 1 }) => {
           </div>
           <div className="flex flex-col">
             <h4 className="mb-2">Effective</h4>
-            <div className="flex flex-wrap lg:gap-2">
+            <div className="flex flex-wrap xl:gap-2">
               {getMonths().map((x) => (
                 <div
                   key={x.m}
                   onClick={() => setMonthFilter(x.m)}
-                  className={`tag-basic mr-2 mb-2 min-w-[40px] cursor-pointer lg:mr-0 lg:mb-0 ${
+                  className={`tag-basic mr-2 mb-2 min-w-[40px] cursor-pointer xl:mr-0 xl:mb-0 ${
                     isTagActive(x.m)
                       ? `deal-tag-blue`
                       : `tag-gray-bg tag-inactive`

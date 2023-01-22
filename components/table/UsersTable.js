@@ -190,7 +190,7 @@ export default function UsersTable({ data = null, callback = null }) {
           <div
             className={`${
               item.is_active ? '' : 'opacity-50'
-            } flex flex-wrap items-center space-y-2 lg:gap-2 lg:space-y-0`}
+            } flex flex-wrap items-center space-y-2 xl:gap-2 xl:space-y-0`}
           >
             {item.admin ? (
               <div className="flex min-w-[65px] items-center justify-center rounded-md bg-red-500/20  text-[0.55rem] font-bold uppercase tracking-widest px-1 border-[1px] border-red-500 text-red-500">
@@ -404,9 +404,9 @@ export default function UsersTable({ data = null, callback = null }) {
   }
 
   return (
-    <div className="flex flex-col w-full h-full md:flex-row">
-      <div className="flex flex-col w-full h-full md:px-2">
-        <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 lg:h-16 lg:flex-row lg:space-y-0">
+    <div className="flex flex-col w-full h-full xl:flex-row">
+      <div className="flex flex-col w-full h-full xl:px-2">
+        <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 xl:h-16 xl:flex-row xl:space-y-0">
           <div className="flex w-full">
             <div className="flex items-center w-full pr-2">
               <Input

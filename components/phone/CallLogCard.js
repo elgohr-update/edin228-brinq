@@ -283,7 +283,7 @@ function CallLogCard({ record }) {
             hidden: { opacity: 0 },
           }}
           transition={{ ease: 'easeOut', duration: 0.5 }}
-          className="flex w-[300px] flex-col p-2 lg:w-[400px]"
+          className="flex w-[300px] flex-col p-2 xl:w-[400px]"
         >
           <div className="flex flex-col w-full mb-2">
             <div className="mb-2 text-xs opacity-60">Actions</div>

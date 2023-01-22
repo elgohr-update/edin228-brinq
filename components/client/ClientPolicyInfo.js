@@ -12,8 +12,8 @@ export default function ClientPolicyInfo({ policies, client }) {
   }
 
   return (
-    <div className="flex flex-col md:flex-row w-full md:items-center py-2">
-      <div className="flex md:items-center space-x-5 pl-2 md:pl-0">
+    <div className="flex flex-col xl:flex-row w-full xl:items-center py-2">
+      <div className="flex xl:items-center space-x-5 pl-2 xl:pl-0">
         <SummaryCard
           isIcon={false}
           autoWidth

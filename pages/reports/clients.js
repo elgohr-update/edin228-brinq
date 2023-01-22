@@ -64,7 +64,7 @@ export default function ReportsClient() {
     <main className="flex w-full flex-col">
       <ReportNavbar />
       <div className="flex w-full flex-col">
-        <div className="mb-2 flex h-full items-center space-x-4 overflow-x-auto px-4 py-4 md:mb-0 md:justify-center md:overflow-hidden">
+        <div className="mb-2 flex h-full items-center space-x-4 overflow-x-auto px-4 py-4 xl:mb-0 xl:justify-center xl:overflow-hidden">
           <SummaryCard
             vertical={false}
             val={premSum()}

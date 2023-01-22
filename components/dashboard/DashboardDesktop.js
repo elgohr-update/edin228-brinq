@@ -59,7 +59,7 @@ export default function DashboardDesktop() {
     <div className="flex flex-col w-full h-full">
       {loading && !data ? (
         <div className="flex w-full h-full">
-          <div className="flex w-full flex-col items-center justify-center lg:mt-[-200px]">
+          <div className="flex w-full flex-col items-center justify-center xl:mt-[-200px]">
             <Loading type="points-opacity" size="xl" color="primary" textColor="primary" />
             <div className="mt-5 tracking-widest uppercase opacity-80">
               Loading
@@ -67,11 +67,11 @@ export default function DashboardDesktop() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full h-full lg:flex-row lg:pl-2">
+        <div className="flex flex-col w-full h-full xl:flex-row xl:pl-2">
           <div className="flex flex-col w-full h-full">
             <div className="flex flex-col w-full shrink-0">
-              <div className="flex flex-col h-full px-4 lg:flex-row lg:px-0">
-                <div className="flex w-full h-full lg:items-center">
+              <div className="flex flex-col h-full px-4 xl:flex-row xl:px-0">
+                <div className="flex w-full h-full xl:items-center">
                   <DashboardCards
                     premium={data?.premium}
                     clients={data?.clients}
@@ -81,7 +81,7 @@ export default function DashboardDesktop() {
                     loading={loading}
                   />
                 </div>
-                <div className="justify-center hidden w-full lg:flex ">
+                <div className="justify-center hidden w-full xl:flex ">
                   <DashboardSummaryChart
                     fullData={data?.charts}
                     loading={loading}

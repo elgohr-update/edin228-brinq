@@ -23,11 +23,11 @@ export default function DashboardTeam({ base = [] }) {
   }, [base])
 
   return (
-    <div className={`mt-2 lg:mt-0 flex w-full rounded-lg flex-col`}>
+    <div className={`mt-2 xl:mt-0 flex w-full rounded-lg flex-col`}>
       <div
         className={`relative flex flex-auto shrink-0 min-h-[85px] rounded-lg w-full`}
       >
-        <div className="flex w-full justify-start lg:justfy-center lg:max-w-[72vw] lg:space-y-0 overflow-y-auto lg:max-h-[20vh] lg:gap-2 lg:space-x-0 overflow-x-auto">
+        <div className="flex w-full justify-start xl:justfy-center xl:max-w-[72vw] xl:space-y-0 overflow-y-auto xl:max-h-[20vh] xl:gap-2 xl:space-x-0 overflow-x-auto">
           {data?.map((d,i) => (
             <motion.div
               key={d.id}

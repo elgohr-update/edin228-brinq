@@ -32,7 +32,7 @@ function AgencyHeader({ data = null }) {
           flat
           size="xs"
         >
-          <span className="lg:mr-2">{getIcon('edit')}</span><span className="hidden lg:flex">Edit</span>
+          <span className="xl:mr-2">{getIcon('edit')}</span><span className="hidden xl:flex">Edit</span>
         </Button>
       </div>
     </div>

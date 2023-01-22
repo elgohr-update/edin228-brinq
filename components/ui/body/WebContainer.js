@@ -9,7 +9,7 @@ export default function WebContainer({children}) {
   return (
     <div className={`flex flex-col overflow-hidden mx-auto`}>
       <BubbleBackground />
-      <div className={`flex flex-col w-full lg:w-1/2 z-3 mx-auto overflow-hidden`}>
+      <div className={`flex flex-col w-full xl:w-1/2 z-3 mx-auto overflow-hidden`}>
         <Col className="h-screen">
           <Row className="w-full header-main">
             <BaseHeader />

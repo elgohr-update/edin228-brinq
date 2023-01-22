@@ -63,7 +63,7 @@ export default function PolicyTypeStarred({ policies, line }) {
   return (
     <div className="flex w-[325px] shrink-0 flex-col p-1">
       <h4 className="flex flex-auto">Preferred Policies</h4>
-      <div className="flex flex-wrap lg:gap-1">
+      <div className="flex flex-wrap xl:gap-1">
         {filteredAll.map((pt) => (
           <div key={pt.id}>
             <TagBasic

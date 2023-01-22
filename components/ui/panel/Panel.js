@@ -29,7 +29,7 @@ function Panel({
       }}
       transition={{ ease: 'easeInOut', duration: 0.5 }}
       className={`flex shrink-0 ${
-        horizontal ? 'flex-col md:flex-row' : 'flex-col'
+        horizontal ? 'flex-col xl:flex-row' : 'flex-col'
       } ${
         overflow ? `overflow-y-auto` : null
       } rounded-lg px-${px} py-${py} w-full ${

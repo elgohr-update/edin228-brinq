@@ -45,7 +45,7 @@ const TaskCard = ({
         <TaskCompletion task={task} />
         <div className="flex flex-auto" onClick={() => setSelected(!selected)}>
           <div className="flex flex-col flex-auto shrink-0">
-            <div className="flex flex-col flex-auto space-y-1 md:flex-row md:items-center md:space-y-0">
+            <div className="flex flex-col flex-auto space-y-1 xl:flex-row xl:items-center xl:space-y-0">
               <div className={`relative flex flex-auto flex-col space-y-1`}>
                 {showPolicy ? (
                   <div className="flex items-center space-x-1 text-xs">
@@ -86,7 +86,7 @@ const TaskCard = ({
             </div>
           </div>
           <div className="flex items-center justify-end">
-            <div className="flex justify-end space-x-1 lg:gap-2 lg:space-x-0">
+            <div className="flex justify-end space-x-1 xl:gap-2 xl:space-x-0">
               <div className="flex items-center">
                 <div className="flex items-center space-x-1 text-xs">
                   <h4>{task.comments.length}</h4>

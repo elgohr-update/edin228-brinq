@@ -102,7 +102,7 @@ export default function ClientTableCell({
             {cellValue}
           </a>
         </Link>
-        <div className="flex ml-4 lg:hidden">{getIcon('rightDrawer')}</div>
+        <div className="flex ml-4 xl:hidden">{getIcon('rightDrawer')}</div>
       </div>
       <div className="pl-3">
         <TagContainer tags={tags} />

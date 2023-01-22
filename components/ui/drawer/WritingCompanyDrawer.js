@@ -176,7 +176,7 @@ const WritingCompanyDrawer = () => {
       className={`fixed top-0 left-0 z-[999998] xl:z-[999999]`}
     >
       <div
-        className={`fixed right-0 flex h-full w-full flex-col overflow-hidden md:w-[800px] ${type}-shadow panel-theme-${type}`}
+        className={`fixed right-0 flex h-full w-full flex-col overflow-hidden xl:w-[800px] ${type}-shadow panel-theme-${type}`}
       >
         {!company ? (
           <DrawerLoader />
@@ -218,7 +218,7 @@ const WritingCompanyDrawer = () => {
                   </div>
                 </div>
                 <div
-                  className="absolute top-0 right-[10px] flex text-3xl font-bold md:hidden"
+                  className="absolute top-0 right-[10px] flex text-3xl font-bold xl:hidden"
                   onClick={() => closeDrawer()}
                 >
                   {getIcon('circleX')}
@@ -307,7 +307,7 @@ const WritingCompanyDrawer = () => {
                       {showParentData ? getIcon('up') : getIcon('down')}
                     </div>
                   </div>
-                  <div className="flex flex-col w-full lg:flex-row">
+                  <div className="flex flex-col w-full xl:flex-row">
                     <div className="flex flex-col space-y-2">
                       {showParentData ? (
                         <div
@@ -352,7 +352,7 @@ const WritingCompanyDrawer = () => {
               ) : null}
 
               <div className="flex flex-col w-full px-4">
-                <div className="flex items-center w-full pl-4 space-x-2 lg:gap-2 lg:space-x-0">
+                <div className="flex items-center w-full pl-4 space-x-2 xl:gap-2 xl:space-x-0">
                   <div className="flex">
                     <PanelTitle title={`Clients`} color="orange" />
                   </div>

@@ -102,7 +102,7 @@ export default function AppNotification() {
         hidden: { opacity: 0, x: 500 },
       }}
       transition={{ ease: 'easeInOut', duration: 0.25 }}
-      className={`absolute bottom-5 right-5 z-40 flex min-h-[80px] flex-auto flex-col space-y-1 lg:gap-2 lg:space-y-0`}
+      className={`absolute bottom-5 right-5 z-40 flex min-h-[80px] flex-auto flex-col space-y-1 xl:gap-2 xl:space-y-0`}
     >
       {notification?.map((n) => (
         <motion.div

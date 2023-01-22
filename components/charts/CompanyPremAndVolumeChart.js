@@ -263,7 +263,7 @@ export default function CompanyPremAndVolumeChart({
   const baseClass = `relative z-20 w-full h-[400px] rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className="flex flex-col flex-auto w-full h-full mt-2 shrink-0 lg:mt-0 lg:justify-center">
+    <div className="flex flex-col flex-auto w-full h-full mt-2 shrink-0 xl:mt-0 xl:justify-center">
       <div className={`${baseClass} flex py-2 px-4`}>
         <Chart
           data={chartData}

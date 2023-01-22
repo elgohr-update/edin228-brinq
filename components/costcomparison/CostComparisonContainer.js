@@ -47,7 +47,7 @@ export default function CostComparisonContainer() {
             </div>
             <div className={`bottom-border-flair pink-to-blue-gradient-1`} />
           </div>
-          <div className={`relative flex h-full py-1 md:pl-4`}>
+          <div className={`relative flex h-full py-1 xl:pl-4`}>
             <CostComparisonNodeList
               columnCount={state.costComparison.builder.template.headers.length}
             />

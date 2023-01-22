@@ -39,7 +39,7 @@ export default function DashboardRecentPolicies({hideTitle = false}) {
         </div>
       ) : null}
       <div
-        className={`flex h-full flex-col rounded-lg lg:h-[46vh] panel-theme-${type} ${type}-shadow overflow-hidden`}
+        className={`flex h-full flex-col rounded-lg xl:h-[46vh] panel-theme-${type} ${type}-shadow overflow-hidden`}
       >
         <div
           className={`policy-card-container flex flex-col overflow-y-auto overflow-x-hidden rounded-lg py-2`}

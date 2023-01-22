@@ -16,7 +16,7 @@ function PhoneContainer() {
     <div className={`fixed z-[9999999]  ${type}-shadow`}>
       {open ? (
         <motion.div
-          className={`fixed bottom-[0px] h-full flex w-full lg:w-[450px] right-[0px]`}
+          className={`fixed bottom-[0px] h-full flex w-full xl:w-[450px] right-[0px]`}
           initial="hidden"
           animate="visible"
           variants={{

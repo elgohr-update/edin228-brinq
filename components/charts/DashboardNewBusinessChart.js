@@ -282,7 +282,7 @@ export default function DashboardNewBusinessChart({
   const baseClass = `flex relative z-20 w-full h-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className="mt-2 lg:mt-0 flex flex-auto shrink-0 w-full h-full flex-col lg:justify-center">
+    <div className="mt-2 xl:mt-0 flex flex-auto shrink-0 w-full h-full flex-col xl:justify-center">
       <div className="pl-4">
         <PanelTitle title={`New Business`} color="lime" />
       </div>

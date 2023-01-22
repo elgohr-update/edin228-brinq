@@ -20,11 +20,11 @@ export default function Home() {
           <h4 className="">Coming Soon</h4>
         </div>
         {/* <div
-          className={`fixed z-20 h-full w-[700px] overflow-hidden left-[-200px] lg:left-0 lg:top-0 lg:flex`}
+          className={`fixed z-20 h-full w-[700px] overflow-hidden left-[-200px] xl:left-0 xl:top-0 xl:flex`}
         >
           <div className="relative flex h-full w-full">
             <div
-              className={`absolute z-20 h-full bg-overlay-home w-full backdrop-blur-xl lg:left-0 lg:top-0 lg:flex`}
+              className={`absolute z-20 h-full bg-overlay-home w-full backdrop-blur-xl xl:left-0 xl:top-0 xl:flex`}
             ></div>
           </div>
           <div className="absolute top-0 left-0 z-10 scale-x-[-1]">

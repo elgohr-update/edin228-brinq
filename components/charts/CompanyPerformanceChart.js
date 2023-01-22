@@ -267,7 +267,7 @@ export default function CompanyPerformanceChart({
   const baseClass = `relative z-20 w-full h-full rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className="mt-2 flex h-full w-full flex-auto shrink-0 flex-col lg:mt-0 lg:justify-center">
+    <div className="mt-2 flex h-full w-full flex-auto shrink-0 flex-col xl:mt-0 xl:justify-center">
       <div
         className={`${baseClass} panel-theme-${type} ${type}-shadow flex py-2 px-4`}
       >

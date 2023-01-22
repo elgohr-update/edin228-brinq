@@ -25,8 +25,8 @@ export default function NavLink({url,slug,icon,title}) {
         <Link href={url}>
             <a>
                 <div className={`flex relative text-xs tracking-wider transition duration-100 ease-out justify-center w-full items-center px-2 py-1 ${isActive(`${slug}`)}`}>
-                    <div className={`mr-0 md:mr-2 ${isActiveIcon(`${slug}`)}`}>{icon}</div>
-                    <div className={`hidden md:flex mr-2`}>{title}</div>
+                    <div className={`mr-0 xl:mr-2 ${isActiveIcon(`${slug}`)}`}>{icon}</div>
+                    <div className={`hidden xl:flex mr-2`}>{title}</div>
                     <div className={`${isActiveBorder(`${slug}`)} navlink-border`} />
                 </div>
             </a>

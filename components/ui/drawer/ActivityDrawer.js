@@ -374,22 +374,22 @@ const ActivityDrawer = () => {
             hidden: { opacity: 0, x: 50 },
           }}
           transition={{ ease: 'easeInOut', duration: 0.25 }}
-          className={`fixed left-0 top-0 z-[9999999] flex h-full w-full lg:z-[999997]`}
+          className={`fixed left-0 top-0 z-[9999999] flex h-full w-full xl:z-[999997]`}
         >
           <div
             className={`fixed ${
               activityDrawer.style == 1 ? 'xl:right-[100px]' : 'xl:right-[450px]'
-            }   right-0 flex h-full w-full flex-col md:w-[400px] ${type}-shadow panel-theme-${type}`}
+            }   right-0 flex h-full w-full flex-col xl:w-[400px] ${type}-shadow panel-theme-${type}`}
           >
-            <div className="flex flex-col flex-auto h-full py-2 space-y-2 overflow-hidden lg:gap-2">
+            <div className="flex flex-col flex-auto h-full py-2 space-y-2 overflow-hidden xl:gap-2">
               <div className={`relative mb-2 flex w-full flex-col px-2`}>
-                <div className="relative flex flex-col w-full md:flex-row md:justify-between">
+                <div className="relative flex flex-col w-full xl:flex-row xl:justify-between">
                   <div className="text-md flex h-[38px] items-end pb-1 font-semibold tracking-widest">
                     New Activity
                   </div>
                 </div>
                 <div
-                  className="absolute top-0 flex right-5 md:hidden"
+                  className="absolute top-0 flex right-5 xl:hidden"
                   onClick={() => closeDrawer()}
                 >
                   <div className="text-color-error">
