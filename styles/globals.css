@@ -305,13 +305,13 @@ p {
     linear,
     left top,
     left bottom,
-    from(#0f1018ba),
-    to(#8383830f)
+    from(#070708),
+    to(#101016a6)
   );
-  background-image: -o-linear-gradient(top, #0f1018ba, #8383830f);
-  background-image: linear-gradient(to bottom, #0f1018ba, #8383830f);
-  -webkit-backdrop-filter: blur(28px);
-  backdrop-filter: blur(28px);
+  background-image: -o-linear-gradient(top, #070708, #101016a6);
+  background-image: linear-gradient(to bottom, #070708, #101016a6);
+  /* -webkit-backdrop-filter: blur(28px); */
+  backdrop-filter: blur(12px);
 }
 .sidebar-theme-light {
   background-image: -webkit-gradient(
@@ -323,8 +323,8 @@ p {
   );
   background-image: -o-linear-gradient(top, rgb(255, 255, 255), #ffffff9e);
   background-image: linear-gradient(to bottom, rgb(255, 255, 255), #ffffff9e);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  /* -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px); */
 }
 .panel-theme-dark {
   background-image: -webkit-gradient(
@@ -336,21 +336,34 @@ p {
   );
   background-image: -o-linear-gradient(top, #3837400d, #8383830f);
   background-image: linear-gradient(to bottom, #3837400d, #8383830f);
+  /* -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px); */
+}
+/* .panel-theme-dark {
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#3837400d),
+    to(#8383830f)
+  );
+  background-image: -o-linear-gradient(47deg, #00000047, #14141c94);
+  background-image: linear-gradient(47deg, #00000047, #14141c94);
   -webkit-backdrop-filter: blur(28px);
   backdrop-filter: blur(28px);
-}
+} */
 .panel-theme-sidebar-dark {
   background-image: -webkit-gradient(
     linear,
     left top,
     left bottom,
     from(#070708),
-    to(#2f303e47)
+    to(#101016a6)
   );
-  background-image: -o-linear-gradient(top, #070708, #2f303e47);
-  background-image: linear-gradient(to bottom, #070708, #2f303e47);
-  -webkit-backdrop-filter: blur(28px);
-  backdrop-filter: blur(28px);
+  background-image: -o-linear-gradient(top, #070708, #101016a6);
+  background-image: linear-gradient(to bottom, #070708, #101016a6);
+  /* -webkit-backdrop-filter: blur(28px); */
+  backdrop-filter: blur(12px);
 }
 .panel-theme-light {
   background-image: -webkit-gradient(
@@ -362,8 +375,8 @@ p {
   );
   background-image: -o-linear-gradient(top, rgb(255, 255, 255), #ffffff9e);
   background-image: linear-gradient(to bottom, rgb(255, 255, 255), #ffffff9e);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  /* -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px); */
 }
 .panel-theme-sidebar-light {
   background-image: -webkit-gradient(
@@ -375,21 +388,21 @@ p {
   );
   background-image: -o-linear-gradient(top, rgb(255, 255, 255), #ffffff9e);
   background-image: linear-gradient(to bottom, rgb(255, 255, 255), #ffffff9e);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  /* -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px); */
 }
 .panel-flat-dark {
   background: #8383830f;
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  /* -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px); */
 }
 .panel-flat-noblur-dark {
   background: #8383830f;
 }
 .panel-flat-light {
   background: #ffffff;
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  /* -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px); */
 }
 .panel-flat-noblur-light {
   background: #ffffff;
@@ -399,8 +412,8 @@ p {
 }
 .panel-flatter-light {
   background: #ffffff;
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
+  /* -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px); */
 }
 .card-overlay-bg {
   background: #ffffff30;
@@ -545,7 +558,6 @@ p {
 }
 
 .blur-screen {
-  -webkit-backdrop-filter: blur(170px);
   backdrop-filter: blur(170px);
   position: fixed;
   display: block;
@@ -553,8 +565,8 @@ p {
   left: 0;
 }
 .blur-screen-dark {
-  background-image: -o-linear-gradient(75deg, #040508, #0000003d);
-  background-image: linear-gradient(15deg, #040508, #0000003d);
+  background-image: -o-linear-gradient(75deg, #040508, #000000a6);
+  background-image: linear-gradient(15deg, #040508, #000000a6);
 }
 .blur-screen-light {
   background-image: -o-linear-gradient(271deg, #f8f8f8, #ffffff);
@@ -693,7 +705,7 @@ p {
   );
   background: -o-linear-gradient(left, #ff00ce  0%, #ff0042  100%);
   background: linear-gradient(90deg, #ff00ce  0%, #ff0042  100%);
-  filter: blur(140px);
+  filter: blur(100px);
 }
 .blue__gradient {
   background: -webkit-gradient(
@@ -705,7 +717,7 @@ p {
   );
   background: -o-linear-gradient(left, #25e1f4 0%, #5550a3 100%);
   background: linear-gradient(90deg, #25e1f4 0%, #5550a3 100%);
-  filter: blur(140px);
+  filter: blur(100px);
 }
 .purple_blue__gradient {
   background: -webkit-gradient(
@@ -717,7 +729,7 @@ p {
   );
   background: -o-linear-gradient(left, #59218d  0%, #e614ee  100%);
   background: linear-gradient(90deg, #59218d  0%, #e614ee  100%);
-  filter: blur(140px);
+  filter: blur(100px);
 }
 .orange__gradient {
   background: -webkit-gradient(
@@ -729,7 +741,7 @@ p {
   );
   background: -o-linear-gradient(left, #f46748  0%, #ed252f  100%);
   background: linear-gradient(90deg, #f46748  0%, #ed252f  100%);
-  filter: blur(140px);
+  filter: blur(100px);
 }
 
 .yellow-to-pink-gradient-1 {

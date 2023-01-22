@@ -51,7 +51,7 @@ export default function DashboardSummaryCard({
       className={`${gradient} content-dark relative flex h-[85px] lg:h-[100px] w-full flex-col rounded-lg ${shadow? getShadowColor():``}`}
     >
       <div className="relative z-20 flex flex-col h-full">
-        <div className="z-40 flex flex-col items-center justify-center h-full space-x-1 text-sm font-semibold text-center lg:items-end lg:flex-row lg:space-x-2 lg:text-lg">
+        <div className="z-40 flex flex-col items-center justify-end h-full space-x-1 text-xs font-semibold text-center lg:justify-center lg:items-end lg:flex-row lg:space-x-2 lg:text-lg">
           <div className="flex pb-1">{icon}</div>
           <div className="flex items-center justify-center tracking-widest text-center uppercase">{label}</div>
         </div>

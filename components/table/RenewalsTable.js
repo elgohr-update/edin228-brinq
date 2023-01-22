@@ -36,7 +36,7 @@ import ClientDrawer from '../ui/drawer/ClientDrawer'
 
 export default function RenewalsTable(data) {
   const router = useRouter()
-  const [pageSize, setPageSize] = useState(15)
+  const [pageSize, setPageSize] = useState(20)
   const { month, year } = router.query
   const { type } = useTheme()
   const { agency, setAgency } = useAgencyContext()
