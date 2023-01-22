@@ -89,7 +89,7 @@ function SuspenseCard({
           <div className="data-point-xs pink-to-blue-gradient-1"></div>
           <div className="flex items-center space-x-2">
             <h4>Due</h4>
-            <h6 className={`small-subtext ${isLate(data?.date)} flex items-center`}>
+            <h6 className={`small-subtext font-bold ${isLate(data?.date)} flex items-center`}>
               {getFormattedDate(data?.date)}
             </h6>
           </div>
