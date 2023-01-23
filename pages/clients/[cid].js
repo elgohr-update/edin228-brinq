@@ -17,6 +17,7 @@ import { BsChatLeftQuoteFill } from 'react-icons/bs'
 import { RiPlayListAddFill } from 'react-icons/ri'
 import PolicyCard from '../../components/policy/PolicyCard'
 import {
+  isLaptop,
   reverseList,
   sortByProperty,
   timeout,
@@ -159,9 +160,11 @@ export default function Client({ data }) {
     window.open(URL, '_blank')
   }
 
+  const checkLaptop = isLaptop()
+
   return (
     <div className="relative flex h-full w-full flex-auto shrink-0 flex-col overflow-y-auto overflow-x-hidden xl:max-h-[92.6vh] xl:flex-row xl:overflow-hidden">
-      <div className="flex flex-auto shrink-0 xl:w-[320px] xl:py-0 xl:pb-8">
+      <div className="flex xl:flex-auto xl:shrink-0 xl:w-[320px] xl:py-0 xl:pb-8">
         <div
           className={`relative flex flex-auto  flex-col space-y-2 py-4 px-4`}
         >
@@ -174,86 +177,99 @@ export default function Client({ data }) {
           />
         </div>
       </div>
-      <div className="flex flex-col flex-auto xl:w-full xl:overflow-hidden">
-        <div className="flex items-center justify-between shrink-0">
+      <div className="flex flex-col xl:w-full xl:overflow-hidden">
+        <div className="flex flex-col-reverse items-center xl:justify-between xl:flex-row shrink-0">
           <ClientDataNavbar />
-          <div className="flex items-center py-2 pr-2 space-x-2 xl:justify-end xl:py-0">
+          <div className="flex items-center justify-center py-2 pr-2 space-x-2 xl:justify-end xl:py-0">
             <div className="flex items-center space-x-1">
-              {/* <Button size="xs" flat auto>
-                <BiPaperPlane />
-              </Button>
-              <Button size="xs" flat auto>
-                <BsChatLeftQuoteFill />
-              </Button> */}
               <Tooltip content="Create Activity / Suspense">
                 <Button size="xs" flat auto onClick={() => openNewActivity()}>
-                  <RiPlayListAddFill />
+                  <div className="flex items-center xl:space-x-2">
+                    <RiPlayListAddFill />
+                    <div className="flex ">Create Activity</div>
+                  </div>
                 </Button>
               </Tooltip>
               <Tooltip content="Open in AMS360">
                 <Button size="xs" flat auto onClick={() => openAMS360Page()}>
-                  <BiLinkExternal />
+                  <div className="flex items-center xl:space-x-2">
+                    <BiLinkExternal />
+                    <div className="flex ">AMS360 Link</div>
+                  </div>
                 </Button>
               </Tooltip>
               <Tooltip content="Re-Sync with AMS360">
                 <Button size="xs" flat auto onClick={() => syncAms()}>
-                  <BiRefresh />
+                  <div className="flex items-center xl:space-x-2">
+                    <BiRefresh />
+                    <div className="flex ">AMS360 Sync</div>
+                  </div>
                 </Button>
               </Tooltip>
             </div>
           </div>
         </div>
-        {state.client.dataNavbar === 1 ? (
-          <div className="flex flex-col flex-auto w-full shrink-0 xl:overflow-hidden">
-            <div className="flex items-center w-full px-4 shrink-0">
-              <ClientPolicyInfo client={client} policies={getPolicies(true)} />
-              <div>
-                <h4>Active</h4>
-                <Switch
-                  checked={showActive}
-                  size="xs"
-                  onChange={(e) => setShowActive(e.target.checked)}
+        <div className="h-full overflow-y-auto">
+          {state.client.dataNavbar === 1 ? (
+            <div className="flex flex-col flex-auto w-full shrink-0 xl:overflow-hidden">
+              <div className="flex items-center w-full px-4 shrink-0">
+                <ClientPolicyInfo
+                  client={client}
+                  policies={getPolicies(true)}
                 />
+                <div>
+                  <h4>Active</h4>
+                  <Switch
+                    checked={showActive}
+                    size="xs"
+                    onChange={(e) => setShowActive(e.target.checked)}
+                  />
+                </div>
+              </div>
+              <div
+                className={`flex h-auto flex-auto shrink-0 flex-col space-y-2 px-4 py-2 xl:max-h-[82vh] xl:overflow-y-auto xl:pb-8`}
+              >
+                {getPolicies(showActive).map((u, indx) => (
+                  <Panel
+                    animationDelay={indx}
+                    flat
+                    key={u.id}
+                    overflow={false}
+                    px={0}
+                    py={0}
+                  >
+                    <PolicyCard policy={u} truncate={60} />
+                  </Panel>
+                ))}
               </div>
             </div>
-            <div
-              className={`flex h-auto flex-auto shrink-0 flex-col space-y-2 px-4 py-2 xl:max-h-[82vh] xl:overflow-y-auto xl:pb-8`}
-            >
-              {getPolicies(showActive).map((u, indx) => (
-                <Panel
-                  animationDelay={indx}
-                  flat
-                  key={u.id}
-                  overflow={false}
-                  px={0}
-                  py={0}
-                >
-                  <PolicyCard policy={u} truncate={60} />
-                </Panel>
-              ))}
-            </div>
+          ) : null}
+          {state.client.dataNavbar === 3 ? <ClientActivity clientId={client?.id} limit={50} /> : null }
+          {state.client.dataNavbar === 5 ? <ClientFiles files={client?.attachments} /> : null }
+        </div>
+      </div>
+      {checkLaptop ? null : (
+        <div
+          className={`mt-4 flex shrink-0 flex-col pb-2 xl:mt-0 xl:w-[600px]`}
+        >
+          <div className="xl:px-4">
+            <ClientActionNavbar />
           </div>
-        ) : null}
-      </div>
-      <div
-        className={`mt-4 flex shrink-0 flex-col pb-2 xl:w-[600px] xl:mt-0`}
-      >
-        <div className="xl:px-4">
-          <ClientActionNavbar />
+          <div className="flex w-full xl:overflow-y-auto xl:px-4">
+            {state.client.actionNavbar === 1 && client ? (
+              <ClientActivity clientId={client?.id} limit={50} />
+            ) : null}
+            {state.client.actionNavbar === 3 && client ? (
+              <ClientFiles files={client?.attachments} />
+            ) : null}
+          </div>
         </div>
-        <div className="flex w-full xl:overflow-y-auto xl:px-4">
-          {state.client.actionNavbar === 1 && client ? (
-            <ClientActivity clientId={client?.id} limit={50} />
-          ) : null}
-          {state.client.actionNavbar === 3 && client ? (
-            <ClientFiles files={client?.attachments} />
-          ) : null}
-        </div>
-      </div>
+      )}
+
       <NewActivityModal
         open={showActivityModal}
         callBack={closeActivityModal}
-        preLoadClient={{id:data.id, name:data.client_name}}
+        preLoadClient={{ id: data.id, name: data.client_name }}
       />
     </div>
   )

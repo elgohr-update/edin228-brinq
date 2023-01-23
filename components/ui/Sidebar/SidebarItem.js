@@ -20,7 +20,7 @@ export default function SidebarItem({ href, isOpen, icon, label, basePath = href
     return ''
   }
   return (
-    <div className="sidebar-item relative min-w-[200px]">
+    <div className="sidebar-item relative min-w-[200px] z-30">
       <Link href={href}>
         <a
           className={`flex w-full items-center  rounded-lg py-1 px-2 text-xs hover:text-sky-500`}

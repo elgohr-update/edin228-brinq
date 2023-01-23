@@ -310,7 +310,33 @@ p {
   );
   background-image: -o-linear-gradient(top, #070708, #101016a6);
   background-image: linear-gradient(to bottom, #070708, #101016a6);
-  /* -webkit-backdrop-filter: blur(28px); */
+  backdrop-filter: blur(12px);
+}
+
+.panel-theme-dark {
+  /* background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#3837400d),
+    to(#8383830f)
+  );
+  background-image: -o-linear-gradient(top, #3837400d, #8383830f);
+  background-image: linear-gradient(to bottom, #3837400d, #8383830f); */
+  background:#191a2257;
+
+}
+.panel-theme-sidebar-dark {
+  /* background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#070708),
+    to(#101016a6)
+  );
+  background-image: -o-linear-gradient(top, #070708, #101016a6);
+  background-image: linear-gradient(to bottom, #070708, #101016a6); */
+  background: #0f1014ed;
   backdrop-filter: blur(12px);
 }
 .sidebar-theme-light {
@@ -323,30 +349,6 @@ p {
   );
   background-image: -o-linear-gradient(top, rgb(255, 255, 255), #ffffff9e);
   background-image: linear-gradient(to bottom, rgb(255, 255, 255), #ffffff9e);
-  backdrop-filter: blur(12px);
-}
-.panel-theme-dark {
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#3837400d),
-    to(#8383830f)
-  );
-  background-image: -o-linear-gradient(top, #3837400d, #8383830f);
-  background-image: linear-gradient(to bottom, #3837400d, #8383830f);
-
-}
-.panel-theme-sidebar-dark {
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#070708),
-    to(#101016a6)
-  );
-  background-image: -o-linear-gradient(top, #070708, #101016a6);
-  background-image: linear-gradient(to bottom, #070708, #101016a6);
   backdrop-filter: blur(12px);
 }
 .panel-theme-light {
@@ -373,19 +375,19 @@ p {
   backdrop-filter: blur(12px);
 }
 .panel-flat-dark {
-  background: #8383830f;
+  background: #1e202a3d;
 }
 .panel-flat-noblur-dark {
-  background: #8383830f;
+  background: #1e202a3d;
+}
+.panel-flatter-dark {
+  background: #110f14;
 }
 .panel-flat-light {
   background: #ffffff;
 }
 .panel-flat-noblur-light {
   background: #ffffff;
-}
-.panel-flatter-dark {
-  background: #110f14;
 }
 .panel-flatter-light {
   background: #ffffff;

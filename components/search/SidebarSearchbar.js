@@ -51,7 +51,7 @@ const SidebarSearchbar = ({ expand }) => {
       <div
         className={`${
           expand ? 'absolute left-[-200px] opacity-0' : 'opacity-1 relative'
-        } p-4 h-[30px] flex items-center justify-center panel-flat-${type} rounded-lg`}
+        } p-4 h-[30px] flex items-center justify-center  rounded-lg`}
       >
         <BiSearch />
       </div>
@@ -84,7 +84,7 @@ const SidebarSearchbar = ({ expand }) => {
           } max-h-[90vh]`}
         >
           {loading ? (
-            <div className="flex w-full items-center justify-center">
+            <div className="flex items-center justify-center w-full">
               <Loading size="md" color="primary" textColor="primary" />
             </div>
           ) : (
