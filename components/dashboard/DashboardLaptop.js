@@ -144,11 +144,6 @@ export default function DashboardLaptop() {
                     <div className="flex flex-col">
                       <DashboardActivitySuspenseContainer />
                     </div>
-                    <div className="flex flex-col">
-                      <div className="flex flex-col flex-auto">
-                        <DashboardExpiringAndRecent />
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
