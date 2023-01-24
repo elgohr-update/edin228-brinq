@@ -114,7 +114,7 @@ export default function DashboardDesktop() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col w-full shrink-0">
+                  <div className="flex flex-col w-full px-2 shrink-0">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
                   <div className="flex flex-col flex-auto w-full gap-2 p-2">
