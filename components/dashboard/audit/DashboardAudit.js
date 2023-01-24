@@ -1,13 +1,15 @@
-import { useTheme } from '@nextui-org/react'
+import { Popover, useTheme } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import { isMobile, timeout, useNextApi } from '../../../utils/utils'
 import PanelTitle from '../../ui/title/PanelTitle'
 import AuditCard from './AuditCard'
 
-function DashboardAudit() {
+function DashboardAudit({ gradient = null, shadowColor = 'pink' }) {
   const { type } = useTheme()
   const [policies, setPolicies] = useState(null)
   const [contacts, setContacts] = useState(null)
+  const [policiesTotal, setPoliciesTotal] = useState(0)
+  const [contactsTotal, setContactsTotal] = useState(0)
 
   useEffect(() => {
     let isCancelled = false
@@ -26,57 +28,116 @@ function DashboardAudit() {
   const fetchData = async () => {
     const res1 = await useNextApi('GET', `/api/audit/policies`)
     setPolicies(res1)
+    setPoliciesTotal(
+      res1?.past_expiration.length +
+        res1?.zero_premium.length +
+        res1?.policies_missing_description.length
+    )
     const res2 = await useNextApi('GET', `/api/audit/contacts`)
     setContacts(res2)
+    setContactsTotal(
+      res2?.contacts_missing_email.length + res2?.contacts_missing.length
+    )
   }
-  const mobile =  isMobile();
-  
+  const mobile = isMobile()
+  const getShadowColor = () => {
+    switch (shadowColor) {
+      case 'green':
+        return 'green-shadow'
+      case 'blue':
+        return 'blue-shadow'
+      case 'orange':
+        return 'orange-shadow'
+      case 'purple':
+        return 'purple-shadow'
+      case 'pink':
+        return 'pink-shadow'
+    }
+  }
   return (
     <div
-      className={`relative flex h-full w-full flex-auto shrink-0 flex-col rounded-lg`}
+      className={`content-dark relative flex flex-auto cursor-pointer flex-col items-end panel-theme-${type} h-[120px] w-full 2xl:w-[240px] overflow-hidden rounded-lg p-4 ${gradient} ${getShadowColor()}`}
     >
-      <div className="pl-4">
-        {!mobile ? <PanelTitle title={`Audits`} color="red" /> : null}
+      <div className={`flex w-full items-center justify-end gap-4 rounded-lg`}>
+        <Popover placement="bottom-right">
+          <Popover.Trigger>
+            <div
+              className={`content-dark relative flex cursor-pointer flex-col items-end overflow-hidden rounded-lg `}
+            >
+              <div className="z-30 flex items-end justify-end w-full h-full font-bold">
+                <div className="flex text-3xl font-bold">
+                  {policies
+                    ? policies?.past_expiration.length +
+                      policies?.zero_premium.length +
+                      policies?.policies_missing_description.length
+                    : 0}
+                </div>
+              </div>
+              <div
+                className={`z-30 flex items-end justify-end text-right text-sm font-bold`}
+              >
+                Policy Issues
+              </div>
+            </div>
+          </Popover.Trigger>
+          <Popover.Content css={{ zIndex: '99', px: '$4', py: '$2' }}>
+            <div className="flex items-center w-full gap-2">
+              <AuditCard
+                title={'Active Policies Expired'}
+                init={policies?.past_expiration}
+                usePolicyCard
+              />
+              <AuditCard
+                title={'Policies with $0 Prem'}
+                init={policies?.zero_premium}
+                usePolicyCard
+              />
+              <AuditCard
+                title={'Policies Missing Description'}
+                init={policies?.policies_missing_description}
+                usePolicyCard
+              />
+            </div>
+          </Popover.Content>
+        </Popover>
+        <Popover placement="bottom-right">
+          <Popover.Trigger>
+            <div
+              className={`content-dark relative flex cursor-pointer flex-col items-end overflow-hidden rounded-lg `}
+            >
+              <div className="z-30 flex items-end justify-end w-full h-full font-bold">
+                <div className="flex text-3xl font-bold">
+                  {contacts
+                    ? contacts?.contacts_missing_email.length +
+                      contacts?.contacts_missing.length
+                    : 0}
+                </div>
+              </div>
+              <div
+                className={`z-30 flex items-end justify-end text-right text-sm font-bold`}
+              >
+                Contact Issues
+              </div>
+            </div>
+          </Popover.Trigger>
+          <Popover.Content css={{ zIndex: '99', px: '$4', py: '$2' }}>
+            <div className="flex items-center w-full gap-2">
+              <AuditCard
+                title={'Contacts Missing Email'}
+                init={contacts?.contacts_missing_email}
+                useContactCard
+              />
+              <AuditCard
+                title={'Clients Missing Contacts'}
+                init={contacts?.contacts_missing}
+                useClientCard
+              />
+            </div>
+          </Popover.Content>
+        </Popover>
       </div>
-      <div
-        className={`flex flex-col space-y-2 xl:flex-row xl:space-y-0 panel-theme-${type} ${type}-shadow min-h-[130px] w-full gap-2 rounded-lg p-2`}
-      >
-        <AuditCard
-          color={'rose'}
-          title={'Active Policies Expired'}
-          init={policies?.past_expiration}
-          usePolicyCard
-        />
-        {/* <AuditCard
-          title={'Policies Mislabeled Line'}
-          init={policies?.policy_with_wrong_line}
-          usePolicyCard
-        /> */}
-        <AuditCard
-          title={'Policies with $0 Prem'}
-          init={policies?.zero_premium}
-          usePolicyCard
-        />
-        <AuditCard
-          title={'Policies Missing Description'}
-          init={policies?.policies_missing_description}
-          usePolicyCard
-        />
-        <AuditCard
-          title={'Contacts missing Email'}
-          init={contacts?.contacts_missing_email}
-          useContactCard
-        />
-        {/* <AuditCard
-          title={'Contacts missing phone'}
-          init={contacts?.contacts_missing_phone}
-          useContactCard
-        /> */}
-        <AuditCard
-          title={'Clients missing Contacts'}
-          init={contacts?.contacts_missing}
-          useClientCard
-        />
+      <div className={`z-30 flex py-1 text-right font-bold xl:text-xl`}>
+        Client Audits
       </div>
     </div>
   )

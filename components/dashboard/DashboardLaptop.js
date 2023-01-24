@@ -12,6 +12,8 @@ import DashboardActivitySuspenseContainer from './containers/DashboardActivitySu
 import DashboardExpiringAndRecent from './containers/DashboardExpiringAndRecent'
 import DashboardExpiringPolicies from './expiring/DashboardExpiringPolicies'
 import DashboardRecentPolicies from './policy/DashboardRecentPolicies'
+import CurrentMonthSummary from './summary/CurrentMonthSummary'
+import DashboardGlanceSummaryCard from './summary/DashboardGlanceSummaryCard'
 import DashboardSuspense from './suspense/DashboardSuspense'
 import DashboardTeam from './team/DashboardTeam'
 import DashboardTodos from './todos/DashboardTodos'
@@ -20,6 +22,8 @@ export default function DashboardLaptop() {
   const { appHeader, setAppHeader } = useAppHeaderContext()
   const [data, setData] = useState(null)
   const [tasks, setTasks] = useState(null)
+  const [expiringPolicies, setExpiringPolicies] = useState([])
+  const [recentlyAdded, setRecentlyAdded] = useState([])
   const [loading, setLoading] = useState(true)
   const { reload, setReload } = useReloadContext()
 
@@ -47,9 +51,19 @@ export default function DashboardLaptop() {
     const res = await useNextApi('GET', `/api/tasks/`)
     setTasks(res)
   }
+  const fetchExpiringPolicies = async () => {
+    const res = await useNextApi('GET', `/api/policy/expiring`)
+    setExpiringPolicies(res)
+  }
+  const fetchRecentlyAdded = async () => {
+    const res = await useNextApi('GET', `/api/policy/recent`)
+    setRecentlyAdded(res)
+  }
 
   const fetchData = async () => {
     fetchTasks()
+    fetchExpiringPolicies()
+    fetchRecentlyAdded()
     const res = await useNextApi('GET', `/api/summary/dashboard`)
     setData(res)
     setLoading(false)
@@ -104,8 +118,28 @@ export default function DashboardLaptop() {
                     <DashboardTeam base={data?.relation_list} />
                   </div>
                   <div className="flex flex-col flex-auto w-full gap-4 p-2">
-                    <div className="flex flex-col">
-                      <DashboardAudit />
+                  <div className="flex flex-col items-center gap-2">
+                      <CurrentMonthSummary data={data?.relation_list} />
+                      <div className="flex items-center w-full gap-4 p-2">
+                        <DashboardGlanceSummaryCard
+                          title={`Expiring Soon`}
+                          data={expiringPolicies}
+                          gradient={`orange-to-red-gradient-2`}
+                          shadowColor={`orange`}
+                          usePolicyCard
+                        />
+                        <DashboardGlanceSummaryCard
+                          title={`Recently Added`}
+                          data={recentlyAdded}
+                          gradient={`blue-to-purple-to-cyan-gradient-1`}
+                          shadowColor={`purple`}
+                          usePolicyCard
+                        />
+                        <DashboardAudit
+                          gradient={`pink-gradient-1`}
+                          shadowColor={`pink`}
+                        />
+                      </div>
                     </div>
                     <div className="flex flex-col">
                       <DashboardActivitySuspenseContainer />

@@ -85,13 +85,21 @@ function SuspenseCard({
           )}
         </div>
         <div className="flex items-center justify-end w-full space-x-2">
-          <h4 className="text-right">{data.activity_type}</h4>
-          <div className="data-point-xs pink-to-blue-gradient-1"></div>
-          <div className="flex items-center space-x-2">
-            <h4>Due</h4>
-            <h6 className={`small-subtext font-bold ${isLate(data?.date)} flex items-center`}>
-              {getFormattedDate(data?.date)}
-            </h6>
+          <div className="flex flex-col">
+            <h4 className="text-right">{data.activity_type}</h4>
+            <div className="flex items-center justify-end w-full space-x-2">
+              <div className="data-point-xs pink-to-blue-gradient-1"></div>
+              <div className="flex items-center space-x-2">
+                <h4>Due</h4>
+                <h6
+                  className={`small-subtext font-bold ${isLate(
+                    data?.date
+                  )} flex items-center`}
+                >
+                  {getFormattedDate(data?.date)}
+                </h6>
+              </div>
+            </div>
           </div>
         </div>
       </div>

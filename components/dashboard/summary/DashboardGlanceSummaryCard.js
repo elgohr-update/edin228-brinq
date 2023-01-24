@@ -1,33 +1,34 @@
 import { Button, Input, Modal, useTheme } from '@nextui-org/react'
+import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
+import { useAgencyContext } from '../../../context/state'
 import {
   downloadExcel,
   getIcon,
   getSearch,
   timeout,
 } from '../../../utils/utils'
-import { motion } from 'framer-motion'
-import DashboardPolicyCard from '../policy/DashboardPolicyCard'
-import ContactCard from '../../contact/ContactCard'
-import { useAgencyContext } from '../../../context/state'
-import { useSession } from 'next-auth/react'
-import BrinqSelect from '../../ui/select/BrinqSelect'
 import ClientCard from '../../client/ClientCard'
+import ContactCard from '../../contact/ContactCard'
+import BrinqSelect from '../../ui/select/BrinqSelect'
+import DashboardPolicyCard from '../policy/DashboardPolicyCard'
+import { motion } from 'framer-motion'
 
-function AuditCard({
-  init = null,
+function DashboardGlanceSummaryCard({
   title = null,
-  color = null,
+  data = [],
+  gradient = null,
+  shadowColor = null,
   usePolicyCard = false,
   useContactCard = false,
   useClientCard = false,
 }) {
-  const { type, isDark } = useTheme()
+  const { type } = useTheme()
   const { data: session } = useSession()
-  const [openModal, setOpenModal] = useState(false)
   const { agency, setAgency } = useAgencyContext()
-  const [data, setData] = useState(null)
   const [raw, setRaw] = useState(null)
+  const [tableData, setTableData] = useState(null)
+  const [showModal, setShowModal] = useState(false)
   const [lineFilter, setLineFilter] = useState([
     'Commercial Lines',
     'Personal Lines',
@@ -48,8 +49,8 @@ function AuditCard({
     const handleChange = async () => {
       await timeout(100)
       if (!isCancelled) {
-        setData(init)
-        setRaw(init)
+        setTableData(data)
+        setRaw(data)
         if (useClientCard || usePolicyCard) {
           const userOptions = agency?.users
             ?.filter((y) => y.is_active)
@@ -66,7 +67,7 @@ function AuditCard({
     return () => {
       isCancelled = true
     }
-  }, [init])
+  }, [data])
 
   useEffect(() => {
     let isCancelled = false
@@ -110,112 +111,7 @@ function AuditCard({
         (entry) => lineCheck(entry.line) && checkRep(entry.users)
       )
       let newData = filtered
-      setData(newData)
-    }
-  }
-
-  const getColor = () => {
-    const def = { bg: ``, text: ``, shadow: '' }
-    switch (color) {
-      case 'emerald':
-        return {
-          bg: `bg-emerald-500`,
-          text: `text-emerald-400`,
-          shadow: 'blue-shadow',
-        }
-      case 'sky':
-        return { bg: `bg-sky-500`, text: `text-sky-400`, shadow: 'blue-shadow' }
-      case 'purple':
-        return {
-          bg: `bg-purple-500`,
-          text: `text-purple-400`,
-          shadow: 'pink-shadow',
-        }
-      case 'pink':
-        return {
-          bg: `bg-pink-500`,
-          text: `text-pink-400`,
-          shadow: 'pink-shadow',
-        }
-      case 'teal':
-        return {
-          bg: `bg-teal-500`,
-          text: `text-teal-400`,
-          shadow: 'blue-shadow',
-        }
-      case 'amber':
-        return {
-          bg: `bg-amber-500`,
-          text: `text-amber-400`,
-          shadow: 'orange-shadow',
-        }
-      case 'fuchsia':
-        return {
-          bg: `bg-fuchsia-500`,
-          text: `text-fuchsia-400`,
-          shadow: 'pink-shadow',
-        }
-      case 'rose':
-        return {
-          bg: `bg-rose-500`,
-          text: `text-rose-400`,
-          shadow: 'pink-shadow',
-        }
-      case 'violet':
-        return {
-          bg: `bg-violet-500`,
-          text: `text-violet-400`,
-          shadow: 'purple-shadow',
-        }
-      case 'indigo':
-        return {
-          bg: `bg-indigo-500`,
-          text: `text-indigo-400`,
-          shadow: 'purple-shadow',
-        }
-      case 'cyan':
-        return {
-          bg: `bg-cyan-500`,
-          text: `text-cyan-400`,
-          shadow: 'blue-shadow',
-        }
-      case 'red':
-        return { bg: `bg-red-500`, text: `text-red-400`, shadow: 'pink-shadow' }
-      case 'rose':
-        return {
-          bg: `bg-rose-500`,
-          text: `text-rose-500`,
-          shadow: 'pink-shadow',
-        }
-      case 'yellow':
-        return {
-          bg: `bg-yellow-500`,
-          text: `text-yellow-400`,
-          shadow: 'orange-shadow',
-        }
-      case 'orange':
-        return {
-          bg: `bg-orange-500`,
-          text: `text-orange-400`,
-          shadow: 'orange-shadow',
-        }
-      case 'lime':
-        return {
-          bg: `bg-lime-500`,
-          text: `text-lime-400`,
-          shadow: 'green-shadow',
-        }
-      default:
-        return def
-    }
-  }
-
-  const search = (val) => {
-    if (val.length > 1) {
-      const filtered = getSearch(raw, val)
-      setData(filtered)
-    } else {
-      setData(raw)
+      setTableData(newData)
     }
   }
 
@@ -277,18 +173,42 @@ function AuditCard({
     }
   })
 
+  const getShadowColor = () => {
+    switch (shadowColor) {
+      case 'green':
+        return 'green-shadow'
+      case 'blue':
+        return 'blue-shadow'
+      case 'orange':
+        return 'orange-shadow'
+      case 'purple':
+        return 'purple-shadow'
+      case 'pink':
+        return 'pink-shadow'
+    }
+  }
+
+  const search = (val) => {
+    if (val.length > 1) {
+      const filtered = getSearch(raw, val)
+      setTableData(filtered)
+    } else {
+      setTableData(raw)
+    }
+  }
+
   return (
     <>
       <div
-        className={`flex h-[100px] flex-auto w-[150px] p-4 cursor-pointer flex-col items-end justify-end rounded-lg text-right transition duration-200 ease-out ${isDark? 'hover:bg-zinc-200/20':' hover:bg-zinc-400/20'}`}
-        onClick={() => setOpenModal(true)}
+        className={`content-dark relative flex flex-auto cursor-pointer flex-col items-end transition duration-200 hover:scale-105 panel-theme-${type} h-[120px] w-full 2xl:w-[208px] overflow-hidden rounded-lg p-4 ${gradient} ${getShadowColor()}`}
+        onClick={() => setShowModal(!showModal)}
       >
-        <div className={`text-2xl font-bold ${getColor().text}`}>
-          {data ? data?.length : 0}
+        <div className="z-30 flex items-end justify-end w-full h-full text-5xl font-bold">
+          <div className="flex font-bold">{data.length}</div>
         </div>
+
         <div
-          className="flex items-center justify-end h-full font-bold tracking-widest uppercase text-end opacity-70"
-          style={{ fontSize: '0.65rem' }}
+          className={`z-30 flex h-[50px] items-end justify-end text-right font-bold xl:text-xl`}
         >
           {title}
         </div>
@@ -300,11 +220,13 @@ function AuditCard({
         width={'800px'}
         className={'flex w-full items-center justify-center'}
         aria-labelledby="modal-title"
-        open={openModal}
-        onClose={() => setOpenModal(false)}
+        open={showModal}
+        onClose={() => setShowModal(false)}
       >
         <Modal.Header className="flex flex-col w-full px-4">
-          <div className="text-xs font-bold tracking-widest opacity-60">{title}</div>
+          <div className="text-xs font-bold tracking-widest opacity-60">
+            {title}
+          </div>
         </Modal.Header>
         <Modal.Body className="flex flex-col w-full px-4">
           <div className="relative w-full">
@@ -312,7 +234,7 @@ function AuditCard({
               <Input
                 className={`z-10`}
                 type="search"
-                aria-label="Activity Search Bar"
+                aria-label="Search Bar"
                 size="sm"
                 fullWidth
                 underlined
@@ -412,4 +334,4 @@ function AuditCard({
   )
 }
 
-export default AuditCard
+export default DashboardGlanceSummaryCard

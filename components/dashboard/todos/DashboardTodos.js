@@ -371,7 +371,7 @@ export default function DashboardTodos({ data = [] }) {
             labelLeft={<FaSearch />}
             onChange={(e) => searchData(e.target.value)}
           />
-          <div className="z-30 flex search-border-flair pink-to-blue-gradient-1 w-[92%]" />
+          <div className="z-30 flex w-full search-border-flair pink-to-blue-gradient-1" />
           </div>
           <div className="relative flex items-center justify-end pr-2">
             <h4 className="mr-2 text-xs">Completed</h4>

@@ -342,6 +342,12 @@ export const sumFromArrayOfObjects = (data = [], field) => {
   }, 0)
   return total
 }
+export const sumFromArrayOfObjects2 = (data = [], field1, field2) => {
+  let total = data?.reduce(function (tot, record) {
+    return tot + record[field1][field2]
+  }, 0)
+  return total
+}
 
 export const sumFromArray = (data = []) => {
   let total = data?.reduce(function (tot, record) {
