@@ -6,7 +6,7 @@ import { MdPermContactCalendar } from 'react-icons/md'
 function ContactSearchCard({ contact }) {
   const { isDark, type } = useTheme()
   return (
-    <div className="flex text-sm w-full px-4 py-2">
+    <div className="flex w-full px-4 py-2 text-sm">
       <div className="flex ">
         <div className={`z-20 flex`}>
           <div
@@ -21,9 +21,10 @@ function ContactSearchCard({ contact }) {
         </div>
         <div className="flex flex-col ">
           <div className="transition duration-100 hover:text-sky-500">
-            <Link href={`/contact/${contact.id}`}>
-              <a>
+            <Link href={`/clients/${contact.assoc_id}`}>
+              <a className="flex items-center space-x-1">
                 <div>{contact.first_name}</div>
+                <div>{contact.last_name}</div>
               </a>
             </Link>
           </div>
