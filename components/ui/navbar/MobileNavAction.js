@@ -1,7 +1,7 @@
 import React from 'react'
 import { isMobile, truncateString } from '../../../utils/utils'
 
-export default function NavAction({
+export default function MobileNavAction({
   onClick,
   icon,
   title,
@@ -30,10 +30,10 @@ export default function NavAction({
   return (
     <div
       onClick={onClick}
-      className={`relative flex cursor-pointer items-center px-1 py-1 text-xs tracking-wider transition duration-100 ease-out ${isActive()}`}
+      className={`relative flex cursor-pointer flex-col justify-center w-full items-center px-1 py-1 text-xs tracking-wider transition duration-100 ease-out ${isActive()}`}
     >
-      <div className={`mr-2 ${isActiveIcon()}`}>{icon}</div>
-      <div className={`mr-2 flex`}>{title}</div>
+      <div className={`text-2xl ${isActiveIcon()}`}>{icon}</div>
+      <div className={``}>{title}</div>
       <div className={`${isActiveBorder()} navlink-border`} />
     </div>
   )

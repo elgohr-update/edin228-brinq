@@ -1,11 +1,14 @@
 import { useTheme } from '@nextui-org/react'
 import React from 'react'
+import { AiFillInfoCircle, AiOutlineCalendar } from 'react-icons/ai'
 import {
   BsListTask,
   BsCalendarX,
   BsCalendarEvent,
   BsCalendar2Week,
 } from 'react-icons/bs'
+import { MdOutlineDashboard } from 'react-icons/md'
+import MobileNavAction from '../ui/navbar/MobileNavAction'
 import NavAction from '../ui/navbar/NavAction'
 
 const DashboardMobileNav = ({ activeItem = 1, setTab }) => {
@@ -16,42 +19,35 @@ const DashboardMobileNav = ({ activeItem = 1, setTab }) => {
 
   return (
     <div
-      className={`mb-2 flex items-center space-x-1  p-2 panel-theme-${type} ${type}-shadow`}
+      className={`mb-2 flex items-center space-x-1  p-2`}
     >
-      <NavAction
+      <MobileNavAction
         onClick={() => setActive(1)}
-        icon={<BsListTask />}
-        title={'Todos'}
+        icon={<MdOutlineDashboard />}
+        title={'Dashboard'}
         activeItem={activeItem}
         itemId={1}
       />
-      <NavAction
+      <MobileNavAction
         onClick={() => setActive(2)}
-        icon={<BsCalendarX />}
-        title={'Activity'}
+        icon={<BsListTask />}
+        title={'Todos'}
         activeItem={activeItem}
         itemId={2}
       />
-      <NavAction
+      <MobileNavAction
         onClick={() => setActive(3)}
-        icon={<BsCalendarEvent />}
-        title={'Audits'}
+        icon={<AiFillInfoCircle />}
+        title={'Activity'}
         activeItem={activeItem}
         itemId={3}
       />
-      <NavAction
+      <MobileNavAction
         onClick={() => setActive(4)}
-        icon={<BsCalendar2Week />}
-        title={'Expiring'}
+        icon={<AiOutlineCalendar />}
+        title={'Suspenses'}
         activeItem={activeItem}
         itemId={4}
-      />
-      <NavAction
-        onClick={() => setActive(5)}
-        icon={<BsCalendar2Week />}
-        title={'Recently Added'}
-        activeItem={activeItem}
-        itemId={5}
       />
     </div>
   )

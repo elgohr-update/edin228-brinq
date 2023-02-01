@@ -27,6 +27,7 @@ import {
   MdOutlineStickyNote2,
   MdOutlineFolderShared,
   MdOutlineLocationOn,
+  MdOutlineDashboard
 } from 'react-icons/md'
 import {
   AiOutlineEdit,
@@ -68,6 +69,8 @@ export const getIcon = (item) => {
     <BsBox />
   ) : item == 'activity' ? (
     <MdOutlineStickyNote2 />
+  ) : item == 'dashboard' ? (
+    <MdOutlineDashboard />
   ) : item == 'list' ? (
     <BsListTask />
   ) : item == 'client' ? (

@@ -222,7 +222,7 @@ export default function DashboardSummaryCard({
           hidden: { opacity: 0, x: -10 },
         }}
         transition={{ ease: 'easeInOut', duration: 2 }}
-        className={`${gradient} ${useModal ? 'cursor-pointer' : ''} ${mobile || laptop  ? 'w-full flex-auto':'w-full'} min-w-[200px] content-dark relative flex h-[85px]  flex-col rounded-lg xl:h-[100px] ${
+        className={`${gradient} ${useModal ? 'cursor-pointer' : ''} ${mobile ? 'flex-auto' : laptop  ? 'w-[300px] flex-auto':'w-full'} min-w-[100px] xl:min-w-[200px] content-dark relative flex h-[85px]  flex-col rounded-lg xl:h-[100px] ${
           shadow ? getShadowColor() : ``
         }`}
         onClick={() => useModal ? setShowModal(!showModal) : null}

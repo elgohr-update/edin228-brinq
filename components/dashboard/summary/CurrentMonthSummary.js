@@ -57,14 +57,14 @@ function CurrentMonthSummary({
       ) : null}
       <div
         className={`${
-          mobile || laptop ? 'flex-wrap' : ''
-        } flex w-full gap-4 rounded-lg 2xl:px-2 py-2 xl:items-center`}
+          mobile || laptop ? 'flex-wrap' : 'w-full'
+        } flex gap-4 rounded-lg 2xl:px-2 py-2 xl:items-center`}
       >
         <DashboardSummaryCard
           gradient={'purple-to-green-gradient-1'}
           shadow
           shadowColor={'blue'}
-          title={'Premium'}
+          title={'Renewing Premium'}
           icon={getIcon('dollarSign')}
           chartData={null}
           content={`$${abbreviateMoney(teamData ? premSum() : 0)}`}

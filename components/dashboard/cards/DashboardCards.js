@@ -12,7 +12,7 @@ export default function DashboardCards({
   loading,
 }) {
   return (
-    <div className="flex flex-auto py-2 space-x-2 rounded-lg 2xl:px-4 xl:space-x-0 xl:gap-4">
+    <div className="flex xl:flex-nowrap flex-wrap flex-auto py-2 gap-4 rounded-lg 2xl:px-4 xl:space-x-0 xl:gap-4">
       <DashboardSummaryCard
         gradient={'green-gradient-2'}
         shadow

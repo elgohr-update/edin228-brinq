@@ -295,7 +295,7 @@ export default function DashboardSummaryChart({
   const baseClass = `relative z-20 w-full h-[150px] rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
 
   return (
-    <div className="flex xl:w-full xl:justify-center">
+    <div className="flex w-full justify-center">
       <div className={`${baseClass} flex`}>
         <Chart
           data={chartData}
