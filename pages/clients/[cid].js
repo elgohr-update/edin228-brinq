@@ -194,7 +194,7 @@ export default function Client({ data }) {
                 <Button size="xs" flat auto onClick={() => openAMS360Page()}>
                   <div className="flex items-center xl:space-x-2">
                     <BiLinkExternal />
-                    <div className="flex ">AMS360 Link</div>
+                    <div className="flex ">View in AMS360</div>
                   </div>
                 </Button>
               </Tooltip>

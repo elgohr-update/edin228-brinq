@@ -196,40 +196,48 @@ const ClientDrawer = ({
         {!client ? (
           <DrawerLoader />
         ) : (
-          <div className="flex flex-auto py-4 overflow-hidden">
+          <div className="flex flex-auto overflow-hidden py-4 xl:py-0">
             <div className={`flex w-full shrink-0 flex-col`}>
               <div className={`w-fullshrink-0 relative mb-2 flex px-2`}>
-                <div className="relative flex flex-col flex-auto shrink-0 xl:flex-row xl:pt-2">
+                <div className="relative flex flex-auto shrink-0 flex-col xl:flex-row xl:pt-2">
                   <ClientHeader client={client} />
-                  <div className="flex items-center justify-between flex-auto pl-4 pr-8 shrink-0 xl:justify-end">
-                    <SummaryCard
-                      isIcon={false}
-                      autoWidth
-                      val={premSum()}
-                      color="teal"
-                      gradientColor="green-to-blue-2"
-                      icon={<AiFillDollarCircle />}
-                      title="Premium"
-                      money
-                    />
-                    <SummaryCard
-                      isIcon={false}
-                      autoWidth
-                      val={policies.length}
-                      color="fuchsia"
-                      gradientColor="orange-to-red-2"
-                      title="Policies"
-                      icon={<BsBox />}
-                    />
-                    <div className="z-10 flex ml-4 space-x-1">
-                      <Tooltip content="Create Activity / Suspense" placement="bottomEnd">
+                  <div className="flex flex-auto shrink-0 flex-col items-end ">
+                    <div className="flex items-center pr-8">
+                      <SummaryCard
+                        isIcon={false}
+                        autoWidth
+                        val={premSum()}
+                        color="teal"
+                        gradientColor="green-to-blue-2"
+                        icon={<AiFillDollarCircle />}
+                        title="Premium"
+                        money
+                      />
+                      <SummaryCard
+                        isIcon={false}
+                        autoWidth
+                        val={policies.length}
+                        color="fuchsia"
+                        gradientColor="orange-to-red-2"
+                        title="Policies"
+                        icon={<BsBox />}
+                      />
+                    </div>
+                    <div className="z-10 ml-4 flex space-x-1 py-2">
+                      <Tooltip
+                        content="Create Activity / Suspense"
+                        placement="bottomEnd"
+                      >
                         <Button
                           size="xs"
                           flat
                           auto
                           onClick={() => openNewActivity()}
                         >
-                          <RiPlayListAddFill />
+                          <div className="flex items-center space-x-2">
+                            <RiPlayListAddFill />
+                            <div className="flex ">Create Activity</div>
+                          </div>
                         </Button>
                       </Tooltip>
                       <Tooltip content="Open in AMS360" placement="bottomEnd">
@@ -239,7 +247,10 @@ const ClientDrawer = ({
                           auto
                           onClick={() => openAMS360Page()}
                         >
-                          <BiLinkExternal />
+                          <div className="flex items-center space-x-2">
+                            <BiLinkExternal />
+                            <div className="flex ">View in AMS360</div>
+                          </div>
                         </Button>
                       </Tooltip>
                       <Tooltip
@@ -247,7 +258,10 @@ const ClientDrawer = ({
                         placement="bottomEnd"
                       >
                         <Button size="xs" flat auto onClick={() => syncAms()}>
-                          <BiRefresh />
+                          <div className="flex items-center space-x-2">
+                            <BiRefresh />
+                            <div className="flex ">AMS360 Sync</div>
+                          </div>
                         </Button>
                       </Tooltip>
                     </div>
@@ -325,7 +339,7 @@ const ClientDrawer = ({
                   ) : null}
                 </div>
                 {client ? (
-                  <div className="flex flex-auto mt-4 shrink-0">
+                  <div className="mt-4 flex flex-auto shrink-0">
                     <ClientActivity clientId={client.id} />
                   </div>
                 ) : null}
@@ -334,7 +348,7 @@ const ClientDrawer = ({
           </div>
         )}
         {!client ? null : (
-          <div className="flex justify-end px-2 pt-1 pb-4 shrink-0">
+          <div className="flex shrink-0 justify-end px-2 pt-1 pb-4">
             <Link href={`/clients/${client.id}`}>
               <a className="w-full">
                 <Button color="gradient" className="w-full">
@@ -348,7 +362,7 @@ const ClientDrawer = ({
       <NewActivityModal
         open={showActivityModal}
         callBack={closeActivityModal}
-        preLoadClient={{id:client?.id, name:client?.client_name}}
+        preLoadClient={{ id: client?.id, name: client?.client_name }}
       />
       <HiddenBackdrop onClick={() => closeDrawer()} />
     </motion.div>
