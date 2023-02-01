@@ -70,9 +70,9 @@ export default function DashboardDesktop() {
   }
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex h-full w-full flex-col">
       {loading && !data ? (
-        <div className="flex w-full h-full">
+        <div className="flex h-full w-full">
           <div className="flex w-full flex-col items-center justify-center xl:mt-[-200px]">
             <Loading
               type="points-opacity"
@@ -80,23 +80,23 @@ export default function DashboardDesktop() {
               color="primary"
               textColor="primary"
             />
-            <div className="mt-5 tracking-widest uppercase opacity-80">
+            <div className="mt-5 uppercase tracking-widest opacity-80">
               Loading
             </div>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full h-full xl:flex-row xl:pl-2">
-          <div className="flex flex-col w-full h-full">
-            <div className="flex flex-col flex-auto w-full">
-              <div className="flex flex-auto gap-2 p-2 shrink-0">
-                <div className="flex flex-col flex-auto w-3/12 py-2">
+        <div className="flex h-full w-full flex-col xl:flex-row xl:pl-2">
+          <div className="flex h-full w-full flex-col">
+            <div className="flex w-full flex-auto flex-col">
+              <div className="flex flex-auto shrink-0 gap-2 p-2">
+                <div className="flex w-3/12 flex-auto flex-col py-2">
                   <DashboardTodos data={tasks} />
                 </div>
-                <div className="flex flex-col flex-auto w-9/12 px-2">
-                  <div className="flex flex-col w-full shrink-0">
-                    <div className="flex flex-col h-full px-4 xl:flex-row xl:px-0">
-                      <div className="flex w-full h-full xl:items-center">
+                <div className="flex w-9/12 flex-auto flex-col px-2">
+                  <div className="flex w-full shrink-0 flex-col">
+                    <div className="flex h-full flex-col px-4 xl:flex-row xl:px-0">
+                      <div className="flex h-full w-full xl:items-center">
                         <DashboardCards
                           premium={data?.premium}
                           clients={data?.clients}
@@ -106,7 +106,7 @@ export default function DashboardDesktop() {
                           loading={loading}
                         />
                       </div>
-                      <div className="justify-center hidden w-full xl:flex ">
+                      <div className="hidden w-full justify-center xl:flex ">
                         <DashboardSummaryChart
                           fullData={data?.charts}
                           loading={loading}
@@ -114,32 +114,16 @@ export default function DashboardDesktop() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col w-full px-2 shrink-0">
+                  <div className="flex w-full shrink-0 flex-col px-2">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex flex-col flex-auto w-full gap-2 p-2">
+                  <div className="flex w-full flex-auto flex-col gap-2 p-2">
                     <div className="flex items-center gap-2">
-                      <CurrentMonthSummary data={data?.relation_list} />
-                      <div className="flex items-center gap-4 p-2">
-                        <DashboardGlanceSummaryCard
-                          title={`Expiring Soon`}
-                          data={expiringPolicies}
-                          gradient={`orange-to-red-gradient-2`}
-                          shadowColor={`orange`}
-                          usePolicyCard
-                        />
-                        <DashboardGlanceSummaryCard
-                          title={`Recently Added`}
-                          data={recentlyAdded}
-                          gradient={`blue-to-purple-to-cyan-gradient-1`}
-                          shadowColor={`purple`}
-                          usePolicyCard
-                        />
-                        <DashboardAudit
-                          gradient={`pink-gradient-1`}
-                          shadowColor={`pink`}
-                        />
-                      </div>
+                      <CurrentMonthSummary
+                        teamData={data?.relation_list}
+                        expiringPolicies={expiringPolicies}
+                        recentlyAdded={recentlyAdded}
+                      />
                     </div>
                     <div className="flex w-full gap-4">
                       <div className="w-1/2">

@@ -11,6 +11,7 @@ import DashboardCards from './cards/DashboardCards'
 import DashboardMobileNav from './DashboardMobileNav'
 import DashboardExpiringPolicies from './expiring/DashboardExpiringPolicies'
 import DashboardRecentPolicies from './policy/DashboardRecentPolicies'
+import CurrentMonthSummary from './summary/CurrentMonthSummary'
 import DashboardTeam from './team/DashboardTeam'
 import DashboardTodos from './todos/DashboardTodos'
 
@@ -81,6 +82,7 @@ export default function DashboardMobile() {
                     loading={loading}
                   />
                 </div>
+                <CurrentMonthSummary teamData={data?.relation_list} />
                 <div className="flex flex-col py-4 shrink-0 ">
                   <DashboardTeam base={data?.relation_list} />
                 </div>

@@ -17,7 +17,7 @@ export default function DashboardCards({
         gradient={'green-gradient-2'}
         shadow
         shadowColor={'green'}
-        label={'Premium'}
+        title={'Total Premium'}
         icon={<AiOutlineDollarCircle />}
         chartData={charts?.premium_chart}
         content={`$${abbreviateMoney(premium)}`}
@@ -27,7 +27,7 @@ export default function DashboardCards({
         gradient={'orange-gradient-top-1 '}
         shadow
         shadowColor={'orange'}
-        label={'Clients'}
+        title={'Clients'}
         icon={getIcon('client')}
         chartData={charts?.clients_chart}
         content={clients}
@@ -46,7 +46,7 @@ export default function DashboardCards({
         gradient={'pink-to-blue-gradient-top-1'}
         shadow
         shadowColor={'purple'}
-        label={'New Business'}
+        title={'New Business'}
         slice={false}
         toCurrentMonth
         icon={getIcon('deal')}

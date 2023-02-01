@@ -3,37 +3,51 @@ import React from 'react'
 import {
   abbreviateMoney,
   getCurrentMonth,
+  getIcon,
   getPercentage,
+  isLaptop,
   isMobile,
   sumFromArrayOfObjects,
   sumFromArrayOfObjects2,
   toMonthName,
 } from '../../../utils/utils'
+import DashboardSummaryCard from '../../ui/card/DashboardSummaryCard'
 import PanelTitle from '../../ui/title/PanelTitle'
 
-function CurrentMonthSummary({ hideTitle = false, data = null }) {
+
+function CurrentMonthSummary({
+  hideTitle = false,
+  teamData = null,
+  expiringPolicies = null,
+  recentlyAdded = null,
+}) {
   const { type } = useTheme()
-  const mobile = isMobile()
   const currentMonthName = toMonthName(getCurrentMonth())
   const premSum = () => {
-    return sumFromArrayOfObjects(data, 'prem')
+    return sumFromArrayOfObjects(teamData, 'prem')
   }
   const taskPercentage = () => {
-    const completed = sumFromArrayOfObjects2(data, 'tasks', 'tasks_completed')
-    const total = sumFromArrayOfObjects2(data, 'tasks', 'tasks_total')
+    const completed = sumFromArrayOfObjects2(
+      teamData,
+      'tasks',
+      'tasks_completed'
+    )
+    const total = sumFromArrayOfObjects2(teamData, 'tasks', 'tasks_total')
     const percentage = getPercentage(completed, total)
     return percentage
   }
   const renewalPercentage = () => {
     const completed = sumFromArrayOfObjects2(
-      data,
+      teamData,
       'renewal',
       'renewals_completed'
     )
-    const total = sumFromArrayOfObjects2(data, 'renewal', 'renewals_total')
+    const total = sumFromArrayOfObjects2(teamData, 'renewal', 'renewals_total')
     const percentage = getPercentage(completed, total)
     return percentage
   }
+  const mobile = isMobile()
+  const laptop = isLaptop() 
   return (
     <div className={`flex h-full w-full flex-col`}>
       {!mobile && !hideTitle ? (
@@ -41,31 +55,86 @@ function CurrentMonthSummary({ hideTitle = false, data = null }) {
           <PanelTitle title={`${currentMonthName} Summary`} color="pink" />
         </div>
       ) : null}
-      <div className={`flex w-full items-center gap-4 rounded-lg p-4`}>
-        <div
-          className={`relative flex flex-auto flex-col border-b-[4px] overflow-hidden rounded-lg border-teal-500 px-2 text-right`}
-        >
-          <div className="text-4xl font-bold text-teal-500">
-            ${abbreviateMoney(data ? premSum() : 0)}
-          </div>
-          <div className="py-2 font-bold ">Premium</div>
-        </div>
-        <div
-          className={`relative flex flex-auto flex-col border-b-[4px] overflow-hidden rounded-lg border-orange-500 px-2 text-right`}
-        >
-          <div className="text-4xl font-bold text-orange-500">
-            {data ? renewalPercentage() : 0}%
-          </div>
-          <div className="py-2 font-bold ">Renewals Completed</div>
-        </div>
-        <div
-          className={`relative flex flex-auto flex-col border-b-[4px] overflow-hidden rounded-lg border-sky-500 px-2 text-right`}
-        >
-          <div className="text-4xl font-bold text-sky-500">
-            {data ? taskPercentage() : 0}%
-          </div>
-          <div className="py-2 font-bold ">Tasks Completed</div>
-        </div>
+      <div
+        className={`${
+          mobile || laptop ? 'flex-wrap' : ''
+        } flex w-full gap-4 rounded-lg 2xl:px-2 py-2 xl:items-center`}
+      >
+        <DashboardSummaryCard
+          gradient={'purple-to-green-gradient-1'}
+          shadow
+          shadowColor={'blue'}
+          title={'Premium'}
+          icon={getIcon('dollarSign')}
+          chartData={null}
+          content={`$${abbreviateMoney(teamData ? premSum() : 0)}`}
+          animationDelay={0}
+          useSparkline={false}
+        />
+        <DashboardSummaryCard
+          gradient={'purple-to-peach-gradient-1'}
+          shadow
+          shadowColor={'orange'}
+          title={'Renewals Completed'}
+          icon={getIcon('calendarCheck')}
+          chartData={null}
+          content={`${teamData ? renewalPercentage() : 0}%`}
+          animationDelay={0}
+          useSparkline={false}
+        />
+        <DashboardSummaryCard
+          gradient={'pink-to-blue-gradient-1'}
+          shadow
+          shadowColor={'pink'}
+          title={'Tasks Completed'}
+          icon={getIcon('circleCheck')}
+          chartData={null}
+          content={`${teamData ? taskPercentage() : 0}%`}
+          animationDelay={0}
+          useSparkline={false}
+        />
+        <DashboardSummaryCard
+          gradient={'orange-to-red-gradient-2'}
+          shadow
+          shadowColor={'orange'}
+          title={'Expiring Soon'}
+          icon={getIcon('calendarX')}
+          chartData={null}
+          useModal
+          data={expiringPolicies}
+          content={`${expiringPolicies.length}`}
+          animationDelay={0}
+          useSparkline={false}
+          usePolicyCard
+        />
+        <DashboardSummaryCard
+          gradient={'blue-to-purple-to-cyan-gradient-1'}
+          shadow
+          shadowColor={'purple'}
+          title={'Recently Added'}
+          icon={getIcon('plus')}
+          chartData={null}
+          useModal
+          data={recentlyAdded}
+          content={`${recentlyAdded.length}`}
+          animationDelay={0}
+          useSparkline={false}
+          usePolicyCard
+        />
+        {/* <DashboardSummaryCard
+          gradient={'pink-gradient-1'}
+          shadow
+          shadowColor={'pink'}
+          title={'Expiring Soon'}
+          icon={getIcon('circleX')}
+          chartData={null}
+          useModal
+          data={recentlyAdded}
+          content={`${recentlyAdded.length}`}
+          animationDelay={0}
+          useSparkline={false}
+          usePolicyCard
+        /> */}
       </div>
     </div>
   )

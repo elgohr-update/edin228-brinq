@@ -58,16 +58,18 @@ import {
   BiImageAdd,
   BiHash,
 } from 'react-icons/bi'
+import { BsListTask,BsCalendarCheck, BsCalendarX,BsCalendarEvent,BsCalendar2Week } from 'react-icons/bs';
 import { DateTime, Duration } from 'luxon'
 import { useEffect, useState } from 'react'
 import * as XLSX from 'xlsx'
-import fuzzysearch from 'fuzzysearch'
 
 export const getIcon = (item) => {
   return item == 'policy' ? (
     <BsBox />
   ) : item == 'activity' ? (
     <MdOutlineStickyNote2 />
+  ) : item == 'list' ? (
+    <BsListTask />
   ) : item == 'client' ? (
     <MdOutlineFolderShared />
   ) : item == 'deal' ? (
@@ -80,6 +82,14 @@ export const getIcon = (item) => {
     <BsPlusLg />
   ) : item == 'calendar' ? (
     <AiOutlineCalendar />
+  ) : item == 'calendarX' ? (
+    <BsCalendarX />
+  ) : item == 'calendarCheck' ? (
+    <BsCalendarCheck />
+  ) : item == 'calendarEvent' ? (
+    <BsCalendarEvent />
+  ) : item == 'calendarWeek' ? (
+    <BsCalendar2Week />
   ) : item == 'note' ? (
     <BiNotepad />
   ) : item == 'down' ? (

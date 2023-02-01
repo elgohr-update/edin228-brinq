@@ -6,7 +6,7 @@ export default function PremiumCard({ premium = 0, premiumChart = [] }) {
   return (
     <DashboardSummaryCard
       gradient={'green-gradient-2'}
-      label={'Premium'}
+      title={'Premium'}
       icon={<AiOutlineDollarCircle />}
       chartData={premiumChart}
       content={`$${abbreviateMoney(premium)}`}
