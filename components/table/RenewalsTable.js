@@ -507,7 +507,7 @@ export default function RenewalsTable(data) {
           </div>
           <div className="flex flex-col">
             <h4 className="mb-2">Reps</h4>
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-row flex-wrap 2xl:flex-nowrap 2xl:flex-col 2xl:space-y-2">
               {currentUser?.producer
                 ? ams?.map((x) => (
                     <div
@@ -535,7 +535,7 @@ export default function RenewalsTable(data) {
           </div>
         </motion.div>
       ) : null}
-      <div className="flex flex-col w-full h-full xl:px-2">
+      <div className="flex flex-col w-full h-full xl:pl-2 xl:pr-8 2xl:px-2">
         <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 xl:h-16 xl:flex-row xl:space-y-0">
           <div className="flex items-center justify-end px-4">
             <div className="px-2">

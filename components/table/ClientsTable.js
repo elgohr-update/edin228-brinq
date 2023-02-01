@@ -11,7 +11,7 @@ import {
 } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
-import { AiOutlineFilter} from 'react-icons/ai'
+import { AiOutlineFilter } from 'react-icons/ai'
 import { formatMoney, getSearch, sortByProperty } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import { useAppContext } from '../../context/state'
@@ -246,7 +246,7 @@ const ClientsTable = () => {
   }
 
   return (
-    <div className="flex flex-col w-full h-full xl:flex-row">
+    <div className="flex h-full w-full flex-col xl:flex-row">
       {showFilter ? (
         <div
           className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 xl:w-[400px] panel-flat-${type} ${type}-shadow`}
@@ -301,7 +301,7 @@ const ClientsTable = () => {
               onChange={(e) => setMaxPolicies(e.target.value)}
             />
           </div>
-          <div className="flex flex-col spacy-y-4">
+          <div className="spacy-y-4 flex flex-col">
             <h4>Filter Lines</h4>
             <Checkbox
               defaultSelected
@@ -336,21 +336,8 @@ const ClientsTable = () => {
           </div>
         </div>
       ) : null}
-      <div className="flex flex-col w-full h-full px-2 pb-2">
-        <div className="flex items-center flex-auto h-16 py-4">
-          <div className="flex items-center flex-auto w-full px-2">
-            <Input
-              className={`z-10`}
-              type="search"
-              aria-label="Table Search Bar"
-              size="sm"
-              fullWidth
-              underlined
-              placeholder="Search"
-              labelLeft={<FaSearch />}
-              onChange={(e) => searchTable(e.target.value)}
-            />
-          </div>
+      <div className="flex h-full w-full flex-col px-2 pb-2">
+        <div className="flex h-16 flex-auto items-center py-4">
           <div className="px-4">
             <Button
               color="warning"
@@ -363,6 +350,19 @@ const ClientsTable = () => {
               {' '}
               Filter
             </Button>
+          </div>
+          <div className="flex w-full flex-auto items-center px-2">
+            <Input
+              className={`z-10`}
+              type="search"
+              aria-label="Table Search Bar"
+              size="sm"
+              fullWidth
+              underlined
+              placeholder="Search"
+              labelLeft={<FaSearch />}
+              onChange={(e) => searchTable(e.target.value)}
+            />
           </div>
         </div>
         {!state.reports.data.clients.loading ? (
@@ -387,19 +387,19 @@ const ClientsTable = () => {
               {(column) =>
                 column.key === 'client_name' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="pl-5 text-xs table-column-header">
+                    <div className="table-column-header pl-5 text-xs">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : column.key === 'line' || column.key === 'reps' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
+                    <div className="table-column-header flex items-center justify-center px-1 text-xs">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
+                    <div className="table-column-header flex items-center justify-center px-1 text-xs">
                       {column.label}
                     </div>
                   </Table.Column>
@@ -420,18 +420,18 @@ const ClientsTable = () => {
                 </Table.Row>
               )}
             </Table.Body>
-            {tableData.length > 13 ? (
+            {tableData.length > 17 ? (
               <Table.Pagination
                 shadow
                 align="start"
                 noMargin
-                rowsPerPage={13}
-                total={Math.ceil(Number(tableData.length / 13))}
+                rowsPerPage={17}
+                total={Math.ceil(Number(tableData.length / 17))}
               />
             ) : null}
           </Table>
         ) : (
-          <div className="flex items-center justify-center w-full h-full py-48">
+          <div className="flex h-full w-full items-center justify-center py-48">
             <Loading
               type="points"
               size="lg"

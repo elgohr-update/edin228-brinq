@@ -20,6 +20,7 @@ export default async function handler(req, res) {
         method: 'POST',
         body: req.body,
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${session.accessToken}`,
         },
       })
@@ -31,6 +32,7 @@ export default async function handler(req, res) {
         method: 'PUT',
         body: req.body,
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${session.accessToken}`,
         },
       })

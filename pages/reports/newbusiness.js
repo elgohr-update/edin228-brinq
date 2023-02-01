@@ -106,7 +106,7 @@ export default function ReportsNewBusiness() {
     let isCancelled = false
     const handleChange = async () => {
       await timeout(100)
-      if (!isCancelled && state.reports.data.nb.raw.length > 1) {
+      if (state.reports.data.nb.raw.length > 1) {
         getChartData()
       }
     }
@@ -364,8 +364,8 @@ export default function ReportsNewBusiness() {
               vertical={false}
             />
           </div>
-          <div className="flex justify-center mb-4 space-x-2 xl:mb-0 xl:items-center xl:justify-end xl:pr-4">
-            <div className="flex flex-col">
+          <div className="flex px-4 w-full xl:w-min justify-center mb-4 space-x-2 xl:mb-0 xl:items-center xl:justify-end xl:pr-4">
+            <div className="flex flex-col w-full xl:w-min">
               <div>
                 <PanelTitle title={`New Business Month`} color="pink" />
               </div>
@@ -382,7 +382,7 @@ export default function ReportsNewBusiness() {
                 onChange={(v) => setDataMonth(v)}
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full xl:w-min">
               <div>
                 <PanelTitle title={`New Business Year`} color="sky" />
               </div>

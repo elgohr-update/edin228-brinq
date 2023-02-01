@@ -467,7 +467,7 @@ const NewBusinessTable = ({ year = 2022, month = 1 }) => {
           </div>
           <div className="flex flex-col">
             <h4 className="mb-2">Reps</h4>
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-row flex-wrap 2xl:flex-nowrap 2xl:flex-col 2xl:space-y-2">
               {prods?.map((x) => (
                 <div
                   key={x.id}
