@@ -70,6 +70,8 @@ function CurrentMonthSummary({
           content={`$${abbreviateMoney(teamData ? premSum() : 0)}`}
           animationDelay={0}
           useSparkline={false}
+          useSmallHeight
+          useBgIcons
         />
         <DashboardSummaryCard
           gradient={'purple-to-peach-gradient-1'}
@@ -81,6 +83,8 @@ function CurrentMonthSummary({
           content={`${teamData ? renewalPercentage() : 0}%`}
           animationDelay={0}
           useSparkline={false}
+          useSmallHeight
+          useBgIcons
         />
         <DashboardSummaryCard
           gradient={'pink-to-blue-gradient-1'}
@@ -92,6 +96,8 @@ function CurrentMonthSummary({
           content={`${teamData ? taskPercentage() : 0}%`}
           animationDelay={0}
           useSparkline={false}
+          useSmallHeight
+          useBgIcons
         />
         <DashboardSummaryCard
           gradient={'orange-to-red-gradient-2'}
@@ -105,6 +111,8 @@ function CurrentMonthSummary({
           content={`${expiringPolicies.length}`}
           animationDelay={0}
           useSparkline={false}
+          useSmallHeight
+          useBgIcons
           usePolicyCard
         />
         <DashboardSummaryCard
@@ -119,6 +127,8 @@ function CurrentMonthSummary({
           content={`${recentlyAdded.length}`}
           animationDelay={0}
           useSparkline={false}
+          useSmallHeight
+          useBgIcons
           usePolicyCard
         />
         {/* <DashboardSummaryCard

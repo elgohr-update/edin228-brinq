@@ -224,7 +224,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 </motion.div>
               )}
             </SidebarDropdown>
-            <SidebarDropdown
+            {/* <SidebarDropdown
               icon={<CgToolbox />}
               label={'Tools'}
               basePath="/tools"
@@ -282,7 +282,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                   mainMenuItem={false}
                 />
               </motion.div>
-            </SidebarDropdown>
+            </SidebarDropdown> */}
             {session?.user?.admin ? (
               <div>
                 <div

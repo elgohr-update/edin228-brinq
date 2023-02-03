@@ -93,7 +93,7 @@ export default function DashboardActivity({hideTitle = false}) {
           </div>
         ) : null}
         <div
-          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 xl:h-[44vh]`}
+          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 xl:h-[46vh]`}
         >
           {data?.map((u, i) => (
             <motion.div

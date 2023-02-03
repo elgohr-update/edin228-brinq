@@ -2,7 +2,14 @@ import { Button, Input, Modal, useTheme } from '@nextui-org/react'
 import React from 'react'
 import BackgroundFillSparkline from '../../charts/BackgroundFillSparkline'
 import { motion } from 'framer-motion'
-import { downloadExcel, getIcon, getSearch, isLaptop, isMobile, timeout } from '../../../utils/utils'
+import {
+  downloadExcel,
+  getIcon,
+  getSearch,
+  isLaptop,
+  isMobile,
+  timeout,
+} from '../../../utils/utils'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useAgencyContext } from '../../../context/state'
@@ -29,7 +36,9 @@ export default function DashboardSummaryCard({
   data = [],
   usePolicyCard = false,
   useContactCard = false,
-  useClientCard = false
+  useClientCard = false,
+  useSmallHeight = false,
+  useBgIcons = false,
 }) {
   const { type } = useTheme()
   const { data: session } = useSession()
@@ -205,7 +214,7 @@ export default function DashboardSummaryCard({
     }
   }
   const mobile = isMobile()
-  const laptop = isLaptop() 
+  const laptop = isLaptop()
   return (
     <>
       <motion.div
@@ -222,11 +231,87 @@ export default function DashboardSummaryCard({
           hidden: { opacity: 0, x: -10 },
         }}
         transition={{ ease: 'easeInOut', duration: 2 }}
-        className={`${gradient} ${useModal ? 'cursor-pointer' : ''} ${mobile ? 'flex-auto' : laptop  ? 'w-[300px] flex-auto':'w-full'} min-w-[100px] xl:min-w-[200px] content-dark relative flex h-[85px]  flex-col rounded-lg xl:h-[100px] ${
-          shadow ? getShadowColor() : ``
-        }`}
-        onClick={() => useModal ? setShowModal(!showModal) : null}
+        className={`${gradient} ${useModal ? 'cursor-pointer' : ''} ${
+          mobile ? 'flex-auto' : laptop ? 'w-[300px] flex-auto' : 'w-full'
+        } content-dark relative flex h-[85px] min-w-[100px] flex-col  rounded-lg xl:min-w-[200px] ${
+          useSmallHeight ? 'xl:h-[75px]' : 'xl:h-[100px]'
+        } overflow-hidden ${shadow ? getShadowColor() : ``}`}
+        onClick={() => (useModal ? setShowModal(!showModal) : null)}
       >
+        {useBgIcons ? (
+          <div className="absolute right-0 h-full w-full opacity-20">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  transition: {
+                    delay: animationDelay * 5,
+                  },
+                },
+                hidden: { opacity: 0, x: -10 },
+              }}
+              transition={{ ease: 'easeInOut', duration: 2 }}
+            >
+              <div className="absolute left-0 bottom-0 rotate-12 text-6xl">{icon}</div>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  transition: {
+                    delay: animationDelay * 5,
+                  },
+                },
+                hidden: { opacity: 0, x: -10 },
+              }}
+              transition={{ ease: 'easeInOut', duration: 2 }}
+            >
+              <div className="absolute left-[70%] bottom-[25%] hidden rotate-45 text-2xl xl:flex">{icon}</div>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  transition: {
+                    delay: animationDelay * 5,
+                  },
+                },
+                hidden: { opacity: 0, x: -10 },
+              }}
+              transition={{ ease: 'easeInOut', duration: 2 }}
+            >
+              <div className="absolute right-[60%] rotate-12 text-xl">{icon}</div>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                  transition: {
+                    delay: animationDelay * 5,
+                  },
+                },
+                hidden: { opacity: 0, y: -20 },
+              }}
+              transition={{ ease: 'easeInOut', duration: 2 }}
+              
+            >
+              <div className="absolute right-[-12%] rotate-12 text-6xl">{icon}</div>
+            </motion.div>
+          </div>
+        ) : null}
+
         <div className="relative z-20 flex h-full flex-col">
           <div
             className={`relative flex h-full items-end justify-center rounded-b-lg py-1 text-2xl font-bold `}
@@ -242,7 +327,7 @@ export default function DashboardSummaryCard({
             />
           ) : null}
         </div>
-        <div className="text-md z-40 flex flex-col items-center justify-end space-x-1 py-2 text-center text-xs font-semibold xl:flex-row xl:items-end xl:justify-center xl:space-x-2 ">
+        <div className="text-md z-40 flex flex-col items-center justify-end space-x-1 pb-2 text-center text-xs font-semibold xl:flex-row xl:items-end xl:justify-center xl:space-x-2 ">
           <div className="flex items-center space-x-2">
             <div className="flex">{icon}</div>
             <div className="flex items-center justify-center text-center uppercase tracking-widest">
@@ -261,14 +346,14 @@ export default function DashboardSummaryCard({
         open={showModal}
         onClose={() => setShowModal(false)}
       >
-        <Modal.Header className="flex flex-col w-full px-4">
+        <Modal.Header className="flex w-full flex-col px-4">
           <div className="text-xs font-bold tracking-widest opacity-60">
             {title}
           </div>
         </Modal.Header>
-        <Modal.Body className="flex flex-col w-full px-4">
+        <Modal.Body className="flex w-full flex-col px-4">
           <div className="relative w-full">
-            <div className="flex items-center w-full py-4">
+            <div className="flex w-full items-center py-4">
               <Input
                 className={`z-10`}
                 type="search"
@@ -327,7 +412,7 @@ export default function DashboardSummaryCard({
             ) : null}
             {/* <div className="z-30 flex w-full search-border-flair pink-to-blue-gradient-1" /> */}
           </div>
-          <div className="flex flex-col w-full h-full overflow-x-hidden">
+          <div className="flex h-full w-full flex-col overflow-x-hidden">
             {data?.map((u, i) => (
               <motion.div
                 key={u.id}
@@ -354,7 +439,7 @@ export default function DashboardSummaryCard({
             ))}
           </div>
         </Modal.Body>
-        <Modal.Footer autoMargin={false} className="flex w-full p-4 space-x-2">
+        <Modal.Footer autoMargin={false} className="flex w-full space-x-2 p-4">
           <div>{data?.length} Total</div>
           <Button
             color="success"
