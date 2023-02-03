@@ -24,7 +24,7 @@ export const BodyContainer = ({ children }) => {
   return (
     <Row
       fluid
-      className={`z-3 content-main max-h-[89vh] w-full overflow-y-auto pb-2 xl:max-h-[94vh]`}
+      className={`z-3 content-main w-full xl:overflow-y-auto pb-2 xl:max-h-[94vh]`}
       onScroll={(e) => handleScroll(e)}
     >
       {children}

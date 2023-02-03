@@ -7,7 +7,7 @@ import {
   BsCalendarEvent,
   BsCalendar2Week,
 } from 'react-icons/bs'
-import { MdOutlineDashboard } from 'react-icons/md'
+import { MdOutlineDashboard, MdOutlineStickyNote2 } from 'react-icons/md'
 import MobileNavAction from '../ui/navbar/MobileNavAction'
 import NavAction from '../ui/navbar/NavAction'
 
@@ -37,7 +37,7 @@ const DashboardMobileNav = ({ activeItem = 1, setTab }) => {
       />
       <MobileNavAction
         onClick={() => setActive(3)}
-        icon={<AiFillInfoCircle />}
+        icon={<MdOutlineStickyNote2/>}
         title={'Activity'}
         activeItem={activeItem}
         itemId={3}

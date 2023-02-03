@@ -3,6 +3,7 @@ import React from 'react'
 import {
   abbreviateMoney,
   getCurrentMonth,
+  getCurrentYear,
   getIcon,
   getPercentage,
   isLaptop,
@@ -13,7 +14,6 @@ import {
 } from '../../../utils/utils'
 import DashboardSummaryCard from '../../ui/card/DashboardSummaryCard'
 import PanelTitle from '../../ui/title/PanelTitle'
-
 
 function CurrentMonthSummary({
   hideTitle = false,
@@ -47,18 +47,16 @@ function CurrentMonthSummary({
     return percentage
   }
   const mobile = isMobile()
-  const laptop = isLaptop() 
+  const laptop = isLaptop()
   return (
     <div className={`flex h-full w-full flex-col`}>
-      {!mobile && !hideTitle ? (
-        <div className="pl-4">
-          <PanelTitle title={`${currentMonthName} Summary`} color="pink" />
-        </div>
-      ) : null}
+      <div className="flex w-full justify-center md:justify-start md:pl-4">
+        <PanelTitle title={`${currentMonthName} Summary`} color="pink" />
+      </div>
       <div
         className={`${
           mobile || laptop ? 'flex-wrap' : 'w-full'
-        } flex gap-4 rounded-lg 2xl:px-2 py-2 xl:items-center`}
+        } flex gap-4 rounded-lg py-2 xl:items-center 2xl:px-2`}
       >
         <DashboardSummaryCard
           gradient={'purple-to-green-gradient-1'}
@@ -72,6 +70,8 @@ function CurrentMonthSummary({
           useSparkline={false}
           useSmallHeight
           useBgIcons
+          useLink
+          pageRoute={`/renewals/${getCurrentMonth() + 1}/${getCurrentYear()}`}
         />
         <DashboardSummaryCard
           gradient={'purple-to-peach-gradient-1'}
@@ -85,6 +85,8 @@ function CurrentMonthSummary({
           useSparkline={false}
           useSmallHeight
           useBgIcons
+          useLink
+          pageRoute={`/renewals/${getCurrentMonth() + 1}/${getCurrentYear()}`}
         />
         <DashboardSummaryCard
           gradient={'pink-to-blue-gradient-1'}

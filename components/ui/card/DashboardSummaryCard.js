@@ -18,6 +18,7 @@ import BrinqSelect from '../select/BrinqSelect'
 import DashboardPolicyCard from '../../dashboard/policy/DashboardPolicyCard'
 import ContactCard from '../../contact/ContactCard'
 import ClientCard from '../../client/ClientCard'
+import { useRouter } from 'next/router'
 
 export default function DashboardSummaryCard({
   gradient,
@@ -39,6 +40,8 @@ export default function DashboardSummaryCard({
   useClientCard = false,
   useSmallHeight = false,
   useBgIcons = false,
+  useLink = false,
+  pageRoute = null
 }) {
   const { type } = useTheme()
   const { data: session } = useSession()
@@ -59,7 +62,11 @@ export default function DashboardSummaryCard({
   const [userFilter, setUserFilter] = useState([])
   const [userFilterOptions, setUserFilterOptions] = useState([])
   const [showFilter, setShowFilter] = useState(false)
+  
   const currentUser = session?.user
+  const mobile = isMobile()
+  const laptop = isLaptop()
+  const router = useRouter()
 
   useEffect(() => {
     let isCancelled = false
@@ -213,8 +220,12 @@ export default function DashboardSummaryCard({
       setTableData(raw)
     }
   }
-  const mobile = isMobile()
-  const laptop = isLaptop()
+  
+  
+  const goToPage = () => {
+    router.replace(pageRoute)
+  }
+
   return (
     <>
       <motion.div
@@ -231,12 +242,12 @@ export default function DashboardSummaryCard({
           hidden: { opacity: 0, x: -10 },
         }}
         transition={{ ease: 'easeInOut', duration: 2 }}
-        className={`${gradient} ${useModal ? 'cursor-pointer' : ''} ${
+        className={`${gradient} ${useModal || useLink ? 'cursor-pointer' : ''} ${
           mobile ? 'flex-auto' : laptop ? 'w-[300px] flex-auto' : 'w-full'
         } content-dark relative flex h-[85px] min-w-[100px] flex-col  rounded-lg xl:min-w-[200px] ${
           useSmallHeight ? 'xl:h-[75px]' : 'xl:h-[100px]'
         } overflow-hidden ${shadow ? getShadowColor() : ``}`}
-        onClick={() => (useModal ? setShowModal(!showModal) : null)}
+        onClick={() => (useLink ? goToPage() : useModal ? setShowModal(!showModal) : null)}
       >
         {useBgIcons ? (
           <div className="absolute right-0 h-full w-full opacity-20">

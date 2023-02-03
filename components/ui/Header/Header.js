@@ -15,7 +15,7 @@ const Header = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
 
     return (
-        <div className={`z-40 flex flex-col shrink-0 xl:flex-row xl:items-center justify-between w-full h-[100px] xl:h-full relative xl:py-2 ${state.scrollY > 0 ? `panel-flat-noblur-${type}`: null}`}>
+        <div className={`z-40 flex flex-col shrink-0 xl:flex-row xl:items-center justify-between w-full xl:w-[97%] 2xl:w-full h-[100px] xl:h-full relative xl:py-2 ${state.scrollY > 0 ? `panel-flat-noblur-${type}`: null}`}>
             <div className="hidden z-20 xl:flex w-full xl:w-1/4 xl:pl-4">
                 {appHeader.titleContent}
             </div>
@@ -27,7 +27,7 @@ const Header = () => {
                     <div className="mr-2">
                         <NewActionMenu />
                     </div>
-                    <div className="ml-2">
+                    <div className="mx-2">
                         <NotificationBell />
                     </div>
                     <div className="ml-2">

@@ -105,7 +105,7 @@ export default function AppLayout({ children }) {
         <PhoneContainer />
         <Row fluid className={`z-3 overflow-hidden`}>
           {isAuth ? <SidebarContainer /> : null}
-          <Col className="h-screen">
+          <Col className="h-screen overflow-y-auto xl:overflow-hidden">
             {isAuth ? <HeaderContainer /> : null}
             <BodyContainer>{isAuth ? children : null}</BodyContainer>
           </Col>
