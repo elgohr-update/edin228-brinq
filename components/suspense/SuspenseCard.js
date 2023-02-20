@@ -140,7 +140,7 @@ function SuspenseCard({
               {hideClient ? null : (
                 <div className={`flex w-full flex-col`}>
                   <div className="page-link flex items-center space-x-2">
-                    <div className="data-point-xs purple-to-green-gradient-1"></div>
+                    
                     <Link href={`/clients/${data?.client.id}`}>
                       <a>
                         <h6>{truncateString(data?.client.client_name, 50)}</h6>

@@ -89,7 +89,7 @@ export default function DashboardSuspense({ hideTitle = false }) {
     >
       {!mobile && !hideTitle ? (
         <div className="pl-4">
-          <PanelTitle title={`Suspenses`} color="yellow" />
+          <PanelTitle title={`Upcoming Suspenses`} color="yellow" />
         </div>
       ) : null}
 
