@@ -30,8 +30,7 @@ const TaskCard = ({
       : ``
   }
   const isSelected = () => {
-    return selected ? `bg-gray-500/10 ${type}-shadow` : `hover:bg-gray-500/10 `
-  }
+    return selected ? `bg-gray-500/10 ${type}-shadow` : isDark ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'}
   const isLate = (due) => {
     const today = new Date()
     const date = new Date(due)

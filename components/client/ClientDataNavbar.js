@@ -1,56 +1,47 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavAction from '../ui/navbar/NavAction'
 import { getIcon, isLaptop } from '../../utils/utils'
-import { useAppContext } from '../../context/state'
 
-const ClientDataNavbar = () => {
-  const { state, setState } = useAppContext()
-  const [activeItem, setActiveItem] = useState(state.client.dataNavbar)
-
-  const setActive = (key) => {
-    setActiveItem(key)
-    setState({ ...state, client: { ...state.client, dataNavbar: key } })
-  }
-
+const ClientDataNavbar = ({activeTab, setTabCallback}) => {
   const checkLaptop = isLaptop()
 
   return (
-    <div className="flex items-center px-4 mb-1 space-x-2">
+    <div className="flex items-center px-4 py-2 xl:py-0 mb-1 space-x-2 overflow-x-auto xl:overflow-visible max-w-[45vh] xl:max-w-none">
       <NavAction
-        onClick={() => setActive(1)}
+        onClick={() => setTabCallback(1)}
         icon={getIcon('policy')}
         title={'Policies'}
-        activeItem={activeItem}
+        activeItem={activeTab}
         itemId={1}
       />
       <NavAction
-        onClick={() => setActive(2)}
+        onClick={() => setTabCallback(2)}
         icon={getIcon('activity')}
         title={'Suspenses'}
-        activeItem={activeItem}
+        activeItem={activeTab}
         itemId={2}
       />
       {checkLaptop ? (
         <>
           <NavAction
-            onClick={() => setActive(3)}
+            onClick={() => setTabCallback(3)}
             icon={getIcon('activity')}
             title={'Activity'}
-            activeItem={activeItem}
+            activeItem={activeTab}
             itemId={3}
           />
           <NavAction
-            onClick={() => setActive(4)}
+            onClick={() => setTabCallback(4)}
             icon={getIcon('note')}
             title={'Notes'}
-            activeItem={activeItem}
+            activeItem={activeTab}
             itemId={4}
           />
           <NavAction
-            onClick={() => setActive(5)}
+            onClick={() => setTabCallback(5)}
             icon={getIcon('file')}
             title={'Files'}
-            activeItem={activeItem}
+            activeItem={activeTab}
             itemId={5}
           />
         </>

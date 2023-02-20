@@ -33,16 +33,16 @@ export default function DashboardSuspense({ hideTitle = false }) {
   }
 
   useEffect(() => {
-    if (reload.activities) {
+    if (reload.suspense) {
       let isCancelled = false
       const handleChange = async () => {
         await timeout(100)
         if (!isCancelled) {
           fetchData()
-          //   setReload({
-          //     ...reload,
-          //     activities: false,
-          //   })
+            setReload({
+              ...reload,
+              suspense: false,
+            })
         }
       }
       handleChange()
@@ -124,7 +124,7 @@ export default function DashboardSuspense({ hideTitle = false }) {
           </div>
         ) : null}
         <div
-          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 xl:max-h-[46vh]`}
+          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 xl:max-h-[46vh] px-1`}
         >
           {data?.map((u, i) => (
             <motion.div

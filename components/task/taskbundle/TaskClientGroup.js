@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 export default function TaskClientGroup({ group }) {
-  const { type } = useTheme()
+  const { isDark, type } = useTheme()
   const [open, setOpen] = useState(false)
   const getLine = (line) => {
     return line == 'Commercial Lines'
@@ -18,7 +18,7 @@ export default function TaskClientGroup({ group }) {
   return (
     <div className="relative flex w-full flex-col">
       <div
-        className={`relative mb-1 flex w-full cursor-pointer rounded-lg px-2 py-1 transition duration-100 ease-out hover:bg-gray-500/20`}
+        className={`relative mb-1 flex w-full cursor-pointer rounded-lg px-2 py-1 transition duration-100 ease-out ${isDark ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'}`}
         onClick={() => setOpen(!open)}
       >
         <div className="flex w-full items-center justify-between">

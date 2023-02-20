@@ -101,6 +101,7 @@ export function ReloadWrapper({ children }) {
     client: false,
     agency: false,
     comment: false,
+    suspense: false
   })
   return (
     <ReloadContext.Provider value={{ reload, setReload }}>

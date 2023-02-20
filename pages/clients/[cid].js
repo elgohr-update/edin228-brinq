@@ -30,6 +30,7 @@ import ClientActionNavbar from '../../components/client/ClientActionNavbar'
 import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
 import NewActivityModal from '../../components/activity/NewActivityModal'
 import ClientFiles from '../../components/client/ClientFiles'
+import ClientSuspense from '../../components/client/ClientSuspense'
 
 export default function Client({ data }) {
   const router = useRouter()
@@ -41,6 +42,7 @@ export default function Client({ data }) {
   const [client, setClient] = useState(null)
   const [policies, setPolicies] = useState([])
   const [showActivityModal, setShowActivityModal] = useState(false)
+  const [activeTab, setActiveTab] = useState(1)
 
   const openNewActivity = () => {
     setShowActivityModal(true)
@@ -48,6 +50,10 @@ export default function Client({ data }) {
 
   const closeActivityModal = () => {
     setShowActivityModal(false)
+  }
+
+  const setTabCallback = (e) => {
+    setActiveTab(e)
   }
 
   useEffect(() => {
@@ -61,6 +67,7 @@ export default function Client({ data }) {
           ...appHeader,
           titleContent: <ClientHeader client={data} />,
         })
+        setActiveTab(1)
       }
     }
     handleChange()
@@ -147,7 +154,7 @@ export default function Client({ data }) {
 
   const syncAms = async () => {
     const clientId = router.query.cid
-    const res = await useNextApi('GET', `/api/clients/${clientId}/ams360/sync`)
+    await useNextApi('GET', `/api/clients/${clientId}/ams360/sync`)
     await timeout(10000)
     setReload({
       ...reload,
@@ -163,7 +170,7 @@ export default function Client({ data }) {
   const checkLaptop = isLaptop()
 
   return (
-    <div className="relative flex h-full w-full flex-auto shrink-0 flex-col overflow-y-auto overflow-x-hidden xl:max-h-[92.6vh] xl:flex-row xl:overflow-hidden">
+    <div className="relative flex h-full w-full flex-auto shrink-0 flex-col overflow-x-hidden xl:max-h-[92.6vh] xl:flex-row xl:overflow-hidden">
       <div className="flex xl:flex-auto xl:shrink-0 xl:w-[320px] xl:py-0 xl:pb-8">
         <div
           className={`relative flex flex-auto  flex-col space-y-2 py-4 px-4`}
@@ -179,7 +186,7 @@ export default function Client({ data }) {
       </div>
       <div className="flex flex-col xl:w-full xl:overflow-hidden">
         <div className="flex flex-col-reverse items-center xl:justify-between xl:flex-row shrink-0">
-          <ClientDataNavbar />
+          <ClientDataNavbar activeTab={activeTab} setTabCallback={setTabCallback} />
           <div className="flex items-center justify-center py-2 pr-2 space-x-2 xl:justify-end xl:py-0">
             <div className="flex items-center space-x-1">
               <Tooltip content="Create Activity / Suspense">
@@ -210,7 +217,7 @@ export default function Client({ data }) {
           </div>
         </div>
         <div className="h-full overflow-y-auto">
-          {state.client.dataNavbar === 1 ? (
+          {activeTab === 1 ? (
             <div className="flex flex-col flex-auto w-full shrink-0 xl:overflow-hidden">
               <div className="flex items-center w-full px-4 shrink-0">
                 <ClientPolicyInfo
@@ -244,8 +251,9 @@ export default function Client({ data }) {
               </div>
             </div>
           ) : null}
-          {state.client.dataNavbar === 3 ? <ClientActivity clientId={client?.id} limit={50} /> : null }
-          {state.client.dataNavbar === 5 ? <ClientFiles files={client?.attachments} /> : null }
+          {activeTab === 2 ? <ClientSuspense clientId={client?.id} /> : null }
+          {activeTab === 3 ? <ClientActivity clientId={client?.id} limit={50} /> : null }
+          {activeTab === 5 ? <ClientFiles files={client?.attachments} /> : null }
         </div>
       </div>
       {checkLaptop ? null : (
