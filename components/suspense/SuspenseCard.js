@@ -105,23 +105,107 @@ function SuspenseCard({
   return (
     <>
       <div className={baseClass}>
-        <div>
-          <div className="flex w-full items-center justify-between">
-            <div className={`flex w-full flex-col`}>
+        <div className="flex w-full">
+          <div className="z-90 relative mr-4 flex">
+            {data?.system_action && data?.users.length < 1 ? (
+              <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-slate-900">
+                <Image
+                  showSkeleton
+                  maxDelay={10000}
+                  width={20}
+                  height={20}
+                  src="/brinq-logo-q-color.png"
+                  alt="Default Image"
+                />
+              </div>
+            ) : (
+              <UserAvatar
+                squared={false}
+                tooltip={false}
+                size="sm"
+                isUser={true}
+                passUser={data?.users.find((x) => x.id === data?.author_id)}
+              />
+            )}
+            {!indexLast ? (
+              <div
+                className={`absolute border-l-[2px] border-t-0 border-b-0 border-r-0 ${
+                  isDark ? 'border-zinc-200' : 'border-zinc-500'
+                } userBadge-timeline top-[35px] left-[48%] w-full border-[1px] opacity-10`}
+              ></div>
+            ) : null}
+          </div>
+          <div className="w-full">
+            <div className="flex w-full items-center justify-between">
               {hideClient ? null : (
-                <div className="page-link flex items-center space-x-2">
-                  <div className="data-point-xs purple-to-green-gradient-1"></div>
-                  <Link href={`/clients/${data?.client.id}`}>
-                    <a>
-                      <h6>{truncateString(data?.client.client_name, 50)}</h6>
-                    </a>
-                  </Link>
+                <div className={`flex w-full flex-col`}>
+                  <div className="page-link flex items-center space-x-2">
+                    <div className="data-point-xs purple-to-green-gradient-1"></div>
+                    <Link href={`/clients/${data?.client.id}`}>
+                      <a>
+                        <h6>{truncateString(data?.client.client_name, 50)}</h6>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               )}
+              <div
+                className={`flex w-full items-center ${
+                  !hideClient ? 'justify-end' : ''
+                } space-x-2`}
+              >
+                <div className="flex flex-col">
+                  <h6 className={`${!hideClient ? 'text-right' : ''}`}>
+                    {data.activity_type}
+                  </h6>
+                  <div className="flex items-center space-x-2">
+                    <div
+                      className={`flex w-full items-center  ${
+                        !hideClient ? 'justify-end' : ''
+                      } space-x-2`}
+                    >
+                      <div className="data-point-xs pink-to-blue-gradient-1"></div>
+                      <div className="flex items-center space-x-2">
+                        <h4>Due</h4>
+                        <h6
+                          className={`font-bold ${
+                            !data?.completed && isLate(data?.date)
+                          } ${
+                            data?.completed ? 'line-through opacity-50' : ''
+                          } flex items-center`}
+                        >
+                          {getFormattedDate(data?.date)}
+                        </h6>
+                      </div>
+                    </div>
+                    {data.completed ? (
+                      <div className="flex w-full items-center justify-end space-x-2">
+                        <div className="data-point-xs green-gradient-1"></div>
+                        <div className="flex items-center space-x-2">
+                          <h4>Completed</h4>
+                          <h6
+                            className={`flex items-center font-bold text-emerald-500`}
+                          >
+                            {getFormattedDate(data?.completed_date)}
+                          </h6>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              className="relative block py-1"
+              onClick={() => setShowModal(true)}
+            >
+              <h6 className="block whitespace-pre-line">{data?.description}</h6>
+            </div>
+            <div className="flex w-full items-center space-x-2">
               {hidePolicy ||
               data?.system_action ||
               data?.policies.length == 0 ? null : data?.policies.length == 1 ? (
-                <div className="flex flex-auto items-center space-x-2 px-4">
+                <div className="flex items-center space-x-2">
                   <TagBasic
                     tooltip
                     tooltipContent={data?.policies[0].policy_type_full}
@@ -149,87 +233,49 @@ function SuspenseCard({
                   ))}
                 </div>
               )}
-            </div>
-            <div className="flex w-full items-center justify-end space-x-2">
-              <div className="flex flex-col">
-                <h6 className="text-right">{data.activity_type}</h6>
-                <div className="flex items-center space-x-2">
-                  <div className="flex w-full items-center justify-end space-x-2">
-                    <div className="data-point-xs pink-to-blue-gradient-1"></div>
-                    <div className="flex items-center space-x-2">
-                      <h4>Due</h4>
-                      <h6
-                        className={`font-bold ${!data?.completed && isLate(
-                          data?.date
-                        )} ${data?.completed ? 'line-through opacity-50':''} flex items-center`}
-                      >
-                        {getFormattedDate(data?.date)}
-                      </h6>
-                    </div>
-                  </div>
-                  {data.completed ? (
-                    <div className="flex w-full items-center justify-end space-x-2">
-                      <div className="data-point-xs green-gradient-1"></div>
-                      <div className="flex items-center space-x-2">
-                        <h4>Completed</h4>
-                        <h6 className={`flex items-center font-bold text-emerald-500`}>
-                          {getFormattedDate(data?.completed_date)}
-                        </h6>
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="relative block px-4 py-1"
-            onClick={() => setShowModal(true)}
-          >
-            <h6 className="block whitespace-pre-line">{data?.description}</h6>
-          </div>
-        </div>
-
-        <div className="flex w-full items-center space-x-2 px-4">
-          <div className="flex items-center space-x-2">
-            <h4>Author:</h4>
-            <div>
-              <UserAvatar
-                squared={false}
-                tooltip={false}
-                size="sm"
-                isUser={true}
-                passUser={data?.users.find((x) => x.id === data?.author_id)}
-              />
-            </div>
-          </div>
-          {!hideAssigned ? (
-            <div className="flex items-center space-x-2">
-              <h4 className="mr-2">Assigned:</h4>
-              {data?.users.length >= 1 ? (
+              {/* <div className="flex items-center space-x-2">
+                <h4>Author:</h4>
                 <div>
-                  <Avatar.Group
-                    count={data?.users.length >= 3 ? data?.users.length : null}
-                  >
-                    {data?.users.map((u) => (
-                      <UserAvatar
-                        tooltip={true}
-                        tooltipPlacement="topEnd"
-                        isUser={true}
-                        passUser={u}
-                        key={u.id}
-                        isGrouped={true}
-                        squared={false}
-                        size={`sm`}
-                      />
-                    ))}
-                  </Avatar.Group>
+                  <UserAvatar
+                    squared={false}
+                    tooltip={false}
+                    size="sm"
+                    isUser={true}
+                    passUser={data?.users.find((x) => x.id === data?.author_id)}
+                  />
                 </div>
-              ) : (
-                <h4>None</h4>
-              )}
+              </div> */}
+              {!hideAssigned ? (
+                <div className="flex items-center space-x-2">
+                  <h4 className="mr-2">Assigned:</h4>
+                  {data?.users.length >= 1 ? (
+                    <div>
+                      <Avatar.Group
+                        count={
+                          data?.users.length >= 3 ? data?.users.length : null
+                        }
+                      >
+                        {data?.users.map((u) => (
+                          <UserAvatar
+                            tooltip={true}
+                            tooltipPlacement="topEnd"
+                            isUser={true}
+                            passUser={u}
+                            key={u.id}
+                            isGrouped={true}
+                            squared={false}
+                            size={`sm`}
+                          />
+                        ))}
+                      </Avatar.Group>
+                    </div>
+                  ) : (
+                    <h4>None</h4>
+                  )}
+                </div>
+              ) : null}
             </div>
-          ) : null}
+          </div>
         </div>
       </div>
       <Modal

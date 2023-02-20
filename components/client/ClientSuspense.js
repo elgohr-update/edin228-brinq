@@ -37,11 +37,28 @@ const ClientSuspense = ({
     }
   }, [])
 
+  useEffect(() => {
+    if (reload.suspense) {
+      let isCancelled = false
+      const handleChange = async () => {
+        await timeout(100)
+        if (!isCancelled) {
+          fetchSuspenses()
+          setReload({
+            ...reload,
+            suspense: false,
+          })
+        }
+      }
+      handleChange()
+      return () => {
+        isCancelled = true
+      }
+    }
+  }, [reload])
+
   const fetchSuspenses = async () => {
-    const res = await useNextApi(
-      'GET',
-      `/api/clients/${clientId}/suspenses`
-    )
+    const res = await useNextApi('GET', `/api/clients/${clientId}/suspenses`)
     setData(res)
     setRaw(res)
   }
@@ -57,44 +74,47 @@ const ClientSuspense = ({
 
   return (
     <Panel flat={flat} noBg={noBg} shadow={shadow} overflow={overflow}>
-      {data?.length > 0 ? (
-        <div className="w-full">
-          <Input
-            className={`z-10`}
-            type="search"
-            aria-label="Table Search Bar"
-            size="sm"
-            fullWidth
-            underlined
-            placeholder="Search"
-            labelLeft={<FaSearch />}
-            onChange={(e) => searchActivity(e.target.value)}
-          />
-        </div>
-      ) : null}
+      <div className="flex items-center justify-between w-full">
+        {data?.length > 0 ? (
+          <div className="w-full">
+            <Input
+              className={`z-10`}
+              type="search"
+              aria-label="Table Search Bar"
+              size="sm"
+              fullWidth
+              underlined
+              placeholder="Search"
+              labelLeft={<FaSearch />}
+              onChange={(e) => searchActivity(e.target.value)}
+            />
+          </div>
+        ) : null}
+        {/* <div>TOGGLES</div> */}
+      </div>
       <div className={`flex h-full w-full flex-col rounded py-1`}>
-      {data?.map((u, i) => (
-            <motion.div
-              key={u?.id}
-              className="relative"
-              custom={i}
-              initial="hidden"
-              animate="visible"
-              variants={{
-                visible: {
-                  opacity: 1,
-                  transition: {
-                    delay: i * 0.05,
-                  },
-                  y: 0,
+        {data?.map((u, i) => (
+          <motion.div
+            key={u?.id}
+            className="relative"
+            custom={i}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: {
+                opacity: 1,
+                transition: {
+                  delay: i * 0.05,
                 },
-                hidden: { opacity: 0, y: -10 },
-              }}
-              transition={{ ease: 'easeInOut', duration: 0.25 }}
-            >
-              <SuspenseCard hideAssigned={false} data={u} />
-            </motion.div>
-          ))}
+                y: 0,
+              },
+              hidden: { opacity: 0, y: -10 },
+            }}
+            transition={{ ease: 'easeInOut', duration: 0.25 }}
+          >
+            <SuspenseCard hideClient={true} hideAssigned={false} data={u} indexLast={i+1 == data?.length} />
+          </motion.div>
+        ))}
       </div>
     </Panel>
   )
