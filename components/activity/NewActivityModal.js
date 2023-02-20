@@ -347,6 +347,7 @@ function NewActivityModal({
         setReload({
           ...reload,
           activities: true,
+          suspense: true,
         })
         setDefault()
       }
@@ -357,6 +358,7 @@ function NewActivityModal({
         setReload({
           ...reload,
           activities: true,
+          suspense: true,
         })
         setDefault()
       }

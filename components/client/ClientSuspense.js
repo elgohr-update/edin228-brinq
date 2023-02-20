@@ -1,4 +1,4 @@
-import { Input } from '@nextui-org/react'
+import { Input, Switch } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import ActivityCard from '../activity/ActivityCard'
 import Panel from '../ui/panel/Panel'
@@ -22,6 +22,7 @@ const ClientSuspense = ({
   const [data, setData] = useState(null)
   const [raw, setRaw] = useState(null)
   const { reload, setReload } = useReloadContext()
+  const [showCompleted, setShowCompleted] = useState(false)
 
   useEffect(() => {
     let isCancelled = false
@@ -74,7 +75,7 @@ const ClientSuspense = ({
 
   return (
     <Panel flat={flat} noBg={noBg} shadow={shadow} overflow={overflow}>
-      <div className="flex items-center justify-between w-full">
+      <div className="flex w-full items-center justify-between">
         {data?.length > 0 ? (
           <div className="w-full">
             <Input
@@ -90,31 +91,47 @@ const ClientSuspense = ({
             />
           </div>
         ) : null}
-        {/* <div>TOGGLES</div> */}
+        <div>
+          <div className="flex justify-end flex-col items-end">
+            <h4>Completed</h4>
+            <Switch
+              checked={showCompleted}
+              size="xs"
+              onChange={(e) => setShowCompleted(e.target.checked)}
+            />
+          </div>
+        </div>
       </div>
       <div className={`flex h-full w-full flex-col rounded py-1`}>
-        {data?.map((u, i) => (
-          <motion.div
-            key={u?.id}
-            className="relative"
-            custom={i}
-            initial="hidden"
-            animate="visible"
-            variants={{
-              visible: {
-                opacity: 1,
-                transition: {
-                  delay: i * 0.05,
+        {data
+          ?.filter((x) => x.completed == showCompleted)
+          .map((u, i) => (
+            <motion.div
+              key={u?.id}
+              className="relative"
+              custom={i}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    delay: i * 0.05,
+                  },
+                  y: 0,
                 },
-                y: 0,
-              },
-              hidden: { opacity: 0, y: -10 },
-            }}
-            transition={{ ease: 'easeInOut', duration: 0.25 }}
-          >
-            <SuspenseCard hideClient={true} hideAssigned={false} data={u} indexLast={i+1 == data?.length} />
-          </motion.div>
-        ))}
+                hidden: { opacity: 0, y: -10 },
+              }}
+              transition={{ ease: 'easeInOut', duration: 0.25 }}
+            >
+              <SuspenseCard
+                hideClient={true}
+                hideAssigned={false}
+                data={u}
+                indexLast={i + 1 == data?.length}
+              />
+            </motion.div>
+          ))}
       </div>
     </Panel>
   )
