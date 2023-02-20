@@ -14,7 +14,7 @@ const ClientContacts = ({
   return (
     <Panel flat={flat} noBg={noBg} shadow={shadow} overflow={overflow}>
       <PanelTitle title={`Contacts`} color="sky" />
-      <div className={`flex flex-wrap`}>
+      <div className={`flex flex-wrap max-h-[40vh] overflow-y-auto`}>
         {client?.contacts?.map((c) => (
           <div className="flex flex-auto" key={c.id}>
             <ContactCard contact={c} />
