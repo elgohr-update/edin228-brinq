@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         res.status(200).json(results.body)
       }
     } else if (req.method === 'POST') {
-      const results = await fetch(queryUrl, {
+      const results = await fetch(baseUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,12 +30,13 @@ export default async function handler(req, res) {
         res.status(200).json(results.body)
       }
     } else if (req.method === 'PUT') {
-      const results = await fetch(queryUrl, {
+      const results = await fetch(baseUrl, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session.accessToken}`,
-        }
+        },
+        body: req.body,
       })
       if (results) {
         res.status(200).json(results.body)

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { Input, Switch, useTheme } from '@nextui-org/react'
 import PanelTitle from '../../ui/title/PanelTitle'
-import { getSearch, isMobile, timeout} from '../../../utils/utils'
+import { getSearch, isMobile, timeout, useNextApi} from '../../../utils/utils'
 import TaskBundleContainer from '../../task/taskbundle/TaskBundleContainer'
 import uuid from 'react-uuid'
 import { DateTime } from 'luxon'
 import TodosNavBar from './TodosNavBar'
 import { motion } from 'framer-motion'
-import { UpdateDataWrapper, useUpdateDataContext } from '../../../context/state'
+import { UpdateDataWrapper, useReloadContext, useUpdateDataContext } from '../../../context/state'
 
 export default function DashboardTodos({ data = [] }) {
   const { updateData, setUpdateData } = useUpdateDataContext()
@@ -19,12 +19,13 @@ export default function DashboardTodos({ data = [] }) {
   const [raw, setRaw] = useState([])
   const [rawNoFormat, setRawNoFormat] = useState(null)
   const [showCompleted, setShowCompleted] = useState(false)  
+  const { reload, setReload } = useReloadContext()
   const { type } = useTheme()
   const mobile =  isMobile();
+  
   useEffect(() => {
     let isCancelled = false
     const handleChange = async () => {
-      await timeout(100)
       if (!isCancelled) {
         formatTasks(data)
       }
@@ -36,62 +37,83 @@ export default function DashboardTodos({ data = [] }) {
   }, [data])
 
   useEffect(() => {
-    let isCancelled = false
     const handleChange = async () => {
       await timeout(100)
-      if (updateData.task){
-        const dueDate = DateTime.fromISO(updateData.task.date).toSQLDate(DateTime.DATE_SHORT)
-        const clientId = updateData.task.client_id
+      fetchTasks()
+      setReload(
+        {
+          ...reload,
+        policies:false
+        }
+      )
+    }
+    if (reload.policies){
+      handleChange()
+    }
+    return () => {}
+  }, [reload])
+
+  // useEffect(() => {
+  //   const handleChange = async () => {
+  //     await timeout(100)
+  //     if (updateData.task){
+  //       const dueDate = DateTime.fromISO(updateData.task.date).toSQLDate(DateTime.DATE_SHORT)
+  //       const clientId = updateData.task.client_id
   
-        const newRaw = [...raw]
-        const newOverdueTasks = {...overdueTasks}
-        const newThisWeeksTasks = {...thisWeeksTasks}
-        const newTodaysTasks = {...todaysTasks}
+  //       const newRaw = [...raw]
+  //       const newOverdueTasks = {...overdueTasks}
+  //       const newThisWeeksTasks = {...thisWeeksTasks}
+  //       const newTodaysTasks = {...todaysTasks}
         
-        const foundRawGroup = newRaw.find( x => x.date == dueDate)?.clients
-        const foundOverDueGroup = newOverdueTasks?.groups?.find( x => x.date == dueDate)?.clients
-        const foundWeekGroup = newThisWeeksTasks?.groups?.find( x => x.date == dueDate)?.clients
-        const foundTodayGroup = newTodaysTasks?.groups?.find( x => x.date == dueDate)?.clients
+  //       const foundRawGroup = newRaw.find( x => x.date == dueDate)?.clients
+  //       const foundOverDueGroup = newOverdueTasks?.groups?.find( x => x.date == dueDate)?.clients
+  //       const foundWeekGroup = newThisWeeksTasks?.groups?.find( x => x.date == dueDate)?.clients
+  //       const foundTodayGroup = newTodaysTasks?.groups?.find( x => x.date == dueDate)?.clients
         
-        if (foundRawGroup){
-          const client1 = foundRawGroup.find( x => x.client_id == clientId)
-          const taskIndex1 = client1?.tasks.findIndex( x => x.id == updateData.task.id)
-          client1?.tasks[taskIndex1] = updateData.task
-          setRaw(newRaw)
-        }
-        if (foundOverDueGroup){
-          const client2 = foundOverDueGroup.find( x => x.client_id == clientId)
-          const taskIndex2 = client2?.tasks.findIndex( x => x.id == updateData.task.id)
-          client2?.tasks[taskIndex2] = updateData.task
-          setOverdueTasks(newOverdueTasks)
-        }
-        if (foundTodayGroup){
-          const client4 = foundTodayGroup.find( x => x.client_id == clientId)
-          const taskIndex4 = client4?.tasks.findIndex( x => x.id == updateData.task.id)
-          client4?.tasks[taskIndex4] = updateData.task
-          setTodaysTasks(newTodaysTasks)
-        }
-        if (foundWeekGroup){
-          const client3 = foundWeekGroup.find( x => x.client_id == clientId)
-          const taskIndex3 = client3?.tasks.findIndex( x => x.id == updateData.task.id)
-          client3?.tasks[taskIndex3] = updateData.task
-          setThisWeeksTasks(newThisWeeksTasks)
-        }
+  //       if (foundRawGroup){
+  //         const client1 = foundRawGroup.find( x => x.client_id == clientId)
+  //         const taskIndex1 = client1?.tasks.findIndex( x => x.id == updateData.task.id)
+  //         client1?.tasks[taskIndex1] = updateData.task
+  //         setRaw(newRaw)
+  //       }
+  //       if (foundOverDueGroup){
+  //         const client2 = foundOverDueGroup.find( x => x.client_id == clientId)
+  //         const taskIndex2 = client2?.tasks.findIndex( x => x.id == updateData.task.id)
+  //         client2?.tasks[taskIndex2] = updateData.task
+  //         setOverdueTasks(newOverdueTasks)
+  //       }
+  //       if (foundTodayGroup){
+  //         const client4 = foundTodayGroup.find( x => x.client_id == clientId)
+  //         const taskIndex4 = client4?.tasks.findIndex( x => x.id == updateData.task.id)
+  //         client4?.tasks[taskIndex4] = updateData.task
+  //         setTodaysTasks(newTodaysTasks)
+  //       }
+  //       if (foundWeekGroup){
+  //         const client3 = foundWeekGroup.find( x => x.client_id == clientId)
+  //         const taskIndex3 = client3?.tasks.findIndex( x => x.id == updateData.task.id)
+  //         client3?.tasks[taskIndex3] = updateData.task
+  //         setThisWeeksTasks(newThisWeeksTasks)
+  //       }
         
-      }
-    }
-    handleChange()
-    return () => {
-      isCancelled = true
-    }
-  }, [updateData.task])
+  //     }
+  //   }
+  //   handleChange()
+  //   return () => {}
+  // }, [updateData.task])
+  
+  const fetchTasks = async () => {
+    const res = await useNextApi('GET', `/api/tasks/`)
+    formatTasks(res)
+  }
 
   useEffect(() => {
     formatTasks(rawNoFormat)
-    return () => {
-    }
   }, [showCompleted])
- 
+
+  const toggleCompleted = (e) => {
+    setShowCompleted(e)
+  }
+
   const formatTasks = async (d) => {
     const format = bundleTasks(d)
     const overDue = formatOverdueTasks(d)
@@ -378,7 +400,7 @@ export default function DashboardTodos({ data = [] }) {
             <Switch
               checked={showCompleted}
               size="xs"
-              onChange={(e) => setShowCompleted(e.target.checked)}
+              onChange={(e) => toggleCompleted(e.target.checked)}
             />
           </div>
           </div>

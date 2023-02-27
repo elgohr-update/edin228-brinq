@@ -33,6 +33,8 @@ import { motion } from 'framer-motion'
 import { useSession } from 'next-auth/react'
 import BrinqSelect from '../ui/select/BrinqSelect'
 import ClientDrawer from '../ui/drawer/ClientDrawer'
+import TagBasic from '../ui/tag/TagBasic'
+import PolicyTableRow from '../policy/PolicyTableRow'
 
 export default function RenewalsTable(data) {
   const router = useRouter()
@@ -206,11 +208,7 @@ export default function RenewalsTable(data) {
     },
     {
       key: 'client_name',
-      label: 'NAME',
-    },
-    {
-      key: 'expiration_date',
-      label: 'EXPIRING',
+      label: 'Client',
     },
     {
       key: 'isRenewedCount',
@@ -221,9 +219,13 @@ export default function RenewalsTable(data) {
       label: 'PREMIUM',
     },
     {
-      key: 'progressPercent',
-      label: 'PROGRESS',
+      key: 'expiration_date',
+      label: 'EXPIRING',
     },
+    // {
+    //   key: 'progressPercent',
+    //   label: 'PROGRESS',
+    // },
     {
       key: 'reps',
       label: 'REPS',
@@ -243,16 +245,23 @@ export default function RenewalsTable(data) {
         )
       case 'client_name':
         return (
-          <ClientTableCell
-            cellValue={cellValue}
-            clientId={client.id}
-            tags={client.tags}
-            type={type}
-            isRnwl={true}
-            month={month}
-            year={year}
-            drawerCallback={drawerCallback}
-          />
+          <div className="py-2">
+            <ClientTableCell
+              cellValue={cellValue}
+              clientId={client.id}
+              tags={client.tags}
+              type={type}
+              isRnwl={true}
+              month={month}
+              year={year}
+              drawerCallback={drawerCallback}
+            />
+            <div className="flex w-full flex-col space-y-2">
+              {sortByProperty(client?.policies, 'premium').map((pol) => (
+                <PolicyTableRow key={pol.id} pol={pol} />
+              ))}
+            </div>
+          </div>
         )
       case 'policy_count':
         return (
@@ -285,7 +294,7 @@ export default function RenewalsTable(data) {
         const percentage = Math.round(client.progressPercent)
         return (
           <div className="flex flex-col px-4">
-            <div className="flex justify-end w-full text-xs tracking-widest">
+            <div className="flex w-full justify-end text-xs tracking-widest">
               {Number(percentage) ? percentage : 0}%
             </div>
             <Progress
@@ -298,7 +307,7 @@ export default function RenewalsTable(data) {
         )
       case 'expiration_date':
         return (
-          <div className="flex justify-center text-xs letter-spacing-1">
+          <div className="letter-spacing-1 flex justify-center text-xs">
             {getFormattedDate(client.expiration_date)}
           </div>
         )
@@ -407,7 +416,7 @@ export default function RenewalsTable(data) {
   }
 
   return (
-    <div className="flex flex-col w-full h-full xl:flex-row">
+    <div className="flex h-full w-full flex-col xl:flex-row">
       {showFilter ? (
         <motion.div
           className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 xl:w-[400px] panel-flat-${type} ${type}-shadow`}
@@ -472,7 +481,7 @@ export default function RenewalsTable(data) {
               onChange={(e) => setMaxPolicies(e.target.value)}
             />
           </div>
-          <div className="flex flex-col spacy-y-4">
+          <div className="spacy-y-4 flex flex-col">
             <h4>Filter Lines</h4>
             <Checkbox
               defaultSelected
@@ -507,7 +516,7 @@ export default function RenewalsTable(data) {
           </div>
           <div className="flex flex-col">
             <h4 className="mb-2">Reps</h4>
-            <div className="flex flex-row flex-wrap 2xl:flex-nowrap 2xl:flex-col 2xl:space-y-2">
+            <div className="flex flex-row flex-wrap 2xl:flex-col 2xl:flex-nowrap 2xl:space-y-2">
               {currentUser?.producer
                 ? ams?.map((x) => (
                     <div
@@ -535,8 +544,8 @@ export default function RenewalsTable(data) {
           </div>
         </motion.div>
       ) : null}
-      <div className="flex flex-col w-full h-full xl:pl-2 xl:pr-8 2xl:px-2">
-        <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 xl:h-16 xl:flex-row xl:space-y-0">
+      <div className="flex h-full w-full flex-col xl:pl-2 xl:pr-8 2xl:px-2">
+        <div className="flex w-full flex-col items-center justify-between space-y-2 py-4 xl:h-16 xl:flex-row xl:space-y-0">
           <div className="flex items-center justify-end px-4">
             <div className="px-2">
               <Button
@@ -552,7 +561,7 @@ export default function RenewalsTable(data) {
             </div>
           </div>
           <div className="flex w-full">
-            <div className="flex items-center w-full pr-4">
+            <div className="flex w-full items-center pr-4">
               <Input
                 className={`z-10`}
                 type="search"
@@ -605,29 +614,38 @@ export default function RenewalsTable(data) {
               borderWidth: '0px',
             }}
           >
+            {tableData?.length > pageSize ? (
+              <Table.Pagination
+                shadow
+                align="start"
+                noMargin
+                total={Math.ceil(Number(tableData?.length / pageSize))}
+                rowsPerPage={pageSize}
+              />
+            ) : null}
             <Table.Header columns={columns}>
               {(column) =>
                 column.key === 'client_name' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="pl-5 text-xs table-column-header">
+                    <div className="table-column-header pl-5 text-xs">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : column.key === 'line' || column.key === 'reps' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
+                    <div className="table-column-header flex items-center justify-center px-1 text-xs">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : column.key === 'progress' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="px-1 text-xs table-column-header">
+                    <div className="table-column-header px-1 text-xs">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
+                    <div className="table-column-header flex items-center justify-center px-1 text-xs">
                       {column.label}
                     </div>
                   </Table.Column>
@@ -645,15 +663,6 @@ export default function RenewalsTable(data) {
                 </Table.Row>
               )}
             </Table.Body>
-            {tableData?.length > pageSize ? (
-              <Table.Pagination
-                shadow
-                align="start"
-                noMargin
-                total={Math.ceil(Number(tableData?.length / pageSize))}
-                rowsPerPage={pageSize}
-              />
-            ) : null}
           </Table>
         ) : null}
         {isOpen ? (

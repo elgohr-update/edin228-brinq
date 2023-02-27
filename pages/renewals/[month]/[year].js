@@ -1,20 +1,28 @@
 import { useTheme as useNextTheme } from 'next-themes'
-import { Button, useTheme } from '@nextui-org/react'
+import { Button, Loading, useTheme } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 import AppLayout from '../../../layouts/AppLayout'
 import { getSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import { BsFillCalendar3WeekFill, BsBox, BsListCheck } from 'react-icons/bs'
-import {
-  AiFillDollarCircle,
-} from 'react-icons/ai'
+import { AiFillDollarCircle } from 'react-icons/ai'
 import { HiOutlineRefresh } from 'react-icons/hi'
 import RenewalsTable from '../../../components/table/RenewalsTable'
-import { getIcon, sumFromArrayOfObjects, timeout } from '../../../utils/utils'
+import {
+  getIcon,
+  sumFromArrayOfObjects,
+  timeout,
+  useApi,
+  useNextApi,
+} from '../../../utils/utils'
 import SummaryCard from '../../../components/ui/card/SummaryCard'
 import { RiFolderUserFill } from 'react-icons/ri'
 import PageTitle from '../../../components/ui/pageheaders/PageTitle'
-import { useAppHeaderContext, useClientDrawerContext } from '../../../context/state'
+import {
+  useAppHeaderContext,
+  useClientDrawerContext,
+  useReloadContext,
+} from '../../../context/state'
 import { useChannel, useEvent } from '@harelpls/use-pusher'
 
 export default function Renewals({ data }) {
@@ -25,6 +33,52 @@ export default function Renewals({ data }) {
   const [tableData, setTableData] = useState(data)
   const { appHeader, setAppHeader } = useAppHeaderContext()
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
+  const { reload, setReload } = useReloadContext()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(100)
+      if (!isCancelled) {
+        fetchData()
+        setReload({
+          ...reload,
+          policies: false,
+        })
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [router.query.year, router.query.month])
+
+  useEffect(() => {
+    const handleChange = async () => {
+      await timeout(100)
+      fetchData()
+      setReload({
+        ...reload,
+        policies: false,
+      })
+    }
+    if (reload.policies) {
+      handleChange()
+    }
+    return () => {}
+  }, [reload])
+
+  const fetchData = async () => {
+    if (router.query.year) {
+      const res = await useNextApi(
+        'GET',
+        `/api/renewals/${router.query.year}/${router.query.month}`
+      )
+      setTableData(res)
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     setAppHeader({
@@ -38,9 +92,9 @@ export default function Renewals({ data }) {
     })
   }, [router])
 
-  useEffect(() => {
-    setTableData(data)
-  }, [data])
+  // useEffect(() => {
+  //   setTableData(data)
+  // }, [data])
 
   const goToMonth = (dir) => {
     const currentMonth = Number(month)
@@ -56,9 +110,7 @@ export default function Renewals({ data }) {
     }
   }
   const refreshCurrent = () => {
-    const currentMonth = Number(month)
-    const currentYear = Number(year)
-    router.replace(`/renewals/${currentMonth}/${currentYear}`)
+    fetchData()
   }
 
   const premSum = () => {
@@ -88,12 +140,12 @@ export default function Renewals({ data }) {
   }
 
   return (
-    <main className="flex flex-col w-full min-h-0">
-      <div className="flex items-center pl-4 space-x-1">
+    <main className="flex min-h-0 w-full flex-col">
+      <div className="flex items-center space-x-1 pl-4">
         <Button.Group color="primary" auto size="xs" flat>
           <Button onClick={() => goToMonth('prev')}>
             <div className="flex items-center space-x-2">
-              <div className="flex items-center justify-center text-xs text-center">
+              <div className="flex items-center justify-center text-center text-xs">
                 {getIcon('caretLeft')}
               </div>
               <div>Previous Month</div>
@@ -102,23 +154,29 @@ export default function Renewals({ data }) {
           <Button onClick={() => goToMonth('next')}>
             <div className="flex items-center space-x-2">
               <div>Next Month</div>
-              <div className="flex items-center justify-center text-xs text-center">
+              <div className="flex items-center justify-center text-center text-xs">
                 {getIcon('caretRight')}
               </div>
             </div>
           </Button>
         </Button.Group>
-        <Button color="warning" auto size="xs" flat onClick={() => refreshCurrent()}>
+        <Button
+          color="warning"
+          auto
+          size="xs"
+          flat
+          onClick={() => refreshCurrent()}
+        >
           <div className="flex items-center space-x-2">
-            <div className="flex items-center justify-center text-lg text-center">
+            <div className="flex items-center justify-center text-center text-lg">
               {getIcon('refresh')}
             </div>
             <div>Refresh</div>
           </div>
         </Button>
       </div>
-      <div className="flex flex-col w-full">
-        <div className="flex items-center min-h-0 px-4 py-4 mb-2 space-x-4 overflow-x-auto xl:overflow-x-hidden xl:py-2">
+      <div className="flex w-full flex-col">
+        <div className="mb-2 flex min-h-0 items-center space-x-4 overflow-x-auto px-4 py-4 xl:overflow-x-hidden xl:py-2">
           <SummaryCard
             vertical={false}
             val={premSum()}
@@ -173,10 +231,16 @@ export default function Renewals({ data }) {
             icon={<BsListCheck />}
           />
         </div>
-        <div className="flex px-4">
-          <div className={`flex h-full w-full rounded-lg `}>
-            {data ? <RenewalsTable data={tableData} /> : null}
-          </div>
+        <div className="flex px-4 w-full h-full">
+          {loading ? (
+            <div className="flex h-full w-full items-center justify-center">
+              <Loading type="points-opacity" color="currentColor" size="lg" />
+            </div>
+          ) : (
+            <div className={`flex h-full w-full rounded-lg `}>
+              {tableData ? <RenewalsTable data={tableData} /> : null}
+            </div>
+          )}
         </div>
       </div>
     </main>
@@ -187,21 +251,13 @@ Renewals.getLayout = function getLayout(page) {
   return <AppLayout>{page}</AppLayout>
 }
 
-export async function getServerSideProps(context) {
-  const { year, month } = context.params
-  const session = await getSession(context)
-  if (session) {
-    const baseUrl = `${process.env.FETCHBASE_URL}/renewals/${year}/${month}`
-    const res = await fetch(baseUrl, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.accessToken}`,
-      },
-    })
-    const data = await res.json()
-
-    return { props: { data } }
-  }
-  return { props: { data: null } }
-}
+// export async function getServerSideProps(context) {
+//   const { year, month } = context.params
+//   const session = await getSession(context)
+//   if (session) {
+//     const data = await useApi('GET', `/renewals/${year}/${month}`)
+//     console.log(data)
+//     return { props: { data: data } }
+//   }
+//   return { props: { data: null } }
+// }

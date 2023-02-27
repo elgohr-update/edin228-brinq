@@ -27,11 +27,11 @@ const CommentCard = ({
       ? `${isDark ? `border-slate-900` : `border-slate-200`} border`
       : ``
   }
-  const baseClass = `relative flex-col w-full pl-2 py-1 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
+  const baseClass = `relative flex-col w-full py-1 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
   return (
     <div className={baseClass}>
-      <div className={`flex w-full`}>
-        <div className="z-90 mr-4 flex">
+      <div className={`flex`}>
+        <div className="z-90 mr-2 flex">
           <UserAvatar
             squared={false}
             tooltip={false}

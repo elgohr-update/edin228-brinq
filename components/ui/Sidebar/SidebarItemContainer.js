@@ -39,11 +39,11 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
 
   return (
     <>
-      <div className="flex h-full w-full flex-col overflow-hidden">
+      <div className="flex flex-col w-full h-full overflow-hidden">
         <div
           className={`sidebar-logo-height panel-flat-noblur-${type} flex items-center justify-center py-8`}
         >
-          <div className="relative flex w-full items-center justify-center transition duration-100 ease-out">
+          <div className="relative flex items-center justify-center w-full transition duration-100 ease-out">
             <div
               className={`${
                 expand ? 'opacity-1 relative' : 'absolute opacity-0'
@@ -74,7 +74,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
             </div>
           </div>
         </div>
-        <div className="flex h-full flex-col overflow-hidden">
+        <div className="flex flex-col h-full overflow-hidden">
           <div
             className={`flex h-full flex-col space-y-2  overflow-x-hidden px-2 py-4`}
           >
@@ -119,7 +119,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
               isMobile={isMobile}
             >
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -144,7 +144,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 />
               </motion.div>
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -169,7 +169,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 />
               </motion.div>
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -194,7 +194,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 />
               </motion.div>
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -228,7 +228,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
               isMobile={isMobile}
             >
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -254,7 +254,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 />
               </motion.div>
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -280,7 +280,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 />
               </motion.div>
               <motion.div
-                className="sidebar-item relative"
+                className="relative sidebar-item"
                 initial="hidden"
                 animate="visible"
                 variants={{
@@ -307,7 +307,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
               </motion.div>
               {session?.user?.admin && (
                 <motion.div
-                  className="sidebar-item relative"
+                  className="relative sidebar-item"
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -401,13 +401,67 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                     isDark ? 'border-white/40' : 'border-black/40'
                   }`}
                 />
-                <SidebarItem
-                  href={'/admin'}
-                  isOpen={isExpand()}
+                <SidebarDropdown
                   icon={<MdOutlineAdminPanelSettings />}
                   label={'Admin'}
+                  basePath="/admin"
+                  isOpen={isExpand()}
+                  isExpand={expand}
                   isMobile={isMobile}
-                />
+                >
+                  <motion.div
+                    className="relative sidebar-item"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          delay: 0 * 0.05,
+                        },
+                      },
+                      hidden: { opacity: 0, y: -10 },
+                    }}
+                    transition={{ ease: 'easeInOut', duration: 0.25 }}
+                  >
+                    <SidebarItem
+                      href={`/admin/agency`}
+                      isOpen={isExpand()}
+                      icon={getIcon('agency')}
+                      label={'Agency & Users'}
+                      basePath="/admin/agency"
+                      isMobile={isMobile}
+                      mainMenuItem={false}
+                    />
+                  </motion.div>
+                  <motion.div
+                    className="relative sidebar-item"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          delay: 1 * 0.05,
+                        },
+                      },
+                      hidden: { opacity: 0, y: -10 },
+                    }}
+                    transition={{ ease: 'easeInOut', duration: 0.25 }}
+                  >
+                    <SidebarItem
+                      href={`/admin/policies`}
+                      isOpen={isExpand()}
+                      icon={getIcon('policy')}
+                      label={'Policy Settings'}
+                      basePath="/admin/policies"
+                      isMobile={isMobile}
+                      mainMenuItem={false}
+                    />
+                  </motion.div>
+                </SidebarDropdown>
               </div>
             ) : null}
           </div>
@@ -418,7 +472,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
           expand ? 'opacity-1' : 'opacity-0'
         }`}
       >
-        <div className="flex w-full flex-col py-1">
+        <div className="flex flex-col w-full py-1">
           <div
             className={`flex w-full items-center rounded-lg py-1 px-1 text-xs panel-theme-${type}`}
           >

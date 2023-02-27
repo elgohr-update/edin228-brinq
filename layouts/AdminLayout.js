@@ -27,8 +27,6 @@ export default function AdminLayout({ children }) {
     onUnauthenticated() {
       router.push('/login')
       setIsAuth(false)
-      signOut()
-
     },
   })
   const router = useRouter()
@@ -86,7 +84,16 @@ export default function AdminLayout({ children }) {
 
   const fetchData = async () => {
     const res = await useNextApi('GET', `/api/agency/`)
-    setAgency(res)
+    if (res) {
+      if (res.detail) {
+        signOut()
+      } else {
+        setAgency(res)
+        setIsAuth(true)
+      }
+    } else {
+      signOut()
+    }
   }
 
   return (

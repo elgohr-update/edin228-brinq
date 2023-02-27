@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useTheme } from '@nextui-org/react'
+import { Avatar, useTheme } from '@nextui-org/react'
 import { getIcon, getFormattedDate } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import NewComment from '../comments/NewComment'
@@ -30,7 +30,12 @@ const TaskCard = ({
       : ``
   }
   const isSelected = () => {
-    return selected ? `bg-gray-500/10 ${type}-shadow` : isDark ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'}
+    return selected
+      ? `bg-gray-500/10 ${type}-shadow`
+      : isDark
+      ? 'hover:bg-zinc-400/10'
+      : 'hover:bg-zinc-400/20'
+  }
   const isLate = (due) => {
     const today = new Date()
     const date = new Date(due)
@@ -43,23 +48,31 @@ const TaskCard = ({
       <div className={`flex flex-auto items-center`}>
         <TaskCompletion task={task} />
         <div className="flex flex-auto" onClick={() => setSelected(!selected)}>
-          <div className="flex flex-col flex-auto shrink-0">
-            <div className="flex flex-col flex-auto space-y-1 xl:flex-row xl:items-center xl:space-y-0">
+          <div className="flex flex-auto shrink-0 flex-col">
+            <div className="flex flex-auto flex-col space-y-1 xl:flex-row xl:items-center xl:space-y-0">
               <div className={`relative flex flex-auto flex-col space-y-1`}>
                 {showPolicy ? (
                   <div className="flex items-center space-x-1 text-xs">
-                    <TagBasic tooltip tooltipContent={task?.policy_type_full} text={task?.policy_type} />
+                    <TagBasic
+                      tooltip
+                      tooltipContent={task?.policy_type_full}
+                      text={task?.policy_type}
+                    />
                     <h4>{task?.policy_number}</h4>
                   </div>
                 ) : null}
-                <div className="flex text-xs max-w-fit">{task?.title}</div>
+                <div className="flex max-w-fit text-xs">{task?.title}</div>
               </div>
             </div>
             <div className="flex flex-col justify-center py-2">
               <div className="flex items-center space-x-2">
                 {task.done ? (
                   <div
-                    className={`${task.completed ? 'text-color-success' : 'text-color-warning'} relative flex w-[90px] flex-row items-center space-x-1`}
+                    className={`${
+                      task.completed
+                        ? 'text-color-success'
+                        : 'text-color-warning'
+                    } relative flex w-[90px] flex-row items-center space-x-1`}
                   >
                     <h6>{getIcon('circleCheck')}</h6>
                     <h6 className={`letter-spacing-1 flex flex-auto`}>
@@ -89,24 +102,33 @@ const TaskCard = ({
               <div className="flex items-center">
                 <div className="flex items-center space-x-1 text-xs">
                   <h4>{task.comments.length}</h4>
-                  <h4 className="flex items-center">
-                    {getIcon('comment')}
-                  </h4>
+                  <h4 className="flex items-center">{getIcon('comment')}</h4>
                 </div>
               </div>
               <div className={`w-50 relative flex flex-col  space-y-1`}>
-                <UserAvatar
-                  isUser
-                  size="sm"
-                  squared={false}
-                  passUser={task.users.find((x) => x.id == task.assigned_id)}
-                />
+                <div className="pl-2">
+                  <Avatar.Group
+                    count={
+                      task?.users.length > 3 ? task?.users.length - 3 : null
+                    }
+                  >
+                    {task?.users.slice(0, 3).map((u) => (
+                      <UserAvatar
+                        key={u.id}
+                        isUser
+                        size="sm"
+                        squared={false}
+                        passUser={u}
+                      />
+                    ))}
+                  </Avatar.Group>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full pb-2 pl-4">
+      <div className="flex w-full flex-col pb-2 pl-4">
         <CommentContainer isSelected={selected} comments={task.comments} />
         {selected ? <NewComment source={task} /> : null}
       </div>

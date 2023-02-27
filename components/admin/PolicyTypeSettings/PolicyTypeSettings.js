@@ -21,12 +21,16 @@ export default function PolicyTypeSettings() {
       .then((res) => res.json())
       .then((data) => {
         setPolicyTypes(data)
-        setClPolicyTypes(filtered(data, `Commercial Lines`))
-        setPlPolicyTypes(filtered(data, `Personal Lines`))
-        setBPolicyTypes(filtered(data, `Benefits`))
-        setLoading(false)
       })
   }
+
+  useEffect(() => {
+    setClPolicyTypes(filtered(policyTypes, `Commercial Lines`))
+    setPlPolicyTypes(filtered(policyTypes, `Personal Lines`))
+    setBPolicyTypes(filtered(policyTypes, `Benefits`))
+    setLoading(false)
+    return () => {}
+  }, [policyTypes])
 
   const filtered = (data, line) => {
     const final =
@@ -72,8 +76,8 @@ export default function PolicyTypeSettings() {
   }
 
   return (
-    <div className="flex w-full flex-col">
-      <div className="h-full w-full py-2">
+    <div className="flex flex-col w-full">
+      <div className="w-full h-full py-2">
         <PanelTitle
           title={`Preferred Policies and Policy Types`}
           color="indigo"
@@ -81,9 +85,9 @@ export default function PolicyTypeSettings() {
       </div>
       <div className="flex flex-col px-4">
         <PanelTitle title={`Commercial Lines`} color="sky" />
-        <div className="space-1 flex w-full flex-wrap py-1">
+        <div className="flex flex-wrap w-full py-1 space-1">
           {loading ? (
-            <div className="flex w-full items-center justify-center">
+            <div className="flex items-center justify-center w-full">
               <Loading size="md" color="primary" textColor="primary" />
             </div>
           ) : (
@@ -100,9 +104,9 @@ export default function PolicyTypeSettings() {
           )}
         </div>
         <PanelTitle title={`Personal Lines`} color="red" />
-        <div className="space-1 flex w-full flex-wrap py-1">
+        <div className="flex flex-wrap w-full py-1 space-1">
           {loading ? (
-            <div className="flex w-full items-center justify-center">
+            <div className="flex items-center justify-center w-full">
               <Loading size="md" color="primary" textColor="primary" />
             </div>
           ) : (
@@ -119,9 +123,9 @@ export default function PolicyTypeSettings() {
           )}
         </div>
         <PanelTitle title={`Benefits`} color="lime" />
-        <div className="space-1 flex w-full flex-wrap py-1">
+        <div className="flex flex-wrap w-full py-1 space-1">
           {loading ? (
-            <div className="flex w-full items-center justify-center">
+            <div className="flex items-center justify-center w-full">
               <Loading size="md" color="primary" textColor="primary" />
             </div>
           ) : (

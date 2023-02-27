@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 export default function TaskClientGroup({ group }) {
   const { isDark, type } = useTheme()
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const getLine = (line) => {
     return line == 'Commercial Lines'
       ? 'soft-blue-to-soft-purple-gradient-1'

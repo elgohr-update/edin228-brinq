@@ -69,7 +69,7 @@ export default function TextEditor({ getValue, isComment=true }) {
         className={`menubar-${type} flex border-t border-gray-600/40 w-full items-center space-x-2 pt-4`}
       >
         <button
-          className={`custom__button ${
+          className={` flex item-center justify-center custom__button text-xs ${
             checkActive('bold') ? `text-editor-is-active-button` : ''
           }`}
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -77,7 +77,7 @@ export default function TextEditor({ getValue, isComment=true }) {
           <AiOutlineBold />
         </button>
         <button
-          className={`custom__button ${
+          className={` flex item-center justify-center custom__button text-xs ${
             checkActive('italic') ? `text-editor-is-active-button` : ''
           }`}
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -85,7 +85,7 @@ export default function TextEditor({ getValue, isComment=true }) {
           <AiOutlineItalic />
         </button>
         <button
-          className={`custom__button ${
+          className={` flex item-center justify-center custom__button text-xs ${
             checkActive('strike') ? `text-editor-is-active-button` : ''
           }`}
           onClick={() => editor.chain().focus().toggleStrike().run()}
@@ -93,7 +93,7 @@ export default function TextEditor({ getValue, isComment=true }) {
           <AiOutlineStrikethrough />
         </button>
         <button
-          className={`custom__button ${
+          className={` flex item-center justify-center custom__button text-xs ${
             checkActive('heading', { level: 1 })
               ? `text-editor-is-active-button`
               : ''
@@ -105,7 +105,7 @@ export default function TextEditor({ getValue, isComment=true }) {
           <span>H1</span>
         </button>
         <button
-          className={`custom__button ${
+          className={` flex item-center justify-center custom__button text-xs ${
             checkActive('heading', { level: 2 })
               ? `text-editor-is-active-button`
               : ''
@@ -117,7 +117,7 @@ export default function TextEditor({ getValue, isComment=true }) {
           <span>H2</span>
         </button>
         <button
-          className={`custom__button ${
+          className={` flex item-center justify-center custom__button text-xs ${
             checkActive('heading', { level: 3 })
               ? `text-editor-is-active-button`
               : ''
@@ -129,7 +129,7 @@ export default function TextEditor({ getValue, isComment=true }) {
           <span>H3</span>
         </button>
         <button
-          className={`custom__button ${
+          className={` flex item-center justify-center custom__button text-xs ${
             checkActive('bulletList') ? `text-editor-is-active-button` : ''
           }`}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
@@ -137,7 +137,7 @@ export default function TextEditor({ getValue, isComment=true }) {
           <AiOutlineUnorderedList />
         </button>
         <button
-          className={`custom__button ${
+          className={` flex item-center justify-center custom__button text-xs ${
             checkActive('orderedList') ? `text-editor-is-active-button` : ''
           }`}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}

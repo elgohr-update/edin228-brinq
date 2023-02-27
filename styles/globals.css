@@ -155,8 +155,11 @@
   -o-transition: all 250ms ease-out;
   transition: all 250ms ease-out;
 }
-#nextui-tooltip {
-  z-index: 999999 !important;
+#nextui-tooltip > * {
+  z-index: 99999999999 !important;
+}
+#nextui-modal {
+  z-index: 999998 !important;
 }
 .nextui-tooltip-content {
   z-index: 999999 !important;
@@ -1725,5 +1728,10 @@ p {
 .data-point-xs {
   height: 8px;
   width: 8px;
+  border-radius: 50%;
+}
+.data-point-md {
+  height: 12px;
+  width: 12px;
   border-radius: 50%;
 }

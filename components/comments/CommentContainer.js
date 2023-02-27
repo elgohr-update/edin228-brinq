@@ -10,7 +10,7 @@ export default function CommentContainer({
     ? reverseList(comments)
     : comments.length > 4
     ? reverseList(comments).slice(0, 4)
-    : comments
+    : reverseList(comments)
   return (
     <div className="flex flex-col w-full">
       {reversed.map((comment) => (

@@ -67,7 +67,7 @@ const UserProfilePicture = ({ user = null, newUser=false, callback }) => {
 }
 
 export default function UsersTable({ data = null, callback = null }) {
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(15)
   const [rows, setRows] = useState(data)
   const [tableData, setTableData] = useState(data)
   const [sortDescriptor, setSortDescriptor] = useState('ascending')
