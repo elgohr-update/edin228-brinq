@@ -35,6 +35,7 @@ import BrinqSelect from '../ui/select/BrinqSelect'
 import ClientDrawer from '../ui/drawer/ClientDrawer'
 import TagBasic from '../ui/tag/TagBasic'
 import PolicyTableRow from '../policy/PolicyTableRow'
+import ClientRenewalNote from '../client/ClientRenewalNote'
 
 export default function RenewalsTable(data) {
   const router = useRouter()
@@ -203,32 +204,12 @@ export default function RenewalsTable(data) {
 
   const columns = [
     {
-      key: 'line',
-      label: 'LINE',
-    },
-    {
       key: 'client_name',
       label: 'Client',
     },
     {
-      key: 'isRenewedCount',
-      label: 'Renewed',
-    },
-    {
-      key: 'premium',
-      label: 'PREMIUM',
-    },
-    {
-      key: 'expiration_date',
-      label: 'EXPIRING',
-    },
-    // {
-    //   key: 'progressPercent',
-    //   label: 'PROGRESS',
-    // },
-    {
-      key: 'reps',
-      label: 'REPS',
+      key: 'renewal_notes',
+      label: 'Notes',
     },
   ]
 
@@ -243,6 +224,12 @@ export default function RenewalsTable(data) {
             </Tooltip>
           </div>
         )
+      case 'renewal_notes':
+        return (
+          <div className="z-[999999] flex h-full min-w-[200px]">
+            <ClientRenewalNote clientId={client.client_id} />
+          </div>
+        )
       case 'client_name':
         return (
           <div className="py-2">
@@ -255,10 +242,39 @@ export default function RenewalsTable(data) {
               month={month}
               year={year}
               drawerCallback={drawerCallback}
+              premiumTotal={
+                <>
+                  <div className="flex justify-center text-xs font-bold">
+                    <div className="flex w-[90px] justify-end text-teal-500">
+                      {`$ ${formatMoney(client['premium'])}`}
+                    </div>
+                  </div>
+                </>
+              }
+              renewedTotal={
+                <>
+                  <div className="flex justify-center text-xs">
+                    <div className="flex w-[50px] justify-end font-bold">
+                      <span
+                        className={`mx-1 ${
+                          client['isRenewedCount'] == 0 ? 'text-red-500' : ''
+                        }`}
+                      >
+                        {client['isRenewedCount']}
+                      </span>{' '}
+                      /<span className="mx-1">{client.policy_count}</span>
+                    </div>
+                  </div>
+                </>
+              }
             />
-            <div className="flex w-full flex-col space-y-2">
+            <div className="flex flex-col w-full space-y-2">
               {sortByProperty(client?.policies, 'premium').map((pol) => (
-                <PolicyTableRow key={pol.id} pol={pol} />
+                <PolicyTableRow
+                  key={pol.id}
+                  pol={pol}
+                  currentUser={currentUser}
+                />
               ))}
             </div>
           </div>
@@ -294,7 +310,7 @@ export default function RenewalsTable(data) {
         const percentage = Math.round(client.progressPercent)
         return (
           <div className="flex flex-col px-4">
-            <div className="flex w-full justify-end text-xs tracking-widest">
+            <div className="flex justify-end w-full text-xs tracking-widest">
               {Number(percentage) ? percentage : 0}%
             </div>
             <Progress
@@ -307,12 +323,15 @@ export default function RenewalsTable(data) {
         )
       case 'expiration_date':
         return (
-          <div className="letter-spacing-1 flex justify-center text-xs">
+          <div className="flex justify-center text-xs letter-spacing-1">
             {getFormattedDate(client.expiration_date)}
           </div>
         )
       case 'reps':
-        const ordered = sortByProperty(client.users, 'producer')
+        const ordered = sortByProperty(
+          client.users.filter((x) => x.id != currentUser.id),
+          'producer'
+        )
         return (
           <div className="flex items-center justify-center">
             <Avatar.Group
@@ -416,7 +435,7 @@ export default function RenewalsTable(data) {
   }
 
   return (
-    <div className="flex h-full w-full flex-col xl:flex-row">
+    <div className="flex flex-col w-full h-full xl:flex-row">
       {showFilter ? (
         <motion.div
           className={`flex h-auto w-full flex-col space-y-4 rounded-lg py-4 px-4 xl:w-[400px] panel-flat-${type} ${type}-shadow`}
@@ -481,7 +500,7 @@ export default function RenewalsTable(data) {
               onChange={(e) => setMaxPolicies(e.target.value)}
             />
           </div>
-          <div className="spacy-y-4 flex flex-col">
+          <div className="flex flex-col spacy-y-4">
             <h4>Filter Lines</h4>
             <Checkbox
               defaultSelected
@@ -544,8 +563,8 @@ export default function RenewalsTable(data) {
           </div>
         </motion.div>
       ) : null}
-      <div className="flex h-full w-full flex-col xl:pl-2 xl:pr-8 2xl:px-2">
-        <div className="flex w-full flex-col items-center justify-between space-y-2 py-4 xl:h-16 xl:flex-row xl:space-y-0">
+      <div className="flex flex-col w-full h-full xl:pl-2 xl:pr-8 2xl:px-2">
+        <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 xl:h-16 xl:flex-row xl:space-y-0">
           <div className="flex items-center justify-end px-4">
             <div className="px-2">
               <Button
@@ -561,7 +580,7 @@ export default function RenewalsTable(data) {
             </div>
           </div>
           <div className="flex w-full">
-            <div className="flex w-full items-center pr-4">
+            <div className="flex items-center w-full pr-4">
               <Input
                 className={`z-10`}
                 type="search"
@@ -574,7 +593,7 @@ export default function RenewalsTable(data) {
                 onChange={(e) => searchTable(e.target.value)}
               />
             </div>
-            <div className="flex w-[140px] items-center justify-end px-4">
+            <div className="flex w-[140px] items-center justify-end px-4 gap-4">
               <div>
                 <BrinqSelect
                   fullWidth={false}
@@ -627,25 +646,25 @@ export default function RenewalsTable(data) {
               {(column) =>
                 column.key === 'client_name' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="table-column-header pl-5 text-xs">
+                    <div className="pl-5 text-xs table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : column.key === 'line' || column.key === 'reps' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="table-column-header flex items-center justify-center px-1 text-xs">
+                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : column.key === 'progress' ? (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="table-column-header px-1 text-xs">
+                    <div className="px-1 text-xs table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>
                 ) : (
                   <Table.Column key={column.key} allowsSorting>
-                    <div className="table-column-header flex items-center justify-center px-1 text-xs">
+                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
                       {column.label}
                     </div>
                   </Table.Column>

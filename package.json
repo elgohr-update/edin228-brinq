@@ -15,7 +15,7 @@
     "@badrap/bar-of-progress": "^0.1.2",
     "@harelpls/use-pusher": "^7.2.1",
     "@next/bundle-analyzer": "^13.1.4",
-    "@nextui-org/react": "^1.0.0-beta.8",
+    "@nextui-org/react": "^1.0.0-beta.12",
     "@react-forked/dnd": "^14.0.2",
     "@ringcentral/sdk": "^4.7.3",
     "@tiptap/react": "^2.0.0-beta.108",

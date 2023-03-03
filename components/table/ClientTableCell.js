@@ -19,6 +19,8 @@ export default function ClientTableCell({
   parent = false,
   writing = false,
   drawerCallback = null,
+  premiumTotal = null,
+  renewedTotal = null,
 }) {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
   const [isOpen, setIsOpen] = useState(false)
@@ -89,20 +91,30 @@ export default function ClientTableCell({
     }
   }
 
-  const checkTheme = () => {
-    return type === 'dark'
-      ? `page-link h-full flex items-center w-full px-2 pb-1`
-      : `page-link h-full flex items-center w-full px-2 pb-1`
-  }
   return (
-    <div className="z-[100] flex flex-col rounded-lg py-1 text-xs transition duration-200 ease-out hover:bg-gray-600/20">
-      <div className={checkTheme()} onClick={() => openDrawer(true)}>
-        <Link href={`/clients/${clientId}`}>
-          <a className="flex transition duration-100 ease-in-out">
-            {cellValue}
-          </a>
-        </Link>
-        <div className="flex ml-4 xl:hidden">{getIcon('rightDrawer')}</div>
+    <div className="z-[100] flex flex-col rounded-lg py-2 text-xs transition duration-200 ease-out hover:bg-gray-600/20">
+      <div
+        className={`page-link flex h-full w-full items-center justify-between px-2 pb-1`}
+        onClick={() => openDrawer(true)}
+      >
+        <div>
+          <Link href={`/clients/${clientId}`}>
+            <a className="flex transition duration-100 ease-in-out">
+              {cellValue}
+            </a>
+          </Link>
+          <div className="flex ml-4 xl:hidden">{getIcon('rightDrawer')}</div>
+        </div>
+        <div className="flex items-center gap-2 pr-12">
+          <div className="flex flex-col items-end">
+            <h4>Total Premium</h4>
+            <div>{premiumTotal}</div>
+          </div>
+          <div className="flex flex-col items-end">
+            <h4>Renewed</h4>
+            <div>{renewedTotal}</div>
+          </div>
+        </div>
       </div>
       <div className="pl-3">
         <TagContainer tags={tags} />

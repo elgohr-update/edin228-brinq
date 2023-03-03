@@ -101,7 +101,7 @@ function BrinqSelect({
     <div
       className={`relative flex flex-col ${
         fullWidth ? 'w-full' : ''
-      } px-4 pb-1 ${disabled ? 'opacity-20' : ''}`}
+      } pb-1 ${disabled ? 'opacity-20' : ''}`}
     >
       {title ? (
         <PanelTitle

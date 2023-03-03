@@ -35,7 +35,7 @@ function BrinqTextArea({
 
   return (
     <div
-      className={`flex w-full flex-col px-4 pb-1 ${
+      className={`flex h-full w-full flex-col pb-1 ${
         disabled ? 'opacity-20' : ''
       }`}
     >

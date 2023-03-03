@@ -1,16 +1,23 @@
-import { Progress } from '@nextui-org/react'
+import { Avatar, Progress } from '@nextui-org/react'
 import React from 'react'
-import { formatMoney, getFormattedDate, getIcon } from '../../utils/utils'
+import { formatMoney, getFormattedDate, getIcon, sortByProperty } from '../../utils/utils'
 import TaskCompletion from '../task/TaskCompletion'
 import TagBasic from '../ui/tag/TagBasic'
+import UserAvatar from '../user/Avatar'
 
-function PolicyTableRow({ pol }) {
+function PolicyTableRow({ pol, currentUser }) {
   const tasks_completed = pol.tasks.filter((x) => x.active && x.done).length
   const tasks_total = pol.tasks.filter((x) => x.active).length
   const percentage = Math.round((tasks_completed / tasks_total) * 100)
+
+  const ordered = sortByProperty(
+    pol.users.filter((x) => x.id != currentUser?.id),
+    'producer'
+  )
+
   return (
-    <div className="flex w-full flex-col pl-2">
-      <div className="flex w-full items-center justify-between text-xs">
+    <div className="flex flex-col w-full pl-2">
+      <div className="flex items-center justify-between w-full text-xs">
         <div className="flex items-center space-x-2">
           {/* {pol.renewed ? (
             <div className="text-emerald-500">{getIcon('circleCheck')}</div>
@@ -24,40 +31,36 @@ function PolicyTableRow({ pol }) {
               text={pol.policy_type}
             />
           </div>
-          <div
-            className={`${
-              pol.renewed ? 'line-through opacity-50' : 'opacity-80 '
-            }`}
-          >
+          <div className={`${pol.renewed ? 'opacity-50' : 'opacity-80 '}`}>
             {pol.policy_number}
           </div>
         </div>
-        {pol.renewed ? (
-          <div className="text-emerald-500 font-bold">Renewed</div>
-        ) : (
-          <div className="flex items-center justify-end space-x-2">
-            <div className="flex">
-              <div className="flex w-[200px] flex-col px-4">
-                <div className="flex w-full justify-between">
-                  <div className="text-xs opacity-50">Tasks</div>
-                  <div className="flex w-full justify-end text-xs tracking-widest">
-                    {Number(percentage) ? percentage : 0}%
-                  </div>
+        <div className="flex items-center justify-end space-x-2">
+          <div className="flex">
+            <div className="flex w-[200px] flex-col px-4">
+              <div className="flex justify-between w-full">
+                <div className="text-xs opacity-50">Tasks</div>
+                <div className="flex justify-end w-full text-xs tracking-widest">
+                  {Number(percentage) ? percentage : 0}%
                 </div>
-                <Progress
-                  shadow={true}
-                  size="sm"
-                  color="gradient"
-                  value={percentage}
-                />
               </div>
+              <Progress
+                shadow={true}
+                size="sm"
+                color="gradient"
+                value={percentage}
+              />
             </div>
-            <div className="flex min-w-[125px] items-center justify-end space-x-2">
-              <div
-                className={`text-teal-500 font-bold ${
-                  pol.renewed ? 'line-through opacity-50' : 'opacity-80 '
-                }`}
-              >{`$ ${formatMoney(pol.premium)}`}</div>
+          </div>
+          <div className="flex min-w-[125px] items-center justify-end space-x-2">
+            <div
+              className={`font-bold text-teal-500 ${
+                pol.renewed ? 'opacity-50' : 'opacity-80 '
+              }`}
+            >{`$ ${formatMoney(pol.premium)}`}</div>
+            {pol.renewed ? (
+              <div className="font-bold text-emerald-500">Renewed</div>
+            ) : (
               <div
                 className={`${
                   pol.renewed ? 'line-through opacity-50' : 'opacity-80 '
@@ -65,11 +68,29 @@ function PolicyTableRow({ pol }) {
               >
                 {getFormattedDate(pol.expiration_date)}
               </div>
-            </div>
+            )}
           </div>
-        )}
+          <div className="flex items-center justify-center px-4">
+            <Avatar.Group
+              count={pol.users.length > 3 ? pol.users.length : null}
+            >
+              {ordered.map((u) => (
+                <UserAvatar
+                  tooltip={true}
+                  tooltipPlacement="topEnd"
+                  isUser={true}
+                  passUser={u}
+                  key={u.id}
+                  isGrouped={true}
+                  squared={false}
+                  size={`sm`}
+                />
+              ))}
+            </Avatar.Group>
+          </div>
+        </div>
       </div>
-      <div className="flex w-full items-center py-2">
+      <div className="flex items-center w-full py-2">
         {pol?.tasks?.map((task) => (
           <TaskCompletion task={task} />
         ))}
