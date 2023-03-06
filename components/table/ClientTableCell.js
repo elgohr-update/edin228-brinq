@@ -97,13 +97,13 @@ export default function ClientTableCell({
         className={`page-link flex h-full w-full items-center justify-between px-2 pb-1`}
         onClick={() => openDrawer(true)}
       >
-        <div>
+        <div className="flex items-center">
           <Link href={`/clients/${clientId}`}>
             <a className="flex transition duration-100 ease-in-out">
               {cellValue}
             </a>
           </Link>
-          <div className="flex ml-4 xl:hidden">{getIcon('rightDrawer')}</div>
+          <div className="flex items-center ml-4 xl:hidden">{getIcon('rightDrawer')}</div>
         </div>
         <div className="flex items-center gap-2 pr-12">
           <div className="flex flex-col items-end">

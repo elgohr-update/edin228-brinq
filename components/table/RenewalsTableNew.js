@@ -10,6 +10,7 @@ import {
   Switch,
   Checkbox,
   User,
+  Pagination,
 } from '@nextui-org/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -37,9 +38,11 @@ import TagBasic from '../ui/tag/TagBasic'
 import PolicyTableRow from '../policy/PolicyTableRow'
 import ClientRenewalNote from '../client/ClientRenewalNote'
 
-export default function RenewalsTable(data) {
+export default function RenewalsTableNew(data) {
   const router = useRouter()
   const [pageSize, setPageSize] = useState(20)
+  const [currentPage, setCurrentPage] = useState(1)
+
   const { month, year } = router.query
   const { type } = useTheme()
   const { agency, setAgency } = useAgencyContext()
@@ -86,7 +89,6 @@ export default function RenewalsTable(data) {
   const produc = agency?.users?.filter((u) => u.is_active && u.producer)
   const ams = agency?.users?.filter((u) => u.is_active && u.account_manager)
 
-  
   const pageSizeOptions = [
     { id: 15, value: '15' },
     { id: 20, value: '20' },
@@ -203,175 +205,7 @@ export default function RenewalsTable(data) {
     setTableData(renewFilter)
   }
 
-  const columns = [
-    {
-      key: 'client_name',
-      label: 'Client',
-    },
-    {
-      key: 'renewal_notes',
-      label: 'Notes',
-    },
-  ]
-
-  const renderCell = (client, columnKey, drawerCallback) => {
-    const cellValue = client[columnKey]
-    switch (columnKey) {
-      case 'line':
-        return (
-          <div className="flex items-center justify-center">
-            <Tooltip content={cellValue}>
-              <LineIcon iconSize={18} size="sm" line={cellValue} />
-            </Tooltip>
-          </div>
-        )
-      case 'renewal_notes':
-        return (
-          <div className="z-[999999] flex h-full min-w-[200px]">
-            <ClientRenewalNote clientId={client.client_id} />
-          </div>
-        )
-      case 'client_name':
-        return (
-          <div className="py-2">
-            <ClientTableCell
-              cellValue={cellValue}
-              clientId={client.id}
-              tags={client.tags}
-              type={type}
-              isRnwl={true}
-              month={month}
-              year={year}
-              drawerCallback={drawerCallback}
-              premiumTotal={
-                <>
-                  <div className="flex justify-center text-xs font-bold">
-                    <div className="flex w-[90px] justify-end text-teal-500">
-                      {`$ ${formatMoney(client['premium'])}`}
-                    </div>
-                  </div>
-                </>
-              }
-              renewedTotal={
-                <>
-                  <div className="flex justify-center text-xs">
-                    <div className="flex w-[50px] justify-end font-bold">
-                      <span
-                        className={`mx-1 ${
-                          client['isRenewedCount'] == 0 ? 'text-red-500' : ''
-                        }`}
-                      >
-                        {client['isRenewedCount']}
-                      </span>{' '}
-                      /<span className="mx-1">{client.policy_count}</span>
-                    </div>
-                  </div>
-                </>
-              }
-            />
-            <div className="flex flex-col w-full space-y-2">
-              {sortByProperty(client?.policies, 'premium').map((pol) => (
-                <PolicyTableRow
-                  key={pol.id}
-                  pol={pol}
-                  currentUser={currentUser}
-                />
-              ))}
-            </div>
-          </div>
-        )
-      case 'policy_count':
-        return (
-          <div className="flex justify-center text-xs">
-            <div className="flex w-[50px] justify-end font-bold text-sky-500">
-              {cellValue}
-            </div>
-          </div>
-        )
-      case 'isRenewedCount':
-        return (
-          <div className="flex justify-center text-xs">
-            <div className="flex w-[50px] justify-end font-bold">
-              <span className={`mx-1 ${cellValue == 0 ? 'text-red-500' : ''}`}>
-                {cellValue}
-              </span>{' '}
-              /<span className="mx-1">{client.policy_count}</span>
-            </div>
-          </div>
-        )
-      case 'premium':
-        return (
-          <div className="flex justify-center text-xs font-bold">
-            <div className="flex w-[90px] justify-end text-teal-500">
-              {`$ ${formatMoney(cellValue)}`}
-            </div>
-          </div>
-        )
-      case 'progressPercent':
-        const percentage = Math.round(client.progressPercent)
-        return (
-          <div className="flex flex-col px-4">
-            <div className="flex justify-end w-full text-xs tracking-widest">
-              {Number(percentage) ? percentage : 0}%
-            </div>
-            <Progress
-              shadow={true}
-              size="sm"
-              color="gradient"
-              value={percentage}
-            />
-          </div>
-        )
-      case 'expiration_date':
-        return (
-          <div className="flex justify-center text-xs letter-spacing-1">
-            {getFormattedDate(client.expiration_date)}
-          </div>
-        )
-      case 'reps':
-        const ordered = sortByProperty(
-          client.users.filter((x) => x.id != currentUser.id),
-          'producer'
-        )
-        return (
-          <div className="flex items-center justify-center">
-            <Avatar.Group
-              count={client.users.length > 3 ? client.users.length : null}
-            >
-              {ordered.map((u) => (
-                <UserAvatar
-                  tooltip={true}
-                  tooltipPlacement="topEnd"
-                  isUser={true}
-                  passUser={u}
-                  key={u.id}
-                  isGrouped={true}
-                  squared={false}
-                  size={`sm`}
-                />
-              ))}
-            </Avatar.Group>
-          </div>
-        )
-      default:
-        return cellValue
-    }
-  }
-
   const collator = useCollator({ numeric: true })
-
-  async function sort(sortDescriptor) {
-    setSortDescriptor(sortDescriptor)
-    const sorted = tableData?.sort((a, b) => {
-      let first = a[sortDescriptor.column]
-      let second = b[sortDescriptor.column]
-      let cmp = collator.compare(first, second)
-      if (sortDescriptor.direction === 'descending') {
-        cmp *= -1
-      }
-      return cmp
-    })
-  }
 
   const forceSort = (data) => {
     const sorted = data.sort((a, b) => {
@@ -427,6 +261,14 @@ export default function RenewalsTable(data) {
 
   const pageSizeSet = (e) => {
     setPageSize(e)
+  }
+
+  const changePage = (e) => {
+    setCurrentPage(e)
+    console.log(e)
+    const init = pageSize * (e - 1)
+    const initLimit = e == 1 ? pageSize : pageSize * e
+    console.log(init, initLimit)
   }
 
   const clientDrawerSet = (e) => {
@@ -566,8 +408,8 @@ export default function RenewalsTable(data) {
       ) : null}
       <div className="flex flex-col w-full h-full xl:pl-2 xl:pr-8 2xl:px-2">
         <div className="flex flex-col items-center justify-between w-full py-4 space-y-2 xl:h-16 xl:flex-row xl:space-y-0">
-          <div className="flex items-center justify-end px-4">
-            <div className="px-2">
+          <div className="flex items-center justify-end">
+            <div className="xl:mr-4">
               <Button
                 color="warning"
                 auto
@@ -594,7 +436,17 @@ export default function RenewalsTable(data) {
                 onChange={(e) => searchTable(e.target.value)}
               />
             </div>
-            <div className="flex w-[140px] items-center justify-end px-4 gap-4">
+            <div className="px-4">
+              <Pagination
+                onChange={(e) => changePage(e)}
+                page={currentPage}
+                noMargin
+                shadow
+                total={Math.ceil(Number(tableData?.length / pageSize))}
+                initialPage={1}
+              />
+            </div>
+            <div className="flex w-[140px] items-center justify-end gap-4 px-4">
               <div>
                 <BrinqSelect
                   fullWidth={false}
@@ -617,73 +469,82 @@ export default function RenewalsTable(data) {
           </div>
         </div>
         {data && bUsers ? (
-          <Table
-            hoverable={true}
-            compact
-            sticked
-            bordered={false}
-            animated="true"
-            shadow={false}
-            lined={true}
-            aria-label="Renewals Table"
-            sortDescriptor={sortDescriptor}
-            onSortChange={(s) => sort(s)}
-            css={{
-              height: '100%',
-              minWidth: '100%',
-              borderWidth: '0px',
-            }}
-          >
-            {tableData?.length > pageSize ? (
-              <Table.Pagination
-                shadow
-                align="start"
-                noMargin
-                total={Math.ceil(Number(tableData?.length / pageSize))}
-                rowsPerPage={pageSize}
-              />
-            ) : null}
-            <Table.Header columns={columns}>
-              {(column) =>
-                column.key === 'client_name' ? (
-                  <Table.Column key={column.key} allowsSorting>
-                    <div className="pl-5 text-xs table-column-header">
-                      {column.label}
+          <div className="flex flex-col w-full h-full overflow-x-auto">
+            <div
+              className={`flex w-full text-sm panel-theme-${type} ${type}-shadow rounded-lg py-1`}
+            >
+              <div className="w-full pl-4">Client</div>
+              <div className="flex min-w-[350px] pl-4">Notes</div>
+            </div>
+            {tableData
+              .slice(
+                pageSize * (currentPage - 1),
+                currentPage == 1 ? pageSize : pageSize * currentPage
+              )
+              .map((tableItem) => (
+                <div
+                  key={tableItem.id}
+                  className="flex w-full min-w-[960px] pl-4"
+                >
+                  <div className="w-full py-2">
+                    <ClientTableCell
+                      cellValue={tableItem.client_name}
+                      clientId={tableItem.id}
+                      tags={tableItem.tags}
+                      type={type}
+                      isRnwl={true}
+                      month={month}
+                      year={year}
+                      drawerCallback={clientDrawerSet}
+                      premiumTotal={
+                        <>
+                          <div className="flex justify-center text-xs font-bold">
+                            <div className="flex w-[90px] justify-end text-teal-500">
+                              {`$ ${formatMoney(tableItem.premium)}`}
+                            </div>
+                          </div>
+                        </>
+                      }
+                      renewedTotal={
+                        <>
+                          <div className="flex justify-center text-xs">
+                            <div className="flex w-[50px] justify-end font-bold">
+                              <span
+                                className={`mx-1 ${
+                                  tableItem.isRenewedCount == 0
+                                    ? 'text-red-500'
+                                    : ''
+                                }`}
+                              >
+                                {tableItem.isRenewedCount}
+                              </span>{' '}
+                              /
+                              <span className="mx-1">
+                                {tableItem.policy_count}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      }
+                    />
+                    <div className="flex flex-col w-full space-y-2">
+                      {sortByProperty(tableItem?.policies, 'premium').map(
+                        (pol) => (
+                          <PolicyTableRow
+                            key={pol.id}
+                            pol={pol}
+                            currentUser={currentUser}
+                          />
+                        )
+                      )}
                     </div>
-                  </Table.Column>
-                ) : column.key === 'line' || column.key === 'reps' ? (
-                  <Table.Column key={column.key} allowsSorting>
-                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
-                      {column.label}
-                    </div>
-                  </Table.Column>
-                ) : column.key === 'progress' ? (
-                  <Table.Column key={column.key} allowsSorting>
-                    <div className="px-1 text-xs table-column-header">
-                      {column.label}
-                    </div>
-                  </Table.Column>
-                ) : (
-                  <Table.Column key={column.key} allowsSorting>
-                    <div className="flex items-center justify-center px-1 text-xs table-column-header">
-                      {column.label}
-                    </div>
-                  </Table.Column>
-                )
-              }
-            </Table.Header>
-            <Table.Body items={tableData}>
-              {(item) => (
-                <Table.Row>
-                  {(columnKey) => (
-                    <Table.Cell>
-                      {renderCell(item, columnKey, clientDrawerSet)}
-                    </Table.Cell>
-                  )}
-                </Table.Row>
-              )}
-            </Table.Body>
-          </Table>
+                  </div>
+                  <div className="flex h-auto min-w-[350px]">
+                    <ClientRenewalNote clientId={tableItem.client_id} />
+                  </div>
+                </div>
+              ))}
+          </div>
         ) : null}
         {isOpen ? (
           <ClientDrawer

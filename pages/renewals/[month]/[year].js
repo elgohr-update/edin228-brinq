@@ -24,6 +24,7 @@ import {
   useReloadContext,
 } from '../../../context/state'
 import { useChannel, useEvent } from '@harelpls/use-pusher'
+import RenewalsTableNew from '../../../components/table/RenewalsTableNew'
 
 export default function Renewals({ data }) {
   const router = useRouter()
@@ -140,12 +141,12 @@ export default function Renewals({ data }) {
   }
 
   return (
-    <main className="flex min-h-0 w-full flex-col">
-      <div className="flex items-center space-x-1 pl-4">
+    <main className="flex flex-col w-full min-h-0">
+      <div className="flex items-center pl-4 space-x-1">
         <Button.Group color="primary" auto size="xs" flat>
           <Button onClick={() => goToMonth('prev')}>
             <div className="flex items-center space-x-2">
-              <div className="flex items-center justify-center text-center text-xs">
+              <div className="flex items-center justify-center text-xs text-center">
                 {getIcon('caretLeft')}
               </div>
               <div>Previous Month</div>
@@ -154,7 +155,7 @@ export default function Renewals({ data }) {
           <Button onClick={() => goToMonth('next')}>
             <div className="flex items-center space-x-2">
               <div>Next Month</div>
-              <div className="flex items-center justify-center text-center text-xs">
+              <div className="flex items-center justify-center text-xs text-center">
                 {getIcon('caretRight')}
               </div>
             </div>
@@ -168,15 +169,15 @@ export default function Renewals({ data }) {
           onClick={() => refreshCurrent()}
         >
           <div className="flex items-center space-x-2">
-            <div className="flex items-center justify-center text-center text-lg">
+            <div className="flex items-center justify-center text-lg text-center">
               {getIcon('refresh')}
             </div>
             <div>Refresh</div>
           </div>
         </Button>
       </div>
-      <div className="flex w-full flex-col">
-        <div className="mb-2 flex min-h-0 items-center space-x-4 overflow-x-auto px-4 py-4 xl:overflow-x-hidden xl:py-2">
+      <div className="flex flex-col w-full">
+        <div className="flex items-center min-h-0 px-4 py-4 mb-2 space-x-4 overflow-x-auto xl:overflow-x-hidden xl:py-2">
           <SummaryCard
             vertical={false}
             val={premSum()}
@@ -231,14 +232,14 @@ export default function Renewals({ data }) {
             icon={<BsListCheck />}
           />
         </div>
-        <div className="flex px-4 w-full h-full">
+        <div className="flex w-full h-full px-4">
           {loading ? (
-            <div className="flex h-full w-full items-center justify-center">
+            <div className="flex items-center justify-center w-full h-full">
               <Loading type="points-opacity" color="currentColor" size="lg" />
             </div>
           ) : (
             <div className={`flex h-full w-full rounded-lg `}>
-              {tableData ? <RenewalsTable data={tableData} /> : null}
+              {tableData ? <RenewalsTableNew data={tableData} /> : null}
             </div>
           )}
         </div>
