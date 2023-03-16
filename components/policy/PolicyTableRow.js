@@ -1,11 +1,17 @@
 import { Avatar, Progress } from '@nextui-org/react'
 import React from 'react'
-import { formatMoney, getFormattedDate, getIcon, sortByProperty } from '../../utils/utils'
+import {
+  formatMoney,
+  getFormattedDate,
+  getIcon,
+  sortByProperty,
+} from '../../utils/utils'
 import TaskCompletion from '../task/TaskCompletion'
 import TagBasic from '../ui/tag/TagBasic'
 import UserAvatar from '../user/Avatar'
+import { motion } from 'framer-motion'
 
-function PolicyTableRow({ pol, currentUser }) {
+function PolicyTableRow({ pol, currentUser, i = 1 }) {
   const tasks_completed = pol.tasks.filter((x) => x.active && x.done).length
   const tasks_total = pol.tasks.filter((x) => x.active).length
   const percentage = Math.round((tasks_completed / tasks_total) * 100)
@@ -16,7 +22,23 @@ function PolicyTableRow({ pol, currentUser }) {
   )
 
   return (
-    <div className="flex flex-col w-full pl-2">
+    <motion.div
+      custom={i}
+      initial="hidden"
+      animate="visible"
+      variants={{
+        visible: {
+          opacity: 1,
+          transition: {
+            delay: i * 0.05,
+          },
+          y: 0,
+        },
+        hidden: { opacity: 0, y: -10 },
+      }}
+      transition={{ ease: 'easeInOut', duration: 0.1 }}
+      className="flex flex-col w-full pl-2"
+    >
       <div className="flex items-center justify-between w-full text-xs">
         <div className="flex items-center space-x-2">
           {/* {pol.renewed ? (
@@ -95,7 +117,7 @@ function PolicyTableRow({ pol, currentUser }) {
           <TaskCompletion task={task} />
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }
 

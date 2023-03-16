@@ -1,4 +1,5 @@
 import React from 'react'
+import TagManager from '../../tags/TagManager'
 import AgencyActions from './AgencyActions'
 import AgencyBranches from './AgencyBranches'
 import AgencyHeader from './AgencyHeader'
@@ -10,6 +11,7 @@ export default function Agency({data}) {
       <AgencyHeader data={data} />
       <AgencyBranches data={data} />
       <AgencyIntegrations data={data} />
+      <TagManager />
       <AgencyActions />
     </div>
   )

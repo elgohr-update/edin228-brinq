@@ -13,15 +13,18 @@ const BaseHeader = () => {
     >
       <div className="z-10 flex items-center justify-between w-full xl:mt-0">
         <Link href={`/`}>
-          <div className={`flex scale-[0.5] transition`}>
-            <Image
-              showSkeleton
-              maxDelay={10000}
-              width={110}
-              height={50}
-              src="/brinq-logo-full-color.png"
-              alt="LOGO"
-            />
+          <div className={`flex flex-col transition`}>
+            <div className="flex items-center justify-center scale-[0.5]">
+              <Image
+                showSkeleton
+                maxDelay={10000}
+                width={110}
+                height={50}
+                src="/brinq-logo-full-color.png"
+                alt="LOGO"
+              />
+            </div>
+            <h4 className="text-[0.6rem] tracking-widest">Renewal Management System</h4>
           </div>
         </Link>
         <div className="flex items-center justify-end">

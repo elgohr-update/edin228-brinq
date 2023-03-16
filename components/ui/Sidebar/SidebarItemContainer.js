@@ -49,14 +49,21 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                 expand ? 'opacity-1 relative' : 'absolute opacity-0'
               } flex scale-[0.7] transition`}
             >
-              <Image
-                showSkeleton
-                maxDelay={10000}
-                width={200}
-                height={50}
-                src="/brinq-logo-full-color.png"
-                alt="Default Image"
-              />
+              <div className={`flex flex-col transition`}>
+                <div className="flex items-center justify-center">
+                  <Image
+                    showSkeleton
+                    maxDelay={10000}
+                    width={200}
+                    height={50}
+                    src="/brinq-logo-full-color.png"
+                    alt="Default Image"
+                  />
+                </div>
+                <h4 className="text-center flex items-center justify-center text-[0.8rem] tracking-widest">
+                  Renewal Management System
+                </h4>
+              </div>
             </div>
             <div
               className={`${

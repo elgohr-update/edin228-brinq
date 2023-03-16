@@ -25,6 +25,7 @@ import {
   basicSort,
   sortByProperty,
   isCurrentMonthYear,
+  isMobile,
 } from '../../utils/utils'
 import UserAvatar from '../user/Avatar'
 import { useAgencyContext, useAppHeaderContext } from '../../context/state'
@@ -37,8 +38,10 @@ import ClientDrawer from '../ui/drawer/ClientDrawer'
 import TagBasic from '../ui/tag/TagBasic'
 import PolicyTableRow from '../policy/PolicyTableRow'
 import ClientRenewalNote from '../client/ClientRenewalNote'
+import RenewalTableRow from './RenewalTableRow'
 
 export default function RenewalsTableNew(data) {
+  const mobile = isMobile()
   const router = useRouter()
   const [pageSize, setPageSize] = useState(20)
   const [currentPage, setCurrentPage] = useState(1)
@@ -83,6 +86,7 @@ export default function RenewalsTableNew(data) {
   const [bUsers, setBUsers] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
   const [clientDrawer, setClientDrawer] = useState(null)
+  const [expandAllRows, setExpandAllRows] = useState(false)
 
   const runOnce = useRef(true)
   const runUsers = useRef(true)
@@ -109,6 +113,14 @@ export default function RenewalsTableNew(data) {
       runUsers.current = false
     }
   }, [agency])
+
+  useEffect(() => {
+    if (mobile == true) {
+      setShowFilter(false)
+    } else {
+      setShowFilter(true)
+    }
+  }, [mobile])
 
   useEffect(() => {
     const handleUpdate = () => {
@@ -265,10 +277,6 @@ export default function RenewalsTableNew(data) {
 
   const changePage = (e) => {
     setCurrentPage(e)
-    console.log(e)
-    const init = pageSize * (e - 1)
-    const initLimit = e == 1 ? pageSize : pageSize * e
-    console.log(init, initLimit)
   }
 
   const clientDrawerSet = (e) => {
@@ -422,8 +430,8 @@ export default function RenewalsTableNew(data) {
               </Button>
             </div>
           </div>
-          <div className="flex w-full">
-            <div className="flex items-center w-full pr-4">
+          <div className="flex flex-col w-full gap-4 xl:flex-row xl:gap-0">
+            <div className="flex items-center w-full">
               <Input
                 className={`z-10`}
                 type="search"
@@ -435,18 +443,36 @@ export default function RenewalsTableNew(data) {
                 labelLeft={getIcon('search')}
                 onChange={(e) => searchTable(e.target.value)}
               />
+              <div className="flex items-center justify-end gap-4 px-4">
+                <div className="mt-[-10px] flex flex-col items-end">
+                  <h4 className="w-[52px]">Expand All</h4>
+                  <Switch
+                    checked={expandAllRows}
+                    size="xs"
+                    onChange={(e) => setExpandAllRows(e.target.checked)}
+                  />
+                </div>
+                <div className="mt-[-10px] flex flex-col items-end">
+                  <h4>Renewed</h4>
+                  <Switch
+                    checked={showRenewed}
+                    size="xs"
+                    onChange={(e) => setShowRenewed(e.target.checked)}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="px-4">
-              <Pagination
-                onChange={(e) => changePage(e)}
-                page={currentPage}
-                noMargin
-                shadow
-                total={Math.ceil(Number(tableData?.length / pageSize))}
-                initialPage={1}
-              />
-            </div>
-            <div className="flex w-[140px] items-center justify-end gap-4 px-4">
+            <div className="flex items-center justify-center w-full xl:w-auto">
+              <div className="px-4">
+                <Pagination
+                  onChange={(e) => changePage(e)}
+                  page={currentPage}
+                  noMargin
+                  shadow
+                  total={Math.ceil(Number(tableData?.length / pageSize))}
+                  initialPage={1}
+                />
+              </div>
               <div>
                 <BrinqSelect
                   fullWidth={false}
@@ -457,24 +483,18 @@ export default function RenewalsTableNew(data) {
                   clearable={false}
                 />
               </div>
-              <div className="mt-[-10px] flex flex-col items-end">
-                <h4>Renewed</h4>
-                <Switch
-                  checked={showRenewed}
-                  size="xs"
-                  onChange={(e) => setShowRenewed(e.target.checked)}
-                />
-              </div>
             </div>
           </div>
         </div>
         {data && bUsers ? (
           <div className="flex flex-col w-full h-full overflow-x-auto">
-            <div
-              className={`flex w-full text-sm panel-theme-${type} ${type}-shadow rounded-lg py-1`}
-            >
-              <div className="w-full pl-4">Client</div>
-              <div className="flex min-w-[350px] pl-4">Notes</div>
+            <div className="w-full p-2">
+              <div
+                className={`flex w-full text-sm panel-theme-${type} ${type}-shadow rounded-lg py-1`}
+              >
+                <div className="w-full pl-4">Client</div>
+                <div className="flex min-w-[350px] pl-4">Renewal Notes</div>
+              </div>
             </div>
             {tableData
               .slice(
@@ -482,67 +502,14 @@ export default function RenewalsTableNew(data) {
                 currentPage == 1 ? pageSize : pageSize * currentPage
               )
               .map((tableItem) => (
-                <div
+                <RenewalTableRow
+                  currentUser={currentUser}
+                  month={month}
+                  year={year}
                   key={tableItem.id}
-                  className="flex w-full min-w-[960px] pl-4"
-                >
-                  <div className="w-full py-2">
-                    <ClientTableCell
-                      cellValue={tableItem.client_name}
-                      clientId={tableItem.id}
-                      tags={tableItem.tags}
-                      type={type}
-                      isRnwl={true}
-                      month={month}
-                      year={year}
-                      drawerCallback={clientDrawerSet}
-                      premiumTotal={
-                        <>
-                          <div className="flex justify-center text-xs font-bold">
-                            <div className="flex w-[90px] justify-end text-teal-500">
-                              {`$ ${formatMoney(tableItem.premium)}`}
-                            </div>
-                          </div>
-                        </>
-                      }
-                      renewedTotal={
-                        <>
-                          <div className="flex justify-center text-xs">
-                            <div className="flex w-[50px] justify-end font-bold">
-                              <span
-                                className={`mx-1 ${
-                                  tableItem.isRenewedCount == 0
-                                    ? 'text-red-500'
-                                    : ''
-                                }`}
-                              >
-                                {tableItem.isRenewedCount}
-                              </span>{' '}
-                              /
-                              <span className="mx-1">
-                                {tableItem.policy_count}
-                              </span>
-                            </div>
-                          </div>
-                        </>
-                      }
-                    />
-                    <div className="flex flex-col w-full space-y-2">
-                      {sortByProperty(tableItem?.policies, 'premium').map(
-                        (pol) => (
-                          <PolicyTableRow
-                            key={pol.id}
-                            pol={pol}
-                            currentUser={currentUser}
-                          />
-                        )
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex h-auto min-w-[350px]">
-                    <ClientRenewalNote clientId={tableItem.client_id} />
-                  </div>
-                </div>
+                  tableItem={tableItem}
+                  expandAllRows={expandAllRows}
+                />
               ))}
           </div>
         ) : null}

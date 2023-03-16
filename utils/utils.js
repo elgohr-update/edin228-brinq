@@ -48,7 +48,9 @@ import {
   AiFillPhone,
   AiFillInfoCircle,
   AiOutlineUser,
-  AiOutlineSave
+  AiOutlineSave,
+  AiFillTag,
+  AiFillTags
 } from 'react-icons/ai'
 import {
   BiNotepad,
@@ -174,6 +176,10 @@ export const getIcon = (item) => {
     <AiOutlineUser />
   ) : item == 'save' ? (
     <AiOutlineSave />
+  ) : item == 'tag' ? (
+    <AiFillTag />
+  ) : item == 'tags' ? (
+    <AiFillTags />
   ) : null
 }
 

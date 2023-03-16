@@ -4,7 +4,7 @@
 :root {
   --nextui--popoverBorderWeight: 0px;
   --nextui-borderWeights-light: 1px;
-  --nextui-borderWeights-normal: 2px;
+  --nextui-borderWeights-normal: 1px;
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -133,7 +133,7 @@
 .nextui-c-kltynt-bVtBym-bordered-false {
   border-width: 0px !important;
 }
-.nextui-c-fFabR-krOtXB-borderWeight-normal .nextui-avatar-img {
+.nextui-c-gEEnVX-krOtXB-borderWeight-normal .nextui-avatar-img {
   border-width: 0px !important;
 }
 .nextui-c-cVVQUL.nextui-popover-content-enter {
@@ -1496,7 +1496,7 @@ p {
   background: #e83e56;
   color: white;
   text-shadow: 2px 1px 4px #1b1a28c2;
-  border: none !important;
+  
   background: -o-linear-gradient(305deg, #cc588ee0, #e83e56);
   background: linear-gradient(145deg, #cc588ee0, #e83e56);
 }
@@ -1504,7 +1504,7 @@ p {
   background: #00b8ff;
   color: white;
   text-shadow: 2px 1px 4px #1b1a28c2;
-  border: none !important;
+  
   background: -o-linear-gradient(305deg, #00b8ff, #005aff);
   background: linear-gradient(145deg, #00b8ff, #005aff);
 }
@@ -1512,7 +1512,7 @@ p {
   background: #33f9a7;
   color: white;
   text-shadow: 2px 1px 4px #1b1a28c2;
-  border: none !important;
+  
   background: -o-linear-gradient(305deg, #33f9a7, #478e22);
   background: linear-gradient(145deg, #33f9a7, #478e22);
 }
@@ -1520,7 +1520,7 @@ p {
   background: #f3793f;
   color: white;
   text-shadow: 2px 1px 4px #1b1a28c2;
-  border: none !important;
+  
   background: -o-linear-gradient(305deg, orange, #f55c54);
   background: linear-gradient(145deg, orange, #f55c54);
 }
@@ -1528,7 +1528,7 @@ p {
   background: #a558fb;
   color: white;
   text-shadow: 2px 1px 4px #1b1a28c2;
-  border: none !important;
+  
   background: -o-linear-gradient(305deg, #a558fb, #4b33b1);
   background: linear-gradient(145deg, #a558fb, #4b33b1);
 }
@@ -1536,7 +1536,7 @@ p {
   background: #ffcb0e;
   color: white;
   text-shadow: 2px 1px 4px #1b1a28c2;
-  border: none !important;
+  
   background: -o-linear-gradient(305deg, #ffcb0e, #b58210);
   background: linear-gradient(145deg, #ffcb0e, #b58210);
 }
@@ -1544,7 +1544,7 @@ p {
   background: #e254ca;
   color: white;
   text-shadow: 2px 1px 4px #1b1a28c2;
-  border: none !important;
+  
   background: -o-linear-gradient(305deg, #df7689, #e254ca);
   background: linear-gradient(145deg, #df7689, #e254ca);
 }

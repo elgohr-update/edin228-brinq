@@ -42,38 +42,6 @@ export default function ClientTableCell({
     return true
   }
 
-  // const openSidebar = async () => {
-  //   const cd = await closeDrawer()
-  //   if (cd) {
-  //     if (isRnwl) {
-  //       setClientDrawer({
-  //         ...clientDrawer,
-  //         nav: 1,
-  //         isOpen: true,
-  //         clientId: clientId,
-  //         isRenewal: isRnwl,
-  //         renewalMonth: month,
-  //         renewalYear: year,
-  //         style: style,
-  //         companyId: companyId,
-  //         parent: parent,
-  //         writing: writing,
-  //       })
-  //     } else {
-  //       setClientDrawer({
-  //         ...clientDrawer,
-  //         nav: 1,
-  //         isOpen: true,
-  //         clientId: clientId,
-  //         style: style,
-  //         companyId: companyId,
-  //         parent: parent,
-  //         writing: writing,
-  //       })
-  //     }
-  //   }
-  // }
-
   const openDrawer = (useStateDrawer = false) => {
     if (drawerCallback) {
       drawerCallback(clientId)
@@ -103,18 +71,22 @@ export default function ClientTableCell({
               {cellValue}
             </a>
           </Link>
-          <div className="flex items-center ml-4 xl:hidden">{getIcon('rightDrawer')}</div>
-        </div>
-        <div className="flex items-center gap-2 pr-12">
-          <div className="flex flex-col items-end">
-            <h4>Total Premium</h4>
-            <div>{premiumTotal}</div>
-          </div>
-          <div className="flex flex-col items-end">
-            <h4>Renewed</h4>
-            <div>{renewedTotal}</div>
+          <div className="flex items-center ml-4 xl:hidden">
+            {getIcon('rightDrawer')}
           </div>
         </div>
+        {premiumTotal ? (
+          <div className="flex items-center gap-2">
+            <div className="flex flex-col items-end">
+              <h4>Total Premium</h4>
+              <div>{premiumTotal}</div>
+            </div>
+            <div className="flex flex-col items-end">
+              <h4>Renewed</h4>
+              <div>{renewedTotal}</div>
+            </div>
+          </div>
+        ) : null}
       </div>
       <div className="pl-3">
         <TagContainer tags={tags} />

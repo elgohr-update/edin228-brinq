@@ -66,7 +66,7 @@ const ClientInfo = ({
           </div>
         </div>
       </div>
-      <ClientReferences client={client} />
+      {/* <ClientReferences client={client} /> */}
     </Panel>
   )
 }

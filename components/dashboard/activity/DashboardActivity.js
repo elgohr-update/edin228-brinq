@@ -91,33 +91,37 @@ export default function DashboardActivity({ hideTitle = false }) {
       <div
         className={`relative flex flex-col overflow-hidden rounded-lg xl:px-0 panel-theme-${type} ${type}-shadow`}
       >
-        {data?.length > 0 ? (
-          <div className="relative flex w-full items-center">
-            <div className="relative w-full">
-              <Input
-                className={`z-10`}
-                type="search"
-                aria-label="Activity Search Bar"
-                size="sm"
-                fullWidth
-                underlined
-                placeholder="Search"
-                labelLeft={<FaSearch />}
-                onChange={(e) => searchActivity(e.target.value)}
-              />
-              <div className="search-border-flair pink-to-blue-gradient-1 z-30 flex w-full" />
-            </div>
-            <div className="flex px-2">
-              <Tooltip content={'Create Activity'}>
-                <Button size="xs" auto flat className="w-full" onClick={() => openNewActivity()}>
-                  <div className="flex items-center space-x-2">
-                    <div className="mx-2 flex">{getIcon('plus')}</div>
-                  </div>
-                </Button>
-              </Tooltip>
-            </div>
+        <div className="relative flex items-center w-full">
+          <div className="relative w-full">
+            <Input
+              className={`z-10`}
+              type="search"
+              aria-label="Activity Search Bar"
+              size="sm"
+              fullWidth
+              underlined
+              placeholder="Search"
+              labelLeft={<FaSearch />}
+              onChange={(e) => searchActivity(e.target.value)}
+            />
+            <div className="z-30 flex w-full search-border-flair pink-to-blue-gradient-1" />
           </div>
-        ) : null}
+          <div className="flex px-2">
+            <Tooltip content={'Create Activity'}>
+              <Button
+                size="xs"
+                auto
+                flat
+                className="w-full"
+                onClick={() => openNewActivity()}
+              >
+                <div className="flex items-center space-x-2">
+                  <div className="flex mx-2">{getIcon('plus')}</div>
+                </div>
+              </Button>
+            </Tooltip>
+          </div>
+        </div>
         <div
           className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 xl:h-[46vh]`}
         >

@@ -58,6 +58,7 @@ export default function NewComment({ source, commentType = 'task' }) {
             setReload({
               ...reload,
               activities: true,
+              policies: true,
             })
           }
         }

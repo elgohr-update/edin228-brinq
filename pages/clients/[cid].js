@@ -77,6 +77,26 @@ export default function Client({ data }) {
   }, [data])
 
   useEffect(() => {
+    let isCancelled = false
+    const handleChange = async () => {
+      await timeout(100)
+      if (client) {
+        setClient(client)
+        setPolicies(client?.policies)
+        setAppHeader({
+          ...appHeader,
+          titleContent: <ClientHeader client={client} />,
+        })
+        setActiveTab(1)
+      }
+    }
+    handleChange()
+    return () => {
+      isCancelled = true
+    }
+  }, [client])
+
+  useEffect(() => {
     if (reload.policies) {
       let isCancelled = false
       const handleChange = async () => {
@@ -219,11 +239,11 @@ export default function Client({ data }) {
         <div className="h-full overflow-y-auto">
           {activeTab === 1 ? (
             <div className="flex flex-col flex-auto w-full shrink-0 xl:overflow-hidden">
-              <div className="flex items-center w-full px-4 shrink-0">
-                <ClientPolicyInfo
+              <div className="flex items-center justify-end w-full px-4 shrink-0">
+                {/* <ClientPolicyInfo
                   client={client}
                   policies={getPolicies(true)}
-                />
+                /> */}
                 <div>
                   <h4>Active</h4>
                   <Switch

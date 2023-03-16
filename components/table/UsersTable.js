@@ -422,7 +422,7 @@ export default function UsersTable({ data = null, callback = null }) {
               />
             </div>
             <div className="flex items-center justify-end">
-              <div>
+              <div className="px-4">
                 <Tooltip content={'Create New User'}>
                   <Button
                     color="gradient"

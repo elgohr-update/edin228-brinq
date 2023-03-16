@@ -10,7 +10,7 @@ function BubbleBackground() {
       <div className="orange__gradient w-[450px] h-[450px] rounded-full z-1 fixed top-[7%] left-[2%]" />
       <div className="orange__gradient w-[180px] h-[180px] rounded-full z-1 fixed top-[1%] right-[10%]" />
       <div className="purple_blue__gradient w-[300px] h-[300px] rounded-full z-1 fixed top-[24%] left-[18%]" />
-      <div className="purple_blue__gradient w-[300px] h-[300px] rounded-full z-1 fixed top-[5%] left-[50%]" />
+      <div className="purple_blue__gradient w-[300px] h-[300px] rounded-full z-1 fixed top-[5%] left-[66%]" />
       <div className="blue__gradient w-[300px] h-[300px] rounded-full z-1 fixed top-[30%] left-0" />
       <div className="blue__gradient w-[400px] h-[400px] rounded-full z-1 fixed bottom-[20%] right-[-5%]" />
       {/* <div className="blue__gradient w-[300px] h-[300px] rounded-full z-1 fixed bottom-[-20%] left-[25%]" /> */}
