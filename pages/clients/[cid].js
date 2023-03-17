@@ -183,7 +183,7 @@ export default function Client({ data }) {
   }
 
   const openAMS360Page = () => {
-    const URL = `https://www.ams360.com/v2212631/nextgen/Customer/Detail/${data.ams360_customer_id}`
+    const URL = `https://www.ams360.com/v2312551/NextGen/Customer/Detail/${data.ams360_customer_id}`
     window.open(URL, '_blank')
   }
 
