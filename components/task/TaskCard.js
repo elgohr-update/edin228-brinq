@@ -42,12 +42,12 @@ const TaskCard = ({
     return today > date ? `text-color-error` : ``
   }
 
-  const baseClass = `${isSelected()} cursor-pointer text-xs flex flex-col flex-auto relative transition-all duration-100 ease-out py-1 pr-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
+  const baseClass = `${isSelected()} cursor-pointer text-xs flex flex-col flex-auto relative transition-all duration-100 ease-out py-1 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()}`
   return (
     <div className={baseClass}>
       <div className={`flex flex-auto items-center`}>
-        <TaskCompletion task={task} />
-        <div className="flex flex-auto" onClick={() => setSelected(!selected)}>
+        
+        <div className="flex flex-auto pl-4" onClick={() => setSelected(!selected)}>
           <div className="flex flex-col flex-auto shrink-0">
             <div className="flex flex-col flex-auto space-y-1 xl:flex-row xl:items-center xl:space-y-0">
               <div className={`relative flex flex-auto flex-col space-y-1`}>
@@ -127,6 +127,7 @@ const TaskCard = ({
             </div>
           </div>
         </div>
+        <TaskCompletion task={task} />
       </div>
       <div className="flex flex-col w-full pb-2 pl-4">
         <CommentContainer isSelected={selected} comments={task.comments} />
