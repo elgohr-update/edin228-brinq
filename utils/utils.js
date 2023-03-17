@@ -13,6 +13,8 @@ import {
   BsFileSpreadsheet,
   BsArrowRight,
   BsArrowBarRight,
+  BsHash,
+  BsCardText,
 } from 'react-icons/bs'
 import {
   FaRegPaperPlane,
@@ -186,6 +188,10 @@ export const getIcon = (item) => {
     <BsArrowRight />
   ) : item == 'arrowBarRight' ? (
     <BsArrowBarRight />
+  ) : item == 'hashtag' ? (
+    <BsHash />
+  ) : item == 'description' ? (
+    <BsCardText />
   ) : null
 }
 

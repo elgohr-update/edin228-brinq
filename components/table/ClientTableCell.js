@@ -88,7 +88,7 @@ export default function ClientTableCell({
           </div>
         ) : null}
       </div>
-      <div className="pl-3">
+      <div className="pl-2">
         <TagContainer tags={tags} />
       </div>
       {subContent ? <div className="flex w-full px-2">{subContent}</div> : null}

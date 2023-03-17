@@ -40,21 +40,30 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
       className="flex flex-col w-full pl-2"
     >
       <div className="flex items-center justify-between w-full text-xs">
-        <div className="flex items-center space-x-2">
-          {/* {pol.renewed ? (
-            <div className="text-emerald-500">{getIcon('circleCheck')}</div>
-          ) : (
-            <div className="data-point-md purple-to-green-gradient-1"></div>
-          )} */}
-          <div>
-            <TagBasic
-              tooltip
-              tooltipContent={pol.policy_type_full}
-              text={pol.policy_type}
-            />
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2">
+            <div>
+              <TagBasic
+                tooltip
+                tooltipContent={pol.policy_type_full}
+                text={pol.policy_type}
+              />
+            </div>
+            <div>
+              <div className="tracking-widest">{pol.policy_number}</div>
+            </div>
           </div>
-          <div className={`${pol.renewed ? 'opacity-50' : 'opacity-80 '}`}>
-            {pol.policy_number}
+          <div className="flex flex-col py-1">
+            <div className="flex items-center gap-2">
+              <h4>{getIcon('hashtag')}</h4>
+              <h4>{pol.policy_type_full}</h4>
+            </div>
+            {pol.description.length > 1 ? (
+              <div className="flex items-center gap-2">
+                <h4>{getIcon('description')}</h4>
+                <h4>{pol.description}</h4>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="flex items-center justify-end space-x-2">
@@ -74,17 +83,26 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
               />
             </div>
           </div>
-          <div className="flex min-w-[125px] items-center justify-end space-x-2">
-            <div
-              className={`font-bold text-teal-500 ${
-                pol.renewed ? 'opacity-50' : 'opacity-80 '
-              }`}
-            >{`$ ${formatMoney(pol.premium)}`}</div>
+          <div className="flex min-w-[125px] items-center justify-end space-x-2 pr-5">
+            <div className={`font-bold text-teal-500 `}>{`$ ${formatMoney(
+              pol.premium
+            )}`}</div>
             {pol.renewed ? (
-              <div className="font-bold text-emerald-500">Renewed</div>
+              <div>
+                <div
+                  className={`text-right ${
+                    pol.renewed ? 'line-through opacity-50' : 'opacity-80 '
+                  }`}
+                >
+                  {getFormattedDate(pol.expiration_date)}
+                </div>
+                <div className="text-xs font-bold text-right text-emerald-500">
+                  Renewed
+                </div>
+              </div>
             ) : (
               <div
-                className={`${
+                className={`text-right ${
                   pol.renewed ? 'line-through opacity-50' : 'opacity-80 '
                 }`}
               >
@@ -112,7 +130,7 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
           </div>
         </div>
       </div>
-      <div className="flex items-center w-full py-2 ml-[-12px]">
+      <div className="ml-[-12px] flex w-full items-center py-2">
         {pol?.tasks?.map((task) => (
           <TaskCompletion task={task} />
         ))}

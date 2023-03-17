@@ -77,10 +77,11 @@ function RenewalTableRow({
             </div>
           </div>
           <div
-            className="pl-4 pr-5 transition duration-100 cursor-pointer hover:text-sky-500"
+            className="flex items-center pl-4 pr-5 transition duration-100 cursor-pointer hover:text-sky-500"
             onClick={() => setShowPolicies(!showPolicies)}
           >
-            {showPolicies ? getIcon('up') : getIcon('left')}
+            <div>{getIcon('list')}</div>
+            <div>{showPolicies ? getIcon('up') : getIcon('left')}</div>
           </div>
         </div>
         <div className="flex flex-col w-full space-y-2">
