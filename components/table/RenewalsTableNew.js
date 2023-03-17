@@ -43,7 +43,7 @@ import RenewalTableRow from './RenewalTableRow'
 export default function RenewalsTableNew(data) {
   const mobile = isMobile()
   const router = useRouter()
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(15)
   const [currentPage, setCurrentPage] = useState(1)
 
   const { month, year } = router.query
@@ -473,7 +473,7 @@ export default function RenewalsTableNew(data) {
                   initialPage={1}
                 />
               </div>
-              <div>
+              {/* <div>
                 <BrinqSelect
                   fullWidth={false}
                   callBack={pageSizeSet}
@@ -482,7 +482,7 @@ export default function RenewalsTableNew(data) {
                   labelField={'value'}
                   clearable={false}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -33,7 +33,7 @@ const ClientInfo = ({
       overflow={overflow}
     >
       <div className="flex flex-col flex-auto shrink-0">
-        <PanelTitle title={`Reps`} color="indigo" />
+        {!horizontal ? <PanelTitle title={`Reps`} color="indigo" /> : null}
         <div className={`flex flex-auto shrink-0 flex-wrap space-y-2`}>
           {client?.users?.map((u) => (
             <div className="flex" key={u.id}>
@@ -44,9 +44,9 @@ const ClientInfo = ({
           ))}
         </div>
       </div>
-      <div className={`flex w-full flex-col py-2 xl:flex-row`}>
+      <div className={`flex w-full flex-col xl:flex-row`}>
         <div className={`flex w-full flex-col `}>
-          <PanelTitle title={`Address`} color="orange" />
+          {!horizontal ? <PanelTitle title={`Address`} color="orange" /> : null}
           <div className="flex items-center h-full">
             <div className="flex items-center justify-center h-full px-2 border-r border-sky-500">
               {getIcon('location')}

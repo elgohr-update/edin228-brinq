@@ -112,7 +112,7 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
           </div>
         </div>
       </div>
-      <div className="flex items-center w-full py-2">
+      <div className="flex items-center w-full py-2 ml-[-12px]">
         {pol?.tasks?.map((task) => (
           <TaskCompletion task={task} />
         ))}

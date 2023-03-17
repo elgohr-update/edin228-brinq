@@ -29,7 +29,7 @@ function RenewalTableRow({
   }, [expandAllRows])
 
   return (
-    <div className="flex w-full min-w-[960px] border-b-[1px] border-zinc-600 pl-4">
+    <div className="flex w-full min-w-[960px] border-b-[1px] border-zinc-800 pl-4">
       <div className="w-full py-2">
         <div className="flex items-center w-full">
           <div className="flex items-center w-full">

@@ -10,11 +10,12 @@ const ClientContacts = ({
   shadow = false,
   overflow = false,
   editable = false,
+  showTitle = true,
 }) => {
   return (
     <Panel flat={flat} noBg={noBg} shadow={shadow} overflow={overflow}>
-      <PanelTitle title={`Contacts`} color="sky" />
-      <div className={`flex flex-wrap max-h-[40vh] overflow-y-auto`}>
+      {showTitle ? <PanelTitle title={`Contacts`} color="lime" /> : null}
+      <div className={`flex max-h-[40vh] flex-wrap overflow-y-auto`}>
         {client?.contacts?.map((c) => (
           <div className="flex flex-auto" key={c.id}>
             <ContactCard contact={c} />

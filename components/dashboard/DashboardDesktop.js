@@ -41,8 +41,6 @@ export default function DashboardDesktop() {
     }
   }, [])
 
-  
-
   const fetchTasks = async () => {
     const res = await useNextApi('GET', `/api/tasks/`)
     setTasks(res)
@@ -66,9 +64,9 @@ export default function DashboardDesktop() {
   }
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex flex-col w-full h-full">
       {loading && !data ? (
-        <div className="flex h-full w-full">
+        <div className="flex w-full h-full">
           <div className="flex w-full flex-col items-center justify-center xl:mt-[-200px]">
             <Loading
               type="points-opacity"
@@ -76,23 +74,23 @@ export default function DashboardDesktop() {
               color="primary"
               textColor="primary"
             />
-            <div className="mt-5 uppercase tracking-widest opacity-80">
+            <div className="mt-5 tracking-widest uppercase opacity-80">
               Loading
             </div>
           </div>
         </div>
       ) : (
-        <div className="flex h-full w-full flex-col xl:flex-row xl:pl-2">
-          <div className="flex h-full w-full flex-col">
-            <div className="flex w-full flex-auto flex-col">
-              <div className="flex flex-auto shrink-0 gap-2 p-2">
-                <div className="flex w-3/12 flex-auto flex-col py-2">
+        <div className="flex flex-col w-full h-full xl:flex-row xl:pl-2">
+          <div className="flex flex-col w-full h-full">
+            <div className="flex flex-col flex-auto w-full">
+              <div className="flex flex-auto gap-2 p-2 shrink-0">
+                <div className="flex flex-col flex-auto w-3/12 py-2">
                   <DashboardTodos data={tasks} />
                 </div>
-                <div className="flex w-9/12 flex-auto flex-col px-2">
-                  <div className="flex w-full shrink-0 flex-col">
-                    <div className="flex h-full flex-col px-4 xl:flex-row xl:px-0">
-                      <div className="flex h-full w-full xl:items-center">
+                <div className={`flex w-9/12 flex-auto flex-col px-2`}>
+                  <div className="flex flex-col w-full shrink-0">
+                    <div className="flex flex-col h-full px-4 xl:flex-row xl:px-0">
+                      <div className="flex w-full h-full xl:items-center">
                         <DashboardCards
                           premium={data?.premium}
                           clients={data?.clients}
@@ -102,7 +100,7 @@ export default function DashboardDesktop() {
                           loading={loading}
                         />
                       </div>
-                      <div className="hidden w-full justify-center xl:flex ">
+                      <div className="justify-center hidden w-full xl:flex ">
                         <DashboardSummaryChart
                           fullData={data?.charts}
                           loading={loading}
@@ -110,10 +108,10 @@ export default function DashboardDesktop() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex w-full shrink-0 flex-col px-2">
+                  <div className="flex flex-col w-full px-2 shrink-0">
                     <DashboardTeam base={data?.relation_list} />
                   </div>
-                  <div className="flex w-full flex-auto flex-col gap-2 p-2">
+                  <div className="flex flex-col flex-auto w-full gap-2 p-2">
                     <div className="flex items-center gap-2">
                       <CurrentMonthSummary
                         teamData={data?.relation_list}

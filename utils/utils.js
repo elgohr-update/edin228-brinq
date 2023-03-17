@@ -11,6 +11,8 @@ import {
   BsRecordCircleFill,
   BsFillFileTextFill,
   BsFileSpreadsheet,
+  BsArrowRight,
+  BsArrowBarRight,
 } from 'react-icons/bs'
 import {
   FaRegPaperPlane,
@@ -180,6 +182,10 @@ export const getIcon = (item) => {
     <AiFillTag />
   ) : item == 'tags' ? (
     <AiFillTags />
+  ) : item == 'arrowRight' ? (
+    <BsArrowRight />
+  ) : item == 'arrowBarRight' ? (
+    <BsArrowBarRight />
   ) : null
 }
 

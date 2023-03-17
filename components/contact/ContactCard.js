@@ -27,10 +27,10 @@ const ContactCard = ({
       ? `${isDark ? `border-slate-900` : `border-slate-200`} border`
       : ``
   }
-  const baseClass = `flex flex-auto w-full min-w-[240px] p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
+  const baseClass = `flex min-w-[240px] p-2 rounded-lg ${isBorder()} ${isVertical()} ${isPanel()} ${isShadow()}`
   return (
     <div className={baseClass}>
-      <div className="flex w-full items-center">
+      <div className="flex items-center w-full">
         <div className={`${vertical ? 'flex justify-end' : `flex`} z-20`}>
           <div
             className={`flex items-center ${type}-shadow mr-2 justify-center rounded ${
@@ -55,20 +55,20 @@ const ContactCard = ({
       </div>
       <Popover placement={`top-right`} triggerType={'menu'}>
         <Popover.Trigger>
-          <div className="flex cursor-pointer transition duration-100 ease-out hover:text-sky-500">
+          <div className="flex transition duration-100 ease-out cursor-pointer hover:text-sky-500">
             <AiOutlineMore />
           </div>
         </Popover.Trigger>
         <Popover.Content>
-          <div className="flex w-full h-full px-4 py-2 items-center space-x-2">
+          <div className="flex items-center w-full h-full px-4 py-2 space-x-2">
             <Tooltip content={'Edit'}>
-                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-sky-500 cursor-pointer">{getIcon('edit')}</div>
+                <div className="flex items-center justify-center transition duration-100 ease-out cursor-pointer hover:text-sky-500">{getIcon('edit')}</div>
             </Tooltip>
             <Tooltip content={'Primary Contact'}>
-                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-orange-500 cursor-pointer">{getIcon('star')}</div>
+                <div className="flex items-center justify-center transition duration-100 ease-out cursor-pointer hover:text-orange-500">{getIcon('star')}</div>
             </Tooltip>
             <Tooltip content={'Remove'}>
-                <div className="flex items-center justify-center transition duration-100 ease-out hover:text-red-500 cursor-pointer">{getIcon('trash')}</div>
+                <div className="flex items-center justify-center transition duration-100 ease-out cursor-pointer hover:text-red-500">{getIcon('trash')}</div>
             </Tooltip>
           </div>
         </Popover.Content>

@@ -29,6 +29,7 @@ import DrawerLoader from '../loaders/DrawerLoader'
 import { motion } from 'framer-motion'
 import { pusherHandler } from '../../../utils/pusher'
 import NewActivityModal from '../../activity/NewActivityModal'
+import PanelTitle from '../title/PanelTitle'
 
 const ClientDrawer = ({
   clientId = null,
@@ -42,7 +43,7 @@ const ClientDrawer = ({
   const { reload, setReload } = useReloadContext()
   const router = useRouter()
   const { month, year } = router.query
-  const { type } = useTheme()
+  const { type, isDark } = useTheme()
   const [client, setClient] = useState(null)
   const [policies, setPolicies] = useState([])
   const [showMore1, setShowMore1] = useState(true)
@@ -71,7 +72,6 @@ const ClientDrawer = ({
       fetchClient().then(() => fetchPolicies())
     }
   }
-
   useEffect(() => {
     if (reload.policies) {
       let isCancelled = false
@@ -82,6 +82,22 @@ const ClientDrawer = ({
           setReload({
             ...reload,
             policies: false,
+          })
+        }
+      }
+      handleChange()
+      return () => {
+        isCancelled = true
+      }
+    } else if (reload.client) {
+      let isCancelled = false
+      const handleChange = async () => {
+        await timeout(100)
+        if (!isCancelled) {
+          getData(false)
+          setReload({
+            ...reload,
+            client: false,
           })
         }
       }
@@ -196,75 +212,36 @@ const ClientDrawer = ({
         {!client ? (
           <DrawerLoader />
         ) : (
-          <div className="flex flex-auto overflow-hidden py-4 xl:py-0">
+          <div className="flex flex-auto py-4 overflow-hidden xl:py-0">
             <div className={`flex w-full shrink-0 flex-col`}>
               <div className={`w-fullshrink-0 relative mb-2 flex px-2`}>
-                <div className="relative flex flex-auto shrink-0 flex-col xl:flex-row xl:pt-2">
-                  <ClientHeader client={client} />
-                  <div className="flex flex-auto shrink-0 flex-col items-end ">
-                    <div className="flex items-center pr-8">
-                      <SummaryCard
-                        isIcon={false}
-                        autoWidth
-                        val={premSum()}
-                        color="teal"
-                        gradientColor="green-to-blue-2"
-                        icon={<AiFillDollarCircle />}
-                        title="Premium"
-                        money
-                      />
-                      <SummaryCard
-                        isIcon={false}
-                        autoWidth
-                        val={policies.length}
-                        color="fuchsia"
-                        gradientColor="orange-to-red-2"
-                        title="Policies"
-                        icon={<BsBox />}
-                      />
+                <div className="relative flex flex-col items-center flex-auto shrink-0 xl:flex-row xl:pt-2">
+                  <div className="flex items-center w-full">
+                    <div className="flex items-center mr-2 text-3xl opacity-50">
+                      {getIcon('arrowBarRight')}
                     </div>
-                    <div className="z-10 ml-4 flex space-x-1 py-2">
-                      <Tooltip
-                        content="Create Activity / Suspense"
-                        placement="bottomEnd"
-                      >
-                        <Button
-                          size="xs"
-                          flat
-                          auto
-                          onClick={() => openNewActivity()}
-                        >
-                          <div className="flex items-center space-x-2">
-                            <RiPlayListAddFill />
-                            <div className="flex ">Create Activity</div>
-                          </div>
-                        </Button>
-                      </Tooltip>
-                      <Tooltip content="Open in AMS360" placement="bottomEnd">
-                        <Button
-                          size="xs"
-                          flat
-                          auto
-                          onClick={() => openAMS360Page()}
-                        >
-                          <div className="flex items-center space-x-2">
-                            <BiLinkExternal />
-                            <div className="flex ">View in AMS360</div>
-                          </div>
-                        </Button>
-                      </Tooltip>
-                      <Tooltip
-                        content="Re-Sync with AMS360"
-                        placement="bottomEnd"
-                      >
-                        <Button size="xs" flat auto onClick={() => syncAms()}>
-                          <div className="flex items-center space-x-2">
-                            <BiRefresh />
-                            <div className="flex ">AMS360 Sync</div>
-                          </div>
-                        </Button>
-                      </Tooltip>
+                    <div className="font-bold tracking-wide">
+                      Client Preview
                     </div>
+                  </div>
+                  <div className="flex justify-end py-2 shrink-0">
+                    <Link href={`/clients/${client.id}`}>
+                      <a className="w-full">
+                        <Button
+                          ghost
+                          color="gradient"
+                        >
+                          <div className="flex items-center w-full space-x-2">
+                            <div className="flex items-center ">
+                              View Details
+                            </div>
+                            <div className="flex items-center">
+                              {getIcon('arrowRight')}
+                            </div>
+                          </div>
+                        </Button>
+                      </a>
+                    </Link>
                   </div>
                   <div
                     className="absolute top-0 right-0 flex text-3xl font-bold xl:hidden"
@@ -278,12 +255,112 @@ const ClientDrawer = ({
                 />
               </div>
               <div
-                className={`mt-2 flex w-full flex-auto flex-col overflow-auto`}
+                className={`mt-2 flex w-full flex-auto flex-col overflow-y-auto overflow-x-hidden px-2`}
               >
-                <ClientInfo client={client} horizontal />
-                <ClientContacts client={client} />
+                <div className="mb-2">
+                  <div className="px-2"
+                  >
+                    <div
+                      className={`flex w-full flex-col items-center justify-center border-b-2 ${
+                        isDark ? 'border-zinc-800' : 'border-zinc-200'
+                      } xl:flex-row`}
+                    >
+                      <ClientHeader client={client} />
+                      <div className="z-10 flex items-center justify-center py-2 space-x-1">
+                        <div className="flex flex-col items-center">
+                          <Tooltip
+                            content="Create Activity / Suspense"
+                            placement="bottomEnd"
+                          >
+                            <Button
+                              size="xs"
+                              flat
+                              auto
+                              rounded
+                              onClick={() => openNewActivity()}
+                            >
+                              <div className="flex items-center">
+                                <RiPlayListAddFill />
+                              </div>
+                            </Button>
+                          </Tooltip>
+                          <div className="flex items-center py-1 text-xs font-bold opacity-70">
+                            Log
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <Tooltip
+                            content="Open in AMS360"
+                            placement="bottomEnd"
+                          >
+                            <Button
+                              size="xs"
+                              flat
+                              auto
+                              rounded
+                              onClick={() => openAMS360Page()}
+                            >
+                              <div className="flex items-center space-x-2">
+                                <BiLinkExternal />
+                              </div>
+                            </Button>
+                          </Tooltip>
+                          <div className="flex items-center py-1 text-xs font-bold opacity-70">
+                            AMS360
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <Tooltip
+                            content="Re-Sync with AMS360"
+                            placement="bottomEnd"
+                          >
+                            <Button
+                              size="xs"
+                              flat
+                              auto
+                              rounded
+                              onClick={() => syncAms()}
+                            >
+                              <div className="flex items-center space-x-2">
+                                <BiRefresh />
+                              </div>
+                            </Button>
+                          </Tooltip>
+                          <div className="flex items-center py-1 text-xs font-bold opacity-70">
+                            Sync
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className={`flex w-full flex-col border-b-2 ${
+                        isDark ? 'border-zinc-800' : 'border-zinc-200'
+                      } xl:flex-row`}
+                    >
+                      <div className="flex items-center justify-center w-full">
+                        <SummaryCard
+                          isIcon={false}
+                          autoWidth
+                          val={premSum()}
+                          color="teal"
+                          gradientColor="green-to-blue-2"
+                          icon={<AiFillDollarCircle />}
+                          title="Premium"
+                          money
+                        />
+                      </div>
+                      <ClientInfo client={client} horizontal />
+                    </div>
+                    <div>
+                      <ClientContacts showTitle={false} client={client} />
+                    </div>
+                  </div>
+                </div>
+
                 <div className={`flex shrink-0 flex-col`}>
-                  <ClientDrawerNavbar />
+                  <div className="px-4">
+                    <PanelTitle title={`Policies`} color="sky" />
+                  </div>
                   {clientDrawer.nav === 1 ? (
                     policies ? (
                       <div
@@ -296,19 +373,6 @@ const ClientDrawer = ({
                             <PolicyCard key={u.id} policy={u} />
                           ))}
                         </div>
-                        {policies.length > 4 ? (
-                          <div className="absolute bottom-[-23px] z-20 flex w-full items-center justify-center">
-                            <Button
-                              onClick={() => toggleShowMore1()}
-                              auto
-                              size="xs"
-                              color="gradient"
-                              icon={
-                                !showMore1 ? <BsChevronDown /> : <BsChevronUp />
-                              }
-                            ></Button>
-                          </div>
-                        ) : null}
                       </div>
                     ) : (
                       <DrawerLoader />
@@ -339,16 +403,21 @@ const ClientDrawer = ({
                   ) : null}
                 </div>
                 {client ? (
-                  <div className="mt-4 flex flex-auto shrink-0">
-                    <ClientActivity clientId={client.id} />
+                  <div className="flex flex-col">
+                    <div className="px-4">
+                      <PanelTitle title={`Activity`} color="yellow" />
+                    </div>
+                    <div className="flex flex-auto shrink-0">
+                      <ClientActivity clientId={client.id} />
+                    </div>
                   </div>
                 ) : null}
               </div>
             </div>
           </div>
         )}
-        {!client ? null : (
-          <div className="flex shrink-0 justify-end px-2 pt-1 pb-4">
+        {/* {!client ? null : (
+          <div className="flex justify-end px-2 pt-1 pb-4 shrink-0">
             <Link href={`/clients/${client.id}`}>
               <a className="w-full">
                 <Button color="gradient" className="w-full">
@@ -357,7 +426,7 @@ const ClientDrawer = ({
               </a>
             </Link>
           </div>
-        )}
+        )} */}
       </div>
       <NewActivityModal
         open={showActivityModal}

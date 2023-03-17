@@ -85,7 +85,7 @@ function RenewalPathCard({ path, task, indx }) {
             <h4>{task.daysDue <= 0 ? 'Days Before' : 'Days After'}</h4>
             <div className="text-xs font-bold">{Math.abs(task.daysDue)}</div>
           </div>
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <h4>Default Assignment</h4>
             <div className="text-xs font-bold">
               {task.default_assignment == 'am'
@@ -94,7 +94,7 @@ function RenewalPathCard({ path, task, indx }) {
                 ? 'Producer'
                 : 'Account Support'}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex items-center h-full">
@@ -156,7 +156,7 @@ function RenewalPathCard({ path, task, indx }) {
               clearable={false}
               initialValue={editTask?.daysDue}
             />
-            <BrinqSelect
+            {/* <BrinqSelect
               title="Default Assignment"
               color="orange"
               placeholder="Default Assignment"
@@ -167,7 +167,7 @@ function RenewalPathCard({ path, task, indx }) {
               filterable={true}
               multiple={false}
               initialValue={editTask?.default_assignment}
-            />
+            /> */}
           </div>
         </Modal.Body>
         <Modal.Footer

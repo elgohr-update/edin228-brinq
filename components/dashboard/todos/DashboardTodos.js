@@ -105,16 +105,13 @@ export default function DashboardTodos({ data = [] }) {
     const res = await useNextApi('GET', `/api/tasks/`)
     formatTasks(res)
   }
-
-  useEffect(() => {
-    formatTasks(rawNoFormat)
-  }, [showCompleted])
-
+  
   const toggleCompleted = (e) => {
     setShowCompleted(e)
+    formatTasks(rawNoFormat)
   }
 
-  const formatTasks = async (d) => {
+  const formatTasks =  (d) => {
     const format = bundleTasks(d)
     const overDue = formatOverdueTasks(d)
     const todays = formatTodayTasks(d)

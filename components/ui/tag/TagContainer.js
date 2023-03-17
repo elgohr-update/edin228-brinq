@@ -47,11 +47,7 @@ export default function TagContainer({
 
   const submit = async () => {
     const bundle = JSON.stringify({ ...editTags })
-    const res = await useNextApi(
-      'PUT',
-      `/api/clients/${clientId}/tags`,
-      bundle
-    )
+    const res = await useNextApi('PUT', `/api/clients/${clientId}/tags`, bundle)
     if (res) {
       closeModal()
       setReload({
@@ -64,13 +60,15 @@ export default function TagContainer({
   return (
     <>
       <div className="flex items-center w-full">
-        <div className={`flex gap-2`}>
-          {tags?.map((x) => {
-            return <ClientTag key={x.id} text={x.name} color={x.color} />
-          })}
-        </div>
+        {tags ? (
+          <div className={`flex gap-2`}>
+            {tags?.map((x) => {
+              return <ClientTag key={x.id} text={x.name} color={x.color} />
+            })}
+          </div>
+        ) : null}
         {allowAddition ? (
-          <div>
+          <div className={`${tags?.length > 0 ? 'ml-2':''}`}>
             <Button
               flat
               auto

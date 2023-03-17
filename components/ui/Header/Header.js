@@ -16,26 +16,26 @@ const Header = () => {
 
     return (
         <div className={`z-40 flex flex-col shrink-0 xl:flex-row xl:items-center justify-between w-full xl:w-[97%] 2xl:w-full h-[100px] xl:h-full relative xl:py-2 ${state.scrollY > 0 ? `panel-flat-noblur-${type}`: null}`}>
-            <div className="hidden z-20 xl:flex w-full xl:w-1/4 xl:pl-4">
+            <div className="z-20 hidden w-full xl:flex xl:w-1/4 xl:pl-4">
                 {appHeader.titleContent}
             </div>
-            <div className="z-40 flex items-center justify-between xl:justify-end mt-2 xl:mt-0 px-4">
-                <div className="xl:hidden z-30">
+            <div className="z-40 flex items-center justify-between px-4 mt-2 xl:justify-end xl:mt-0">
+                <div className="z-30 xl:hidden">
                     <MobileSidebar />
                 </div>
                 <div className="z-20 flex items-center justify-end">
                     <div className="mr-2">
                         <NewActionMenu />
                     </div>
-                    <div className="mx-2">
+                    {/* <div className="mx-2">
                         <NotificationBell />
-                    </div>
+                    </div> */}
                     <div className="ml-2">
                         <UserMenu />
                     </div>
                 </div>
             </div>
-            <div className="flex xl:hidden z-20 w-full pl-4 py-4">
+            <div className="z-20 flex w-full py-4 pl-4 xl:hidden">
                 {appHeader.titleContent}
             </div>
             {

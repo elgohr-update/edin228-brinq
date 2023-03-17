@@ -128,7 +128,7 @@ export default function DashboardSuspense({ hideTitle = false }) {
           </div>
         </div>
         <div
-          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 px-1 xl:max-h-[46vh]`}
+          className={`activity-card-container relative flex h-full w-full flex-col overflow-y-auto rounded py-2 px-1 xl:h-[46vh]`}
         >
           {data?.map((u, i) => (
             <motion.div

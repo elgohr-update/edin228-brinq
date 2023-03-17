@@ -5,7 +5,7 @@ import LineIcon from '../util/LineIcon'
 
 const ClientHeader = ({ client }) => {
   return (
-    <div className="flex items-center w-full xl:py-4">
+    <div className="flex items-center w-full py-4">
       <div
         className={`mr-4 hidden items-center rounded px-2 text-5xl text-white xl:flex`}
       >

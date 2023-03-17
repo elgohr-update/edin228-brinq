@@ -117,7 +117,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
               basePath="/renewals"
               isMobile={isMobile}
             />
-            <SidebarDropdown
+            {/* <SidebarDropdown
               icon={getIcon('list')}
               label={'Lists'}
               basePath="/lists"
@@ -225,7 +225,7 @@ export default function SidebarItemContainer({ expand, isMobile = false }) {
                   mainMenuItem={false}
                 />
               </motion.div>
-            </SidebarDropdown>
+            </SidebarDropdown> */}
             <SidebarDropdown
               icon={<BiBook />}
               label={'Reports'}
