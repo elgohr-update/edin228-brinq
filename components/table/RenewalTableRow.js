@@ -23,6 +23,11 @@ function RenewalTableRow({
   const { type } = useTheme()
   const [showPolicies, setShowPolicies] = useState(false)
 
+  const allRenewed =
+    tableItem?.policies.filter((x) => x.renewed == true).length /
+      tableItem?.policies.length ==
+    1
+
   useEffect(() => {
     setShowPolicies(expandAllRows)
     return () => {}
@@ -33,6 +38,17 @@ function RenewalTableRow({
       <div className="w-full py-2">
         <div className="flex items-center w-full">
           <div className="flex items-center w-full">
+            <div className="flex items-center justify-center mr-4">
+              {allRenewed ? (
+                <div className="flex items-center justify-center text-emerald-500">
+                  {getIcon('circleCheck')}
+                </div>
+              ) : (
+                <div className="flex items-center justify-center">
+                  {getIcon('circle')}
+                </div>
+              )}
+            </div>
             <div className="flex items-center justify-center mr-2">
               <Tooltip content={tableItem.line}>
                 <LineIcon iconSize={18} size="sm" line={tableItem.line} />
@@ -63,12 +79,12 @@ function RenewalTableRow({
                       <div className="flex w-[50px] justify-end font-bold">
                         <span
                           className={`mx-1 ${
-                            tableItem.isRenewedCount == 0 ? 'text-red-500' : ''
+                            tableItem.isRenewedCount == 0 ? 'text-red-500' : allRenewed ? 'text-emerald-500' : 'text-sky-500'
                           }`}
                         >
                           {tableItem.isRenewedCount}
                         </span>{' '}
-                        /<span className="mx-1">{tableItem.policy_count}</span>
+                        /<span className={`mx-1 ${allRenewed ? 'text-emerald-500' : ''}`}>{tableItem.policy_count}</span>
                       </div>
                     </div>
                   </>

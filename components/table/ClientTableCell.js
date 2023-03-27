@@ -21,6 +21,7 @@ export default function ClientTableCell({
   drawerCallback = null,
   premiumTotal = null,
   renewedTotal = null,
+  color = 'def',
 }) {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
   const [isOpen, setIsOpen] = useState(false)
@@ -59,6 +60,30 @@ export default function ClientTableCell({
     }
   }
 
+  const getColor = () => {
+    const def = 'tag-gray-bg'
+    switch (color) {
+      case 'green':
+        return 'deal-tag-green'
+      case 'blue':
+        return 'deal-tag-blue'
+      case 'red':
+        return 'deal-tag-red'
+      case 'orange':
+        return 'deal-tag-orange'
+      case 'purple':
+        return 'deal-tag-purple'
+      case 'pink':
+        return 'deal-tag-pink'
+      case 'yellow':
+        return 'deal-tag-yellow'
+      case 'subtle':
+        return 'deal-tag-subtle'
+      default:
+        return def
+    }
+  }
+
   return (
     <div className="z-[100] flex flex-col rounded-lg py-2 text-xs transition duration-200 ease-out hover:bg-gray-600/20">
       <div
@@ -67,7 +92,11 @@ export default function ClientTableCell({
       >
         <div className="flex items-center">
           <Link href={`/clients/${clientId}`}>
-            <a className="flex transition duration-100 ease-in-out">
+            <a
+              className={`flex font-bold transition duration-100 ease-in-out ${
+                color == 'green' ? 'text-emerald-500' : ''
+              }`}
+            >
               {cellValue}
             </a>
           </Link>

@@ -52,12 +52,16 @@ function RenewalPathCard({ path, task, indx }) {
 
   const submit = async () => {
     console.log(editTask)
-    const res = await useNextApi('PUT', `/api/paths/template/${editTask.id}`, JSON.stringify(editTask))
+    const res = await useNextApi(
+      'PUT',
+      `/api/paths/template/${editTask.id}`,
+      JSON.stringify(editTask)
+    )
     if (res) {
       closeModal()
       setReload({
         ...reload,
-        paths: true
+        paths: true,
       })
     }
   }
@@ -85,16 +89,6 @@ function RenewalPathCard({ path, task, indx }) {
             <h4>{task.daysDue <= 0 ? 'Days Before' : 'Days After'}</h4>
             <div className="text-xs font-bold">{Math.abs(task.daysDue)}</div>
           </div>
-          {/* <div className="flex flex-col">
-            <h4>Default Assignment</h4>
-            <div className="text-xs font-bold">
-              {task.default_assignment == 'am'
-                ? 'Account Manager'
-                : task.default_assignment == 'ae'
-                ? 'Producer'
-                : 'Account Support'}
-            </div>
-          </div> */}
         </div>
       </div>
       <div className="flex items-center h-full">
@@ -103,7 +97,7 @@ function RenewalPathCard({ path, task, indx }) {
             sortByProperty(path.base_tasks, 'daysDue', false)[
               indx + 1 != path.base_tasks.length ? indx + 1 : 0
             ]['daysDue'] >= 0 && task.daysDue <= 0
-              ? 'rounded-full bg-red-500'
+              ? 'rounded-full bg-violet-500'
               : indx + 1 == path.base_tasks.length
               ? 'rounded-full bg-red-500'
               : `bg-sky-500`
@@ -156,18 +150,6 @@ function RenewalPathCard({ path, task, indx }) {
               clearable={false}
               initialValue={editTask?.daysDue}
             />
-            {/* <BrinqSelect
-              title="Default Assignment"
-              color="orange"
-              placeholder="Default Assignment"
-              initialOptions={assignmentOptions}
-              callBack={(e) => changeTask(e, 'default_assignment')}
-              labelField={'label'}
-              valueField={`value`}
-              filterable={true}
-              multiple={false}
-              initialValue={editTask?.default_assignment}
-            /> */}
           </div>
         </Modal.Body>
         <Modal.Footer

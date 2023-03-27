@@ -150,13 +150,13 @@ export default function RenewalsTableNew(data) {
     return () => {}
   }, [data, bUsers])
 
-  useEffect(() => {
-    const handleChange = () => {
-      setShowRenewed(!isCurrentMonthYear(month, year))
-    }
-    handleChange()
-    return () => {}
-  }, [])
+  // useEffect(() => {
+  //   const handleChange = () => {
+  //     setShowRenewed(!isCurrentMonthYear(month, year))
+  //   }
+  //   handleChange()
+  //   return () => {}
+  // }, [])
 
   useEffect(() => {
     if (data && bUsers) {
@@ -250,6 +250,16 @@ export default function RenewalsTableNew(data) {
       const b = [...visibleReps, m]
       const newBase = basicSort(b)
       setVisibleReps(newBase)
+    }
+  }
+
+  const hideAllReps = () => {
+    if (visibleReps.length > 0) {
+      setVisibleReps([])
+    } else {
+      const baseUsers = agency.users.filter((u) => u.is_active)
+      const pIds = baseUsers.map((x) => x.uid)
+      setVisibleReps(pIds)
     }
   }
 
@@ -385,7 +395,15 @@ export default function RenewalsTableNew(data) {
             </Checkbox>
           </div>
           <div className="flex flex-col">
-            <h4 className="mb-2">Reps</h4>
+            <div className="flex items-center justify-between w-full mb-2">
+              <h4>Reps</h4>
+              <h6
+                className="transition duration-100 cursor-pointer hover:text-sky-500"
+                onClick={hideAllReps}
+              >
+                {visibleReps.length > 0 ? 'Hide All' : 'Show All'}
+              </h6>
+            </div>
             <div className="flex flex-row flex-wrap 2xl:flex-col 2xl:flex-nowrap 2xl:space-y-2">
               {currentUser?.producer
                 ? ams?.map((x) => (

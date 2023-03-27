@@ -79,7 +79,7 @@ function ClientRenewalNote({
             </div>
           ) : (
             <div className="flex items-center justify-center w-full h-full text-xs font-bold opacity-50">
-              Click to Add Note
+              Add Note
             </div>
           )}
         </div>

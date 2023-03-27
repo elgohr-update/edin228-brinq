@@ -41,40 +41,22 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
     >
       <div className="flex items-center justify-between w-full text-xs">
         <div className="flex flex-col">
-          <div className="flex items-center gap-2">
-            <div>
-              <TagBasic
-                tooltip
-                tooltipContent={pol.policy_type_full}
-                text={pol.policy_type}
-              />
-            </div>
-            <div>
-              <div className="tracking-widest">{pol.policy_number}</div>
-            </div>
-          </div>
-          <div className="flex flex-col py-1">
+          <div className="flex w-[300px] flex-col">
             <div className="flex items-center gap-2">
-              <h4>{getIcon('hashtag')}</h4>
-              <h4>{pol.policy_type_full}</h4>
-            </div>
-            {pol.description.length > 1 ? (
-              <div className="flex items-center gap-2">
-                <h4>{getIcon('description')}</h4>
-                <h4>{pol.description}</h4>
+              <div>
+                <TagBasic
+                  tooltip
+                  tooltipContent={pol.policy_type_full}
+                  text={pol.policy_type}
+                />
               </div>
-            ) : null}
-          </div>
-        </div>
-        <div className="flex items-center justify-end space-x-2">
-          <div className="flex">
-            <div className="flex w-[200px] flex-col px-4">
-              <div className="flex justify-between w-full">
-                <div className="text-xs opacity-50">Tasks</div>
-                <div className="flex justify-end w-full text-xs tracking-widest">
-                  {Number(percentage) ? percentage : 0}%
+              <div className={`${pol.renewed ? 'text-emerald-500' : ''}`}>
+                <div className="font-bold tracking-widest">
+                  {pol.policy_number}
                 </div>
               </div>
+            </div>
+            <div className="w-full py-2">
               <Progress
                 shadow={true}
                 size="sm"
@@ -83,21 +65,35 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
               />
             </div>
           </div>
+          <div className="flex flex-col gap-2 xl:flex-row xl:items-center">
+            <div className="flex items-center gap-2">
+              <h4 className="flex items-center">{getIcon('hashtag')}</h4>
+              <h4 className="flex items-center">{pol.policy_type_full}</h4>
+            </div>
+            {pol.description.length > 1 ? (
+              <div className="flex items-center gap-2">
+                <h4 className="flex items-center">{getIcon('description')}</h4>
+                <h4 className="flex items-center">{pol.description}</h4>
+              </div>
+            ) : null}
+          </div>
+        </div>
+        <div className="flex items-center justify-end space-x-2">
           <div className="flex min-w-[125px] items-center justify-end space-x-2 pr-5">
             <div className={`font-bold text-teal-500 `}>{`$ ${formatMoney(
               pol.premium
             )}`}</div>
             {pol.renewed ? (
               <div>
+                <div className="text-xs font-bold text-right text-emerald-500">
+                  Renewed
+                </div>
                 <div
                   className={`text-right ${
                     pol.renewed ? 'line-through opacity-50' : 'opacity-80 '
                   }`}
                 >
                   {getFormattedDate(pol.expiration_date)}
-                </div>
-                <div className="text-xs font-bold text-right text-emerald-500">
-                  Renewed
                 </div>
               </div>
             ) : (
@@ -130,10 +126,12 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
           </div>
         </div>
       </div>
-      <div className="ml-[-12px] flex w-full items-center py-2">
-        {pol?.tasks?.map((task) => (
-          <TaskCompletion task={task} />
-        ))}
+      <div className="flex flex-col w-full">
+        <div className="ml-[-14px] flex w-full items-center py-2">
+          {pol?.tasks?.map((task) => (
+            <TaskCompletion task={task} />
+          ))}
+        </div>
       </div>
     </motion.div>
   )

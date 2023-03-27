@@ -2,7 +2,7 @@ import React from 'react'
 import { Popover, Tooltip, useTheme } from '@nextui-org/react'
 import { MdPermContactCalendar } from 'react-icons/md'
 import { AiOutlineMore } from 'react-icons/ai'
-import { getIcon } from '../../utils/utils'
+import { getIcon, truncateString } from '../../utils/utils'
 
 const ContactCard = ({
   contact,
@@ -49,11 +49,11 @@ const ContactCard = ({
             {contact.first_name} {contact.last_name}
           </h6>
           <h4 className={``}>
-            <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            <a href={`mailto:${contact.email}`}>{truncateString(contact.email, 30)}</a>
           </h4>
         </div>
       </div>
-      <Popover placement={`top-right`} triggerType={'menu'}>
+      {/* <Popover placement={`top-right`} triggerType={'menu'}>
         <Popover.Trigger>
           <div className="flex transition duration-100 ease-out cursor-pointer hover:text-sky-500">
             <AiOutlineMore />
@@ -72,7 +72,7 @@ const ContactCard = ({
             </Tooltip>
           </div>
         </Popover.Content>
-      </Popover>
+      </Popover> */}
     </div>
   )
 }

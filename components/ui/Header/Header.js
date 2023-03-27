@@ -15,7 +15,7 @@ const Header = () => {
     const [showSearchBar, setShowSearchBar] = useState(false)
 
     return (
-        <div className={`z-40 flex flex-col shrink-0 xl:flex-row xl:items-center justify-between w-full xl:w-[97%] 2xl:w-full h-[100px] xl:h-full relative xl:py-2 ${state.scrollY > 0 ? `panel-flat-noblur-${type}`: null}`}>
+        <div className={`z-40 flex flex-col shrink-0 xl:flex-row xl:items-center justify-between w-full xl:w-[97%] 2xl:w-full h-[58px] xl:h-full relative xl:py-2 ${state.scrollY > 0 ? `panel-flat-noblur-${type}`: null}`}>
             <div className="z-20 hidden w-full xl:flex xl:w-1/4 xl:pl-4">
                 {appHeader.titleContent}
             </div>
@@ -35,9 +35,9 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            <div className="z-20 flex w-full py-4 pl-4 xl:hidden">
+            {/* <div className="z-20 flex w-full py-4 pl-4 xl:hidden">
                 {appHeader.titleContent}
-            </div>
+            </div> */}
             {
                 showSearchBar ? 
                     <div className={`z-20 xl:flex w-full panel-theme-${type} px-4 py-2`}>

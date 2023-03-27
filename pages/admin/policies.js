@@ -27,7 +27,7 @@ export default function AdminPolicies() {
       titleContent: (
         <PageTitle
           icon={<MdOutlineAdminPanelSettings />}
-          text="Agency Policy Settings"
+          text="Agency Policy Renewal Templates"
         />
       ),
     })
