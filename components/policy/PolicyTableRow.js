@@ -41,7 +41,7 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
     >
       <div className="flex items-center justify-between w-full text-xs">
         <div className="flex flex-col">
-          <div className="flex w-[300px] flex-col">
+          <div className="relative flex w-[300px] flex-col">
             <div className="flex items-center gap-2">
               <div>
                 <TagBasic
@@ -56,15 +56,8 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
                 </div>
               </div>
             </div>
-            <div className="w-full py-2">
-              <Progress
-                shadow={true}
-                size="sm"
-                color="gradient"
-                value={percentage}
-              />
-            </div>
           </div>
+
           <div className="flex flex-col gap-2 xl:flex-row xl:items-center">
             <div className="flex items-center gap-2">
               <h4 className="flex items-center">{getIcon('hashtag')}</h4>
@@ -76,6 +69,14 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
                 <h4 className="flex items-center">{pol.description}</h4>
               </div>
             ) : null}
+          </div>
+          <div className="z-[-1] w-full py-2">
+            <Progress
+              shadow={true}
+              size="sm"
+              color="success"
+              value={percentage}
+            />
           </div>
         </div>
         <div className="flex items-center justify-end space-x-2">
@@ -126,8 +127,8 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full">
-        <div className="ml-[-14px] flex w-full items-center py-2">
+      <div className="relative">
+        <div className="relative ml-[-14px] flex items-center py-2">
           {pol?.tasks?.map((task) => (
             <TaskCompletion task={task} />
           ))}

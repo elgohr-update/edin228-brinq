@@ -166,21 +166,21 @@ export default function TaskCompletion({ task }) {
   return (
     <>
       <div
-        className="flex w-[40px] items-center justify-center"
+        className="flex w-[40px] items-center justify-center cursor-pointer"
         onClick={() => setShowModal(!showModal)}
       >
         <Tooltip placement="top" content={task.title}>
           {task?.done ? (
             task?.completed ? (
-              <div className="text-color-success text-xs">
+              <div className="text-xs text-color-success">
                 <BsCheckCircleFill />
               </div>
             ) : task?.na ? (
-              <div className="text-color-warning text-xs">
+              <div className="text-xs text-color-warning">
                 <BsFillXCircleFill />
               </div>
             ) : (
-              <div className="text-color-warning text-xs">
+              <div className="text-xs text-color-warning">
                 <BsFillXCircleFill />
               </div>
             )
@@ -201,11 +201,11 @@ export default function TaskCompletion({ task }) {
         open={showModal}
         onClose={() => closeModal()}
       >
-        <Modal.Body className="flex w-full flex-col">
-          <div className="flex h-full w-full flex-col overflow-x-hidden px-2">
-            <div className="flex w-full items-center justify-between">
+        <Modal.Body className="flex flex-col w-full">
+          <div className="flex flex-col w-full h-full px-2 overflow-x-hidden">
+            <div className="flex items-center justify-between w-full">
               <div className={`flex w-full flex-col`}>
-                <div className="page-link flex items-center space-x-2">
+                <div className="flex items-center space-x-2 page-link">
                   <div className="data-point-xs purple-to-green-gradient-1"></div>
                   <Link href={`/clients/${task?.client_id}`}>
                     <a>
@@ -213,7 +213,7 @@ export default function TaskCompletion({ task }) {
                     </a>
                   </Link>
                 </div>
-                <div className="flex flex-auto items-center space-x-2 px-4">
+                <div className="flex items-center flex-auto px-4 space-x-2">
                   <TagBasic
                     tooltip
                     tooltipContent={task?.policy_type_full}
@@ -231,11 +231,11 @@ export default function TaskCompletion({ task }) {
               </div>
             </div>
             <div className="flex w-full px-2 py-4">
-              <div className="flex w-full flex-col md:flex-row md:justify-between">
+              <div className="flex flex-col w-full md:flex-row md:justify-between">
                 {/* <h4 className="flex">{task.title}</h4> */}
-                <div className="flex w-full items-center space-x-2">
-                  <div className="flex w-full flex-col">
-                    <div className="mb-2 flex items-center space-x-2">
+                <div className="flex items-center w-full space-x-2">
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center mb-2 space-x-2">
                       <h4>Assigned</h4>
                       <Button
                         light
@@ -289,9 +289,9 @@ export default function TaskCompletion({ task }) {
                     )}
                   </div>
                 </div>
-                <div className="flex w-full items-center justify-end space-x-2">
+                <div className="flex items-center justify-end w-full space-x-2">
                   {!editDate ? (
-                    <div className="flex items-center  space-x-2">
+                    <div className="flex items-center space-x-2">
                       <div className="data-point-xs pink-to-blue-gradient-1"></div>
                       <div className="flex items-center space-x-2">
                         <h4>Due</h4>
@@ -327,7 +327,7 @@ export default function TaskCompletion({ task }) {
                 </div>
               </div>
             </div>
-            <div className="mb-2 pl-2 text-xs opacity-50">
+            <div className="pl-2 mb-2 text-xs opacity-50">
               Activity Description
             </div>
             <div className="relative block min-h-[10vh] overflow-y-auto rounded-lg py-1 ">
@@ -351,10 +351,10 @@ export default function TaskCompletion({ task }) {
               </div>
             </div>
 
-            <div className="flex w-full flex-col pr-2">
-              <div className="flex w-full items-center justify-between">
+            <div className="flex flex-col w-full pr-2">
+              <div className="flex items-center justify-between w-full">
                 <div
-                  className="mb-2 flex cursor-pointer items-center space-x-2 py-4 pl-2 text-xs opacity-50 transition duration-100 ease-out hover:text-sky-500"
+                  className="flex items-center py-4 pl-2 mb-2 space-x-2 text-xs transition duration-100 ease-out opacity-50 cursor-pointer hover:text-sky-500"
                   onClick={() => setShowComments(!showComments)}
                 >
                   <div className="flex items-center">Comments</div>
@@ -363,7 +363,7 @@ export default function TaskCompletion({ task }) {
                   </div>
                 </div>
                 {task?.comments?.length >= 1 ? (
-                  <div className="flex w-full items-center justify-end">
+                  <div className="flex items-center justify-end w-full">
                     <Checkbox
                       color="success"
                       defaultSelected={taskBundle.includeComments}
@@ -395,7 +395,7 @@ export default function TaskCompletion({ task }) {
                     hidden: { opacity: 0, y: -10 },
                   }}
                   transition={{ ease: 'easeOut', duration: 1 }}
-                  className="flex w-full flex-col px-2"
+                  className="flex flex-col w-full px-2"
                 >
                   <CommentContainer
                     isSelected={true}
@@ -409,12 +409,12 @@ export default function TaskCompletion({ task }) {
         </Modal.Body>
         <Modal.Footer
           autoMargin={false}
-          className="flex w-full items-center p-4"
+          className="flex items-center w-full p-4"
         >
-          <div className="flex w-full flex-col">
-            <div className="flex w-full flex-col py-4 px-1 xl:flex-row xl:items-center xl:justify-between xl:space-x-2">
-              <div className="flex w-full flex-col items-center">
-                <div className="flex flex-wrap items-center justify-center gap-4 space-x-2 py-2">
+          <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full px-1 py-4 xl:flex-row xl:items-center xl:justify-between xl:space-x-2">
+              <div className="flex flex-col items-center w-full">
+                <div className="flex flex-wrap items-center justify-center gap-4 py-2 space-x-2">
                   <Checkbox
                     color="success"
                     defaultSelected={taskBundle.completed}
@@ -471,7 +471,7 @@ export default function TaskCompletion({ task }) {
                 </div>
               </div>
             </div>
-            <div className="flex w-full items-center gap-2">
+            <div className="flex items-center w-full gap-2">
               <div className="w-full">
                 <Button
                   disabled={loading}
