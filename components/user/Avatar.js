@@ -58,7 +58,7 @@ const UserAvatar = ({
               <Avatar
                 bordered={false}
                 squared={squared}
-                className={`${type}-shadow`}
+                
                 pointer
                 size={size}
                 zoomed
@@ -74,7 +74,7 @@ const UserAvatar = ({
             <Avatar
               bordered={false}
               squared={squared}
-              className={`${type}-shadow`}
+              
               pointer
               size={size}
               zoomed
@@ -88,7 +88,7 @@ const UserAvatar = ({
           <Avatar
             bordered={false}
             squared={squared}
-            className={`${type}-shadow`}
+            
             size={size}
             zoomed
             text={user?.name}
@@ -98,7 +98,7 @@ const UserAvatar = ({
       ) : isGrouped ? (
         <Avatar
           squared={squared}
-          className={`${type}-shadow`}
+          
           size={size}
           color="gradient"
           bordered={false}
@@ -110,7 +110,7 @@ const UserAvatar = ({
         <Avatar
           squared={squared}
           bordered={false}
-          className={`${type}-shadow`}
+          
           size={size}
           color="gradient"
           zoomed

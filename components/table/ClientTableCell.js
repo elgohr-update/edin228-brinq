@@ -85,9 +85,13 @@ export default function ClientTableCell({
   }
 
   return (
-    <div className="z-[100] flex flex-col rounded-lg py-2 text-xs transition duration-200 ease-out hover:bg-gray-600/20">
+    <div
+      className={`z-[100] flex flex-col rounded-lg py-2 text-xs transition duration-200 ease-out ${
+        type == 'dark' ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'
+      }`}
+    >
       <div
-        className={`page-link flex h-full w-full items-center justify-between px-2 pb-1`}
+        className={`page-link flex h-full w-full items-center justify-between px-2`}
         onClick={() => openDrawer(true)}
       >
         <div className="flex items-center">

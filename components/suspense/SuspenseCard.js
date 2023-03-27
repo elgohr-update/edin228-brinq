@@ -21,6 +21,7 @@ import TagBasic from '../ui/tag/TagBasic'
 import { useState } from 'react'
 import BrinqInput from '../ui/input/BrinqInput'
 import { useReloadContext } from '../../context/state'
+import ClientTableCell from '../table/ClientTableCell'
 
 function SuspenseCard({
   data = null,
@@ -98,15 +99,13 @@ function SuspenseCard({
     }
   }
 
-  const baseClass = `flex activity-card overflow-x-hidden overflow-y-hidden relative flex-col w-full py-1 mb-1 px-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()} cursor-pointer ${
-    isDark ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'
-  } transition duration-100`
+  const baseClass = `flex activity-card overflow-x-hidden overflow-y-hidden relative flex-col w-full py-1 mb-1 px-2 rounded-lg ${isBorder()} ${isPanel()} ${isShadow()} cursor-pointer`
 
   return (
     <>
       <div className={baseClass}>
         <div className="flex w-full">
-          <div className="z-90 relative mr-4 flex">
+          <div className="relative flex mr-4 z-90">
             {data?.system_action && data?.users.length < 1 ? (
               <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-slate-900">
                 <Image
@@ -136,17 +135,15 @@ function SuspenseCard({
             ) : null}
           </div>
           <div className="w-full">
-            <div className="flex w-full items-center justify-between">
+            <div className="flex items-center justify-between w-full">
               {hideClient ? null : (
-                <div className={`flex w-full flex-col`}>
-                  <div className="page-link flex items-center space-x-2">
-                    
-                    <Link href={`/clients/${data?.client.id}`}>
-                      <a>
-                        <h6>{truncateString(data?.client.client_name, 50)}</h6>
-                      </a>
-                    </Link>
-                  </div>
+                <div className="w-full">
+                  <ClientTableCell
+                    cellValue={data?.client.client_name}
+                    clientId={data?.client.id}
+                    tags={data?.client.tags}
+                    type={type}
+                  />
                 </div>
               )}
               <div
@@ -179,7 +176,7 @@ function SuspenseCard({
                       </div>
                     </div>
                     {data.completed ? (
-                      <div className="flex w-full items-center justify-end space-x-2">
+                      <div className="flex items-center justify-end w-full space-x-2">
                         <div className="data-point-xs green-gradient-1"></div>
                         <div className="flex items-center space-x-2">
                           <h4>Completed</h4>
@@ -196,12 +193,14 @@ function SuspenseCard({
               </div>
             </div>
             <div
-              className="relative block py-1"
+              className={`relative block px-2 py-1 rounded-lg ${
+                isDark ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'
+              } transition duration-100`}
               onClick={() => setShowModal(true)}
             >
               <h6 className="block whitespace-pre-line">{data?.description}</h6>
             </div>
-            <div className="flex w-full items-center space-x-2">
+            <div className="flex items-center w-full space-x-2">
               {hidePolicy ||
               data?.system_action ||
               data?.policies.length == 0 ? null : data?.policies.length == 1 ? (
@@ -288,12 +287,12 @@ function SuspenseCard({
         open={showModal}
         onClose={() => closeModal()}
       >
-        <Modal.Body className="flex w-full flex-col px-4">
-          <div className="flex h-full w-full flex-col overflow-x-hidden">
-            <div className="flex w-full items-center justify-between">
+        <Modal.Body className="flex flex-col w-full px-4">
+          <div className="flex flex-col w-full h-full overflow-x-hidden">
+            <div className="flex items-center justify-between w-full">
               <div className={`flex w-full flex-col`}>
                 {hideClient ? null : (
-                  <div className="page-link flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 page-link">
                     <div className="data-point-xs purple-to-green-gradient-1"></div>
                     <Link href={`/clients/${data?.client_id}`}>
                       <a>
@@ -306,7 +305,7 @@ function SuspenseCard({
                 data?.system_action ||
                 data?.policies.length == 0 ? null : data?.policies.length ==
                   1 ? (
-                  <div className="flex flex-auto items-center space-x-2 px-4">
+                  <div className="flex items-center flex-auto px-4 space-x-2">
                     <TagBasic
                       tooltip
                       tooltipContent={data?.policies[0].policy_type_full}
@@ -337,11 +336,11 @@ function SuspenseCard({
               </div>
             </div>
             <div className="flex w-full px-2 py-4">
-              <div className="flex w-full flex-col md:flex-row md:justify-between">
+              <div className="flex flex-col w-full md:flex-row md:justify-between">
                 <h4 className="flex">{data.activity_type}</h4>
                 <div className="flex items-center space-x-2">
                   {!editDate ? (
-                    <div className="flex items-center  space-x-2">
+                    <div className="flex items-center space-x-2">
                       <div className="data-point-xs pink-to-blue-gradient-1"></div>
                       <div className="flex items-center space-x-2">
                         <h4>Due</h4>
@@ -399,7 +398,7 @@ function SuspenseCard({
                   />
                 </div>
 
-                <div className="flex w-full items-center justify-end space-x-2 pt-4">
+                <div className="flex items-center justify-end w-full pt-4 space-x-2">
                   <Button
                     flat
                     color="error"
@@ -440,7 +439,7 @@ function SuspenseCard({
                 </div>
               </div>
             )}
-            <div className="flex w-full flex-col py-4 px-1 xl:flex-row xl:items-center xl:justify-between xl:space-x-2">
+            <div className="flex flex-col w-full px-1 py-4 xl:flex-row xl:items-center xl:justify-between xl:space-x-2">
               <div className="flex items-center space-x-2">
                 <div className="flex items-center space-x-2">
                   <h4>Author:</h4>
@@ -485,7 +484,7 @@ function SuspenseCard({
                 </div>
               </div>
               <div className="flex items-center py-4 xl:justify-end xl:py-0">
-                <div className="flex items-center justify-center space-x-2 py-2">
+                <div className="flex items-center justify-center py-2 space-x-2">
                   <Checkbox
                     color="success"
                     defaultSelected={editSuspense.completed}
