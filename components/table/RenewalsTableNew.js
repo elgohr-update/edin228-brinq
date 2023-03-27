@@ -401,7 +401,7 @@ export default function RenewalsTableNew(data) {
                 className="transition duration-100 cursor-pointer hover:text-sky-500"
                 onClick={hideAllReps}
               >
-                {visibleReps.length > 0 ? 'Hide All' : 'Show All'}
+                {visibleReps?.length > 0 ? 'Hide All' : 'Show All'}
               </h6>
             </div>
             <div className="flex flex-row flex-wrap 2xl:flex-col 2xl:flex-nowrap 2xl:space-y-2">
