@@ -97,8 +97,8 @@ const ClientTag = ({
         <div
           onClick={() => (editable ? setShowModal(true) : null)}
           className={`${editable ? 'cursor-pointer' : ''} ${
-            autoWidth ? `w-auto` : `min-w-[45px]`
-          } tag-text-shadow flex min-h-[14px] items-center justify-center rounded-sm px-2 text-center text-[0.65rem] font-bold tracking-widest ${getColor()} ${isShadow()} ${isOpacity()}`}
+            autoWidth ? `w-auto` : `min-w-[30px]`
+          } tag-text-shadow flex min-h-[14px] items-center justify-center rounded-sm px-2 text-center text-[0.55rem] font-bold tracking-widest ${getColor()} ${isShadow()} ${isOpacity()}`}
         >
           {text}
         </div>

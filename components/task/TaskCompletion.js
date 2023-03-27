@@ -186,7 +186,7 @@ export default function TaskCompletion({ task }) {
             )
           ) : (
             <div className="text-xs">
-              <BiCircle />
+              {getIcon('square')}
             </div>
           )}
         </Tooltip>

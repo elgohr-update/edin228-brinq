@@ -192,8 +192,9 @@ function SuspenseCard({
                 </div>
               </div>
             </div>
+            <h4 className="pl-2">Description</h4>
             <div
-              className={`relative block px-2 py-1 rounded-lg ${
+              className={`relative block rounded-lg px-2 py-1 ${
                 isDark ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'
               } transition duration-100`}
               onClick={() => setShowModal(true)}

@@ -86,16 +86,14 @@ export default function ClientTableCell({
 
   return (
     <div
-      className={`z-[100] flex flex-col rounded-lg py-2 text-xs transition duration-200 ease-out ${
-        type == 'dark' ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'
-      }`}
+      className={`z-[100] flex flex-col rounded-lg py-2 text-xs transition duration-200 ease-out`}
     >
       <div
         className={`page-link flex h-full w-full items-center justify-between px-2`}
         onClick={() => openDrawer(true)}
       >
         <div className="flex items-center">
-          <Link href={`/clients/${clientId}`}>
+          {/* <Link href={`/clients/${clientId}`}>
             <a
               className={`flex font-bold transition duration-100 ease-in-out ${
                 color == 'green' ? 'text-emerald-500' : ''
@@ -103,7 +101,8 @@ export default function ClientTableCell({
             >
               {cellValue}
             </a>
-          </Link>
+          </Link> */}
+          <a className="font-bold">{cellValue}</a>
           <div className="flex items-center ml-4 xl:hidden">
             {getIcon('rightDrawer')}
           </div>

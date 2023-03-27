@@ -15,6 +15,7 @@ import {
   BsArrowBarRight,
   BsHash,
   BsCardText,
+  BsSquare,
 } from 'react-icons/bs'
 import {
   FaRegPaperPlane,
@@ -192,6 +193,8 @@ export const getIcon = (item) => {
     <BsHash />
   ) : item == 'description' ? (
     <BsCardText />
+  ) : item == 'square' ? (
+    <BsSquare />
   ) : null
 }
 
