@@ -16,6 +16,9 @@ import {
   BsHash,
   BsCardText,
   BsSquare,
+  BsArrowClockwise,
+  BsFillSignStopFill,
+  BsStopCircle
 } from 'react-icons/bs'
 import {
   FaRegPaperPlane,
@@ -24,6 +27,7 @@ import {
   FaFax,
   FaVoicemail,
   FaDiceD20,
+  FaStop,
 } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 import { RiLinksLine } from 'react-icons/ri'
@@ -195,6 +199,10 @@ export const getIcon = (item) => {
     <BsCardText />
   ) : item == 'square' ? (
     <BsSquare />
+  ) : item == 'renewalCircle' ? (
+    <BsArrowClockwise />
+  ) : item == 'stopSign' ? (
+    <BsStopCircle />
   ) : null
 }
 

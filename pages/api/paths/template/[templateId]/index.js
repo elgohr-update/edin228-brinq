@@ -16,6 +16,17 @@ export default async function handler(req, res) {
       if (results) {
         res.status(200).json(results.body)
       }
+    } else if (req.method === 'DELETE') {
+      let results = await fetch(baseUrl, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.accessToken}`,
+        },
+      })
+      if (results) {
+        res.status(200).json(results.body)
+      }
     } else if (req.method === 'POST') {
       const results = await fetch(baseUrl, {
         method: 'POST',

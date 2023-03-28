@@ -2,6 +2,7 @@ import { Button, Loading, Modal, Switch, useTheme } from '@nextui-org/react'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useReloadContext } from '../../../context/state'
 import { getIcon, sortByProperty, useNextApi } from '../../../utils/utils'
 import BrinqInput from '../../ui/input/BrinqInput'
 import LineIcon from '../../util/LineIcon'
@@ -14,11 +15,14 @@ function RenewalPath({ path, allPaths = [] }) {
   const [showEditName, setShowEditName] = useState(false)
   const [showInactive, setShowInactive] = useState(false)
   const [showNewTemplateModal, setShowNewTemplateModal] = useState(false)
+  const [showRulesModal, setShowRulesModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [newTemplate, setNewTemplate] = useState({
     title: '',
     daysDue: '',
   })
   const [loading, setLoading] = useState(false)
+  const { reload, setReload } = useReloadContext()
 
   useEffect(() => {
     setPathData(path)
@@ -80,7 +84,7 @@ function RenewalPath({ path, allPaths = [] }) {
     const newTask = { ...newTemplate }
     newTask[field] = e
     setNewTemplate({
-      ...newTask
+      ...newTask,
     })
   }
 
@@ -95,8 +99,31 @@ function RenewalPath({ path, allPaths = [] }) {
 
   const submit = async () => {
     setLoading(true)
-    const bundle = {pathId:path.id, ...newTemplate}
-    console.log(JSON.stringify(bundle))
+    const bundle = { pathId: path.id, ...newTemplate }
+    const res = await useNextApi(
+      'POST',
+      `/api/paths/${path.id}/`,
+      JSON.stringify(bundle)
+    )
+    if (res) {
+      closeModal()
+      setReload({
+        ...reload,
+        paths: true,
+      })
+    }
+  }
+
+  const remove = async () => {
+    setLoading(true)
+    const res = await useNextApi('DELETE', `/api/paths/${path?.id}`)
+    if (res) {
+      closeModal()
+      setReload({
+        ...reload,
+        paths: true,
+      })
+    }
   }
 
   return (
@@ -161,6 +188,23 @@ function RenewalPath({ path, allPaths = [] }) {
           <div className="flex flex-col items-end justify-end">
             <Button
               flat
+              color="warning"
+              size="xs"
+              disabled={allPaths.length <= 1}
+              auto
+              onClick={() => setShowRulesModal(true)}
+            >
+              <div className="flex items-center justify-center text-center">
+                <div>Rules</div>
+                <div className="flex items-center pl-2">
+                  {getIcon('filter')}
+                </div>
+              </div>
+            </Button>
+          </div>
+          <div className="flex flex-col items-end justify-end">
+            <Button
+              flat
               color="primary"
               size="xs"
               auto
@@ -172,6 +216,69 @@ function RenewalPath({ path, allPaths = [] }) {
               </div>
             </Button>
           </div>
+          {path?.base_tasks.length < 1 ? (
+            <div className="flex flex-col items-end justify-end">
+              <Button
+                flat
+                color="error"
+                size="xs"
+                auto
+                onClick={() => setShowDeleteModal(true)}
+              >
+                <div className="flex items-center justify-center text-center">
+                  <div>Delete</div>
+                  <div className="flex items-center pl-2">
+                    {getIcon('trash')}
+                  </div>
+                </div>
+              </Button>
+              <Modal
+                closeButton
+                noPadding
+                scroll
+                className={'flex w-full items-center justify-center'}
+                aria-labelledby="modal-title"
+                open={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+              >
+                <Modal.Body>Are you sure?</Modal.Body>
+                <Modal.Footer
+                  autoMargin={false}
+                  className="flex items-center w-full p-4"
+                >
+                  <div className="flex flex-col w-full">
+                    <div className="flex items-center justify-center w-full gap-2">
+                      <div>
+                        <Button
+                          disabled={loading}
+                          auto
+                          color="secondary"
+                          className="w-full"
+                          onClick={() => remove()}
+                          size={'xs'}
+                        >
+                          <div>Delete</div>
+                        </Button>
+                      </div>
+                      <div>
+                        <Button
+                          disabled={loading}
+                          auto
+                          color="error"
+                          className="w-full"
+                          onClick={() => setShowDeleteModal(false)}
+                          size={'xs'}
+                        >
+                          <div>Cancel</div>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </Modal.Footer>
+              </Modal>
+            </div>
+          ) : null}
+
           <div className="flex items-center gap-2">
             <div className="flex flex-col items-end justify-end">
               <h4>Default Path</h4>

@@ -10,7 +10,7 @@ import {
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useReloadContext } from '../../../context/state'
-import { sortByProperty, useNextApi } from '../../../utils/utils'
+import { getIcon, sortByProperty, useNextApi } from '../../../utils/utils'
 import BrinqInput from '../../ui/input/BrinqInput'
 import BrinqSelect from '../../ui/select/BrinqSelect'
 
@@ -20,6 +20,7 @@ function RenewalPathCard({ path, task, indx }) {
   const [editTask, setEditTask] = useState(null)
   const [loading, setLoading] = useState(false)
   const { reload, setReload } = useReloadContext()
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   useEffect(() => {
     setEditTask({ ...task })
@@ -27,6 +28,8 @@ function RenewalPathCard({ path, task, indx }) {
 
   const closeModal = () => {
     setShowModal(false)
+    setLoading(false)
+    setShowDeleteModal(false)
   }
 
   const changeTask = (e, field) => {
@@ -51,12 +54,23 @@ function RenewalPathCard({ path, task, indx }) {
   ]
 
   const submit = async () => {
-    console.log(editTask)
     const res = await useNextApi(
       'PUT',
       `/api/paths/template/${editTask.id}`,
       JSON.stringify(editTask)
     )
+    if (res) {
+      closeModal()
+      setReload({
+        ...reload,
+        paths: true,
+      })
+    }
+  }
+
+  const remove = async () => {
+    setLoading(true)
+    const res = await useNextApi('DELETE', `/api/paths/template/${editTask.id}`)
     if (res) {
       closeModal()
       setReload({
@@ -92,18 +106,29 @@ function RenewalPathCard({ path, task, indx }) {
         </div>
       </div>
       <div className="flex items-center h-full">
-        <div
-          className={`flex h-[10px] w-[30px] items-center justify-center rounded-r-full ${
-            sortByProperty(path.base_tasks, 'daysDue', false)[
-              indx + 1 != path.base_tasks.length ? indx + 1 : 0
-            ]['daysDue'] >= 0 && task.daysDue <= 0
-              ? 'rounded-full bg-violet-500'
-              : indx + 1 == path.base_tasks.length
-              ? 'rounded-full bg-red-500'
-              : `bg-sky-500`
-          } ${type}-shadow `}
-        ></div>
+        {path.base_tasks.length == indx + 1 ? (
+          <div
+            className={`flex h-[10px] w-[30px] items-center justify-center rounded-r-full text-5xl text-red-500 ${type}-shadow `}
+          >
+            {getIcon('stopSign')}
+          </div>
+        ) : sortByProperty(path.base_tasks, 'daysDue', false)[
+            indx + 1 != path.base_tasks.length ? indx + 1 : 0
+          ]['daysDue'] >= 0 && task.daysDue <= 0 ? (
+          <div
+            className={`flex h-[10px] w-[30px] items-center justify-center rounded-r-full text-5xl text-violet-500 ${type}-shadow `}
+          >
+            {getIcon('renewalCircle')}
+          </div>
+        ) : (
+          <div
+            className={`flex h-[10px] w-[30px] items-center justify-center rounded-r-full text-5xl text-sky-500 ${type}-shadow `}
+          >
+            {getIcon('arrowRight')}
+          </div>
+        )}
       </div>
+
       <Modal
         closeButton
         noPadding
@@ -176,6 +201,61 @@ function RenewalPathCard({ path, task, indx }) {
                     <div>Submit</div>
                   )}
                 </Button>
+              </div>
+              <div>
+                <Button
+                  disabled={loading}
+                  auto
+                  color="warning"
+                  className="w-full"
+                  onClick={() => setShowDeleteModal(true)}
+                >
+                  <div>Delete</div>
+                </Button>
+                <Modal
+                  closeButton
+                  noPadding
+                  scroll
+                  className={'flex w-full items-center justify-center'}
+                  aria-labelledby="modal-title"
+                  open={showDeleteModal}
+                  onClose={() => setShowDeleteModal(false)}
+                >
+                  <Modal.Body>Are you sure?</Modal.Body>
+                  <Modal.Footer
+                    autoMargin={false}
+                    className="flex items-center w-full p-4"
+                  >
+                    <div className="flex flex-col w-full">
+                      <div className="flex items-center justify-center w-full gap-2">
+                        <div>
+                          <Button
+                            disabled={loading}
+                            auto
+                            color="secondary"
+                            className="w-full"
+                            onClick={() => remove()}
+                            size={'xs'}
+                          >
+                            <div>Delete</div>
+                          </Button>
+                        </div>
+                        <div>
+                          <Button
+                            disabled={loading}
+                            auto
+                            color="error"
+                            className="w-full"
+                            onClick={() => setShowDeleteModal(false)}
+                            size={'xs'}
+                          >
+                            <div>Cancel</div>
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Modal.Footer>
+                </Modal>
               </div>
               <div>
                 <Button
