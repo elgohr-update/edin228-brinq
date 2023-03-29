@@ -53,7 +53,7 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
                 />
               </div>
               {pol.renewed ? (
-                <div className={`flex items-center h-[14px] rounded-[3px] bg-emerald-500 px-2 text-[0.5rem] font-bold uppercase tracking-widest text-white tag-text-shadow ${type}-shadow`}>
+                <div className={`flex items-center h-[14px] rounded-[3px] tag-green-bg px-2 text-[0.5rem] font-bold uppercase tracking-widest text-white tag-text-shadow ${type}-shadow`}>
                   <div className="flex items-center">Renewed</div>
                 </div>
               ) : (
