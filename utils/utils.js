@@ -18,7 +18,8 @@ import {
   BsSquare,
   BsArrowClockwise,
   BsFillSignStopFill,
-  BsStopCircle
+  BsStopCircle,
+  BsFillCheckSquareFill
 } from 'react-icons/bs'
 import {
   FaRegPaperPlane,
@@ -36,7 +37,8 @@ import {
   MdOutlineStickyNote2,
   MdOutlineFolderShared,
   MdOutlineLocationOn,
-  MdOutlineDashboard
+  MdOutlineDashboard,
+  MdCheckBox
 } from 'react-icons/md'
 import {
   AiOutlineEdit,
@@ -203,6 +205,8 @@ export const getIcon = (item) => {
     <BsArrowClockwise />
   ) : item == 'stopSign' ? (
     <BsStopCircle />
+  ) : item == 'checkBox' ? (
+    <BsFillCheckSquareFill />
   ) : null
 }
 
