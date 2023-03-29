@@ -169,7 +169,7 @@ export default function UsersTable({ data = null, callback = null }) {
         return (
           <div
             className={`${
-              item.is_active ? '' : 'opacity-50'
+              item.is_active ? '' : 'opacity-60'
             } flex w-[200px] items-center`}
           >
             <UserAvatar
@@ -189,7 +189,7 @@ export default function UsersTable({ data = null, callback = null }) {
         return (
           <div
             className={`${
-              item.is_active ? '' : 'opacity-50'
+              item.is_active ? '' : 'opacity-60'
             } flex flex-wrap items-center space-y-2 xl:gap-2 xl:space-y-0`}
           >
             {item.admin ? (
@@ -233,7 +233,7 @@ export default function UsersTable({ data = null, callback = null }) {
         return (
           <div
             className={`${
-              item.is_active ? '' : 'opacity-50'
+              item.is_active ? '' : 'opacity-60'
             } flex items-center`}
           >
             {cellValue ? (
@@ -251,7 +251,7 @@ export default function UsersTable({ data = null, callback = null }) {
         return (
           <div
             className={`${
-              item.is_active ? '' : 'opacity-50'
+              item.is_active ? '' : 'opacity-60'
             } flex items-center justify-center space-x-2`}
           >
             <Tooltip content={'Edit'}>
@@ -279,7 +279,7 @@ export default function UsersTable({ data = null, callback = null }) {
         )
       default:
         return (
-          <div className={`${item.is_active ? '' : 'opacity-50'} text-xs`}>
+          <div className={`${item.is_active ? '' : 'opacity-60'} text-xs`}>
             {cellValue}
           </div>
         )

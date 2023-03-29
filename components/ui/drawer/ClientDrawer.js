@@ -1,4 +1,4 @@
-import { Button, Tooltip, useTheme } from '@nextui-org/react'
+import { Button, Input, Tooltip, useTheme } from '@nextui-org/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import HiddenBackdrop from '../../util/HiddenBackdrop'
@@ -12,6 +12,7 @@ import { BiRefresh, BiLinkExternal } from 'react-icons/bi'
 import PolicyCard from '../../policy/PolicyCard'
 import {
   getIcon,
+  getSearch,
   sumFromArrayOfObjects,
   timeout,
   useNextApi,
@@ -30,6 +31,7 @@ import { motion } from 'framer-motion'
 import { pusherHandler } from '../../../utils/pusher'
 import NewActivityModal from '../../activity/NewActivityModal'
 import PanelTitle from '../title/PanelTitle'
+import { FaSearch } from 'react-icons/fa'
 
 const ClientDrawer = ({
   clientId = null,
@@ -46,6 +48,7 @@ const ClientDrawer = ({
   const { type, isDark } = useTheme()
   const [client, setClient] = useState(null)
   const [policies, setPolicies] = useState([])
+  const [filteredPolicies, setFilteredPolicies] = useState([])
   const [showMore1, setShowMore1] = useState(true)
   const [showActivityModal, setShowActivityModal] = useState(false)
 
@@ -132,14 +135,17 @@ const ClientDrawer = ({
           (x) => x.carrier_id == clientDrawer.companyId
         )
         setPolicies(formatted)
+        setFilteredPolicies(formatted)
       } else {
         let formatted = res?.filter(
           (x) => x.writing_id == clientDrawer.companyId
         )
         setPolicies(formatted)
+        setFilteredPolicies(formatted)
       }
     } else {
       setPolicies(res)
+      setFilteredPolicies(res)
     }
   }
 
@@ -152,10 +158,7 @@ const ClientDrawer = ({
   }
 
   const getPolicies = () => {
-    if (showMore1) {
-      return policies
-    }
-    return policies.slice(0, 4)
+    return filteredPolicies
   }
 
   const closeDrawer = () => {
@@ -190,6 +193,15 @@ const ClientDrawer = ({
     window.open(URL, '_blank')
   }
 
+  const searchPolicies = (val) => {
+    if (val.length > 1) {
+      const filtered = getSearch(policies, val)
+      setFilteredPolicies(filtered)
+    } else {
+      setFilteredPolicies(policies)
+    }
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -217,19 +229,21 @@ const ClientDrawer = ({
               <div className={`w-fullshrink-0 relative mb-2 flex px-2`}>
                 <div className="relative flex flex-col items-center flex-auto shrink-0 xl:flex-row xl:pt-2">
                   <div className="flex items-center w-full">
-                    <div className="flex items-center mr-2 text-3xl opacity-50">
+                    <div className="flex items-center mr-2 text-3xl opacity-60">
                       {getIcon('arrowBarRight')}
                     </div>
                     <div className="font-bold tracking-wide">
                       Client Preview
                     </div>
                   </div>
-                  <div className="flex justify-end py-2 shrink-0">
+                  <div className="flex justify-end w-full py-2 shrink-0 xl:w-auto">
                     <Link href={`/clients/${client.id}`}>
                       <a className="w-full">
                         <Button
                           ghost
+                          auto
                           color="gradient"
+                          className="w-full xl:w-auto"
                         >
                           <div className="flex items-center w-full space-x-2">
                             <div className="flex items-center ">
@@ -258,8 +272,7 @@ const ClientDrawer = ({
                 className={`mt-2 flex w-full flex-auto flex-col overflow-y-auto overflow-x-hidden px-2`}
               >
                 <div className="mb-2">
-                  <div className="px-2"
-                  >
+                  <div className="px-2">
                     <div
                       className={`flex w-full flex-col items-center justify-center border-b-2 ${
                         isDark ? 'border-zinc-800' : 'border-zinc-200'
@@ -366,6 +379,21 @@ const ClientDrawer = ({
                       <div
                         className={`relative z-10 flex shrink-0  flex-col rounded`}
                       >
+                        {policies?.length > 0 ? (
+                          <div className="w-full px-4">
+                            <Input
+                              className={`z-10`}
+                              type="search"
+                              aria-label="Table Search Bar"
+                              size="sm"
+                              fullWidth
+                              underlined
+                              placeholder="Search"
+                              labelLeft={<FaSearch />}
+                              onChange={(e) => searchPolicies(e.target.value)}
+                            />
+                          </div>
+                        ) : null}
                         <div
                           className={`flex shrink-0  flex-col space-y-1 overflow-hidden px-4 py-1 transition-all duration-100 ease-out`}
                         >

@@ -1,4 +1,4 @@
-import { Button, Switch, Tooltip, useTheme } from '@nextui-org/react'
+import { Button, Input, Switch, Tooltip, useTheme } from '@nextui-org/react'
 import { getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -17,6 +17,7 @@ import { BsChatLeftQuoteFill } from 'react-icons/bs'
 import { RiPlayListAddFill } from 'react-icons/ri'
 import PolicyCard from '../../components/policy/PolicyCard'
 import {
+  getSearch,
   isLaptop,
   reverseList,
   sortByProperty,
@@ -31,6 +32,7 @@ import ClientPolicyInfo from '../../components/client/ClientPolicyInfo'
 import NewActivityModal from '../../components/activity/NewActivityModal'
 import ClientFiles from '../../components/client/ClientFiles'
 import ClientSuspense from '../../components/client/ClientSuspense'
+import { FaSearch } from 'react-icons/fa'
 
 export default function Client({ data }) {
   const router = useRouter()
@@ -41,6 +43,7 @@ export default function Client({ data }) {
   const [showActive, setShowActive] = useState(true)
   const [client, setClient] = useState(null)
   const [policies, setPolicies] = useState([])
+  const [filteredPolicies, setFilteredPolicies] = useState([])
   const [showActivityModal, setShowActivityModal] = useState(false)
   const [activeTab, setActiveTab] = useState(1)
 
@@ -63,6 +66,7 @@ export default function Client({ data }) {
       if (!isCancelled && data) {
         setClient(data)
         setPolicies(data?.policies)
+        setFilteredPolicies(data?.policies)
         setAppHeader({
           ...appHeader,
           titleContent: <ClientHeader client={data} />,
@@ -83,6 +87,7 @@ export default function Client({ data }) {
       if (client) {
         setClient(client)
         setPolicies(client?.policies)
+        setFilteredPolicies(client?.policies)
         setAppHeader({
           ...appHeader,
           titleContent: <ClientHeader client={client} />,
@@ -150,13 +155,14 @@ export default function Client({ data }) {
     const clientId = router.query.cid
     const res = await useNextApi('GET', `/api/clients/${clientId}/policies`)
     setPolicies(res)
+    setFilteredPolicies(res)
   }
 
-  const getPolicies = (active = false) => {
-    return active
+  const getPolicies = () => {
+    return showActive
       ? reverseList(
           sortByProperty(
-            policies.filter(
+            filteredPolicies.filter(
               (x) =>
                 !x.renewed &&
                 !x.canceled &&
@@ -169,7 +175,7 @@ export default function Client({ data }) {
             false
           )
         )
-      : reverseList(sortByProperty(policies, 'expiration_date', false))
+      : reverseList(sortByProperty(filteredPolicies, 'expiration_date', false))
   }
 
   const syncAms = async () => {
@@ -187,11 +193,20 @@ export default function Client({ data }) {
     window.open(URL, '_blank')
   }
 
+  const searchPolicies = (val) => {
+    if (val.length > 1) {
+      const filtered = getSearch(policies, val)
+      setFilteredPolicies(filtered)
+    } else {
+      setFilteredPolicies(policies)
+    }
+  }
+
   const checkLaptop = isLaptop()
 
   return (
     <div className="relative flex h-full w-full flex-auto shrink-0 flex-col overflow-x-hidden xl:max-h-[92.6vh] xl:flex-row xl:overflow-hidden">
-      <div className="flex xl:flex-auto xl:shrink-0 xl:w-[320px] xl:py-0 xl:pb-8">
+      <div className="flex xl:w-[320px] xl:flex-auto xl:shrink-0 xl:py-0 xl:pb-8">
         <div
           className={`relative flex flex-auto  flex-col space-y-2 py-4 px-4`}
         >
@@ -205,8 +220,11 @@ export default function Client({ data }) {
         </div>
       </div>
       <div className="flex flex-col xl:w-full xl:overflow-hidden">
-        <div className="flex flex-col-reverse items-center xl:justify-between xl:flex-row shrink-0">
-          <ClientDataNavbar activeTab={activeTab} setTabCallback={setTabCallback} />
+        <div className="flex flex-col-reverse items-center shrink-0 xl:flex-row xl:justify-between">
+          <ClientDataNavbar
+            activeTab={activeTab}
+            setTabCallback={setTabCallback}
+          />
           <div className="flex items-center justify-center py-2 pr-2 space-x-2 xl:justify-end xl:py-0">
             <div className="flex items-center space-x-1">
               <Tooltip content="Create Activity / Suspense">
@@ -240,10 +258,19 @@ export default function Client({ data }) {
           {activeTab === 1 ? (
             <div className="flex flex-col flex-auto w-full shrink-0 xl:overflow-hidden">
               <div className="flex items-center justify-end w-full px-4 shrink-0">
-                {/* <ClientPolicyInfo
-                  client={client}
-                  policies={getPolicies(true)}
-                /> */}
+                <div className="w-full pr-4">
+                  <Input
+                    className={`z-10`}
+                    type="search"
+                    aria-label="Table Search Bar"
+                    size="sm"
+                    fullWidth
+                    underlined
+                    placeholder="Search"
+                    labelLeft={<FaSearch />}
+                    onChange={(e) => searchPolicies(e.target.value)}
+                  />
+                </div>
                 <div>
                   <h4>Active</h4>
                   <Switch
@@ -256,7 +283,7 @@ export default function Client({ data }) {
               <div
                 className={`flex h-auto flex-auto shrink-0 flex-col space-y-2 px-4 py-2 xl:max-h-[82vh] xl:overflow-y-auto xl:pb-8`}
               >
-                {getPolicies(showActive).map((u, indx) => (
+                {getPolicies().map((u, indx) => (
                   <Panel
                     animationDelay={indx}
                     flat
@@ -271,9 +298,11 @@ export default function Client({ data }) {
               </div>
             </div>
           ) : null}
-          {activeTab === 2 ? <ClientSuspense clientId={client?.id} /> : null }
-          {activeTab === 3 ? <ClientActivity clientId={client?.id} limit={50} /> : null }
-          {activeTab === 5 ? <ClientFiles files={client?.attachments} /> : null }
+          {activeTab === 2 ? <ClientSuspense clientId={client?.id} /> : null}
+          {activeTab === 3 ? (
+            <ClientActivity clientId={client?.id} limit={50} />
+          ) : null}
+          {activeTab === 5 ? <ClientFiles files={client?.attachments} /> : null}
         </div>
       </div>
       {checkLaptop ? null : (

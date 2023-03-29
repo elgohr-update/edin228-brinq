@@ -276,7 +276,7 @@ const Summary = ({ users, agencyInfo, paymentOption, dataCallback = null }) => {
             <div className="text-xs font-bold tracking-widest uppercase xl:text-xl">
               Licenses
             </div>
-            <div className="mx-2 text-xs font-bold tracking-widest opacity-50">
+            <div className="mx-2 text-xs font-bold tracking-widest opacity-60">
               x
             </div>
             <div className="text-xs font-bold tracking-widest text-teal-500 uppercase xl:text-2xl">
@@ -298,10 +298,10 @@ const Summary = ({ users, agencyInfo, paymentOption, dataCallback = null }) => {
                 </Text>
               </div>
             </div>
-            <div className="mx-2 text-xs font-bold tracking-widest uppercase opacity-50">
+            <div className="mx-2 text-xs font-bold tracking-widest uppercase opacity-60">
               /
             </div>
-            <div className="w-[60px] text-xs font-bold tracking-widest opacity-50">
+            <div className="w-[60px] text-xs font-bold tracking-widest opacity-60">
               Month
             </div>
           </div>
@@ -328,7 +328,7 @@ const Summary = ({ users, agencyInfo, paymentOption, dataCallback = null }) => {
             <div className="text-xs font-bold tracking-widest uppercase xl:text-xl">
               Licenses
             </div>
-            <div className="mx-2 text-xs font-bold tracking-widest opacity-50">
+            <div className="mx-2 text-xs font-bold tracking-widest opacity-60">
               x
             </div>
             <div className="text-xs font-bold tracking-widest text-teal-500 uppercase xl:text-2xl">
@@ -353,10 +353,10 @@ const Summary = ({ users, agencyInfo, paymentOption, dataCallback = null }) => {
                 </Text>
               </div>
             </div>
-            <div className="mx-2 text-xs font-bold tracking-widest uppercase opacity-50">
+            <div className="mx-2 text-xs font-bold tracking-widest uppercase opacity-60">
               /
             </div>
-            <div className="w-[60px] text-xs font-bold tracking-widest opacity-50">
+            <div className="w-[60px] text-xs font-bold tracking-widest opacity-60">
               Year
             </div>
           </div>
@@ -425,13 +425,13 @@ const UserCard = ({ user, agencyEmployeesRaw = null, dataCallback = null }) => {
               <div className="flex items-center">
                 <div className="text-xs font-bold">{user.name}</div>
               </div>
-              <div className="text-sm opacity-50">{user.email}</div>
+              <div className="text-sm opacity-60">{user.email}</div>
             </div>
           </div>
         </div>
         <div className="flex flex-col w-full space-y-2 xl:gap-2 xl:space-y-0">
           <div>
-            <div className="text-[10px] opacity-50">Department</div>
+            <div className="text-[10px] opacity-60">Department</div>
             <div
               className={`flex w-full text-[10px] font-bold capitalize tracking-widest ${
                 user.dept == 'Commercial Lines'
@@ -449,39 +449,39 @@ const UserCard = ({ user, agencyEmployeesRaw = null, dataCallback = null }) => {
             </div>
           </div>
           <div>
-            <div className="text-[10px] opacity-50">Permissions</div>
+            <div className="text-[10px] opacity-60">Permissions</div>
             <div className="flex flex-col space-y-2 xl:flex-row xl:gap-2 xl:space-y-0">
               <div
                 className={`text-[10px] font-bold capitalize tracking-widest ${
-                  user.owner ? ' text-violet-500' : 'opacity-50'
+                  user.owner ? ' text-violet-500' : 'opacity-60'
                 }`}
               >
                 owner
               </div>
               <div
                 className={`text-[10px] font-bold capitalize tracking-widest ${
-                  user.admin ? ' text-rose-500' : 'opacity-50'
+                  user.admin ? ' text-rose-500' : 'opacity-60'
                 }`}
               >
                 admin
               </div>
               <div
                 className={`text-[10px] font-bold capitalize tracking-widest ${
-                  user.producer ? ' text-sky-500' : 'opacity-50'
+                  user.producer ? ' text-sky-500' : 'opacity-60'
                 }`}
               >
                 producer
               </div>
               <div
                 className={`text-[10px] font-bold capitalize tracking-widest ${
-                  user.account_manager ? ' text-yellow-500' : 'opacity-50'
+                  user.account_manager ? ' text-yellow-500' : 'opacity-60'
                 }`}
               >
                 Account Manager
               </div>
               <div
                 className={`text-[10px] font-bold capitalize tracking-widest ${
-                  user.support ? ' text-teal-500' : 'opacity-50'
+                  user.support ? ' text-teal-500' : 'opacity-60'
                 }`}
               >
                 support

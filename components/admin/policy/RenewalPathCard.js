@@ -84,7 +84,7 @@ function RenewalPathCard({ path, task, indx }) {
     <>
       <div
         className={`${
-          task.archived ? 'opacity-50' : ''
+          task.archived ? 'opacity-60' : ''
         } items-between flex min-w-[200px] flex-col rounded-lg panel-theme-${type} ${type}-shadow p-4`}
         onClick={() => setShowModal(!showModal)}
       >

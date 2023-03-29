@@ -8,7 +8,7 @@ const TagBasic = ({text='',color='sky',autoWidth=false, opacity=false, shadow=fa
         return shadow ? `${type}-shadow` : ``
     }
     const isOpacity = () =>{
-        return opacity ? `opacity-50` : ``
+        return opacity ? `opacity-60` : ``
     }
     const getColor = () => {
         const def = 'tag-gray-bg'

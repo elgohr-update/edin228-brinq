@@ -59,7 +59,7 @@ function FileCard({
               <h6 className="block whitespace-pre-line">{data.title}</h6>
             </div>
             <div className="block py-1">
-              <h6 className="block whitespace-pre-line opacity-50">
+              <h6 className="block whitespace-pre-line opacity-60">
                 {data.description}
               </h6>
             </div>

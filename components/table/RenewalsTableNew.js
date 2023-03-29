@@ -508,7 +508,7 @@ export default function RenewalsTableNew(data) {
           <div className="flex flex-col w-full h-full overflow-x-auto">
             <div className="w-full p-2">
               <div
-                className={`flex w-full text-sm panel-theme-${type} ${type}-shadow rounded-lg py-1`}
+                className={`flex w-full min-w-[960px] text-sm panel-theme-${type} ${type}-shadow rounded-lg py-1`}
               >
                 <div className="w-full pl-4">Client</div>
                 <div className="flex min-w-[350px] pl-4">Renewal Notes</div>

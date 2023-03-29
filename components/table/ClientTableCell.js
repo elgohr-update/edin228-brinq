@@ -21,6 +21,8 @@ export default function ClientTableCell({
   drawerCallback = null,
   premiumTotal = null,
   renewedTotal = null,
+  tasksTotal = null,
+  faded = false,
   color = 'def',
 }) {
   const { clientDrawer, setClientDrawer } = useClientDrawerContext()
@@ -86,29 +88,20 @@ export default function ClientTableCell({
 
   return (
     <div
-      className={`z-[100] flex flex-col rounded-lg py-2 text-xs transition duration-200 ease-out`}
+      className={`z-[100] flex rounded-lg text-xs transition duration-200 ease-out`}
     >
       <div
         className={`page-link flex h-full w-full items-center justify-between px-2`}
         onClick={() => openDrawer(true)}
       >
         <div className="flex items-center">
-          {/* <Link href={`/clients/${clientId}`}>
-            <a
-              className={`flex font-bold transition duration-100 ease-in-out ${
-                color == 'green' ? 'text-emerald-500' : ''
-              }`}
-            >
-              {cellValue}
-            </a>
-          </Link> */}
-          <a className="font-bold">{cellValue}</a>
-          <div className="flex items-center ml-4 xl:hidden">
-            {getIcon('rightDrawer')}
+          <a className={`font-bold`}><div className={` ${faded ? 'opacity-60' : ''}`}>{cellValue}</div></a>
+          <div className="flex items-center pb-1 pl-2">
+            <TagContainer tags={tags} />
           </div>
         </div>
         {premiumTotal ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pr-3">
             <div className="flex flex-col items-end">
               <h4>Total Premium</h4>
               <div>{premiumTotal}</div>
@@ -117,12 +110,14 @@ export default function ClientTableCell({
               <h4>Renewed</h4>
               <div>{renewedTotal}</div>
             </div>
+            <div className="flex flex-col items-end">
+              <h4>Tasks</h4>
+              <div>{tasksTotal}</div>
+            </div>
           </div>
         ) : null}
       </div>
-      <div className="pl-2">
-        <TagContainer tags={tags} />
-      </div>
+
       {subContent ? <div className="flex w-full px-2">{subContent}</div> : null}
       {isOpen && !drawerCallback ? (
         <ClientDrawer

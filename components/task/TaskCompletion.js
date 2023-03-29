@@ -327,7 +327,7 @@ export default function TaskCompletion({ task }) {
                 </div>
               </div>
             </div>
-            <div className="pl-2 mb-2 text-xs opacity-50">
+            <div className="pl-2 mb-2 text-xs opacity-60">
               Activity Description
             </div>
             <div className="relative block min-h-[10vh] overflow-y-auto rounded-lg py-1 ">
@@ -354,7 +354,7 @@ export default function TaskCompletion({ task }) {
             <div className="flex flex-col w-full pr-2">
               <div className="flex items-center justify-between w-full">
                 <div
-                  className="flex items-center py-4 pl-2 mb-2 space-x-2 text-xs transition duration-100 ease-out opacity-50 cursor-pointer hover:text-sky-500"
+                  className="flex items-center py-4 pl-2 mb-2 space-x-2 text-xs transition duration-100 ease-out opacity-60 cursor-pointer hover:text-sky-500"
                   onClick={() => setShowComments(!showComments)}
                 >
                   <div className="flex items-center">Comments</div>

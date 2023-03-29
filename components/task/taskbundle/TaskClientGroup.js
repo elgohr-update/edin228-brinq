@@ -4,6 +4,7 @@ import { getIcon } from '../../../utils/utils'
 import TaskCard from '../TaskCard'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import ClientTableCell from '../../table/ClientTableCell'
 
 export default function TaskClientGroup({ group }) {
   const { isDark, type } = useTheme()
@@ -16,25 +17,26 @@ export default function TaskClientGroup({ group }) {
       : 'green-gradient-1'
   }
   return (
-    <div className="relative flex w-full flex-col">
+    <div className="relative flex flex-col w-full">
       <div
-        className={`relative mb-1 flex w-full cursor-pointer rounded-lg px-2 py-1 transition duration-100 ease-out ${isDark ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'}`}
+        className={`relative mb-1 flex w-full cursor-pointer rounded-lg px-2 py-1 transition duration-100 ease-out ${
+          isDark ? 'hover:bg-zinc-400/10' : 'hover:bg-zinc-400/20'
+        }`}
         onClick={() => setOpen(!open)}
       >
-        <div className="flex w-full items-center justify-between">
-          <div className="flex w-full items-center space-x-1">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center w-full space-x-1">
             <div className={`data-point-xs ${getLine(group.line)}`}></div>
             <h6 className="flex w-full space-x-1">
-              <Link href={`/clients/${group.client_id}`}>
-                <a className="flex text-xs transition duration-200 ease-out hover:text-sky-500">
-                  {getIcon('link')}
-                </a>
-              </Link>
-              <span>{group.client_name}</span>
+              <ClientTableCell
+                cellValue={group?.client_name}
+                clientId={group?.client_id}
+                type={type}
+              />
             </h6>
           </div>
           <div className="flex items-center space-x-2">
-            <h4 className="ml-4 flex items-center space-x-1">
+            <h4 className="flex items-center ml-4 space-x-1">
               <div className="flex items-center justify-center">
                 {group.tasks.length}
               </div>
@@ -47,7 +49,7 @@ export default function TaskClientGroup({ group }) {
         </div>
       </div>
       {open ? (
-        <div className="relative flex w-full flex-col space-y-2">
+        <div className="relative flex flex-col w-full space-y-2">
           {group.tasks.map((task, i) => (
             <motion.div
               key={task.uid}

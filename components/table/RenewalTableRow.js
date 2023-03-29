@@ -6,6 +6,7 @@ import {
   formatMoney,
   getIcon,
   sortByProperty,
+  sumFromArray,
   truncateString,
 } from '../../utils/utils'
 import ClientRenewalNote from '../client/ClientRenewalNote'
@@ -28,6 +29,19 @@ function RenewalTableRow({
       tableItem?.policies.length ==
     1
 
+  const tasksCompleted = () => {
+    const completed = sumFromArray(
+      tableItem.policies.map(
+        (pol) => pol.tasks.filter((x) => x.done && x.active).length
+      )
+    )
+    const total = sumFromArray(
+      tableItem.policies.map((pol) => pol.tasks.filter((x) => x.active).length)
+    )
+    return { completed, total }
+  }
+
+  console.log(tasksCompleted())
   useEffect(() => {
     setShowPolicies(expandAllRows)
     return () => {}
@@ -38,7 +52,7 @@ function RenewalTableRow({
       <div className="w-full py-2">
         <div className="flex items-center w-full">
           <div className="flex items-center w-full">
-            <div className="flex items-center justify-center mr-4">
+            {/* <div className="flex items-center justify-center mr-4">
               {allRenewed ? (
                 <div className="flex items-center justify-center text-emerald-500">
                   {getIcon('circleCheck')}
@@ -46,6 +60,23 @@ function RenewalTableRow({
               ) : (
                 <div className="flex items-center justify-center">
                   {getIcon('circle')}
+                </div>
+              )}
+            </div> */}
+            <div
+              className="flex items-center pr-4 transition duration-100 cursor-pointer hover:text-sky-500"
+              onClick={() => setShowPolicies(!showPolicies)}
+            >
+              <div className="flex items-center pr-1">
+                {showPolicies ? getIcon('up') : getIcon('right')}
+              </div>
+              {allRenewed ? (
+                <div className="flex items-center justify-center text-emerald-500">
+                  {getIcon('circleCheck')}
+                </div>
+              ) : (
+                <div className="flex items-center justify-center">
+                  {getIcon('list')}
                 </div>
               )}
             </div>
@@ -64,6 +95,36 @@ function RenewalTableRow({
                 month={month}
                 year={year}
                 // drawerCallback={clientDrawerSet}
+                tasksTotal={
+                  <>
+                    <div className="flex justify-center text-xs">
+                      <div className="flex min-w-[50px] justify-end font-bold">
+                        <span
+                          className={`mr-1 ${
+                            tasksCompleted().completed == 0
+                              ? 'text-red-500'
+                              : tasksCompleted().completed ==
+                                tasksCompleted().total
+                              ? 'text-emerald-500'
+                              : 'text-sky-500'
+                          }`}
+                        >
+                          {tasksCompleted().completed}
+                        </span>{' '}
+                        /
+                        <span
+                          className={`ml-1 ${
+                            tasksCompleted().completed == tasksCompleted().total
+                              ? 'text-emerald-500'
+                              : ''
+                          }`}
+                        >
+                          {tasksCompleted().total}
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                }
                 premiumTotal={
                   <>
                     <div className="flex justify-center text-xs font-bold">
@@ -79,12 +140,23 @@ function RenewalTableRow({
                       <div className="flex w-[50px] justify-end font-bold">
                         <span
                           className={`mx-1 ${
-                            tableItem.isRenewedCount == 0 ? 'text-red-500' : allRenewed ? 'text-emerald-500' : 'text-sky-500'
+                            tableItem.isRenewedCount == 0
+                              ? 'text-red-500'
+                              : allRenewed
+                              ? 'text-emerald-500'
+                              : 'text-sky-500'
                           }`}
                         >
                           {tableItem.isRenewedCount}
                         </span>{' '}
-                        /<span className={`mx-1 ${allRenewed ? 'text-emerald-500' : ''}`}>{tableItem.policy_count}</span>
+                        /
+                        <span
+                          className={`mx-1 ${
+                            allRenewed ? 'text-emerald-500' : ''
+                          }`}
+                        >
+                          {tableItem.policy_count}
+                        </span>
                       </div>
                     </div>
                   </>
@@ -92,15 +164,8 @@ function RenewalTableRow({
               />
             </div>
           </div>
-          <div
-            className="flex items-center pl-4 pr-5 transition duration-100 cursor-pointer hover:text-sky-500"
-            onClick={() => setShowPolicies(!showPolicies)}
-          >
-            <div>{getIcon('list')}</div>
-            <div>{showPolicies ? getIcon('up') : getIcon('left')}</div>
-          </div>
         </div>
-        <div className="flex flex-col w-full space-y-2">
+        <div className="flex flex-col w-full py-2 space-y-2">
           {showPolicies &&
             sortByProperty(tableItem?.policies, 'premium').map((pol, i) => (
               <PolicyTableRow

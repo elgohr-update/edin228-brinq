@@ -168,7 +168,7 @@ function SuspenseCard({
                           className={`font-bold ${
                             !data?.completed && isLate(data?.date)
                           } ${
-                            data?.completed ? 'line-through opacity-50' : ''
+                            data?.completed ? 'line-through opacity-60' : ''
                           } flex items-center`}
                         >
                           {getFormattedDate(data?.date)}

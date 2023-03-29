@@ -1,4 +1,4 @@
-import { Avatar, Progress } from '@nextui-org/react'
+import { Avatar, Progress, useTheme } from '@nextui-org/react'
 import React from 'react'
 import {
   formatMoney,
@@ -15,6 +15,7 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
   const tasks_completed = pol.tasks.filter((x) => x.active && x.done).length
   const tasks_total = pol.tasks.filter((x) => x.active).length
   const percentage = Math.round((tasks_completed / tasks_total) * 100)
+  const { isDark, type } = useTheme()
 
   const ordered = sortByProperty(
     pol.users.filter((x) => x.id != currentUser?.id),
@@ -37,7 +38,7 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
         hidden: { opacity: 0, y: -10 },
       }}
       transition={{ ease: 'easeInOut', duration: 0.1 }}
-      className="flex flex-col w-full pl-2"
+      className="flex flex-col w-full pl-12"
     >
       <div className="flex items-center justify-between w-full text-xs">
         <div className="flex flex-col">
@@ -48,12 +49,21 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
                   tooltip
                   tooltipContent={pol.policy_type_full}
                   text={pol.policy_type}
+                  shadow
                 />
               </div>
-              <div className={`${pol.renewed ? 'text-emerald-500' : ''}`}>
-                <div className="font-bold tracking-widest">
-                  {pol.policy_number}
+              {pol.renewed ? (
+                <div className={`flex items-center rounded-md bg-emerald-500 px-2 text-[0.55rem] font-bold  tracking-widest text-white ${type}-shadow`}>
+                  <div className="flex items-center pr-2">
+                    {getIcon('circleCheck')}
+                  </div>
+                  <div className="flex items-center">Renewed</div>
                 </div>
+              ) : (
+                ''
+              )}
+              <div className="font-bold tracking-widest">
+                {pol.policy_number}
               </div>
             </div>
           </div>
@@ -91,7 +101,7 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
                 </div>
                 <div
                   className={`text-right ${
-                    pol.renewed ? 'line-through opacity-50' : 'opacity-80 '
+                    pol.renewed ? 'line-through opacity-60' : 'opacity-80 '
                   }`}
                 >
                   {getFormattedDate(pol.expiration_date)}
@@ -100,7 +110,7 @@ function PolicyTableRow({ pol, currentUser, i = 1 }) {
             ) : (
               <div
                 className={`text-right ${
-                  pol.renewed ? 'line-through opacity-50' : 'opacity-80 '
+                  pol.renewed ? 'line-through opacity-60' : 'opacity-80 '
                 }`}
               >
                 {getFormattedDate(pol.expiration_date)}

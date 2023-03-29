@@ -44,10 +44,10 @@ const ClientInfo = ({
           ))}
         </div>
       </div>
-      <div className={`flex w-full flex-col xl:flex-row`}>
-        <div className={`flex w-full flex-col `}>
+      <div className={`flex w-full flex-col xl:flex-row  py-2`}>
+        <div className={`flex w-full flex-col`}>
           {!horizontal ? <PanelTitle title={`Address`} color="orange" /> : null}
-          <div className="flex items-center h-full">
+          <div className="flex items-center justify-center w-full h-full">
             <div className="flex items-center justify-center h-full px-2 border-r border-sky-500">
               {getIcon('location')}
             </div>

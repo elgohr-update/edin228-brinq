@@ -293,7 +293,7 @@ export default function CompanyAnnualChart({
           <div className="flex items-center px-4 space-x-1">
             <h6
               className={`cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500 ${
-                equalScale ? '!opacity-100' : 'opacity-50'
+                equalScale ? '!opacity-100' : 'opacity-60'
               }`}
               onClick={() => setEqualScale(true)}
             >
@@ -301,7 +301,7 @@ export default function CompanyAnnualChart({
             </h6>
             <h6
               className={`cursor-pointer text-xs transition duration-100 ease-out hover:text-sky-500 ${
-                !equalScale ? '!opacity-100' : 'opacity-50'
+                !equalScale ? '!opacity-100' : 'opacity-60'
               }`}
               onClick={() => setEqualScale(false)}
             >

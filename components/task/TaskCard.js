@@ -54,13 +54,35 @@ const TaskCard = ({
             <div className="flex flex-col flex-auto space-y-1 xl:flex-row xl:items-center xl:space-y-0">
               <div className={`relative flex flex-auto flex-col space-y-1`}>
                 {showPolicy ? (
-                  <div className="flex items-center space-x-1 text-xs">
-                    <TagBasic
-                      tooltip
-                      tooltipContent={task?.policy_type_full}
-                      text={task?.policy_type}
-                    />
-                    <h4>{task?.policy_number}</h4>
+                  <div className="flex flex-col">
+                    <div className="flex items-center space-x-1 text-xs">
+                      <TagBasic
+                        tooltip
+                        tooltipContent={task?.policy_type_full}
+                        text={task?.policy_type}
+                      />
+                      <h4 className="font-bold">{task?.policy_number}</h4>
+                    </div>
+                    <div className="flex flex-col gap-2 xl:flex-row xl:items-center">
+                      <div className="flex items-center gap-1">
+                        <h4 className="flex items-center">
+                          {getIcon('hashtag')}
+                        </h4>
+                        <h4 className="flex items-center">
+                          {task?.policy?.policy_type_full}
+                        </h4>
+                      </div>
+                      {task?.policy?.description.length > 1 ? (
+                        <div className="flex items-center gap-1">
+                          <h4 className="flex items-center">
+                            {getIcon('description')}
+                          </h4>
+                          <h4 className="flex items-center">
+                            {task?.policy?.description}
+                          </h4>
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
                 ) : null}
                 <div className="flex text-xs max-w-fit">{task?.title}</div>
